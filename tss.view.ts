@@ -19,9 +19,8 @@ namespace $.$$ {
 		}
 
 		pages() {
-			// if( !this.domain().authentificated() ) {
-			// 	return this.Enter()
-			// }
+			if( !this.entered() ) return [ this.Enter() ]
+
 			const id = this.page_id()
 
 			return [
@@ -34,8 +33,13 @@ namespace $.$$ {
 			].filter(Boolean)
 		}
 
+		entered( next? : boolean ) {
+			if( $mol_state_arg.value( `entered` ) != null ) return true
+			return $mol_state_session.value( `${ this }.entered()` , next ) || false
+		}
+
 		logout_click() {
-			alert('Logout...')
+			this.entered(false)
 		}
 	}
 }

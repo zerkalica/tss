@@ -8,7 +8,7 @@ $mpk_tss_reports $mpk_tss_wrap
 	body /
 		<= Filter_title $mol_search
 			query?val <=> filter_title?val \
-		<= Results_table $mol_grid
+		<= Results $mol_grid
 			row_height 40
 			records <= records *
 			col_head_content!col <= column_name!col /

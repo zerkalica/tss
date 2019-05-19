@@ -19,6 +19,9 @@ $mpk_tss $mol_book
 			breadcrumbs / <= breadcrumbs
 			tools <= common_tools
 			event_top?event <=> event_front_up?event
+	Enter $mpk_tss_enter
+		entered?val <=> entered?val false
+		login?v <=> logged_email?v \
 	pages /
 		<= Sidebar $mol_page
 			head /
@@ -56,7 +59,6 @@ $mpk_tss $mol_book
 				sub /
 					<= logged_email
 			<= User_signout $mpk_tss_icon_signout
-	logged_email \ivan.ivanoff@gmail.com
 	common_tools /
 		<= User_link
 		<= Details_close $mol_link
