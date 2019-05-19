@@ -1,8 +1,0 @@
-$mpk_tss_reports $mpk_tss_wrap
-	self_title @ \Reports
-	tools /
-		<= Close $mol_link
-			sub /
-				<= Close_icon $mol_icon_cross
-			arg *
-				page null
