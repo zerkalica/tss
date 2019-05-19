@@ -30,6 +30,7 @@ namespace $.$$ {
 				id === 'software' && this.Software(),
 				id === 'pereferials' && this.Pereferials(),
 				id === 'sensors' && this.Sensors(),
+				this.details(),
 			].filter(Boolean)
 		}
 

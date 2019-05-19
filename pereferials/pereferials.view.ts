@@ -99,6 +99,15 @@ namespace $.$$ {
 		unit_id(index: any) {
 			return this.units()[index].id
 		}
+
+		unit_current(): any {
+			const index = $mol_state_arg.value( 'unit' )
+			const unit = index && this.unit( index )
+
+			if (!unit) return null
+
+			return this.Unit_details(index)
+		}
 		
 	}
 

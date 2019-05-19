@@ -1,18 +1,16 @@
 $mpk_tss_pereferials $mpk_tss_wrap
 	self_title @ \Pereferials
-	column_names /
-		<= column_type @ \Type
-		<= column_element @ \Element
-		<= column_status @ \Status
-		<= column_action @ \Action
 	sub /
 		<= Head
 		<= Filter_title $mol_search
 			query?val <=> filter_title?val \
 		<= Body
 	body /
-		<= Units $mol_row
-			sub <= unit_cards /
+		<= Units $mol_list rows /
+			<= unit_cards /
+		<= unit_current null
+	Unit_details!id $mol_view sub /
+		<= test @ \Test
 	Unit_card!index $mpk_tss_pereferials_unit
 		unit <= unit!index null
 		arg <= unit_arg!index *
