@@ -273,50 +273,32 @@ $mpk_tss_pereferials $mpk_tss_wrap
 $mpk_tss_sensors $mpk_tss_wrap
 	self_title @ \Sensors
 
-$mol_icon_cross $mol_icon path \M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z
+$mol_bar $mol_view
 
-$mpk_tss_reports $mpk_tss_wrap
-	self_title @ \Reports
-	tools /
-		<= Close $mol_link
-			sub /
-				<= Close_icon $mol_icon_cross
-			arg *
-				page null
-
-$mol_image $mol_view
-	dom_name \img
-	field *
-		^
-		src <= uri \
-		alt <= title
-
-$mol_row $mol_view
-
-$mol_row_sub $mol_view
-
-$mol_section $mol_list rows /
-	<= Head $mol_view
-		sub /
-			<= head null
-	<= Content null
-
-$mpk_tss_section $mol_section
-
-$mpk_tss_status $mol_view
-	title \
-	statuses *
-		warning <= warning @ \Warning
-		error <= error @ \Error
-		success <= success @ \Success
-		ready <= ready @ \Ready
+$mol_pop $mol_view
+	showed?val false
+	plugins /
+		<= Meter $mol_meter
+			top => top
+			bottom => bottom
+			left => left
+			right => right
 	sub /
-		<= title
+		<= Anchor null
+		<= Bubble $mol_pop_bubble
+			align <= align \bottom_center
+			content <= bubble_content /
+			height_max <= height_max 9999
+
+$mol_pop_bubble $mol_scroll
+	sub <= content /
+	style *
+		^
+		maxHeight <= height_max 9999
 	attr *
 		^
-		mpk_tss_status_type <= type \success
-
-$mol_float $mol_view
+		mol_pop_align <= align \
+		tabindex 0
 
 $mol_dimmer $mol_view
 	haystack \
@@ -325,6 +307,105 @@ $mol_dimmer $mol_view
 	Low!id $mol_view
 		sub /
 			<= string!id \
+
+$mol_nav $mol_plugin
+	cycle?val false
+	-
+	mod_ctrl false
+	mod_shift false
+	mod_alt false
+	-
+	keys_x?val /
+	keys_y?val /
+	-
+	current_x?val \
+	current_y?val \
+	-
+	event_up?event null
+	event_down?event null
+	event_left?event null
+	event_right?event null
+	event *
+		^
+		keydown?event <=> event_key?event null
+
+$mol_string $mol_view
+	dom_name \input
+	enabled true
+	debounce 200
+	minimal_height 40
+	field *
+		^
+		disabled <= disabled false
+		value <= value_changed?val <=> value?val \
+		placeholder <= hint \
+		type <= type?val \text
+		spellcheck <= spellcheck false
+	attr *
+		^
+		maxlength <= length_max Infinity
+	event *
+		^
+		input?event <=> event_change?event null
+		keypress?event <=> event_key_press?event null
+
+$mol_select $mol_pop
+	dictionary *
+	options /
+	value?val \
+	minimal_height 40
+	Option_row!id $mol_button_minor
+		event_click?event <=> event_select!id?event null
+		sub <= option_content!id /
+			<= Option_label!id $mol_dimmer
+				minimal_height 40
+				haystack <= option_label!id \
+				needle <= filter_pattern?val \
+	No_options $mol_view
+		sub /
+			<= no_options_message @ \No options
+	plugins /
+		<= Nav $mol_nav
+			keys_y <= nav_components /
+				<= Filter
+				<= option_rows
+			current_y?component <=> option_focused?component null
+			cycle?val <=> nav_cycle?val true
+	showed <= options_showed false
+	Anchor <= Trigger $mol_button_minor
+		sub <= trigger_content /
+			<= option_content_current /
+			<= Filter $mol_string
+				value?val <=> filter_pattern?val \
+				hint <= filter_hint <= hint @ \Search..
+				debounce <= debounce 200
+			<= Trigger_icon $mol_icon_chevron
+	bubble_content /
+		<= Menu $mol_list
+			rows <= menu_content /
+				<= Filter
+				<= option_rows /
+
+$mol_icon_cross $mol_icon path \M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z
+
+$mol_search $mol_bar
+	query?val \
+	sub /
+		<= Suggest $mol_select
+			value?val <=> suggest_selected?val \
+			filter_pattern?val <=> suggest_selected?val \
+			hint <= hint @ \Search...
+			filter_pattern?val <=> query?val
+			options_showed <= suggests_showed false
+			options <= suggests /
+			Trigger_icon null
+			debounce <= debounce 200
+		<= Clear $mol_button_minor
+			sub /
+				<= Clear_icon $mol_icon_cross
+			event_click?val <=> event_clear?val null
+
+$mol_float $mol_view
 
 $mol_grid $mol_scroll
 	row_ids /
@@ -391,6 +472,53 @@ $mol_grid_cell $mol_view
 	dom_name \td
 
 $mol_grid_number $mol_grid_cell
+
+$mpk_tss_reports $mpk_tss_wrap
+	self_title @ \Reports
+	column_names /
+		<= column_train @ \Train
+		<= column_status @ \Status
+		<= column_date @ \Date
+		<= column_report @ \Report
+	body /
+		<= Filter_title $mol_search
+			query?val <=> filter_title?val \
+		<= Results_table $mol_grid
+			row_height 40
+			records <= records *
+			col_head_content!col <= column_name!col /
+
+$mol_image $mol_view
+	dom_name \img
+	field *
+		^
+		src <= uri \
+		alt <= title
+
+$mol_row $mol_view
+
+$mol_row_sub $mol_view
+
+$mol_section $mol_list rows /
+	<= Head $mol_view
+		sub /
+			<= head null
+	<= Content null
+
+$mpk_tss_section $mol_section
+
+$mpk_tss_status $mol_view
+	title \
+	statuses *
+		warning <= warning @ \Warning
+		error <= error @ \Error
+		success <= success @ \Success
+		ready <= ready @ \Ready
+	sub /
+		<= title
+	attr *
+		^
+		mpk_tss_status_type <= type \success
 
 $mol_text $mol_list
 	uri_base \
