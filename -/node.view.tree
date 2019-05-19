@@ -1,0 +1,582 @@
+$mol_list $mol_view
+	sub <= rows /
+	Empty null
+
+$mol_button $mol_view
+	enabled true
+	minimal_height 40
+	click?event null
+	event_click?event null
+	event *
+		^
+		click?event <=> event_activate?event null
+		keypress?event <=> event_key_press?event null 
+	attr *
+		^
+		disabled <= disabled false
+		role \button
+		tabindex <= tab_index 0
+		title <= hint \
+	sub /
+		<= title
+
+$mol_button_typed $mol_button
+
+$mol_button_major $mol_button_typed
+	attr *
+		^
+		mol_theme \$mol_theme_accent
+
+$mol_button_minor $mol_button_typed
+
+$mol_check $mol_button_minor
+	attr *
+		^
+		mol_check_checked <= checked?val false
+		aria-checked <= checked?val false
+		role \checkbox
+	sub /
+		<= Icon null
+		<= label /
+			<= Title $mol_view
+				sub /
+					<= title \
+
+$mol_svg $mol_view
+	dom_name \svg
+	dom_name_space \http://www.w3.org/2000/svg
+
+
+$mol_svg_root $mol_svg
+	dom_name \svg
+	attr *
+		^
+		viewBox <= view_box \0 0 100 100
+		preserveAspectRatio <= aspect \xMidYMid
+
+$mol_svg_path $mol_svg
+	dom_name \path
+	attr *
+		^
+		d <= geometry \
+
+
+$mol_icon $mol_svg_root
+	view_box \0 0 24 24
+	sub /
+		<= Path $mol_svg_path
+			geometry <= path \
+
+$mol_icon_tick $mol_icon path \M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z
+
+$mol_check_box $mol_check
+	Icon $mol_icon_tick
+
+$mol_icon_chevron $mol_icon path \M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z
+
+$mol_check_expand $mol_check
+	minimal_height 32
+	Icon $mol_icon_chevron
+	level 0
+	style *
+		^
+		paddingLeft <= level_style \0px
+	checked?val <=> expanded?val false
+	enabled <= expandable false
+
+$mol_expander $mol_list
+	rows /
+		<= Label $mol_view
+			sub /
+				<= Trigger $mol_check_expand
+					checked?val <=> expanded?val false
+					label <= label /
+						<= title
+				<= tools /
+		<= Content $mol_view
+			sub <= content /
+
+$mol_plugin $mol_object
+	dom_node null
+	attr_static *
+	event *
+	event_async *
+
+$mol_meter $mol_plugin
+	zoom 1
+	-
+	width?val 0
+	height?val 0
+	-
+	left?val 0
+	right?val 0
+	bottom?val 0
+	top?val 0
+
+$mol_touch $mol_plugin
+	start_zoom?val 0
+	start_distance?val 0
+	zoom?val 1
+	-
+	start_pan?val /
+		0
+		0
+	pan?val /
+		0
+		0
+	-
+	start_pos?val null
+	swipe_precision 16
+	-
+	swipe_right?val null
+	swipe_bottom?val null
+	swipe_left?val null
+	swipe_top?val null
+	-
+	swipe_from_right?val null
+	swipe_from_bottom?val null
+	swipe_from_left?val null
+	swipe_from_top?val null
+	-
+	swipe_to_right?val null
+	swipe_to_bottom?val null
+	swipe_to_left?val null
+	swipe_to_top?val null
+	-
+	event *
+		^
+		touchstart?event <=> event_start?event null
+		touchmove?event <=> event_move?event null
+		touchend?event <=> event_end?event null
+		mousedown?event <=> event_start?event null
+		mousemove?event <=> event_move?event null
+		mouseup?event <=> event_end?event null
+	event_async *
+		wheel?event <=> event_wheel?event null
+
+$mol_ghost $mol_view
+	Sub $mol_view
+
+$mol_book $mol_view
+	sub <= pages_wrapped /
+	pages /
+	plugins /
+		<= Meter $mol_meter
+			width => width
+		<= Touch $mol_touch
+			swipe_from_left?val <=> event_front_up?val null
+			swipe_to_left?val <=> event_front_down?val null
+	Page!index $mol_book_page
+		Sub <= page!index null
+		visible <= page_visible!index true
+	Placeholder $mol_book_placeholder
+		title <= title
+
+$mol_book_placeholder $mol_view
+	minimal_width 400
+	attr *
+		^
+		tabindex null
+
+$mol_book_page $mol_ghost
+	attr *
+		^
+		tabindex 0
+		mol_book_page_focused <= focused
+		mol_book_page_visible <= visible true
+
+$mol_link $mol_view
+	minimal_height 40
+	dom_name \a
+	attr *
+		^
+		href <= uri \
+		title <= hint \
+		target <= target \_self
+		download <= file_name \
+		mol_link_current <= current false
+	sub / <= title
+	arg *
+	event *
+		^
+		click?event <=> click?event <=> event_click?event null
+
+$mol_scroll $mol_view
+	minimal_height 0
+	moving_hor?val false
+	moving_vert?val false
+	field *
+		^
+		scrollTop <= scroll_top?val 0
+		scrollLeft <= scroll_left?val 0
+		scrollBottom <= scroll_bottom?val 0
+		scrollRight <= scroll_right?val 0
+	event_async *
+		^
+		scroll?event <=> event_scroll?event null
+		- DOMSubtreeModified?event <=> event_repos?event null
+	Strut $mol_view
+		style *
+			transform <= strut_transform \
+
+$mol_page $mol_view
+	sub /
+		<= Head $mol_view
+			attr * mol_theme \$mol_theme_base
+			sub <= head /
+				<= Title $mol_button
+					sub /
+						<= title
+					event_click?val <=> event_top?val null
+				<= Tools $mol_view
+					sub <= tools /
+		<= Body $mol_scroll
+			scroll_top?val <=> body_scroll_top?val 0
+			sub <= body /
+		<= Foot $mol_view
+			attr * mol_theme \$mol_theme_base
+			sub <= foot /
+
+$mol_filler $mol_view
+	minimal_height 500
+	sub /
+		\Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor. Praesent et diam eget libero egestas mattis sit amet vitae augue. Nam tincidunt congue enim, ut porta lorem lacinia consectetur. Donec ut libero sed arcu vehicula ultricies a non tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut gravida lorem. Ut turpis felis, pulvinar a semper sed, adipiscing id dolor. Pellentesque auctor nisi id magna consequat sagittis. Curabitur dapibus enim sit amet elit pharetra tincidunt feugiat nisl imperdiet. Ut convallis libero in urna ultrices accumsan. Donec sed odio eros. Donec viverra mi quis quam pulvinar at malesuada arcu rhoncus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In rutrum accumsan ultricies. Mauris vitae nisi at sem facilisis semper ac in est.
+		\Vivamus fermentum semper porta. Nunc diam velit, adipiscing ut tristique vitae, sagittis vel odio. Maecenas convallis ullamcorper ultricies. Curabitur ornare, ligula semper consectetur sagittis, nisi diam iaculis velit, id fringilla sem nunc vel mi. Nam dictum, odio nec pretium volutpat, arcu ante placerat erat, non tristique elit urna et turpis. Quisque mi metus, ornare sit amet fermentum et, tincidunt et orci. Fusce eget orci a orci congue vestibulum. Ut dolor diam, elementum et vestibulum eu, porttitor vel elit. Curabitur venenatis pulvinar tellus gravida ornare. Sed et erat faucibus nunc euismod ultricies ut id justo. Nullam cursus suscipit nisi, et ultrices justo sodales nec. Fusce venenatis facilisis lectus ac semper. Aliquam at massa ipsum. Quisque bibendum purus convallis nulla ultrices ultricies. Nullam aliquam, mi eu aliquam tincidunt, purus velit laoreet tortor, viverra pretium nisi quam vitae mi. Fusce vel volutpat elit. Nam sagittis nisi dui.
+		\Suspendisse lectus leo, consectetur in tempor sit amet, placerat quis neque. Etiam luctus porttitor lorem, sed suscipit est rutrum non. Curabitur lobortis nisl a enim congue semper. Aenean commodo ultrices imperdiet. Vestibulum ut justo vel sapien venenatis tincidunt. Phasellus eget dolor sit amet ipsum dapibus condimentum vitae quis lectus. Aliquam ut massa in turpis dapibus convallis. Praesent elit lacus, vestibulum at malesuada et, ornare et est. Ut augue nunc, sodales ut euismod non, adipiscing vitae orci. Mauris ut placerat justo. Mauris in ultricies enim. Quisque nec est eleifend nulla ultrices egestas quis ut quam. Donec sollicitudin lectus a mauris pulvinar id aliquam urna cursus. Cras quis ligula sem, vel elementum mi. Phasellus non ullamcorper urna.
+		\Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In euismod ultrices facilisis. Vestibulum porta sapien adipiscing augue congue id pretium lectus molestie. Proin quis dictum nisl. Morbi id quam sapien, sed vestibulum sem. Duis elementum rutrum mauris sed convallis. Proin vestibulum magna mi. Aenean tristique hendrerit magna, ac facilisis nulla hendrerit ut. Sed non tortor sodales quam auctor elementum. Donec hendrerit nunc eget elit pharetra pulvinar. Suspendisse id tempus tortor. Aenean luctus, elit commodo laoreet commodo, justo nisi consequat massa, sed vulputate quam urna quis eros. Donec vel.
+		\Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor. Praesent et diam eget libero egestas mattis sit amet vitae augue. Nam tincidunt congue enim, ut porta lorem lacinia consectetur. Donec ut libero sed arcu vehicula ultricies a non tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut gravida lorem. Ut turpis felis, pulvinar a semper sed, adipiscing id dolor. Pellentesque auctor nisi id magna consequat sagittis. Curabitur dapibus enim sit amet elit pharetra tincidunt feugiat nisl imperdiet. Ut convallis libero in urna ultrices accumsan. Donec sed odio eros. Donec viverra mi quis quam pulvinar at malesuada arcu rhoncus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In rutrum accumsan ultricies. Mauris vitae nisi at sem facilisis semper ac in est.
+		\Vivamus fermentum semper porta. Nunc diam velit, adipiscing ut tristique vitae, sagittis vel odio. Maecenas convallis ullamcorper ultricies. Curabitur ornare, ligula semper consectetur sagittis, nisi diam iaculis velit, id fringilla sem nunc vel mi. Nam dictum, odio nec pretium volutpat, arcu ante placerat erat, non tristique elit urna et turpis. Quisque mi metus, ornare sit amet fermentum et, tincidunt et orci. Fusce eget orci a orci congue vestibulum. Ut dolor diam, elementum et vestibulum eu, porttitor vel elit. Curabitur venenatis pulvinar tellus gravida ornare. Sed et erat faucibus nunc euismod ultricies ut id justo. Nullam cursus suscipit nisi, et ultrices justo sodales nec. Fusce venenatis facilisis lectus ac semper. Aliquam at massa ipsum. Quisque bibendum purus convallis nulla ultrices ultricies. Nullam aliquam, mi eu aliquam tincidunt, purus velit laoreet tortor, viverra pretium nisi quam vitae mi. Fusce vel volutpat elit. Nam sagittis nisi dui.
+		\Suspendisse lectus leo, consectetur in tempor sit amet, placerat quis neque. Etiam luctus porttitor lorem, sed suscipit est rutrum non. Curabitur lobortis nisl a enim congue semper. Aenean commodo ultrices imperdiet. Vestibulum ut justo vel sapien venenatis tincidunt. Phasellus eget dolor sit amet ipsum dapibus condimentum vitae quis lectus. Aliquam ut massa in turpis dapibus convallis. Praesent elit lacus, vestibulum at malesuada et, ornare et est. Ut augue nunc, sodales ut euismod non, adipiscing vitae orci. Mauris ut placerat justo. Mauris in ultricies enim. Quisque nec est eleifend nulla ultrices egestas quis ut quam. Donec sollicitudin lectus a mauris pulvinar id aliquam urna cursus. Cras quis ligula sem, vel elementum mi. Phasellus non ullamcorper urna.
+		\Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In euismod ultrices facilisis. Vestibulum porta sapien adipiscing augue congue id pretium lectus molestie. Proin quis dictum nisl. Morbi id quam sapien, sed vestibulum sem. Duis elementum rutrum mauris sed convallis. Proin vestibulum magna mi. Aenean tristique hendrerit magna, ac facilisis nulla hendrerit ut. Sed non tortor sodales quam auctor elementum. Donec hendrerit nunc eget elit pharetra pulvinar. Suspendisse id tempus tortor. Aenean luctus, elit commodo laoreet commodo, justo nisi consequat massa, sed vulputate quam urna quis eros. Donec vel.
+
+$mpk_tss_wrap $mol_page
+	minimal_width 600
+	self_title \
+	breadcrumbs /
+	body /
+		<= Content $mol_filler
+
+$mpk_tss_wrap_header $mol_view
+	dom_name \h
+	minimal_height 50
+	attr *
+		^
+		mpk_tss_wrap_header_level <= level?val 0
+	sub <= content /
+
+$mpk_tss_software $mpk_tss_wrap
+	self_title @ \Software
+
+$mpk_tss_pereferials $mpk_tss_wrap
+	self_title @ \Pereferials
+
+$mpk_tss_sensors $mpk_tss_wrap
+	self_title @ \Sensors
+
+$mol_icon_cross $mol_icon path \M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z
+
+$mpk_tss_reports $mpk_tss_wrap
+	self_title @ \Reports
+	tools /
+		<= Close $mol_link
+			sub /
+				<= Close_icon $mol_icon_cross
+			arg *
+				page null
+
+$mol_image $mol_view
+	dom_name \img
+	field *
+		^
+		src <= uri \
+		alt <= title
+
+$mol_row $mol_view
+
+$mol_row_sub $mol_view
+
+$mol_section $mol_list rows /
+	<= Head $mol_view
+		sub /
+			<= head null
+	<= Content null
+
+$mpk_tss_section $mol_section
+
+$mpk_tss_status $mol_view
+	title \
+	statuses *
+		warning <= warning @ \Warning
+		error <= error @ \Error
+		success <= success @ \Success
+		ready <= ready @ \Ready
+	sub /
+		<= title
+	attr *
+		^
+		mpk_tss_status_type <= type \success
+
+$mol_float $mol_view
+
+$mol_dimmer $mol_view
+	haystack \
+	needle \
+	sub <= parts /
+	Low!id $mol_view
+		sub /
+			<= string!id \
+
+$mol_grid $mol_scroll
+	row_ids /
+	row_id!index null
+	col_ids /
+	records *
+	record!id null
+	hierarchy null
+	hierarchy_col \
+	-
+	sub /
+		<= Table $mol_grid_table
+			offset <= gap_top 0
+			sub /
+				<= rows_visible /
+	rows /
+	Head $mol_grid_row
+		height <= row_height 40
+		cells <= head_cells /
+	Row!id $mol_grid_row
+		height <= row_height 40
+		cells <= cells!id /
+	-
+	Cell!id $mol_view
+	cell!id null
+	Cell_text!id $mol_grid_cell
+		sub /
+			<= cell_content_text!id <= cell_content!id /
+	Cell_number!id $mol_grid_number
+		sub /
+			<= cell_content_number!id <= cell_content!id /
+	Col_head!id $mol_float
+		dom_name \th
+		sub /
+			<= col_head_content!id /
+	Cell_branch!id $mol_check_expand
+		level <= cell_level!id 0
+		label <= cell_content!id /
+		expanded?val <=> cell_expanded!id?val false
+	Cell_content!id /
+		<= Cell_dimmer!id $mol_dimmer
+			needle <= needle \
+			haystack <= cell_value!id \
+
+$mol_grid_table $mol_view
+	dom_name \table
+	style *
+		^
+		top <= offset 0
+
+$mol_grid_gap $mol_view
+	style *
+		^
+		top <= offset 0
+
+$mol_grid_row $mol_view
+	dom_name \tr
+	style *
+		^
+		height <= height 40
+	sub <= cells /
+
+$mol_grid_cell $mol_view
+	dom_name \td
+
+$mol_grid_number $mol_grid_cell
+
+$mol_text $mol_list
+	uri_base \
+	text \
+	tokens /
+	Quote!id $mol_text
+		text <= quote_text!id \
+	Row!id $mol_text_row
+		sub <= block_content!id /
+		type <= block_type!id \
+	Span!id $mol_text_span
+	Link!id $mol_text_link
+	Image!id $mol_text_image
+	Header!id $mol_text_header
+		level <= header_level!id 0
+		content <= header_content!id /
+	Table!id $mol_grid
+		head_cells <= table_head_cells!id /
+		rows <= table_rows!id /
+	Table_row!id $mol_grid_row
+		cells <= table_cells!id /
+	Table_cell!id $mol_grid_cell
+		sub <= table_cell_content!id /
+	Table_cell_head!id $mol_float
+		sub <= table_cell_content!id /
+
+$mol_text_row $mol_view
+	minimal_height 40
+	attr *
+		^
+		mol_text_type <= type \
+
+$mol_text_header $mol_view
+	dom_name \h
+	minimal_height 50
+	attr *
+		^
+		mol_text_header_level <= level?val 0
+	sub <= content /
+
+$mol_text_span $mol_view
+	dom_name \span
+	attr *
+		^
+		mol_text_type <= type?val \
+	sub <= content?val /
+
+$mol_text_link $mol_view
+	dom_name \a
+	attr *
+		^
+		mol_text_type <= type?val \
+		href <= link?val \
+	sub <= content?val /
+
+$mol_text_image $mol_view
+	dom_name \object
+	attr *
+		^
+		allowfullscreen true
+		mol_text_type <= type?val \
+		data <= link?val \
+	sub /
+		<= title?val \
+
+$mpk_tss_summary $mpk_tss_wrap
+	self_title @ \Summary
+	body /
+		<= Statuses $mpk_tss_section
+			Content /
+				<= All $mpk_tss_status
+					type \warning
+				<= Software $mpk_tss_summary_item
+					title @ \Software
+					type \warning
+					arg * page \software
+				<= Sensors $mpk_tss_summary_item
+					title @ \Sensors
+					type \ready
+					arg * page \sensors
+				<= Pereferials $mpk_tss_summary_item
+					title @ \Pereferials
+					type \error
+					arg * page \pereferials
+		<= Log $mol_expander
+			title <= log_title @ \Show log ...
+			Content $mol_text
+				text \
+					\ Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent
+					\ Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent, Report was sucessfully sent, Report was sucessfully sent, 
+					\ Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent
+					\ Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent
+					\ Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent
+					\ Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent
+					\ Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent
+					\ Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent
+					\ Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent
+					\ Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent
+					\ Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent
+					\ Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent
+					\ Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent
+					\ Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent
+					\ Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent
+					\ Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent
+					\ Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent
+					\ Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent
+					\ Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent
+					\ Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent
+					\ Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent
+
+$mpk_tss_summary_item $mol_link
+	type \
+	sub /
+		<= Title $mol_view
+			sub /
+				<= title
+		<= Status $mpk_tss_status
+			type <= type
+
+$mpk_tss_icon_signout $mol_icon path \M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z
+
+$mpk_tss $mol_book
+	Menu_item!id $mol_link
+		arg <= menu_page_arg!id *
+		title <= menu_page_title!id \
+	menu_pages *
+		software <= Software $mpk_tss_software
+			breadcrumbs / <= breadcrumbs
+			tools <= common_tools
+			event_top?event <=> event_front_up?event
+		pereferials <= Pereferials $mpk_tss_pereferials
+			breadcrumbs / <= breadcrumbs
+			tools <= common_tools
+			event_top?event <=> event_front_up?event
+		sensors <= Sensors $mpk_tss_sensors
+			breadcrumbs / <= breadcrumbs
+			tools <= common_tools
+			event_top?event <=> event_front_up?event
+		reports <= Reports $mpk_tss_reports
+			breadcrumbs / <= breadcrumbs
+			tools <= common_tools
+			event_top?event <=> event_front_up?event
+	pages /
+		<= Sidebar $mol_page
+			head /
+				<= Logo $mol_image
+					uri \tss_logo.svg
+					event * click?val <=> event_top?val null
+			title @ \Logo and username
+			minimal_width 200
+			body /
+				<= Menu $mol_list
+					rows /
+						<= menu_items /
+			foot /
+				<= Foot_content $mol_row
+					sub /
+						<= Foot_text $mol_view
+							sub /
+								\© 2019 MPK Software, Russia
+		<= Summary $mpk_tss_summary
+			breadcrumbs / <= breadcrumbs
+			tools / <= User_link
+			event_top?event <=> event_front_up?event
+		<= menu_pages
+		<= User $mol_page
+			minimal_width 200
+			title \ User
+			body /
+				\ Logout...
+	breadcrumbs /
+		<= main_title @ \Terminal № 1238798
+	User_link $mol_button_minor
+		event_click?val <=> logout_click?val null
+		sub /
+			<= User_email $mol_view
+				sub /
+					<= logged_email
+			<= User_signout $mpk_tss_icon_signout
+	logged_email \ivan.ivanoff@gmail.com
+	common_tools /
+		<= User_link
+		<= Details_close $mol_link
+			arg * page null
+			sub / <= Details_close_icon $mol_icon_cross
+	Placeholder $mol_book_placeholder
+		title <= title
+		sub /
+			<= Image $mol_image uri \placeholder.svg
