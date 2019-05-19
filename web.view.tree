@@ -1,101 +1,3 @@
-$mol_list $mol_view
-	sub <= rows /
-	Empty null
-
-$mol_button $mol_view
-	enabled true
-	minimal_height 40
-	click?event null
-	event_click?event null
-	event *
-		^
-		click?event <=> event_activate?event null
-		keypress?event <=> event_key_press?event null 
-	attr *
-		^
-		disabled <= disabled false
-		role \button
-		tabindex <= tab_index 0
-		title <= hint \
-	sub /
-		<= title
-
-$mol_button_typed $mol_button
-
-$mol_button_major $mol_button_typed
-	attr *
-		^
-		mol_theme \$mol_theme_accent
-
-$mol_button_minor $mol_button_typed
-
-$mol_check $mol_button_minor
-	attr *
-		^
-		mol_check_checked <= checked?val false
-		aria-checked <= checked?val false
-		role \checkbox
-	sub /
-		<= Icon null
-		<= label /
-			<= Title $mol_view
-				sub /
-					<= title \
-
-$mol_svg $mol_view
-	dom_name \svg
-	dom_name_space \http://www.w3.org/2000/svg
-
-
-$mol_svg_root $mol_svg
-	dom_name \svg
-	attr *
-		^
-		viewBox <= view_box \0 0 100 100
-		preserveAspectRatio <= aspect \xMidYMid
-
-$mol_svg_path $mol_svg
-	dom_name \path
-	attr *
-		^
-		d <= geometry \
-
-
-$mol_icon $mol_svg_root
-	view_box \0 0 24 24
-	sub /
-		<= Path $mol_svg_path
-			geometry <= path \
-
-$mol_icon_tick $mol_icon path \M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z
-
-$mol_check_box $mol_check
-	Icon $mol_icon_tick
-
-$mol_icon_chevron $mol_icon path \M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z
-
-$mol_check_expand $mol_check
-	minimal_height 32
-	Icon $mol_icon_chevron
-	level 0
-	style *
-		^
-		paddingLeft <= level_style \0px
-	checked?val <=> expanded?val false
-	enabled <= expandable false
-
-$mol_expander $mol_list
-	rows /
-		<= Label $mol_view
-			sub /
-				<= Trigger $mol_check_expand
-					checked?val <=> expanded?val false
-					label <= label /
-						<= title
-				<= tools /
-		<= Content $mol_view
-			sub <= content /
-
 $mol_plugin $mol_object
 	dom_node null
 	attr_static *
@@ -200,6 +102,33 @@ $mol_link $mol_view
 	event *
 		^
 		click?event <=> click?event <=> event_click?event null
+
+$mol_button $mol_view
+	enabled true
+	minimal_height 40
+	click?event null
+	event_click?event null
+	event *
+		^
+		click?event <=> event_activate?event null
+		keypress?event <=> event_key_press?event null 
+	attr *
+		^
+		disabled <= disabled false
+		role \button
+		tabindex <= tab_index 0
+		title <= hint \
+	sub /
+		<= title
+
+$mol_button_typed $mol_button
+
+$mol_button_major $mol_button_typed
+	attr *
+		^
+		mol_theme \$mol_theme_accent
+
+$mol_button_minor $mol_button_typed
 
 $mol_scroll $mol_view
 	minimal_height 0
@@ -349,6 +278,37 @@ $mol_string $mol_view
 		input?event <=> event_change?event null
 		keypress?event <=> event_key_press?event null
 
+$mol_svg $mol_view
+	dom_name \svg
+	dom_name_space \http://www.w3.org/2000/svg
+
+
+$mol_svg_root $mol_svg
+	dom_name \svg
+	attr *
+		^
+		viewBox <= view_box \0 0 100 100
+		preserveAspectRatio <= aspect \xMidYMid
+
+$mol_svg_path $mol_svg
+	dom_name \path
+	attr *
+		^
+		d <= geometry \
+
+
+$mol_icon $mol_svg_root
+	view_box \0 0 24 24
+	sub /
+		<= Path $mol_svg_path
+			geometry <= path \
+
+$mol_icon_chevron $mol_icon path \M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z
+
+$mol_list $mol_view
+	sub <= rows /
+	Empty null
+
 $mol_select $mol_pop
 	dictionary *
 	options /
@@ -406,6 +366,34 @@ $mol_search $mol_bar
 			event_click?val <=> event_clear?val null
 
 $mol_float $mol_view
+
+$mol_check $mol_button_minor
+	attr *
+		^
+		mol_check_checked <= checked?val false
+		aria-checked <= checked?val false
+		role \checkbox
+	sub /
+		<= Icon null
+		<= label /
+			<= Title $mol_view
+				sub /
+					<= title \
+
+$mol_icon_tick $mol_icon path \M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z
+
+$mol_check_box $mol_check
+	Icon $mol_icon_tick
+
+$mol_check_expand $mol_check
+	minimal_height 32
+	Icon $mol_icon_chevron
+	level 0
+	style *
+		^
+		paddingLeft <= level_style \0px
+	checked?val <=> expanded?val false
+	enabled <= expandable false
 
 $mol_grid $mol_scroll
 	row_ids /
@@ -483,10 +471,56 @@ $mpk_tss_reports $mpk_tss_wrap
 	body /
 		<= Filter_title $mol_search
 			query?val <=> filter_title?val \
-		<= Results_table $mol_grid
+		<= Results $mol_grid
 			row_height 40
 			records <= records *
 			col_head_content!col <= column_name!col /
+
+$mol_row $mol_view
+
+$mol_row_sub $mol_view
+
+$mol_form $mol_view
+	submit_blocked false
+	sub /
+		<= Bar_fields $mol_view
+			sub <= form_fields /
+		<= Bar_buttons $mol_row
+			sub <= buttons /
+
+$mol_labeler $mol_view
+	sub /
+		<= Title $mol_view
+			sub <= label /
+				<= title
+		<= Content $mol_view
+			sub /
+				<= content null
+
+$mol_form_field $mol_labeler
+	label /
+		<= name \
+		<= Bid $mol_view
+			sub / <= bid \
+	Content <= control null
+
+$mpk_tss_enter $mol_view
+	entered?val false
+	sub / <= form $mol_form
+		form_fields /
+			<= loginField $mol_form_field
+				name <= loginLabel @ \User name
+				control <= loginControl $mol_string value?val <=> login?val \
+			<= passwordField $mol_form_field
+				name <= passwordLabel @ \Password
+				control <= passControl $mol_string
+					value?val <=> password?val \
+					type \password
+		buttons /
+			<= submit $mol_button_major
+				sub / <= submitLabel @ \Log In
+				event_click?val <=> event_submit?val null
+				disabled <= submit_blocked false
 
 $mol_image $mol_view
 	dom_name \img
@@ -494,10 +528,6 @@ $mol_image $mol_view
 		^
 		src <= uri \
 		alt <= title
-
-$mol_row $mol_view
-
-$mol_row_sub $mol_view
 
 $mol_section $mol_list rows /
 	<= Head $mol_view
@@ -584,6 +614,18 @@ $mol_text_image $mol_view
 	sub /
 		<= title?val \
 
+$mol_expander $mol_list
+	rows /
+		<= Label $mol_view
+			sub /
+				<= Trigger $mol_check_expand
+					checked?val <=> expanded?val false
+					label <= label /
+						<= title
+				<= tools /
+		<= Content $mol_view
+			sub <= content /
+
 $mpk_tss_summary $mpk_tss_wrap
 	self_title @ \Summary
 	body /
@@ -661,6 +703,9 @@ $mpk_tss $mol_book
 			breadcrumbs / <= breadcrumbs
 			tools <= common_tools
 			event_top?event <=> event_front_up?event
+	Enter $mpk_tss_enter
+		entered?val <=> entered?val false
+		login?v <=> logged_email?v \
 	pages /
 		<= Sidebar $mol_page
 			head /
@@ -698,7 +743,6 @@ $mpk_tss $mol_book
 				sub /
 					<= logged_email
 			<= User_signout $mpk_tss_icon_signout
-	logged_email \ivan.ivanoff@gmail.com
 	common_tools /
 		<= User_link
 		<= Details_close $mol_link

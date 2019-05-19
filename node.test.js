@@ -1386,573 +1386,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_list extends $.$mol_view {
-        sub() {
-            return this.rows();
-        }
-        rows() {
-            return [];
-        }
-        Empty() {
-            return null;
-        }
-    }
-    $.$mol_list = $mol_list;
-})($ || ($ = {}));
-//list.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_list extends $.$mol_list {
-            sub() {
-                const rows = this.rows();
-                return (rows.length === 0) ? [this.Empty()] : rows;
-            }
-            row_offsets() {
-                var sub = this.sub();
-                if (!sub)
-                    return null;
-                let heightLimit = this.$.$mol_view_visible_height();
-                var offset = 0;
-                var next = [];
-                for (let child of sub) {
-                    next.push(offset);
-                    if (child instanceof $.$mol_view) {
-                        offset += child.minimal_height();
-                    }
-                    if (offset > heightLimit)
-                        break;
-                }
-                return next;
-            }
-            row_context(index) {
-                return this.$.$mol_ambient({
-                    $mol_view_visible_height: () => this.$.$mol_view_visible_height() - this.row_offsets()[index],
-                });
-            }
-            sub_visible() {
-                var sub = this.sub();
-                if (!sub)
-                    return sub;
-                var limit = this.row_offsets().length;
-                var next = [];
-                for (let i = 0; i < limit; ++i) {
-                    const child = sub[i];
-                    if (child == null)
-                        continue;
-                    if (child instanceof $.$mol_view) {
-                        child.$ = this.row_context(i);
-                    }
-                    next.push(child);
-                }
-                return next;
-            }
-            minimal_height() {
-                var height = 0;
-                var sub = this.sub();
-                if (sub)
-                    sub.forEach(child => {
-                        if (child instanceof $.$mol_view) {
-                            height += child.minimal_height();
-                        }
-                    });
-                return height;
-            }
-        }
-        __decorate([
-            $.$mol_mem
-        ], $mol_list.prototype, "row_offsets", null);
-        __decorate([
-            $.$mol_mem_key
-        ], $mol_list.prototype, "row_context", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_list.prototype, "sub_visible", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_list.prototype, "minimal_height", null);
-        $$.$mol_list = $mol_list;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//list.view.js.map
-;
-"use strict";
-//code.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_button extends $.$mol_view {
-        enabled() {
-            return true;
-        }
-        minimal_height() {
-            return 40;
-        }
-        click(event, force) {
-            return (event !== void 0) ? event : null;
-        }
-        event_click(event, force) {
-            return (event !== void 0) ? event : null;
-        }
-        event() {
-            return (Object.assign({}, super.event(), { "click": (event) => this.event_activate(event), "keypress": (event) => this.event_key_press(event) }));
-        }
-        event_activate(event, force) {
-            return (event !== void 0) ? event : null;
-        }
-        event_key_press(event, force) {
-            return (event !== void 0) ? event : null;
-        }
-        attr() {
-            return (Object.assign({}, super.attr(), { "disabled": this.disabled(), "role": "button", "tabindex": this.tab_index(), "title": this.hint() }));
-        }
-        disabled() {
-            return false;
-        }
-        tab_index() {
-            return 0;
-        }
-        hint() {
-            return "";
-        }
-        sub() {
-            return [].concat(this.title());
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_button.prototype, "click", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_button.prototype, "event_click", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_button.prototype, "event_activate", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_button.prototype, "event_key_press", null);
-    $.$mol_button = $mol_button;
-})($ || ($ = {}));
-//button.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_button extends $.$mol_button {
-            disabled() {
-                return !this.enabled();
-            }
-            event_activate(next) {
-                if (!next)
-                    return;
-                if (!this.enabled())
-                    return;
-                this.event_click(next);
-                this.click(next);
-            }
-            event_key_press(event) {
-                if (event.keyCode === 13) {
-                    return this.event_activate(event);
-                }
-            }
-            tab_index() {
-                return this.enabled() ? super.tab_index() : null;
-            }
-        }
-        $$.$mol_button = $mol_button;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//button.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_button_typed extends $.$mol_button {
-    }
-    $.$mol_button_typed = $mol_button_typed;
-})($ || ($ = {}));
-(function ($) {
-    class $mol_button_major extends $.$mol_button_typed {
-        attr() {
-            return (Object.assign({}, super.attr(), { "mol_theme": "$mol_theme_accent" }));
-        }
-    }
-    $.$mol_button_major = $mol_button_major;
-})($ || ($ = {}));
-(function ($) {
-    class $mol_button_minor extends $.$mol_button_typed {
-    }
-    $.$mol_button_minor = $mol_button_minor;
-})($ || ($ = {}));
-//button_types.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_check extends $.$mol_button_minor {
-        attr() {
-            return (Object.assign({}, super.attr(), { "mol_check_checked": this.checked(), "aria-checked": this.checked(), "role": "checkbox" }));
-        }
-        checked(val, force) {
-            return (val !== void 0) ? val : false;
-        }
-        sub() {
-            return [].concat(this.Icon(), this.label());
-        }
-        Icon() {
-            return null;
-        }
-        label() {
-            return [].concat(this.Title());
-        }
-        Title() {
-            return ((obj) => {
-                obj.sub = () => [].concat(this.title());
-                return obj;
-            })(new this.$.$mol_view);
-        }
-        title() {
-            return "";
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_check.prototype, "checked", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_check.prototype, "Title", null);
-    $.$mol_check = $mol_check;
-})($ || ($ = {}));
-//check.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_check extends $.$mol_check {
-            event_click(next) {
-                this.checked(!this.checked());
-                if (next)
-                    next.preventDefault();
-            }
-        }
-        $$.$mol_check = $mol_check;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//check.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_svg extends $.$mol_view {
-        dom_name() {
-            return "svg";
-        }
-        dom_name_space() {
-            return "http://www.w3.org/2000/svg";
-        }
-    }
-    $.$mol_svg = $mol_svg;
-})($ || ($ = {}));
-//svg.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_svg_root extends $.$mol_svg {
-        dom_name() {
-            return "svg";
-        }
-        attr() {
-            return (Object.assign({}, super.attr(), { "viewBox": this.view_box(), "preserveAspectRatio": this.aspect() }));
-        }
-        view_box() {
-            return "0 0 100 100";
-        }
-        aspect() {
-            return "xMidYMid";
-        }
-    }
-    $.$mol_svg_root = $mol_svg_root;
-})($ || ($ = {}));
-//root.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_svg_path extends $.$mol_svg {
-        dom_name() {
-            return "path";
-        }
-        attr() {
-            return (Object.assign({}, super.attr(), { "d": this.geometry() }));
-        }
-        geometry() {
-            return "";
-        }
-    }
-    $.$mol_svg_path = $mol_svg_path;
-})($ || ($ = {}));
-//path.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_icon extends $.$mol_svg_root {
-        view_box() {
-            return "0 0 24 24";
-        }
-        sub() {
-            return [].concat(this.Path());
-        }
-        Path() {
-            return ((obj) => {
-                obj.geometry = () => this.path();
-                return obj;
-            })(new this.$.$mol_svg_path);
-        }
-        path() {
-            return "";
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_icon.prototype, "Path", null);
-    $.$mol_icon = $mol_icon;
-})($ || ($ = {}));
-//icon.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_icon_tick extends $.$mol_icon {
-        path() {
-            return "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z";
-        }
-    }
-    $.$mol_icon_tick = $mol_icon_tick;
-})($ || ($ = {}));
-//tick.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_check_box extends $.$mol_check {
-        Icon() {
-            return ((obj) => {
-                return obj;
-            })(new this.$.$mol_icon_tick);
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_check_box.prototype, "Icon", null);
-    $.$mol_check_box = $mol_check_box;
-})($ || ($ = {}));
-//box.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_icon_chevron extends $.$mol_icon {
-        path() {
-            return "M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z";
-        }
-    }
-    $.$mol_icon_chevron = $mol_icon_chevron;
-})($ || ($ = {}));
-//chevron.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_check_expand extends $.$mol_check {
-        minimal_height() {
-            return 32;
-        }
-        Icon() {
-            return ((obj) => {
-                return obj;
-            })(new this.$.$mol_icon_chevron);
-        }
-        level() {
-            return 0;
-        }
-        style() {
-            return (Object.assign({}, super.style(), { "paddingLeft": this.level_style() }));
-        }
-        level_style() {
-            return "0px";
-        }
-        checked(val, force) {
-            return this.expanded(val);
-        }
-        expanded(val, force) {
-            return (val !== void 0) ? val : false;
-        }
-        enabled() {
-            return this.expandable();
-        }
-        expandable() {
-            return false;
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_check_expand.prototype, "Icon", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_check_expand.prototype, "checked", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_check_expand.prototype, "expanded", null);
-    $.$mol_check_expand = $mol_check_expand;
-})($ || ($ = {}));
-//expand.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_check_expand extends $.$mol_check_expand {
-            level_style() {
-                return `${this.level() * 1.25 - 1}rem`;
-            }
-            expandable() {
-                return this.expanded() !== null;
-            }
-        }
-        $$.$mol_check_expand = $mol_check_expand;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//expand.view.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_expander extends $.$mol_list {
-        rows() {
-            return [].concat(this.Label(), this.Content());
-        }
-        Label() {
-            return ((obj) => {
-                obj.sub = () => [].concat(this.Trigger(), this.tools());
-                return obj;
-            })(new this.$.$mol_view);
-        }
-        Trigger() {
-            return ((obj) => {
-                obj.checked = (val) => this.expanded(val);
-                obj.label = () => this.label();
-                return obj;
-            })(new this.$.$mol_check_expand);
-        }
-        expanded(val, force) {
-            return (val !== void 0) ? val : false;
-        }
-        label() {
-            return [].concat(this.title());
-        }
-        tools() {
-            return [];
-        }
-        Content() {
-            return ((obj) => {
-                obj.sub = () => this.content();
-                return obj;
-            })(new this.$.$mol_view);
-        }
-        content() {
-            return [];
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_expander.prototype, "Label", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_expander.prototype, "Trigger", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_expander.prototype, "expanded", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_expander.prototype, "Content", null);
-    $.$mol_expander = $mol_expander;
-})($ || ($ = {}));
-//expander.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_expander extends $.$mol_expander {
-            rows() {
-                return [
-                    this.Label(),
-                    ...this.expanded() ? [this.Content()] : []
-                ];
-            }
-        }
-        $$.$mol_expander = $mol_expander;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//expander.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
     class $mol_plugin extends $.$mol_object {
         dom_node() {
             return null;
@@ -2914,6 +2347,125 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //link.view.js.map
+;
+"use strict";
+//code.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mol_button extends $.$mol_view {
+        enabled() {
+            return true;
+        }
+        minimal_height() {
+            return 40;
+        }
+        click(event, force) {
+            return (event !== void 0) ? event : null;
+        }
+        event_click(event, force) {
+            return (event !== void 0) ? event : null;
+        }
+        event() {
+            return (Object.assign({}, super.event(), { "click": (event) => this.event_activate(event), "keypress": (event) => this.event_key_press(event) }));
+        }
+        event_activate(event, force) {
+            return (event !== void 0) ? event : null;
+        }
+        event_key_press(event, force) {
+            return (event !== void 0) ? event : null;
+        }
+        attr() {
+            return (Object.assign({}, super.attr(), { "disabled": this.disabled(), "role": "button", "tabindex": this.tab_index(), "title": this.hint() }));
+        }
+        disabled() {
+            return false;
+        }
+        tab_index() {
+            return 0;
+        }
+        hint() {
+            return "";
+        }
+        sub() {
+            return [].concat(this.title());
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_button.prototype, "click", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_button.prototype, "event_click", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_button.prototype, "event_activate", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_button.prototype, "event_key_press", null);
+    $.$mol_button = $mol_button;
+})($ || ($ = {}));
+//button.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_button extends $.$mol_button {
+            disabled() {
+                return !this.enabled();
+            }
+            event_activate(next) {
+                if (!next)
+                    return;
+                if (!this.enabled())
+                    return;
+                this.event_click(next);
+                this.click(next);
+            }
+            event_key_press(event) {
+                if (event.keyCode === 13) {
+                    return this.event_activate(event);
+                }
+            }
+            tab_index() {
+                return this.enabled() ? super.tab_index() : null;
+            }
+        }
+        $$.$mol_button = $mol_button;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//button.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_button_typed extends $.$mol_button {
+    }
+    $.$mol_button_typed = $mol_button_typed;
+})($ || ($ = {}));
+(function ($) {
+    class $mol_button_major extends $.$mol_button_typed {
+        attr() {
+            return (Object.assign({}, super.attr(), { "mol_theme": "$mol_theme_accent" }));
+        }
+    }
+    $.$mol_button_major = $mol_button_major;
+})($ || ($ = {}));
+(function ($) {
+    class $mol_button_minor extends $.$mol_button_typed {
+    }
+    $.$mol_button_minor = $mol_button_minor;
+})($ || ($ = {}));
+//button_types.view.tree.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -4229,6 +3781,207 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_svg extends $.$mol_view {
+        dom_name() {
+            return "svg";
+        }
+        dom_name_space() {
+            return "http://www.w3.org/2000/svg";
+        }
+    }
+    $.$mol_svg = $mol_svg;
+})($ || ($ = {}));
+//svg.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_svg_root extends $.$mol_svg {
+        dom_name() {
+            return "svg";
+        }
+        attr() {
+            return (Object.assign({}, super.attr(), { "viewBox": this.view_box(), "preserveAspectRatio": this.aspect() }));
+        }
+        view_box() {
+            return "0 0 100 100";
+        }
+        aspect() {
+            return "xMidYMid";
+        }
+    }
+    $.$mol_svg_root = $mol_svg_root;
+})($ || ($ = {}));
+//root.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_svg_path extends $.$mol_svg {
+        dom_name() {
+            return "path";
+        }
+        attr() {
+            return (Object.assign({}, super.attr(), { "d": this.geometry() }));
+        }
+        geometry() {
+            return "";
+        }
+    }
+    $.$mol_svg_path = $mol_svg_path;
+})($ || ($ = {}));
+//path.view.tree.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mol_icon extends $.$mol_svg_root {
+        view_box() {
+            return "0 0 24 24";
+        }
+        sub() {
+            return [].concat(this.Path());
+        }
+        Path() {
+            return ((obj) => {
+                obj.geometry = () => this.path();
+                return obj;
+            })(new this.$.$mol_svg_path);
+        }
+        path() {
+            return "";
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_icon.prototype, "Path", null);
+    $.$mol_icon = $mol_icon;
+})($ || ($ = {}));
+//icon.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_chevron extends $.$mol_icon {
+        path() {
+            return "M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z";
+        }
+    }
+    $.$mol_icon_chevron = $mol_icon_chevron;
+})($ || ($ = {}));
+//chevron.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_list extends $.$mol_view {
+        sub() {
+            return this.rows();
+        }
+        rows() {
+            return [];
+        }
+        Empty() {
+            return null;
+        }
+    }
+    $.$mol_list = $mol_list;
+})($ || ($ = {}));
+//list.view.tree.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_list extends $.$mol_list {
+            sub() {
+                const rows = this.rows();
+                return (rows.length === 0) ? [this.Empty()] : rows;
+            }
+            row_offsets() {
+                var sub = this.sub();
+                if (!sub)
+                    return null;
+                let heightLimit = this.$.$mol_view_visible_height();
+                var offset = 0;
+                var next = [];
+                for (let child of sub) {
+                    next.push(offset);
+                    if (child instanceof $.$mol_view) {
+                        offset += child.minimal_height();
+                    }
+                    if (offset > heightLimit)
+                        break;
+                }
+                return next;
+            }
+            row_context(index) {
+                return this.$.$mol_ambient({
+                    $mol_view_visible_height: () => this.$.$mol_view_visible_height() - this.row_offsets()[index],
+                });
+            }
+            sub_visible() {
+                var sub = this.sub();
+                if (!sub)
+                    return sub;
+                var limit = this.row_offsets().length;
+                var next = [];
+                for (let i = 0; i < limit; ++i) {
+                    const child = sub[i];
+                    if (child == null)
+                        continue;
+                    if (child instanceof $.$mol_view) {
+                        child.$ = this.row_context(i);
+                    }
+                    next.push(child);
+                }
+                return next;
+            }
+            minimal_height() {
+                var height = 0;
+                var sub = this.sub();
+                if (sub)
+                    sub.forEach(child => {
+                        if (child instanceof $.$mol_view) {
+                            height += child.minimal_height();
+                        }
+                    });
+                return height;
+            }
+        }
+        __decorate([
+            $.$mol_mem
+        ], $mol_list.prototype, "row_offsets", null);
+        __decorate([
+            $.$mol_mem_key
+        ], $mol_list.prototype, "row_context", null);
+        __decorate([
+            $.$mol_mem
+        ], $mol_list.prototype, "sub_visible", null);
+        __decorate([
+            $.$mol_mem
+        ], $mol_list.prototype, "minimal_height", null);
+        $$.$mol_list = $mol_list;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//list.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
     function $mol_match_text(query, values) {
         const tags = query.toLowerCase().trim().split(/\s+/).filter(tag => tag);
         if (tags.length === 0)
@@ -4654,6 +4407,174 @@ var $;
     $.$mol_float = $mol_float;
 })($ || ($ = {}));
 //float.view.tree.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mol_check extends $.$mol_button_minor {
+        attr() {
+            return (Object.assign({}, super.attr(), { "mol_check_checked": this.checked(), "aria-checked": this.checked(), "role": "checkbox" }));
+        }
+        checked(val, force) {
+            return (val !== void 0) ? val : false;
+        }
+        sub() {
+            return [].concat(this.Icon(), this.label());
+        }
+        Icon() {
+            return null;
+        }
+        label() {
+            return [].concat(this.Title());
+        }
+        Title() {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.title());
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        title() {
+            return "";
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_check.prototype, "checked", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_check.prototype, "Title", null);
+    $.$mol_check = $mol_check;
+})($ || ($ = {}));
+//check.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_check extends $.$mol_check {
+            event_click(next) {
+                this.checked(!this.checked());
+                if (next)
+                    next.preventDefault();
+            }
+        }
+        $$.$mol_check = $mol_check;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//check.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_tick extends $.$mol_icon {
+        path() {
+            return "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z";
+        }
+    }
+    $.$mol_icon_tick = $mol_icon_tick;
+})($ || ($ = {}));
+//tick.view.tree.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mol_check_box extends $.$mol_check {
+        Icon() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mol_icon_tick);
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_check_box.prototype, "Icon", null);
+    $.$mol_check_box = $mol_check_box;
+})($ || ($ = {}));
+//box.view.tree.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mol_check_expand extends $.$mol_check {
+        minimal_height() {
+            return 32;
+        }
+        Icon() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mol_icon_chevron);
+        }
+        level() {
+            return 0;
+        }
+        style() {
+            return (Object.assign({}, super.style(), { "paddingLeft": this.level_style() }));
+        }
+        level_style() {
+            return "0px";
+        }
+        checked(val, force) {
+            return this.expanded(val);
+        }
+        expanded(val, force) {
+            return (val !== void 0) ? val : false;
+        }
+        enabled() {
+            return this.expandable();
+        }
+        expandable() {
+            return false;
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_check_expand.prototype, "Icon", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_check_expand.prototype, "checked", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_check_expand.prototype, "expanded", null);
+    $.$mol_check_expand = $mol_check_expand;
+})($ || ($ = {}));
+//expand.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_check_expand extends $.$mol_check_expand {
+            level_style() {
+                return `${this.level() * 1.25 - 1}rem`;
+            }
+            expandable() {
+                return this.expanded() !== null;
+            }
+        }
+        $$.$mol_check_expand = $mol_check_expand;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//expand.view.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -5108,7 +5029,7 @@ var $;
             return this.$.$mol_locale.text("$mpk_tss_reports_column_report");
         }
         body() {
-            return [].concat(this.Filter_title(), this.Results_table());
+            return [].concat(this.Filter_title(), this.Results());
         }
         Filter_title() {
             return ((obj) => {
@@ -5119,7 +5040,7 @@ var $;
         filter_title(val, force) {
             return (val !== void 0) ? val : "";
         }
-        Results_table() {
+        Results() {
             return ((obj) => {
                 obj.row_height = () => 40;
                 obj.records = () => this.records();
@@ -5142,7 +5063,7 @@ var $;
     ], $mpk_tss_reports.prototype, "filter_title", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports.prototype, "Results_table", null);
+    ], $mpk_tss_reports.prototype, "Results", null);
     $.$mpk_tss_reports = $mpk_tss_reports;
 })($ || ($ = {}));
 //reports.view.tree.js.map
@@ -5180,24 +5101,6 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //reports.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_image extends $.$mol_view {
-        dom_name() {
-            return "img";
-        }
-        field() {
-            return (Object.assign({}, super.field(), { "src": this.uri(), "alt": this.title() }));
-        }
-        uri() {
-            return "";
-        }
-    }
-    $.$mol_image = $mol_image;
-})($ || ($ = {}));
-//image.view.tree.js.map
 ;
 "use strict";
 var $;
@@ -5284,6 +5187,303 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //row.view.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mol_form extends $.$mol_view {
+        submit_blocked() {
+            return false;
+        }
+        sub() {
+            return [].concat(this.Bar_fields(), this.Bar_buttons());
+        }
+        Bar_fields() {
+            return ((obj) => {
+                obj.sub = () => this.form_fields();
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        form_fields() {
+            return [];
+        }
+        Bar_buttons() {
+            return ((obj) => {
+                obj.sub = () => this.buttons();
+                return obj;
+            })(new this.$.$mol_row);
+        }
+        buttons() {
+            return [];
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_form.prototype, "Bar_fields", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_form.prototype, "Bar_buttons", null);
+    $.$mol_form = $mol_form;
+})($ || ($ = {}));
+//form.view.tree.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_form extends $.$mol_form {
+            submit_blocked() {
+                return this.form_fields().some(field => field.bid());
+            }
+        }
+        __decorate([
+            $.$mol_mem
+        ], $mol_form.prototype, "submit_blocked", null);
+        $$.$mol_form = $mol_form;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//form.view.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mol_labeler extends $.$mol_view {
+        sub() {
+            return [].concat(this.Title(), this.Content());
+        }
+        Title() {
+            return ((obj) => {
+                obj.sub = () => this.label();
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        label() {
+            return [].concat(this.title());
+        }
+        Content() {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.content());
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        content() {
+            return null;
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_labeler.prototype, "Title", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_labeler.prototype, "Content", null);
+    $.$mol_labeler = $mol_labeler;
+})($ || ($ = {}));
+//labeler.view.tree.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mol_form_field extends $.$mol_labeler {
+        label() {
+            return [].concat(this.name(), this.Bid());
+        }
+        name() {
+            return "";
+        }
+        Bid() {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.bid());
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        bid() {
+            return "";
+        }
+        Content() {
+            return this.control();
+        }
+        control() {
+            return null;
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_form_field.prototype, "Bid", null);
+    $.$mol_form_field = $mol_form_field;
+})($ || ($ = {}));
+//field.view.tree.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mpk_tss_enter extends $.$mol_view {
+        entered(val, force) {
+            return (val !== void 0) ? val : false;
+        }
+        sub() {
+            return [].concat(this.form());
+        }
+        form() {
+            return ((obj) => {
+                obj.form_fields = () => [].concat(this.loginField(), this.passwordField());
+                obj.buttons = () => [].concat(this.submit());
+                return obj;
+            })(new this.$.$mol_form);
+        }
+        loginField() {
+            return ((obj) => {
+                obj.name = () => this.loginLabel();
+                obj.control = () => this.loginControl();
+                return obj;
+            })(new this.$.$mol_form_field);
+        }
+        loginLabel() {
+            return this.$.$mol_locale.text("$mpk_tss_enter_loginLabel");
+        }
+        loginControl() {
+            return ((obj) => {
+                obj.value = (val) => this.login(val);
+                return obj;
+            })(new this.$.$mol_string);
+        }
+        login(val, force) {
+            return (val !== void 0) ? val : "";
+        }
+        passwordField() {
+            return ((obj) => {
+                obj.name = () => this.passwordLabel();
+                obj.control = () => this.passControl();
+                return obj;
+            })(new this.$.$mol_form_field);
+        }
+        passwordLabel() {
+            return this.$.$mol_locale.text("$mpk_tss_enter_passwordLabel");
+        }
+        passControl() {
+            return ((obj) => {
+                obj.value = (val) => this.password(val);
+                obj.type = () => "password";
+                return obj;
+            })(new this.$.$mol_string);
+        }
+        password(val, force) {
+            return (val !== void 0) ? val : "";
+        }
+        submit() {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.submitLabel());
+                obj.event_click = (val) => this.event_submit(val);
+                obj.disabled = () => this.submit_blocked();
+                return obj;
+            })(new this.$.$mol_button_major);
+        }
+        submitLabel() {
+            return this.$.$mol_locale.text("$mpk_tss_enter_submitLabel");
+        }
+        event_submit(val, force) {
+            return (val !== void 0) ? val : null;
+        }
+        submit_blocked() {
+            return false;
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_enter.prototype, "entered", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_enter.prototype, "form", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_enter.prototype, "loginField", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_enter.prototype, "loginControl", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_enter.prototype, "login", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_enter.prototype, "passwordField", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_enter.prototype, "passControl", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_enter.prototype, "password", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_enter.prototype, "submit", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_enter.prototype, "event_submit", null);
+    $.$mpk_tss_enter = $mpk_tss_enter;
+})($ || ($ = {}));
+//enter.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mpk_tss_enter extends $.$mpk_tss_enter {
+            event_submit() {
+                this.entered(true);
+            }
+        }
+        $$.$mpk_tss_enter = $mpk_tss_enter;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//enter.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_image extends $.$mol_view {
+        dom_name() {
+            return "img";
+        }
+        field() {
+            return (Object.assign({}, super.field(), { "src": this.uri(), "alt": this.title() }));
+        }
+        uri() {
+            return "";
+        }
+    }
+    $.$mol_image = $mol_image;
+})($ || ($ = {}));
+//image.view.tree.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -5932,6 +6132,85 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var $;
 (function ($) {
+    class $mol_expander extends $.$mol_list {
+        rows() {
+            return [].concat(this.Label(), this.Content());
+        }
+        Label() {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.Trigger(), this.tools());
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        Trigger() {
+            return ((obj) => {
+                obj.checked = (val) => this.expanded(val);
+                obj.label = () => this.label();
+                return obj;
+            })(new this.$.$mol_check_expand);
+        }
+        expanded(val, force) {
+            return (val !== void 0) ? val : false;
+        }
+        label() {
+            return [].concat(this.title());
+        }
+        tools() {
+            return [];
+        }
+        Content() {
+            return ((obj) => {
+                obj.sub = () => this.content();
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        content() {
+            return [];
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_expander.prototype, "Label", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_expander.prototype, "Trigger", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_expander.prototype, "expanded", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_expander.prototype, "Content", null);
+    $.$mol_expander = $mol_expander;
+})($ || ($ = {}));
+//expander.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_expander extends $.$mol_expander {
+            rows() {
+                return [
+                    this.Label(),
+                    ...this.expanded() ? [this.Content()] : []
+                ];
+            }
+        }
+        $$.$mol_expander = $mol_expander;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//expander.view.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
     class $mpk_tss_summary extends $.$mpk_tss_wrap {
         self_title() {
             return this.$.$mol_locale.text("$mpk_tss_summary_self_title");
@@ -6121,6 +6400,19 @@ var $;
                 return obj;
             })(new this.$.$mpk_tss_reports);
         }
+        Enter() {
+            return ((obj) => {
+                obj.entered = (val) => this.entered(val);
+                obj.login = (v) => this.logged_email(v);
+                return obj;
+            })(new this.$.$mpk_tss_enter);
+        }
+        entered(val, force) {
+            return (val !== void 0) ? val : false;
+        }
+        logged_email(v, force) {
+            return (v !== void 0) ? v : "";
+        }
         pages() {
             return [].concat(this.Sidebar(), this.Summary(), this.menu_pages(), this.User());
         }
@@ -6210,9 +6502,6 @@ var $;
                 return obj;
             })(new this.$.$mpk_tss_icon_signout);
         }
-        logged_email() {
-            return "ivan.ivanoff@gmail.com";
-        }
         common_tools() {
             return [].concat(this.User_link(), this.Details_close());
         }
@@ -6259,6 +6548,15 @@ var $;
     __decorate([
         $.$mol_mem
     ], $mpk_tss.prototype, "Reports", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss.prototype, "Enter", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss.prototype, "entered", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss.prototype, "logged_email", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss.prototype, "Sidebar", null);
@@ -6330,6 +6628,8 @@ var $;
                 return this.$.$mol_state_arg.value('page');
             }
             pages() {
+                if (!this.entered())
+                    return [this.Enter()];
                 const id = this.page_id();
                 return [
                     this.Sidebar(),
@@ -6340,8 +6640,13 @@ var $;
                     id === 'sensors' && this.Sensors(),
                 ].filter(Boolean);
             }
+            entered(next) {
+                if ($.$mol_state_arg.value(`entered`) != null)
+                    return true;
+                return $.$mol_state_session.value(`${this}.entered()`, next) || false;
+            }
             logout_click() {
-                alert('Logout...');
+                this.entered(false);
             }
         }
         $$.$mpk_tss = $mpk_tss;
@@ -7254,6 +7559,27 @@ var $;
 //view.test.js.map
 ;
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    $.$mol_test_mocks.push(context => {
+        class $mol_state_arg_mock extends $.$mol_state_arg {
+            static href(next) { return next || ''; }
+        }
+        __decorate([
+            $.$mol_mem
+        ], $mol_state_arg_mock, "href", null);
+        context.$mol_state_arg = $mol_state_arg_mock;
+    });
+})($ || ($ = {}));
+//arg.mock.test.js.map
+;
+"use strict";
 var $;
 (function ($) {
     var $$;
@@ -7286,27 +7612,6 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //button.test.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    $.$mol_test_mocks.push(context => {
-        class $mol_state_arg_mock extends $.$mol_state_arg {
-            static href(next) { return next || ''; }
-        }
-        __decorate([
-            $.$mol_mem
-        ], $mol_state_arg_mock, "href", null);
-        context.$mol_state_arg = $mol_state_arg_mock;
-    });
-})($ || ($ = {}));
-//arg.mock.test.js.map
 ;
 "use strict";
 var $;
