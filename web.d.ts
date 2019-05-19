@@ -1309,21 +1309,6 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
-    class $mol_row extends $mol_view {
-    }
-}
-declare namespace $ {
-    class $mol_row_sub extends $mol_view {
-    }
-}
-declare namespace $.$$ {
-    class $mol_row extends $.$mol_row {
-        item_offsets_top(): number[];
-        sub_visible(): (string | number | boolean | Node | $mol_view)[];
-        minimal_height(): number;
-    }
-}
-declare namespace $ {
     class $mol_card extends $mol_list {
         attr(): {
             "mol_card_status_type": string;
@@ -1347,6 +1332,21 @@ declare namespace $ {
     }
 }
 declare namespace $ {
+    class $mol_row extends $mol_view {
+    }
+}
+declare namespace $ {
+    class $mol_row_sub extends $mol_view {
+    }
+}
+declare namespace $.$$ {
+    class $mol_row extends $.$mol_row {
+        item_offsets_top(): number[];
+        sub_visible(): (string | number | boolean | Node | $mol_view)[];
+        minimal_height(): number;
+    }
+}
+declare namespace $ {
     class $mol_labeler extends $mol_view {
         sub(): any[];
         Title(): $mol_view;
@@ -1358,17 +1358,15 @@ declare namespace $ {
 declare namespace $ {
     class $mpk_tss_pereferials extends $mpk_tss_wrap {
         self_title(): string;
-        column_names(): any[];
-        column_type(): string;
-        column_element(): string;
-        column_status(): string;
-        column_action(): string;
         sub(): any[];
         Filter_title(): $mol_search;
         filter_title(val?: any, force?: $mol_atom_force): any;
         body(): any[];
-        Units(): $mol_row;
+        Units(): $mol_list;
         unit_cards(): any[];
+        unit_current(): any;
+        Unit_details(id: any): $mol_view;
+        test(): string;
         Unit_card(index: any): $mpk_tss_pereferials_unit;
         unit(index: any): any;
         unit_arg(index: any): {
@@ -1443,6 +1441,7 @@ declare namespace $.$$ {
             })[];
         };
         unit_id(index: any): string;
+        unit_current(): any;
     }
     class $mpk_tss_pereferials_unit_card extends $.$mpk_tss_pereferials_unit_card {
         unit(): any;
@@ -1777,7 +1776,7 @@ declare namespace $ {
             "reports": $mpk_tss_reports;
         };
         Software(): $mpk_tss_software;
-        search(): any;
+        details(): any;
         Pereferials(): $mpk_tss_pereferials;
         Sensors(): $mpk_tss_sensors;
         Reports(): $mpk_tss_reports;
@@ -1814,7 +1813,7 @@ declare namespace $.$$ {
         };
         menu_page_title(id: string): any;
         page_id(): string;
-        pages(): $.$mpk_tss_enter[] | $.$mol_page[];
+        pages(): any[];
         entered(next?: boolean): boolean;
         logout_click(): void;
     }

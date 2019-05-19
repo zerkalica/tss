@@ -455,10 +455,6 @@ $mol_search $mol_bar
 				<= Clear_icon $mol_icon_cross
 			event_click?val <=> event_clear?val null
 
-$mol_row $mol_view
-
-$mol_row_sub $mol_view
-
 $mol_card $mol_list
 	attr *
 		^
@@ -473,6 +469,10 @@ $mol_card $mol_list
 
 $mpk_tss_icon_renew $mol_icon path \M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z
 
+$mol_row $mol_view
+
+$mol_row_sub $mol_view
+
 $mol_labeler $mol_view
 	sub /
 		<= Title $mol_view
@@ -484,19 +484,17 @@ $mol_labeler $mol_view
 
 $mpk_tss_pereferials $mpk_tss_wrap
 	self_title @ \Pereferials
-	column_names /
-		<= column_type @ \Type
-		<= column_element @ \Element
-		<= column_status @ \Status
-		<= column_action @ \Action
 	sub /
 		<= Head
 		<= Filter_title $mol_search
 			query?val <=> filter_title?val \
 		<= Body
 	body /
-		<= Units $mol_row
-			sub <= unit_cards /
+		<= Units $mol_list rows /
+			<= unit_cards /
+		<= unit_current null
+	Unit_details!id $mol_view sub /
+		<= test @ \Test
 	Unit_card!index $mpk_tss_pereferials_unit
 		unit <= unit!index null
 		arg <= unit_arg!index *
@@ -754,7 +752,7 @@ $mpk_tss $mol_book
 		pereferials <= Pereferials $mpk_tss_pereferials
 			breadcrumbs / <= breadcrumbs
 			tools <= common_tools
-			search => search
+			unit_current => details
 			event_top?event <=> event_front_up?event
 		sensors <= Sensors $mpk_tss_sensors
 			breadcrumbs / <= breadcrumbs
@@ -789,8 +787,8 @@ $mpk_tss $mol_book
 			breadcrumbs / <= breadcrumbs
 			tools / <= User_link
 			event_top?event <=> event_front_up?event
-		<= search null
 		<= menu_pages
+		<= details null
 	breadcrumbs /
 		<= main_title @ \Terminal № 1238798
 	User_link $mol_button_minor

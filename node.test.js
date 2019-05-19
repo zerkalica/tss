@@ -4977,6 +4977,85 @@ var $;
 //search.view.js.map
 ;
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mol_card extends $.$mol_list {
+        attr() {
+            return (Object.assign({}, super.attr(), { "mol_card_status_type": this.status() }));
+        }
+        status() {
+            return "";
+        }
+        rows() {
+            return [].concat(this.Content(), this.Status());
+        }
+        Content() {
+            return ((obj) => {
+                obj.sub = () => this.content();
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        content() {
+            return [];
+        }
+        Status() {
+            return ((obj) => {
+                obj.minimal_height = () => 30;
+                obj.sub = () => [].concat(this.status_text());
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        status_text() {
+            return this.status();
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_card.prototype, "Content", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_card.prototype, "Status", null);
+    $.$mol_card = $mol_card;
+})($ || ($ = {}));
+//card.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_card extends $.$mol_card {
+            rows() {
+                return [
+                    this.Content(),
+                    ...this.status_text() ? [this.Status()] : [],
+                ];
+            }
+        }
+        $$.$mol_card = $mol_card;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//card.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mpk_tss_icon_renew extends $.$mol_icon {
+        path() {
+            return "M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z";
+        }
+    }
+    $.$mpk_tss_icon_renew = $mpk_tss_icon_renew;
+})($ || ($ = {}));
+//renew.view.tree.js.map
+;
+"use strict";
 var $;
 (function ($) {
     class $mol_row extends $.$mol_view {
@@ -5071,85 +5150,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var $;
 (function ($) {
-    class $mol_card extends $.$mol_list {
-        attr() {
-            return (Object.assign({}, super.attr(), { "mol_card_status_type": this.status() }));
-        }
-        status() {
-            return "";
-        }
-        rows() {
-            return [].concat(this.Content(), this.Status());
-        }
-        Content() {
-            return ((obj) => {
-                obj.sub = () => this.content();
-                return obj;
-            })(new this.$.$mol_view);
-        }
-        content() {
-            return [];
-        }
-        Status() {
-            return ((obj) => {
-                obj.minimal_height = () => 30;
-                obj.sub = () => [].concat(this.status_text());
-                return obj;
-            })(new this.$.$mol_view);
-        }
-        status_text() {
-            return this.status();
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_card.prototype, "Content", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_card.prototype, "Status", null);
-    $.$mol_card = $mol_card;
-})($ || ($ = {}));
-//card.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_card extends $.$mol_card {
-            rows() {
-                return [
-                    this.Content(),
-                    ...this.status_text() ? [this.Status()] : [],
-                ];
-            }
-        }
-        $$.$mol_card = $mol_card;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//card.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mpk_tss_icon_renew extends $.$mol_icon {
-        path() {
-            return "M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z";
-        }
-    }
-    $.$mpk_tss_icon_renew = $mpk_tss_icon_renew;
-})($ || ($ = {}));
-//renew.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
     class $mol_labeler extends $.$mol_view {
         sub() {
             return [].concat(this.Title(), this.Content());
@@ -5196,21 +5196,6 @@ var $;
         self_title() {
             return this.$.$mol_locale.text("$mpk_tss_pereferials_self_title");
         }
-        column_names() {
-            return [].concat(this.column_type(), this.column_element(), this.column_status(), this.column_action());
-        }
-        column_type() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_column_type");
-        }
-        column_element() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_column_element");
-        }
-        column_status() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_column_status");
-        }
-        column_action() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_column_action");
-        }
         sub() {
             return [].concat(this.Head(), this.Filter_title(), this.Body());
         }
@@ -5224,16 +5209,28 @@ var $;
             return (val !== void 0) ? val : "";
         }
         body() {
-            return [].concat(this.Units());
+            return [].concat(this.Units(), this.unit_current());
         }
         Units() {
             return ((obj) => {
-                obj.sub = () => this.unit_cards();
+                obj.rows = () => [].concat(this.unit_cards());
                 return obj;
-            })(new this.$.$mol_row);
+            })(new this.$.$mol_list);
         }
         unit_cards() {
             return [];
+        }
+        unit_current() {
+            return null;
+        }
+        Unit_details(id) {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.test());
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        test() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferials_test");
         }
         Unit_card(index) {
             return ((obj) => {
@@ -5263,6 +5260,9 @@ var $;
     __decorate([
         $.$mol_mem
     ], $mpk_tss_pereferials.prototype, "Units", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $mpk_tss_pereferials.prototype, "Unit_details", null);
     __decorate([
         $.$mol_mem_key
     ], $mpk_tss_pereferials.prototype, "Unit_card", null);
@@ -5501,6 +5501,13 @@ var $;
             }
             unit_id(index) {
                 return this.units()[index].id;
+            }
+            unit_current() {
+                const index = $.$mol_state_arg.value('unit');
+                const unit = index && this.unit(index);
+                if (!unit)
+                    return null;
+                return this.Unit_details(index);
             }
         }
         __decorate([
@@ -6786,7 +6793,7 @@ var $;
                 return obj;
             })(new this.$.$mpk_tss_software);
         }
-        search() {
+        details() {
             return null;
         }
         Pereferials() {
@@ -6827,7 +6834,7 @@ var $;
             return (v !== void 0) ? v : "";
         }
         pages() {
-            return [].concat(this.Sidebar(), this.Summary(), this.search(), this.menu_pages());
+            return [].concat(this.Sidebar(), this.Summary(), this.menu_pages(), this.details());
         }
         Sidebar() {
             return ((obj) => {
@@ -7040,6 +7047,7 @@ var $;
                     id === 'software' && this.Software(),
                     id === 'pereferials' && this.Pereferials(),
                     id === 'sensors' && this.Sensors(),
+                    this.details(),
                 ].filter(Boolean);
             }
             entered(next) {
