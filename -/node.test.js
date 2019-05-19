@@ -5249,7 +5249,7 @@ var $;
         }
         Logo() {
             return ((obj) => {
-                obj.uri = () => "mpk/tss/tss_logo.svg";
+                obj.uri = () => "/mpk/tss/tss_logo.svg";
                 obj.event = () => ({
                     "click": (val) => this.event_top(val),
                 });
@@ -5352,7 +5352,7 @@ var $;
         }
         Image() {
             return ((obj) => {
-                obj.uri = () => "mpk/tss/placeholder.svg";
+                obj.uri = () => "/mpk/tss/placeholder.svg";
                 return obj;
             })(new this.$.$mol_image);
         }
