@@ -1,8 +1,14 @@
 $mpk_tss_reports $mpk_tss_wrap
 	self_title @ \Reports
-	tools /
-		<= Close $mol_link
-			sub /
-				<= Close_icon $mol_icon_cross
-			arg *
-				page null
+	column_names /
+		<= column_train @ \Train
+		<= column_status @ \Status
+		<= column_date @ \Date
+		<= column_report @ \Report
+	body /
+		<= Filter_title $mol_search
+			query?val <=> filter_title?val \
+		<= Results_table $mol_grid
+			row_height 40
+			records <= records *
+			col_head_content!col <= column_name!col /
