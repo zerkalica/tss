@@ -31,8 +31,11 @@ namespace $.$$ {
 				id === 'software' && this.Software(),
 				id === 'pereferials' && this.Pereferials(),
 				id === 'sensors' && this.Sensors(),
-				this.show_user() && this.User(),
 			].filter(Boolean)
+		}
+
+		logout_click() {
+			alert('Logout...')
 		}
 	}
 }

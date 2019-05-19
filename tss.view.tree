@@ -39,18 +39,19 @@ $mpk_tss $mol_book
 								\© 2019 MPK Software, Russia
 		<= Summary $mpk_tss_summary
 			breadcrumbs / <= breadcrumbs
-			tools / <= User
+			tools / <= User_link
 			event_top?event <=> event_front_up?event
 		<= menu_pages
 		<= User $mol_page
 			minimal_width 200
+			title \ User
 			body /
 				\ Logout...
 	breadcrumbs /
 		<= main_title @ \Terminal № 1238798
-	User_link $mol_check_expand
-		checked?val <=> show_user?val false
-		label /
+	User_link $mol_button_minor
+		event_click?val <=> logout_click?val null
+		sub /
 			<= User_email $mol_view
 				sub /
 					<= logged_email
