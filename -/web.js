@@ -5390,7 +5390,7 @@ var $;
         }
         Logo() {
             return ((obj) => {
-                obj.uri = () => "tss_logo.svg";
+                obj.uri = () => "/mpk/tss/tss_logo.svg";
                 obj.event = () => ({
                     "click": (val) => this.event_top(val),
                 });
@@ -5493,7 +5493,7 @@ var $;
         }
         Image() {
             return ((obj) => {
-                obj.uri = () => "placeholder.svg";
+                obj.uri = () => "https://mol.js.org/app/demo/-/mol/app/demo/placeholder/technology.svg";
                 return obj;
             })(new this.$.$mol_image);
         }
