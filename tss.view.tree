@@ -23,7 +23,7 @@ $mpk_tss $mol_book
 		<= Sidebar $mol_page
 			head /
 				<= Logo $mol_image
-					uri \tss_logo.svg
+					uri \mpk/tss/tss_logo.svg
 					event * click?val <=> event_top?val null
 			title @ \Logo and username
 			minimal_width 200
@@ -65,4 +65,4 @@ $mpk_tss $mol_book
 	Placeholder $mol_book_placeholder
 		title <= title
 		sub /
-			<= Image $mol_image uri \placeholder.svg
+			<= Image $mol_image uri \mpk/tss/placeholder.svg
