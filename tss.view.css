@@ -1,0 +1,63 @@
+[mol_expander_trigger] {
+	align-items: center;
+}
+
+[mpk_tss_body_content] {
+	height: 100%;
+}
+
+[mpk_tss_foot_content] {
+	justify-content: space-between;
+}
+[mpk_tss_foot_text] {
+	max-width: 20rem;
+}
+
+[mpk_tss] {
+	box-shadow: none;
+}
+
+[mpk_tss_logo] {
+	color: white;
+	box-shadow: none;
+	height: 2.5rem;
+	align-self: center;
+	flex: none;
+}
+
+
+[mpk_tss_sidebar] {
+	background-color: var(--mol_theme_line);
+}
+
+[mpk_tss_sidebar_foot] {
+	background-color: inherit;
+	font-size: 0.9rem;
+	color: var(--mol_theme_shade);
+}
+
+[mpk_tss_menu] {
+	padding: .5rem 0 0;
+	display: flex;
+	flex-direction: column;
+}
+
+[mpk_tss_placeholder] {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+[mpk_tss_image] {
+	width: 25%;
+	box-shadow: none;
+	opacity: .25;
+}
+
+[mpk_tss_user] {
+	margin-right: 0.5rem;
+	flex: 2000 1 400px;
+}
+[mpk_tss_user_email] {
+	margin-right: 0.5rem;
+}

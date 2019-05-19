@@ -1,0 +1,67 @@
+$mpk_tss $mol_book
+	Menu_item!id $mol_link
+		arg <= menu_page_arg!id *
+		title <= menu_page_title!id \
+	menu_pages *
+		software <= Software $mpk_tss_software
+			breadcrumbs / <= breadcrumbs
+			tools <= common_tools
+			event_top?event <=> event_front_up?event
+		pereferials <= Pereferials $mpk_tss_pereferials
+			breadcrumbs / <= breadcrumbs
+			tools <= common_tools
+			event_top?event <=> event_front_up?event
+		sensors <= Sensors $mpk_tss_sensors
+			breadcrumbs / <= breadcrumbs
+			tools <= common_tools
+			event_top?event <=> event_front_up?event
+		reports <= Reports $mpk_tss_reports
+			breadcrumbs / <= breadcrumbs
+			tools <= common_tools
+			event_top?event <=> event_front_up?event
+	pages /
+		<= Sidebar $mol_page
+			head /
+				<= Logo $mol_image
+					uri \/mpk/tss/tss_logo.svg
+					event * click?val <=> event_top?val null
+			title @ \Logo and username
+			minimal_width 200
+			body /
+				<= Menu $mol_list
+					rows /
+						<= menu_items /
+			foot /
+				<= Foot_content $mol_row
+					sub /
+						<= Foot_text $mol_view
+							sub /
+								\© 2019 MPK Software, Russia
+		<= Summary $mpk_tss_summary
+			breadcrumbs / <= breadcrumbs
+			tools / <= User
+			event_top?event <=> event_front_up?event
+		<= menu_pages
+		<= User $mol_page
+			minimal_width 200
+			body /
+				\ Logout...
+	breadcrumbs /
+		<= main_title @ \Terminal № 1238798
+	User_link $mol_check_expand
+		checked?val <=> show_user?val false
+		label /
+			<= User_email $mol_view
+				sub /
+					<= logged_email
+			<= User_signout $mpk_tss_icon_signout
+	logged_email \ivan.ivanoff@gmail.com
+	common_tools /
+		<= User_link
+		<= Details_close $mol_link
+			arg * page null
+			sub / <= Details_close_icon $mol_icon_cross
+	Placeholder $mol_book_placeholder
+		title <= title
+		sub /
+			<= Image $mol_image uri \https://mol.js.org/app/demo/-/mol/app/demo/placeholder/technology.svg

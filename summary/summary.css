@@ -1,0 +1,25 @@
+[mpk_tss_summary_log],
+[mpk_tss_summary_item] {
+	background: white;
+	box-shadow: var(--mol_skin_light_outline);
+	border-radius: var(--mol_skin_round);
+	margin-bottom: 0.5rem;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+[mpk_tss_summary_item]:last-child {
+	margin-bottom: 0;
+}
+
+[mpk_tss_summary_item_title] {
+	display: flex;
+	align-items: center;
+	flex-grow: 1000;
+}
+
+[mpk_tss_summary_all] {
+	margin-bottom: 1rem;
+	margin-top: 1rem;
+}
