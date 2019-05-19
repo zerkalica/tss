@@ -1,6 +1,11 @@
 declare namespace $ { }
 export = $;
 declare namespace $ {
+    function $mol_offline(uri?: string): void;
+}
+declare namespace $ {
+}
+declare namespace $ {
     namespace $$ {
         let $$: typeof $;
     }

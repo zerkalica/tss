@@ -1,6 +1,15 @@
 declare namespace $ { }
 export = $;
 declare namespace $ {
+    function $mol_fail_hidden(error: any): never;
+    function $mol_fail(error: any): never;
+}
+declare namespace $ {
+    function $mol_offline(uri?: string): void;
+}
+declare namespace $ {
+}
+declare namespace $ {
     namespace $$ {
         let $$: typeof $;
     }
@@ -42,10 +51,6 @@ declare namespace $ {
     function $mol_conform_handler<Class>(cl: {
         new (...args: any[]): Class;
     }, handler: (target: Class, source: Class) => Class): void;
-}
-declare namespace $ {
-    function $mol_fail_hidden(error: any): never;
-    function $mol_fail(error: any): never;
 }
 declare namespace $ {
     function $mol_log(path: any, ...values: any[]): void;

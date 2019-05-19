@@ -30,6 +30,69 @@ $.$mol = $  // deprecated
 "use strict";
 var $;
 (function ($) {
+    function $mol_fail_hidden(error) {
+        throw error;
+    }
+    $.$mol_fail_hidden = $mol_fail_hidden;
+    function $mol_fail(error) {
+        throw error;
+    }
+    $.$mol_fail = $mol_fail;
+})($ || ($ = {}));
+//fail.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_offline(uri = 'web.js') {
+        if (typeof window === 'undefined') {
+            self.addEventListener('install', (event) => {
+                self['skipWaiting']();
+            });
+            self.addEventListener('activate', (event) => {
+                self['clients'].claim();
+                console.info('$mol_offline activated');
+            });
+            self.addEventListener('fetch', (event) => {
+                event.respondWith(fetch(event.request)
+                    .then(response => {
+                    caches.open('v1')
+                        .then(cache => cache.put(event.request, response));
+                    return response.clone();
+                })
+                    .catch(error => {
+                    return caches.match(event.request)
+                        .catch(error2 => $.$mol_fail_hidden(error));
+                }));
+            });
+            self.addEventListener('beforeinstallprompt', (event) => {
+                console.log(event);
+                event.prompt();
+            });
+        }
+        else {
+            if (navigator.serviceWorker)
+                navigator.serviceWorker.register(uri);
+            else if (location.protocol === 'http:')
+                console.warn('HTTPS is required for service workers.');
+            else
+                console.warn('Service Worker is not supported.');
+        }
+    }
+    $.$mol_offline = $mol_offline;
+})($ || ($ = {}));
+//offline.web.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_offline();
+})($ || ($ = {}));
+//install.js.map
+;
+"use strict";
+var $;
+(function ($) {
     let $$;
     (function ($$_1) {
     })($$ = $.$$ || ($.$$ = {}));
@@ -197,20 +260,6 @@ var $;
     });
 })($ || ($ = {}));
 //conform.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    function $mol_fail_hidden(error) {
-        throw error;
-    }
-    $.$mol_fail_hidden = $mol_fail_hidden;
-    function $mol_fail(error) {
-        throw error;
-    }
-    $.$mol_fail = $mol_fail;
-})($ || ($ = {}));
-//fail.js.map
 ;
 "use strict";
 var $;
@@ -5390,7 +5439,7 @@ var $;
         }
         Logo() {
             return ((obj) => {
-                obj.uri = () => "/mpk/tss/tss_logo.svg";
+                obj.uri = () => "mpk/tss/tss_logo.svg";
                 obj.event = () => ({
                     "click": (val) => this.event_top(val),
                 });
@@ -5493,7 +5542,7 @@ var $;
         }
         Image() {
             return ((obj) => {
-                obj.uri = () => "https://mol.js.org/app/demo/-/mol/app/demo/placeholder/technology.svg";
+                obj.uri = () => "mpk/tss/placeholder.svg";
                 return obj;
             })(new this.$.$mol_image);
         }

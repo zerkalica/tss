@@ -33,6 +33,21 @@ $node[ "../mol/mol.js" ] = $node[ "../mol/mol.js" ] = module.exports }.call( {} 
 "use strict";
 var $;
 (function ($) {
+    function $mol_offline(uri = 'web.js') { }
+    $.$mol_offline = $mol_offline;
+})($ || ($ = {}));
+//offline.node.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_offline();
+})($ || ($ = {}));
+//install.js.map
+;
+"use strict";
+var $;
+(function ($) {
     let $$;
     (function ($$_1) {
     })($$ = $.$$ || ($.$$ = {}));
@@ -5243,7 +5258,7 @@ var $;
         }
         Logo() {
             return ((obj) => {
-                obj.uri = () => "tss_logo.svg";
+                obj.uri = () => "mpk/tss/tss_logo.svg";
                 obj.event = () => ({
                     "click": (val) => this.event_top(val),
                 });
@@ -5346,7 +5361,7 @@ var $;
         }
         Image() {
             return ((obj) => {
-                obj.uri = () => "placeholder.svg";
+                obj.uri = () => "mpk/tss/placeholder.svg";
                 return obj;
             })(new this.$.$mol_image);
         }
