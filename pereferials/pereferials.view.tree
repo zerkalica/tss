@@ -1,2 +1,48 @@
 $mpk_tss_pereferials $mpk_tss_wrap
 	self_title @ \Pereferials
+	column_names /
+		<= column_type @ \Type
+		<= column_element @ \Element
+		<= column_status @ \Status
+		<= column_action @ \Action
+	sub /
+		<= Head
+		<= Filter_title $mol_search
+			query?val <=> filter_title?val \
+		<= Body
+	body /
+		<= Units $mol_row
+			sub <= unit_cards /
+	Unit_card!index $mpk_tss_pereferials_unit
+		unit <= unit!index null
+		arg <= unit_arg!index *
+			unit <= unit_id!index \
+
+$mpk_tss_pereferials_unit $mol_link
+	unit null
+	minimal_height 125
+	sub /
+		<= Card $mpk_tss_pereferials_unit_card
+			unit <= unit
+
+$mpk_tss_pereferials_unit_card $mol_card
+	unit null
+	attr *
+		^
+		mpk_tss_pereferials_unit_type <= status \
+	Status <= Footer $mol_view
+		minimal_height 30
+		sub /
+			<= Status_text $mol_view
+				sub / <= status \
+			<= Refresh_action $mol_button_minor
+				sub / <= Refresh_icon $mpk_tss_icon_renew
+	Content <= Group $mol_row
+		sub /
+			<= items /
+				<= Type_item $mol_labeler
+					title <= type_title @ \Type
+					content <= type \
+				<= Element_item $mol_labeler
+					title <= element_title @ \Element
+					content <= element \

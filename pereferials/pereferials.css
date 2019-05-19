@@ -1,0 +1,41 @@
+[mpk_tss_pereferials_results] {
+	margin-top: 0.5rem;
+	box-shadow: none;
+}
+
+[mol_grid_table] {
+	margin: 0;
+	width: 100%;
+}
+
+[mpk_tss_pereferials_filter_title] {
+	align-self: stretch;
+}
+
+[mpk_tss_pereferials_units] {
+	display: grid;
+	grid-gap: 0.5rem;
+	grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+}
+[mpk_tss_pereferials_unit_card_group] {
+	flex-wrap: nowrap;
+}
+[mpk_tss_pereferials_unit_card_footer] {
+	background: var(--mol_theme_line);
+	text-transform: capitalize;
+	padding: 0 1rem;
+	line-height: 2;
+	margin: 0;
+}
+
+[mpk_tss_pereferials_unit_type="ready"] {
+	--mol_theme_line: hsl(140, 50%, 50%);
+}
+
+[mpk_tss_pereferials_unit_type="error"] {
+	--mol_theme_line: hsl(0, 50%, 50%);
+}
+
+[mpk_tss_pereferials_unit_type="warning"] {
+	--mol_theme_line: hsl(29, 50%, 50%);
+}
