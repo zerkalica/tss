@@ -1,0 +1,9 @@
+$mpk_tss_pereferials_unit_status $mol_view
+	status null
+	statuses *
+		ready <= ready @ \Ready
+		error <= error @ \Error
+		not_responding <= not_responding @ \Not responding
+		inactive <= inactive @ \Inactive
+		unknown <= unknown @ \Unknown
+	sub / <= status_text <= unknown

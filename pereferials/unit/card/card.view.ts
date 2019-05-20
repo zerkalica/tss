@@ -16,10 +16,6 @@ namespace $.$$ {
 			return this.unit().status()
 		}
 
-		status_text() {
-			return this.statuses()[this.status()] || this.statuses().unknown
-		}
-
 		refresh_click(event: Event) {
 			event.preventDefault()
 			alert('Refresh...')

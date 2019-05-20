@@ -1,6 +1,6 @@
 namespace $ {
 	export function $mpk_tss_stub_unit_type() {
-		return  $mol_stub_select_random( [ 'UPS' , 'AVR' ] )
+		return $mol_stub_select_random( [ 'UPS' , 'AVR' ] )
 	}
 
 	export function $mpk_tss_stub_unit_name() {

@@ -1,21 +1,13 @@
 $mpk_tss_pereferials_unit_card $mol_card
 	unit null
-	statuses *
-		warning <= warning @ \Warning
-		error <= error @ \Error
-		success <= success @ \Success
-		ready <= ready @ \Ready
-		nr <= nr @ \Not responding
-		responding <= responding @ \Responding
-		unknown <= unknown @ \Unknown
 	attr *
 		^
 		mpk_tss_pereferials_unit_type <= status \
 	Status <= Footer $mol_view
 		minimal_height 30
 		sub /
-			<= Status_text $mol_view
-				sub / <= status_text \
+			<= Status_text $mpk_tss_pereferials_unit_status
+				status <= status
 			<= Refresh_action $mol_button_minor
 				event_click?event <=> refresh_click?event null
 				sub / <= Refresh_icon $mpk_tss_icon_renew

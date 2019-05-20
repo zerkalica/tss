@@ -9,20 +9,28 @@ $mpk_tss_pereferials_unit_details $mol_page
 		<= List $mol_list
 			rows /
 				<= unit_parameters /
-	Parameter!parameter $mol_row
+	Parameter!parameter $mpk_tss_pereferials_unit_details_parameter
+		parameter <= parameter_item!parameter null
+
+$mpk_tss_pereferials_unit_details_parameter $mol_row
+	unknown @ \Unknown
+	parameter null
+	Value_string!val $mol_view
 		sub /
-			<= Parameter_item!parameter $mol_labeler
-				title <= parameter_title @ \Parameter
-				Content $mol_view
-					sub /
-						<= parameter_name!parameter \
-			<= Value_item!parameter $mol_labeler
-				title <= value_title @ \Value
-				Content $mol_view
-					sub /
-						<= parameter_value!parameter \
-			<= Updated_item!parameter $mol_labeler
-				title <= updated_title @ \Updated
-				Content $mol_view
-					sub /
-						<= parameter_updated!parameter \
+			<= value_string_data!val \
+	Value_status!status $mpk_tss_pereferials_unit_status
+		status <= value_status_data!status null
+	sub /
+		<= Name $mol_labeler
+			title <= name_title @ \Parameter
+			Content $mol_view
+				sub /
+					<= parameter_name \
+		<= Value $mol_labeler
+			title <= value_title @ \Value
+			Content <= Value_content null
+		<= Updated $mol_labeler
+			title <= updated_title @ \Updated
+			Content $mol_view
+				sub /
+					<= parameter_updated \
