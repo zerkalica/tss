@@ -1,6 +1,6 @@
 [mpk_tss_wrap] {
 	flex: 1000 1 400px;
-	box-shadow: none;
+	/* box-shadow: none; */
 }
 
 [mpk_tss_wrap_body] {

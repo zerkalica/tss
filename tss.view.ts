@@ -1,6 +1,21 @@
 namespace $.$$ {
-	
 	export class $mpk_tss extends $.$mpk_tss {
+		entered( next? : boolean ) {
+			if( $mol_state_arg.value( `entered` ) != null ) return true
+			return $mol_state_session.value( `${ this }.entered()` , next ) || false
+		}
+
+		logout_click() {
+			this.entered(false)
+		}
+
+		user_info() {
+			if (!this.entered()) return null
+			return this.User_link()
+		}
+	}
+
+	export class $mpk_tss_main extends $.$mpk_tss_main {
 
 		menu_items() {
 			return Object.keys(this.menu_pages()).map(id => this.Menu_item(id))
@@ -32,15 +47,6 @@ namespace $.$$ {
 				id === 'sensors' && this.Sensors(),
 				this.details(),
 			].filter(Boolean)
-		}
-
-		entered( next? : boolean ) {
-			if( $mol_state_arg.value( `entered` ) != null ) return true
-			return $mol_state_session.value( `${ this }.entered()` , next ) || false
-		}
-
-		logout_click() {
-			this.entered(false)
 		}
 	}
 }

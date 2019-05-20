@@ -163,6 +163,10 @@ namespace $.$$ {
 
 			return this.Unit_details(index)
 		}
+
+		destructor() {
+			$mol_state_arg.value( 'unit', null )
+		}
 		
 	}
 
@@ -182,6 +186,11 @@ namespace $.$$ {
 
 		status() {
 			return this.unit().status
+		}
+
+		refresh_click(event: Event) {
+			event.preventDefault()
+			alert('Refresh...')
 		}
 	}
 	
