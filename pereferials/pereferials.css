@@ -1,3 +1,6 @@
+[mpk_tss_pereferials] {
+	flex: 1 1 400px;
+}
 [mpk_tss_pereferials_results] {
 	margin-top: 0.5rem;
 	box-shadow: none;
@@ -43,4 +46,9 @@
 
 [mpk_tss_pereferials_unit_type="warning"] {
 	--mol_theme_line: hsl(29, 50%, 50%);
+}
+
+
+[mpk_tss_pereferials_unit_details] {
+	flex: 1000 1 600px;
 }

@@ -48,10 +48,6 @@
 	opacity: .25;
 }
 
-[mpk_tss_user] {
-	margin-right: 0.5rem;
-	flex: 2000 1 400px;
-}
 [mpk_tss_user_email] {
 	margin-right: 0.5rem;
 }

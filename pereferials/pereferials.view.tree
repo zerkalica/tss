@@ -9,8 +9,19 @@ $mpk_tss_pereferials $mpk_tss_wrap
 		<= Units $mol_list rows /
 			<= unit_cards /
 		<= unit_current null
-	Unit_details!id $mol_view sub /
-		<= test @ \Test
+	Unit_details!index $mol_page
+		title \Unit
+		minimal_width 400
+		tools /
+			<= Details_close $mol_link
+				arg * unit null
+				sub / <= Details_close_icon $mol_icon_cross
+		body /
+			<= Details_body $mol_list
+				rows /
+					<= Unit_detail $mol_row
+						sub /
+							\ Test
 	Unit_card!index $mpk_tss_pereferials_unit
 		unit <= unit!index null
 		arg <= unit_arg!index *
@@ -44,3 +55,13 @@ $mpk_tss_pereferials_unit_card $mol_card
 				<= Element_item $mol_labeler
 					title <= element_title @ \Element
 					content <= element \
+
+$mpk_tss_pereferials_unit_parameters $mol_list
+	rows /
+		<= Parameters $mol_row
+			sub /
+				<= parameters /
+	Parameter!id
+		<= Type_item $mol_labeler
+			title <= type_title @ \Type
+			content <= type \
