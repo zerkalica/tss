@@ -282,6 +282,282 @@ interface Window {
 declare namespace $ {
 }
 declare namespace $ {
+    const enum $mol_keyboard_code {
+        backspace = 8,
+        tab = 9,
+        enter = 13,
+        shift = 16,
+        ctrl = 17,
+        alt = 18,
+        pause = 19,
+        capsLock = 20,
+        escape = 27,
+        space = 32,
+        pageUp = 33,
+        pageDown = 34,
+        end = 35,
+        home = 36,
+        left = 37,
+        up = 38,
+        right = 39,
+        down = 40,
+        insert = 45,
+        delete = 46,
+        key0 = 48,
+        key1 = 49,
+        key2 = 50,
+        key3 = 51,
+        key4 = 52,
+        key5 = 53,
+        key6 = 54,
+        key7 = 55,
+        key8 = 56,
+        key9 = 57,
+        A = 65,
+        B = 66,
+        C = 67,
+        D = 68,
+        E = 69,
+        F = 70,
+        G = 71,
+        H = 72,
+        I = 73,
+        J = 74,
+        K = 75,
+        L = 76,
+        M = 77,
+        N = 78,
+        O = 79,
+        P = 80,
+        Q = 81,
+        R = 82,
+        S = 83,
+        T = 84,
+        U = 85,
+        V = 86,
+        W = 87,
+        X = 88,
+        Y = 89,
+        Z = 90,
+        metaLeft = 91,
+        metaRight = 92,
+        select = 93,
+        numpad0 = 96,
+        numpad1 = 97,
+        numpad2 = 98,
+        numpad3 = 99,
+        numpad4 = 100,
+        numpad5 = 101,
+        numpad6 = 102,
+        numpad7 = 103,
+        numpad8 = 104,
+        numpad9 = 105,
+        multiply = 106,
+        add = 107,
+        subtract = 109,
+        decimal = 110,
+        divide = 111,
+        F1 = 112,
+        F2 = 113,
+        F3 = 114,
+        F4 = 115,
+        F5 = 116,
+        F6 = 117,
+        F7 = 118,
+        F8 = 119,
+        F9 = 120,
+        F10 = 121,
+        F11 = 122,
+        F12 = 123,
+        numLock = 144,
+        scrollLock = 145,
+        semicolon = 186,
+        equals = 187,
+        comma = 188,
+        dash = 189,
+        period = 190,
+        forwardSlash = 191,
+        graveAccent = 192,
+        bracketOpen = 219,
+        slashBack = 220,
+        bracketClose = 221,
+        quoteSingle = 222
+    }
+}
+declare namespace $ {
+    class $mol_button extends $mol_view {
+        enabled(): boolean;
+        minimal_height(): number;
+        click(event?: any, force?: $mol_atom_force): any;
+        event_click(event?: any, force?: $mol_atom_force): any;
+        event(): {
+            "click": (event?: any) => any;
+            "keypress": (event?: any) => any;
+        };
+        event_activate(event?: any, force?: $mol_atom_force): any;
+        event_key_press(event?: any, force?: $mol_atom_force): any;
+        attr(): {
+            "disabled": boolean;
+            "role": string;
+            "tabindex": number;
+            "title": string;
+        };
+        disabled(): boolean;
+        tab_index(): number;
+        hint(): string;
+        sub(): any[];
+    }
+}
+declare namespace $.$$ {
+    class $mol_button extends $.$mol_button {
+        disabled(): boolean;
+        event_activate(next: Event): void;
+        event_key_press(event: KeyboardEvent): void;
+        tab_index(): number;
+    }
+}
+declare namespace $ {
+    class $mol_button_typed extends $mol_button {
+    }
+}
+declare namespace $ {
+    class $mol_button_major extends $mol_button_typed {
+        attr(): {
+            "mol_theme": string;
+            "disabled": boolean;
+            "role": string;
+            "tabindex": number;
+            "title": string;
+        };
+    }
+}
+declare namespace $ {
+    class $mol_button_minor extends $mol_button_typed {
+    }
+}
+declare namespace $ {
+    class $mol_state_local<Value> extends $mol_object {
+        static 'native()': Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
+        static native(): Storage | {
+            getItem(key: string): any;
+            setItem(key: string, value: string): void;
+            removeItem(key: string): void;
+        };
+        static value<Value>(key: string, next?: Value, force?: $mol_atom_force): Value;
+        prefix(): string;
+        value(key: string, next?: Value): Value;
+    }
+}
+declare namespace $ {
+}
+declare namespace $ {
+    function $mol_const<Value>(value: Value): {
+        (): Value;
+        '()': Value;
+    };
+}
+declare namespace $ {
+    function $mol_maybe<Value>(value: Value | null | undefined): Value[];
+}
+declare namespace $ {
+    class $mol_http extends $mol_object {
+        static resource(uri: string): $mol_http;
+        static resource_absolute(uri: string): $mol_http;
+        uri(): string;
+        method_get(): string;
+        method_put(): string;
+        credentials(): {
+            login?: string;
+            password?: string;
+        };
+        headers(): {};
+        response_type(): '' | 'text' | 'document' | 'json' | 'blob' | 'arraybuffer';
+        'request()': XMLHttpRequest;
+        request(): XMLHttpRequest;
+        destructor(): void;
+        response(next?: any, force?: $mol_atom_force): XMLHttpRequest;
+        text(next?: string, force?: $mol_atom_force): string;
+        xml(next?: string, force?: $mol_atom_force): Document;
+        json<Content>(next?: Content, force?: $mol_atom_force): Content;
+    }
+}
+declare namespace $ {
+    function $mol_deprecated<Host, Method extends Function>(message: string): (host: Host, field: string, descr: TypedPropertyDescriptor<Method>) => void;
+}
+declare namespace $ {
+    class $mol_http_resource extends $mol_http {
+        static item(uri: string): $mol_http;
+    }
+    class $mol_http_resource_json {
+        static item(uri: string): $mol_http;
+    }
+}
+declare namespace $ {
+    class $mol_file extends $mol_object {
+        static absolute(path: string): $mol_file;
+        static relative(path: string): $mol_file;
+        static base: string;
+        path(): string;
+        parent(): $mol_file;
+        name(): string;
+        ext(): string;
+        content(next?: string, force?: $mol_atom_force): string;
+        resolve(path: string): $mol_file;
+        relate(base?: $mol_file): void;
+    }
+}
+declare namespace $ {
+    interface $mol_locale_dict {
+        [key: string]: string;
+    }
+    class $mol_locale extends $mol_object {
+        static lang_default(): string;
+        static lang(next?: string): string;
+        static source(lang: string): any;
+        static texts(lang: string, next?: $mol_locale_dict): $mol_locale_dict;
+        static text(key: string): string;
+    }
+}
+declare namespace $ {
+    class $mol_svg extends $mol_view {
+        dom_name(): string;
+        dom_name_space(): string;
+    }
+}
+declare namespace $ {
+    class $mol_svg_root extends $mol_svg {
+        dom_name(): string;
+        attr(): {
+            "viewBox": string;
+            "preserveAspectRatio": string;
+        };
+        view_box(): string;
+        aspect(): string;
+    }
+}
+declare namespace $ {
+    class $mol_svg_path extends $mol_svg {
+        dom_name(): string;
+        attr(): {
+            "d": string;
+        };
+        geometry(): string;
+    }
+}
+declare namespace $ {
+    class $mol_icon extends $mol_svg_root {
+        view_box(): string;
+        sub(): any[];
+        Path(): $mol_svg_path;
+        path(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_icon_signout extends $mol_icon {
+        path(): string;
+    }
+}
+declare namespace $ {
     class $mol_plugin extends $mol_object {
         dom_node(): any;
         attr_static(): {};
@@ -505,160 +781,6 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
-    const enum $mol_keyboard_code {
-        backspace = 8,
-        tab = 9,
-        enter = 13,
-        shift = 16,
-        ctrl = 17,
-        alt = 18,
-        pause = 19,
-        capsLock = 20,
-        escape = 27,
-        space = 32,
-        pageUp = 33,
-        pageDown = 34,
-        end = 35,
-        home = 36,
-        left = 37,
-        up = 38,
-        right = 39,
-        down = 40,
-        insert = 45,
-        delete = 46,
-        key0 = 48,
-        key1 = 49,
-        key2 = 50,
-        key3 = 51,
-        key4 = 52,
-        key5 = 53,
-        key6 = 54,
-        key7 = 55,
-        key8 = 56,
-        key9 = 57,
-        A = 65,
-        B = 66,
-        C = 67,
-        D = 68,
-        E = 69,
-        F = 70,
-        G = 71,
-        H = 72,
-        I = 73,
-        J = 74,
-        K = 75,
-        L = 76,
-        M = 77,
-        N = 78,
-        O = 79,
-        P = 80,
-        Q = 81,
-        R = 82,
-        S = 83,
-        T = 84,
-        U = 85,
-        V = 86,
-        W = 87,
-        X = 88,
-        Y = 89,
-        Z = 90,
-        metaLeft = 91,
-        metaRight = 92,
-        select = 93,
-        numpad0 = 96,
-        numpad1 = 97,
-        numpad2 = 98,
-        numpad3 = 99,
-        numpad4 = 100,
-        numpad5 = 101,
-        numpad6 = 102,
-        numpad7 = 103,
-        numpad8 = 104,
-        numpad9 = 105,
-        multiply = 106,
-        add = 107,
-        subtract = 109,
-        decimal = 110,
-        divide = 111,
-        F1 = 112,
-        F2 = 113,
-        F3 = 114,
-        F4 = 115,
-        F5 = 116,
-        F6 = 117,
-        F7 = 118,
-        F8 = 119,
-        F9 = 120,
-        F10 = 121,
-        F11 = 122,
-        F12 = 123,
-        numLock = 144,
-        scrollLock = 145,
-        semicolon = 186,
-        equals = 187,
-        comma = 188,
-        dash = 189,
-        period = 190,
-        forwardSlash = 191,
-        graveAccent = 192,
-        bracketOpen = 219,
-        slashBack = 220,
-        bracketClose = 221,
-        quoteSingle = 222
-    }
-}
-declare namespace $ {
-    class $mol_button extends $mol_view {
-        enabled(): boolean;
-        minimal_height(): number;
-        click(event?: any, force?: $mol_atom_force): any;
-        event_click(event?: any, force?: $mol_atom_force): any;
-        event(): {
-            "click": (event?: any) => any;
-            "keypress": (event?: any) => any;
-        };
-        event_activate(event?: any, force?: $mol_atom_force): any;
-        event_key_press(event?: any, force?: $mol_atom_force): any;
-        attr(): {
-            "disabled": boolean;
-            "role": string;
-            "tabindex": number;
-            "title": string;
-        };
-        disabled(): boolean;
-        tab_index(): number;
-        hint(): string;
-        sub(): any[];
-    }
-}
-declare namespace $.$$ {
-    class $mol_button extends $.$mol_button {
-        disabled(): boolean;
-        event_activate(next: Event): void;
-        event_key_press(event: KeyboardEvent): void;
-        tab_index(): number;
-    }
-}
-declare namespace $ {
-    class $mol_button_typed extends $mol_button {
-    }
-}
-declare namespace $ {
-    class $mol_button_major extends $mol_button_typed {
-        attr(): {
-            "mol_theme": string;
-            "disabled": boolean;
-            "role": string;
-            "tabindex": number;
-            "title": string;
-        };
-    }
-}
-declare namespace $ {
-    class $mol_button_minor extends $mol_button_typed {
-    }
-}
-declare namespace $ {
     class $mol_scroll extends $mol_view {
         minimal_height(): number;
         moving_hor(val?: any, force?: $mol_atom_force): any;
@@ -767,89 +889,6 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
-    class $mol_state_local<Value> extends $mol_object {
-        static 'native()': Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
-        static native(): Storage | {
-            getItem(key: string): any;
-            setItem(key: string, value: string): void;
-            removeItem(key: string): void;
-        };
-        static value<Value>(key: string, next?: Value, force?: $mol_atom_force): Value;
-        prefix(): string;
-        value(key: string, next?: Value): Value;
-    }
-}
-declare namespace $ {
-}
-declare namespace $ {
-    function $mol_const<Value>(value: Value): {
-        (): Value;
-        '()': Value;
-    };
-}
-declare namespace $ {
-    function $mol_maybe<Value>(value: Value | null | undefined): Value[];
-}
-declare namespace $ {
-    class $mol_http extends $mol_object {
-        static resource(uri: string): $mol_http;
-        static resource_absolute(uri: string): $mol_http;
-        uri(): string;
-        method_get(): string;
-        method_put(): string;
-        credentials(): {
-            login?: string;
-            password?: string;
-        };
-        headers(): {};
-        response_type(): '' | 'text' | 'document' | 'json' | 'blob' | 'arraybuffer';
-        'request()': XMLHttpRequest;
-        request(): XMLHttpRequest;
-        destructor(): void;
-        response(next?: any, force?: $mol_atom_force): XMLHttpRequest;
-        text(next?: string, force?: $mol_atom_force): string;
-        xml(next?: string, force?: $mol_atom_force): Document;
-        json<Content>(next?: Content, force?: $mol_atom_force): Content;
-    }
-}
-declare namespace $ {
-    function $mol_deprecated<Host, Method extends Function>(message: string): (host: Host, field: string, descr: TypedPropertyDescriptor<Method>) => void;
-}
-declare namespace $ {
-    class $mol_http_resource extends $mol_http {
-        static item(uri: string): $mol_http;
-    }
-    class $mol_http_resource_json {
-        static item(uri: string): $mol_http;
-    }
-}
-declare namespace $ {
-    class $mol_file extends $mol_object {
-        static absolute(path: string): $mol_file;
-        static relative(path: string): $mol_file;
-        static base: string;
-        path(): string;
-        parent(): $mol_file;
-        name(): string;
-        ext(): string;
-        content(next?: string, force?: $mol_atom_force): string;
-        resolve(path: string): $mol_file;
-        relate(base?: $mol_file): void;
-    }
-}
-declare namespace $ {
-    interface $mol_locale_dict {
-        [key: string]: string;
-    }
-    class $mol_locale extends $mol_object {
-        static lang_default(): string;
-        static lang(next?: string): string;
-        static source(lang: string): any;
-        static texts(lang: string, next?: $mol_locale_dict): $mol_locale_dict;
-        static text(key: string): string;
-    }
-}
-declare namespace $ {
     class $mpk_tss_software extends $mpk_tss_wrap {
         self_title(): string;
     }
@@ -879,40 +918,6 @@ declare namespace $ {
 declare namespace $.$$ {
     class $mol_check extends $.$mol_check {
         event_click(next?: Event): void;
-    }
-}
-declare namespace $ {
-    class $mol_svg extends $mol_view {
-        dom_name(): string;
-        dom_name_space(): string;
-    }
-}
-declare namespace $ {
-    class $mol_svg_root extends $mol_svg {
-        dom_name(): string;
-        attr(): {
-            "viewBox": string;
-            "preserveAspectRatio": string;
-        };
-        view_box(): string;
-        aspect(): string;
-    }
-}
-declare namespace $ {
-    class $mol_svg_path extends $mol_svg {
-        dom_name(): string;
-        attr(): {
-            "d": string;
-        };
-        geometry(): string;
-    }
-}
-declare namespace $ {
-    class $mol_icon extends $mol_svg_root {
-        view_box(): string;
-        sub(): any[];
-        Path(): $mol_svg_path;
-        path(): string;
     }
 }
 declare namespace $ {
@@ -1361,10 +1366,10 @@ declare namespace $ {
         sub(): any[];
         Filter_title(): $mol_search;
         filter_title(val?: any, force?: $mol_atom_force): any;
+        unit_current(): any;
         body(): any[];
         Units(): $mol_list;
         unit_cards(): any[];
-        unit_current(): any;
         Unit_details(index: any): $mol_page;
         Details_close(): $mol_link;
         Details_close_icon(): $mol_icon_cross;
@@ -1398,6 +1403,7 @@ declare namespace $ {
         Footer(): $mol_view;
         Status_text(): $mol_view;
         Refresh_action(): $mol_button_minor;
+        refresh_click(event?: any, force?: $mol_atom_force): any;
         Refresh_icon(): $mpk_tss_icon_renew;
         Content(): $mol_row;
         Group(): $mol_row;
@@ -1456,12 +1462,14 @@ declare namespace $.$$ {
         };
         unit_id(index: any): string;
         unit_current(): any;
+        destructor(): void;
     }
     class $mpk_tss_pereferials_unit_card extends $.$mpk_tss_pereferials_unit_card {
         unit(): any;
         type(): any;
         element(): any;
         status(): any;
+        refresh_click(event: Event): void;
     }
 }
 declare namespace $ {
@@ -1775,12 +1783,24 @@ declare namespace $ {
     }
 }
 declare namespace $ {
-    class $mpk_tss_icon_signout extends $mol_icon {
-        path(): string;
+    class $mpk_tss extends $mol_view {
+        sub(): any[];
+        Head(): $mol_view;
+        Terminal_link(): $mol_button_minor;
+        terminal_label(): string;
+        Second(): $mol_view;
+        user_info(): any;
+        Body(): $mpk_tss_main;
+        entered(v?: any, force?: $mol_atom_force): any;
+        logged_email(v?: any, force?: $mol_atom_force): any;
+        User_link(): $mol_button_minor;
+        logout_click(event?: any, force?: $mol_atom_force): any;
+        User_email(): $mol_view;
+        User_signout(): $mpk_tss_icon_signout;
     }
 }
 declare namespace $ {
-    class $mpk_tss extends $mol_book {
+    class $mpk_tss_main extends $mol_book {
         Menu_item(id: any): $mol_link;
         menu_page_arg(id: any): {};
         menu_page_title(id: any): string;
@@ -1798,6 +1818,10 @@ declare namespace $ {
         Enter(): $mpk_tss_enter;
         entered(val?: any, force?: $mol_atom_force): any;
         logged_email(v?: any, force?: $mol_atom_force): any;
+        breadcrumbs(): any[];
+        common_tools(): any[];
+        Details_close(): $mol_link;
+        Details_close_icon(): $mol_icon_cross;
         pages(): any[];
         Sidebar(): $mol_page;
         Logo(): $mol_image;
@@ -1807,21 +1831,17 @@ declare namespace $ {
         Foot_content(): $mol_row;
         Foot_text(): $mol_view;
         Summary(): $mpk_tss_summary;
-        breadcrumbs(): any[];
-        main_title(): string;
-        User_link(): $mol_button_minor;
-        logout_click(val?: any, force?: $mol_atom_force): any;
-        User_email(): $mol_view;
-        User_signout(): $mpk_tss_icon_signout;
-        common_tools(): any[];
-        Details_close(): $mol_link;
-        Details_close_icon(): $mol_icon_cross;
         Placeholder(): $mol_book_placeholder;
         Image(): $mol_image;
     }
 }
 declare namespace $.$$ {
     class $mpk_tss extends $.$mpk_tss {
+        entered(next?: boolean): boolean;
+        logout_click(): void;
+        user_info(): $mol_button_minor;
+    }
+    class $mpk_tss_main extends $.$mpk_tss_main {
         menu_items(): $.$mol_link[];
         menu_page_arg(id: string): {
             page: string;
@@ -1829,7 +1849,5 @@ declare namespace $.$$ {
         menu_page_title(id: string): any;
         page_id(): string;
         pages(): any[];
-        entered(next?: boolean): boolean;
-        logout_click(): void;
     }
 }

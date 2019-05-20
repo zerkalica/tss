@@ -2,11 +2,10 @@
 	"$mol_search_hint": "Search...",
 	"$mol_select_hint": "Search..",
 	"$mol_select_no_options_message": "No options",
-	"$mpk_tss_Sidebar": "Logo and username",
 	"$mpk_tss_enter_loginLabel": "User name",
 	"$mpk_tss_enter_passwordLabel": "Password",
 	"$mpk_tss_enter_submitLabel": "Log In",
-	"$mpk_tss_main_title": "Terminal № 1238798",
+	"$mpk_tss_main_Sidebar": "Logo and username",
 	"$mpk_tss_pereferials_self_title": "Pereferials",
 	"$mpk_tss_pereferials_unit_card_element_title": "Element",
 	"$mpk_tss_pereferials_unit_card_type_title": "Type",
@@ -26,5 +25,6 @@
 	"$mpk_tss_summary_Sensors": "Sensors",
 	"$mpk_tss_summary_Software": "Software",
 	"$mpk_tss_summary_log_title": "Show log ...",
-	"$mpk_tss_summary_self_title": "Summary"
+	"$mpk_tss_summary_self_title": "Summary",
+	"$mpk_tss_terminal_label": "Terminal № 123"
 }

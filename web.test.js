@@ -905,27 +905,6 @@ var $;
 //view.test.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    $.$mol_test_mocks.push(context => {
-        class $mol_state_arg_mock extends $.$mol_state_arg {
-            static href(next) { return next || ''; }
-        }
-        __decorate([
-            $.$mol_mem
-        ], $mol_state_arg_mock, "href", null);
-        context.$mol_state_arg = $mol_state_arg_mock;
-    });
-})($ || ($ = {}));
-//arg.mock.test.js.map
-;
-"use strict";
 var $;
 (function ($) {
     var $$;
@@ -958,25 +937,6 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //button.test.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_test({
-        'null by default'() {
-            const key = String(Math.random());
-            $.$mol_assert_equal($.$mol_state_session.value(key), null);
-        },
-        'storing'() {
-            const key = String(Math.random());
-            $.$mol_state_session.value(key, '$mol_state_session_test');
-            $.$mol_assert_equal($.$mol_state_session.value(key), '$mol_state_session_test');
-            $.$mol_state_session.value(key, null);
-            $.$mol_assert_equal($.$mol_state_session.value(key), null);
-        },
-    });
-})($ || ($ = {}));
-//session.test.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1043,6 +1003,46 @@ var $;
     });
 })($ || ($ = {}));
 //maybe.test.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    $.$mol_test_mocks.push(context => {
+        class $mol_state_arg_mock extends $.$mol_state_arg {
+            static href(next) { return next || ''; }
+        }
+        __decorate([
+            $.$mol_mem
+        ], $mol_state_arg_mock, "href", null);
+        context.$mol_state_arg = $mol_state_arg_mock;
+    });
+})($ || ($ = {}));
+//arg.mock.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'null by default'() {
+            const key = String(Math.random());
+            $.$mol_assert_equal($.$mol_state_session.value(key), null);
+        },
+        'storing'() {
+            const key = String(Math.random());
+            $.$mol_state_session.value(key, '$mol_state_session_test');
+            $.$mol_assert_equal($.$mol_state_session.value(key), '$mol_state_session_test');
+            $.$mol_state_session.value(key, null);
+            $.$mol_assert_equal($.$mol_state_session.value(key), null);
+        },
+    });
+})($ || ($ = {}));
+//session.test.js.map
 ;
 "use strict";
 var $;

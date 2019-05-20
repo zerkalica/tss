@@ -174,6 +174,74 @@
 	background: none;
 }
 
+[mol_button] {
+	border: none;
+	font: inherit;
+	background-color: none;
+	display: inline-flex;
+	flex-shrink: 0;
+	text-decoration: inherit;
+	cursor: inherit;
+	position: relative;
+	box-sizing: border-box;
+	word-break: normal;
+	cursor: default;
+}
+
+[mol_button]:focus {
+	outline: none;
+}
+
+[mol_button_typed] {
+	justify-content: center;
+	align-content: center;
+	align-items: center;
+	vertical-align: middle;
+	text-align: center;
+	padding: .5rem 1rem;
+	border-radius: 2px;
+	border-radius: var(--mol_skin_round);
+}
+
+[mol_button_typed][disabled] {
+	color: var(--mol_theme_text);
+	color: var(--mol_theme_text);
+	pointer-events: none;
+}
+
+[mol_button_minor] {
+	color: var(--mol_theme_control);
+	color: var(--mol_theme_control);
+}
+
+[mol_button_major][disabled] {
+	opacity: .5;
+}
+
+[mol_button_typed]:hover ,
+[mol_button_typed]:focus {
+	cursor: pointer;
+	background-color: var(--mol_theme_hover);
+	background-color: var(--mol_theme_hover);
+}
+
+[mol_svg_root] {
+	overflow: hidden;
+}
+
+[mol_icon] {
+	fill: currentColor;
+	width: 1em;
+	height: 1em;
+	flex: 0 0 auto;
+	vertical-align: -.1em;
+	will-change: transform;
+}
+
+:hover > [mol_icon] {
+	transform: scale(1.2);
+}
+
 [mol_book] {
 	display: flex;
 	flex-flow: row nowrap;
@@ -284,57 +352,6 @@
 
 [mol_link]:focus {
 	outline: none;
-}
-
-[mol_button] {
-	border: none;
-	font: inherit;
-	background-color: none;
-	display: inline-flex;
-	flex-shrink: 0;
-	text-decoration: inherit;
-	cursor: inherit;
-	position: relative;
-	box-sizing: border-box;
-	word-break: normal;
-	cursor: default;
-}
-
-[mol_button]:focus {
-	outline: none;
-}
-
-[mol_button_typed] {
-	justify-content: center;
-	align-content: center;
-	align-items: center;
-	vertical-align: middle;
-	text-align: center;
-	padding: .5rem 1rem;
-	border-radius: 2px;
-	border-radius: var(--mol_skin_round);
-}
-
-[mol_button_typed][disabled] {
-	color: var(--mol_theme_text);
-	color: var(--mol_theme_text);
-	pointer-events: none;
-}
-
-[mol_button_minor] {
-	color: var(--mol_theme_control);
-	color: var(--mol_theme_control);
-}
-
-[mol_button_major][disabled] {
-	opacity: .5;
-}
-
-[mol_button_typed]:hover ,
-[mol_button_typed]:focus {
-	cursor: pointer;
-	background-color: var(--mol_theme_hover);
-	background-color: var(--mol_theme_hover);
 }
 
 [mol_scroll] {
@@ -471,7 +488,8 @@
 
 [mpk_tss_wrap] {
 	flex: 1000 1 400px;
-	box-shadow: none;
+
+	/* box-shadow: none; */
 }
 
 [mpk_tss_wrap_body] {
@@ -539,23 +557,6 @@
 	padding: .5rem;
 	display: inline-flex;
 	flex-wrap: nowrap;
-}
-
-[mol_svg_root] {
-	overflow: hidden;
-}
-
-[mol_icon] {
-	fill: currentColor;
-	width: 1em;
-	height: 1em;
-	flex: 0 0 auto;
-	vertical-align: -.1em;
-	will-change: transform;
-}
-
-:hover > [mol_icon] {
-	transform: scale(1.2);
 }
 
 [mol_check_box_icon] {
@@ -1391,27 +1392,52 @@
 [mpk_tss] {
 
 	/* box-shadow: none; */
+	flex-direction: column;
+	display: flex;
 }
 
-[mpk_tss_body_content] {
+[mpk_tss_terminal_link],
+[mpk_tss_user_link] {
+	padding: 0.3rem 1rem;
+}
+
+[mpk_tss_head] {
+	max-width: 1024px;
+	display: flex;
+
+	/* justify-content: space-between; */
+	align-items: center;
+	flex-wrap: wrap;
+	padding: 0 0rem;
+}
+
+[mpk_tss_user_signout] {
+	padding-left: 0.5rem;
+}
+
+[mpk_tss_body] {
+	flex: 1000 1 auto;
+}
+
+[mpk_tss_main_body_content] {
 	height: 100%;
 }
 
-[mpk_tss_placeholder] {
+[mpk_tss_main_placeholder] {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
 
-[mpk_tss_foot_content] {
+[mpk_tss_main_foot_content] {
 	justify-content: space-between;
 }
 
-[mpk_tss_foot_text] {
+[mpk_tss_main_foot_text] {
 	max-width: 20rem;
 }
 
-[mpk_tss_logo] {
+[mpk_tss_main_logo] {
 	color: white;
 	box-shadow: none;
 	height: 2.5rem;
@@ -1419,32 +1445,32 @@
 	flex: none;
 }
 
-[mpk_tss_sidebar] {
+[mpk_tss_main_sidebar] {
 	flex: 1 0 auto;
 	background-color: var(--mol_theme_line);
 	background-color: var(--mol_theme_line);
 }
 
-[mpk_tss_sidebar_foot] {
+[mpk_tss_main_sidebar_foot] {
 	background-color: inherit;
 	font-size: 0.9rem;
 	color: var(--mol_theme_shade);
 	color: var(--mol_theme_shade);
 }
 
-[mpk_tss_menu] {
+[mpk_tss_main_menu] {
 	padding: .5rem 0 0;
 	display: flex;
 	flex-direction: column;
 }
 
-[mpk_tss_image] {
+[mpk_tss_main_image] {
 	width: 25%;
 	box-shadow: none;
 	opacity: .25;
 }
 
-[mpk_tss_user_email] {
+[mpk_tss_main_user_email] {
 	margin-right: 0.5rem;
 }
 

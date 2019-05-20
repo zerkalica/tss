@@ -1,3 +1,57 @@
+$mol_button $mol_view
+	enabled true
+	minimal_height 40
+	click?event null
+	event_click?event null
+	event *
+		^
+		click?event <=> event_activate?event null
+		keypress?event <=> event_key_press?event null 
+	attr *
+		^
+		disabled <= disabled false
+		role \button
+		tabindex <= tab_index 0
+		title <= hint \
+	sub /
+		<= title
+
+$mol_button_typed $mol_button
+
+$mol_button_major $mol_button_typed
+	attr *
+		^
+		mol_theme \$mol_theme_accent
+
+$mol_button_minor $mol_button_typed
+
+$mol_svg $mol_view
+	dom_name \svg
+	dom_name_space \http://www.w3.org/2000/svg
+
+
+$mol_svg_root $mol_svg
+	dom_name \svg
+	attr *
+		^
+		viewBox <= view_box \0 0 100 100
+		preserveAspectRatio <= aspect \xMidYMid
+
+$mol_svg_path $mol_svg
+	dom_name \path
+	attr *
+		^
+		d <= geometry \
+
+
+$mol_icon $mol_svg_root
+	view_box \0 0 24 24
+	sub /
+		<= Path $mol_svg_path
+			geometry <= path \
+
+$mpk_tss_icon_signout $mol_icon path \M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z
+
 $mol_plugin $mol_object
 	dom_node null
 	attr_static *
@@ -103,33 +157,6 @@ $mol_link $mol_view
 		^
 		click?event <=> click?event <=> event_click?event null
 
-$mol_button $mol_view
-	enabled true
-	minimal_height 40
-	click?event null
-	event_click?event null
-	event *
-		^
-		click?event <=> event_activate?event null
-		keypress?event <=> event_key_press?event null 
-	attr *
-		^
-		disabled <= disabled false
-		role \button
-		tabindex <= tab_index 0
-		title <= hint \
-	sub /
-		<= title
-
-$mol_button_typed $mol_button
-
-$mol_button_major $mol_button_typed
-	attr *
-		^
-		mol_theme \$mol_theme_accent
-
-$mol_button_minor $mol_button_typed
-
 $mol_scroll $mol_view
 	minimal_height 0
 	moving_hor?val false
@@ -210,31 +237,6 @@ $mol_check $mol_button_minor
 			<= Title $mol_view
 				sub /
 					<= title \
-
-$mol_svg $mol_view
-	dom_name \svg
-	dom_name_space \http://www.w3.org/2000/svg
-
-
-$mol_svg_root $mol_svg
-	dom_name \svg
-	attr *
-		^
-		viewBox <= view_box \0 0 100 100
-		preserveAspectRatio <= aspect \xMidYMid
-
-$mol_svg_path $mol_svg
-	dom_name \path
-	attr *
-		^
-		d <= geometry \
-
-
-$mol_icon $mol_svg_root
-	view_box \0 0 24 24
-	sub /
-		<= Path $mol_svg_path
-			geometry <= path \
 
 $mol_icon_tick $mol_icon path \M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z
 
@@ -489,10 +491,12 @@ $mpk_tss_pereferials $mpk_tss_wrap
 		<= Filter_title $mol_search
 			query?val <=> filter_title?val \
 		<= Body
+	unit_current null
 	body /
-		<= Units $mol_list rows /
-			<= unit_cards /
-		<= unit_current null
+		<= Units $mol_list
+			destructor <= destructor
+			rows /
+				<= unit_cards /
 	Unit_details!index $mol_page
 		title \Unit
 		minimal_width 400
@@ -529,6 +533,7 @@ $mpk_tss_pereferials_unit_card $mol_card
 			<= Status_text $mol_view
 				sub / <= status \
 			<= Refresh_action $mol_button_minor
+				event_click?event <=> refresh_click?event null
 				sub / <= Refresh_icon $mpk_tss_icon_renew
 	Content <= Group $mol_row
 		sub /
@@ -760,9 +765,28 @@ $mpk_tss_summary_item $mol_link
 		<= Status $mpk_tss_status
 			type <= type
 
-$mpk_tss_icon_signout $mol_icon path \M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z
+$mpk_tss $mol_view
+	sub /
+		<= Head $mol_view
+			sub /
+				<= Terminal_link $mol_button_minor
+					enabled false
+					sub /
+						<= terminal_label @ \Terminal № 123
+				<= Second $mol_view sub /
+					<= user_info null
+		<= Body $mpk_tss_main
+			entered?v <=> entered?v false
+			logged_email?v <=> logged_email?v \
+	User_link $mol_button_minor
+		event_click?event <=> logout_click?event null
+		sub /
+			<= User_email $mol_view
+				sub /
+					<= logged_email
+			<= User_signout $mpk_tss_icon_signout
 
-$mpk_tss $mol_book
+$mpk_tss_main $mol_book
 	Menu_item!id $mol_link
 		arg <= menu_page_arg!id *
 		title <= menu_page_title!id \
@@ -787,6 +811,11 @@ $mpk_tss $mol_book
 	Enter $mpk_tss_enter
 		entered?val <=> entered?val false
 		login?v <=> logged_email?v \
+	breadcrumbs /
+	common_tools /
+		<= Details_close $mol_link
+			arg * page null
+			sub / <= Details_close_icon $mol_icon_cross
 	pages /
 		<= Sidebar $mol_page
 			head /
@@ -807,24 +836,9 @@ $mpk_tss $mol_book
 								\© 2019 MPK Software, Russia
 		<= Summary $mpk_tss_summary
 			breadcrumbs / <= breadcrumbs
-			tools / <= User_link
 			event_top?event <=> event_front_up?event
 		<= menu_pages
 		<= details
-	breadcrumbs /
-		<= main_title @ \Terminal № 1238798
-	User_link $mol_button_minor
-		event_click?val <=> logout_click?val null
-		sub /
-			<= User_email $mol_view
-				sub /
-					<= logged_email
-			<= User_signout $mpk_tss_icon_signout
-	common_tools /
-		<= User_link
-		<= Details_close $mol_link
-			arg * page null
-			sub / <= Details_close_icon $mol_icon_cross
 	Placeholder $mol_book_placeholder
 		title <= title
 		sub /
