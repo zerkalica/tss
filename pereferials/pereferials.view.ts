@@ -87,6 +87,61 @@ namespace $.$$ {
 						},
 					],
 				},
+				{
+					id: '4',
+					type: 'AVR',
+					element: 'AVR Electricity system N4',
+					status: 'ready',
+					paremeters: [
+						{
+							name: 'State',
+							value: 'ready',
+							update: new Date().toString(),
+						},
+						{
+							name: 'Voltage',
+							value: 12,
+							update: new Date().toString(),
+						},
+					],
+				},
+				{
+					id: '5',
+					type: 'AVR',
+					element: 'AVR Electricity system N1',
+					status: 'ready',
+					paremeters: [
+						{
+							name: 'State',
+							value: 'ready',
+							update: new Date().toString(),
+						},
+						{
+							name: 'Voltage',
+							value: 12,
+							update: new Date().toString(),
+						},
+					],
+				},
+				{
+					id: '6',
+					type: 'AVR',
+					element: 'AVR Electricity system N1',
+					status: 'ready',
+					paremeters: [
+						{
+							name: 'State',
+							value: 'ready',
+							update: new Date().toString(),
+						},
+						{
+							name: 'Voltage',
+							value: 12,
+							update: new Date().toString(),
+						},
+					],
+				},
+
 			]
 		}
 

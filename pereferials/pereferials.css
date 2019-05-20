@@ -48,7 +48,10 @@
 	--mol_theme_line: hsl(29, 50%, 50%);
 }
 
-
 [mpk_tss_pereferials_unit_details] {
 	flex: 1000 1 600px;
+}
+
+[mpk_tss_pereferials_body] {
+	overflow-y: scroll;
 }

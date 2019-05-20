@@ -1,5 +1,5 @@
 [mpk_tss] {
-	box-shadow: none;
+	/* box-shadow: none; */
 }
 [mpk_tss_body_content] {
 	height: 100%;
@@ -27,6 +27,7 @@
 }
 
 [mpk_tss_sidebar] {
+	flex: 1 0 auto;
 	background-color: var(--mol_theme_line);
 }
 
