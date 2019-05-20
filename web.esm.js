@@ -1634,6 +1634,381 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var $;
 (function ($) {
+    class $mol_scroll extends $.$mol_view {
+        minimal_height() {
+            return 0;
+        }
+        moving_hor(val, force) {
+            return (val !== void 0) ? val : false;
+        }
+        moving_vert(val, force) {
+            return (val !== void 0) ? val : false;
+        }
+        field() {
+            return (Object.assign({}, super.field(), { "scrollTop": this.scroll_top(), "scrollLeft": this.scroll_left(), "scrollBottom": this.scroll_bottom(), "scrollRight": this.scroll_right() }));
+        }
+        scroll_top(val, force) {
+            return (val !== void 0) ? val : 0;
+        }
+        scroll_left(val, force) {
+            return (val !== void 0) ? val : 0;
+        }
+        scroll_bottom(val, force) {
+            return (val !== void 0) ? val : 0;
+        }
+        scroll_right(val, force) {
+            return (val !== void 0) ? val : 0;
+        }
+        event_async() {
+            return (Object.assign({}, super.event_async(), { "scroll": (event) => this.event_scroll(event) }));
+        }
+        event_scroll(event, force) {
+            return (event !== void 0) ? event : null;
+        }
+        Strut() {
+            return ((obj) => {
+                obj.style = () => ({
+                    "transform": this.strut_transform(),
+                });
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        strut_transform() {
+            return "";
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_scroll.prototype, "moving_hor", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_scroll.prototype, "moving_vert", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_scroll.prototype, "scroll_top", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_scroll.prototype, "scroll_left", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_scroll.prototype, "scroll_bottom", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_scroll.prototype, "scroll_right", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_scroll.prototype, "event_scroll", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_scroll.prototype, "Strut", null);
+    $.$mol_scroll = $mol_scroll;
+})($ || ($ = {}));
+//scroll.view.tree.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        function $mol_scroll_top() {
+            return 0;
+        }
+        $$.$mol_scroll_top = $mol_scroll_top;
+        function $mol_scroll_left() {
+            return 0;
+        }
+        $$.$mol_scroll_left = $mol_scroll_left;
+        function $mol_scroll_moving() {
+            return false;
+        }
+        $$.$mol_scroll_moving = $mol_scroll_moving;
+        function $mol_scroll_moving_vert() {
+            return false;
+        }
+        $$.$mol_scroll_moving_vert = $mol_scroll_moving_vert;
+        function $mol_scroll_moving_hor() {
+            return false;
+        }
+        $$.$mol_scroll_moving_hor = $mol_scroll_moving_hor;
+        class $mol_scroll extends $.$mol_scroll {
+            constructor() {
+                super(...arguments);
+                this._moving_task_timer = null;
+            }
+            scroll_bottom(next) {
+                return next || 0;
+            }
+            scroll_right(next) {
+                return next || 0;
+            }
+            event_scroll(next) {
+                this.moving_vert(this.scroll_top() !== this.dom_node().scrollTop);
+                this.moving_hor(this.scroll_left() !== this.dom_node().scrollLeft);
+                this.moving_task_stop();
+                new $.$mol_defer($.$mol_log_group(`${this}.event_scroll()`, () => {
+                    const el = this.dom_node();
+                    const top = Math.max(0, el.scrollTop);
+                    const left = Math.max(0, el.scrollLeft);
+                    this.scroll_top(top);
+                    this.scroll_left(left);
+                    this.scroll_bottom(Math.max(0, el.scrollHeight - top - el.offsetHeight));
+                    this.scroll_right(Math.max(0, el.scrollWidth - left - el.offsetWidth));
+                }));
+            }
+            event_repos(next) {
+                new $.$mol_defer(() => {
+                    const el = this.dom_node();
+                    this.scroll_bottom(Math.max(0, el.scrollHeight - this.scroll_top() - el.offsetHeight));
+                    this.scroll_right(Math.max(0, el.scrollWidth - this.scroll_left() - el.offsetWidth));
+                });
+            }
+            moving_task_stop() {
+                clearTimeout(this._moving_task_timer);
+                this._moving_task_timer = setTimeout($.$mol_log_group(`${this}.moving_task_stop()`, () => {
+                    this.moving_vert(false);
+                    this.moving_hor(false);
+                }), 50);
+            }
+            moving() {
+                return this.moving_hor() || this.moving_vert();
+            }
+            context_sub() {
+                return this.$.$mol_ambient({
+                    $mol_view_visible_height: () => {
+                        const sizeWin = $.$mol_window.size();
+                        const limit = this.$.$mol_view_visible_height();
+                        return this.scroll_top() + Math.min(sizeWin.height, limit);
+                    },
+                    $mol_view_visible_width: () => {
+                        const sizeWin = $.$mol_window.size();
+                        const limit = this.$.$mol_view_visible_width();
+                        return this.scroll_left() + Math.min(sizeWin.width, limit);
+                    },
+                    $mol_scroll_top: () => this.scroll_top(),
+                    $mol_scroll_left: () => this.scroll_left(),
+                    $mol_scroll_moving: () => this.moving(),
+                    $mol_scroll_moving_vert: () => this.moving_vert(),
+                    $mol_scroll_moving_hor: () => this.moving_hor(),
+                });
+            }
+            strut_transform() {
+                try {
+                    return `translate3d( 0 , ${this.content_height()}px , 0 )`;
+                }
+                catch (error) {
+                    return '';
+                }
+            }
+            sub_visible() {
+                const sub = [
+                    this.Strut(),
+                    ...(this.sub() || []),
+                ];
+                const context = this.context_sub();
+                sub.forEach(child => {
+                    if (child instanceof $.$mol_view) {
+                        child.$ = context;
+                    }
+                });
+                return sub;
+            }
+        }
+        __decorate([
+            $.$mol_mem
+        ], $mol_scroll.prototype, "scroll_bottom", null);
+        __decorate([
+            $.$mol_mem
+        ], $mol_scroll.prototype, "scroll_right", null);
+        __decorate([
+            $.$mol_mem
+        ], $mol_scroll.prototype, "context_sub", null);
+        $$.$mol_scroll = $mol_scroll;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//scroll.view.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mol_state_session extends $.$mol_object {
+        static native() {
+            if (this['native()'])
+                return this['native()'];
+            check: try {
+                const native = $.$mol_dom_context.sessionStorage;
+                if (!native)
+                    break check;
+                native.setItem('', '');
+                native.removeItem('');
+                return this['native()'] = native;
+            }
+            catch (error) {
+                console.warn(error);
+            }
+            return this['native()'] = {
+                getItem(key) {
+                    return this[':' + key];
+                },
+                setItem(key, value) {
+                    this[':' + key] = value;
+                },
+                removeItem(key) {
+                    this[':' + key] = void 0;
+                }
+            };
+        }
+        static value(key, next) {
+            if (next === void 0)
+                return JSON.parse(this.native().getItem(key) || 'null');
+            if (next === null)
+                this.native().removeItem(key);
+            else
+                this.native().setItem(key, JSON.stringify(next));
+            return next;
+        }
+        prefix() { return ''; }
+        value(key, next) {
+            return $mol_state_session.value(this.prefix() + '.' + key, next);
+        }
+    }
+    __decorate([
+        $.$mol_mem_key
+    ], $mol_state_session, "value", null);
+    $.$mol_state_session = $mol_state_session;
+})($ || ($ = {}));
+//session.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mol_page extends $.$mol_view {
+        sub() {
+            return [].concat(this.Head(), this.Body(), this.Foot());
+        }
+        Head() {
+            return ((obj) => {
+                obj.attr = () => ({
+                    "mol_theme": "$mol_theme_base",
+                });
+                obj.sub = () => this.head();
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        head() {
+            return [].concat(this.Title(), this.Tools());
+        }
+        Title() {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.title());
+                obj.event_click = (val) => this.event_top(val);
+                return obj;
+            })(new this.$.$mol_button);
+        }
+        event_top(val, force) {
+            return (val !== void 0) ? val : null;
+        }
+        Tools() {
+            return ((obj) => {
+                obj.sub = () => this.tools();
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        tools() {
+            return [];
+        }
+        Body() {
+            return ((obj) => {
+                obj.scroll_top = (val) => this.body_scroll_top(val);
+                obj.sub = () => this.body();
+                return obj;
+            })(new this.$.$mol_scroll);
+        }
+        body_scroll_top(val, force) {
+            return (val !== void 0) ? val : 0;
+        }
+        body() {
+            return [];
+        }
+        Foot() {
+            return ((obj) => {
+                obj.attr = () => ({
+                    "mol_theme": "$mol_theme_base",
+                });
+                obj.sub = () => this.foot();
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        foot() {
+            return [];
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_page.prototype, "Head", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_page.prototype, "Title", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_page.prototype, "event_top", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_page.prototype, "Tools", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_page.prototype, "Body", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_page.prototype, "body_scroll_top", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_page.prototype, "Foot", null);
+    $.$mol_page = $mol_page;
+})($ || ($ = {}));
+//page.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_page extends $.$mol_page {
+            body_scroll_top(next) {
+                return $.$mol_state_session.value(`${this}.body_scroll_top()`, next) || 0;
+            }
+        }
+        $$.$mol_page = $mol_page;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//page.view.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
     class $mol_state_local extends $.$mol_object {
         static native() {
             if (this['native()'])
@@ -1978,105 +2353,6 @@ var $;
     $.$mol_locale = $mol_locale;
 })($ || ($ = {}));
 //locale.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_svg extends $.$mol_view {
-        dom_name() {
-            return "svg";
-        }
-        dom_name_space() {
-            return "http://www.w3.org/2000/svg";
-        }
-    }
-    $.$mol_svg = $mol_svg;
-})($ || ($ = {}));
-//svg.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_svg_root extends $.$mol_svg {
-        dom_name() {
-            return "svg";
-        }
-        attr() {
-            return (Object.assign({}, super.attr(), { "viewBox": this.view_box(), "preserveAspectRatio": this.aspect() }));
-        }
-        view_box() {
-            return "0 0 100 100";
-        }
-        aspect() {
-            return "xMidYMid";
-        }
-    }
-    $.$mol_svg_root = $mol_svg_root;
-})($ || ($ = {}));
-//root.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_svg_path extends $.$mol_svg {
-        dom_name() {
-            return "path";
-        }
-        attr() {
-            return (Object.assign({}, super.attr(), { "d": this.geometry() }));
-        }
-        geometry() {
-            return "";
-        }
-    }
-    $.$mol_svg_path = $mol_svg_path;
-})($ || ($ = {}));
-//path.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_icon extends $.$mol_svg_root {
-        view_box() {
-            return "0 0 24 24";
-        }
-        sub() {
-            return [].concat(this.Path());
-        }
-        Path() {
-            return ((obj) => {
-                obj.geometry = () => this.path();
-                return obj;
-            })(new this.$.$mol_svg_path);
-        }
-        path() {
-            return "";
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_icon.prototype, "Path", null);
-    $.$mol_icon = $mol_icon;
-})($ || ($ = {}));
-//icon.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mpk_tss_icon_signout extends $.$mol_icon {
-        path() {
-            return "M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z";
-        }
-    }
-    $.$mpk_tss_icon_signout = $mpk_tss_icon_signout;
-})($ || ($ = {}));
-//signout.view.tree.js.map
 ;
 "use strict";
 var $;
@@ -3069,381 +3345,6 @@ var $;
 //link.view.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_scroll extends $.$mol_view {
-        minimal_height() {
-            return 0;
-        }
-        moving_hor(val, force) {
-            return (val !== void 0) ? val : false;
-        }
-        moving_vert(val, force) {
-            return (val !== void 0) ? val : false;
-        }
-        field() {
-            return (Object.assign({}, super.field(), { "scrollTop": this.scroll_top(), "scrollLeft": this.scroll_left(), "scrollBottom": this.scroll_bottom(), "scrollRight": this.scroll_right() }));
-        }
-        scroll_top(val, force) {
-            return (val !== void 0) ? val : 0;
-        }
-        scroll_left(val, force) {
-            return (val !== void 0) ? val : 0;
-        }
-        scroll_bottom(val, force) {
-            return (val !== void 0) ? val : 0;
-        }
-        scroll_right(val, force) {
-            return (val !== void 0) ? val : 0;
-        }
-        event_async() {
-            return (Object.assign({}, super.event_async(), { "scroll": (event) => this.event_scroll(event) }));
-        }
-        event_scroll(event, force) {
-            return (event !== void 0) ? event : null;
-        }
-        Strut() {
-            return ((obj) => {
-                obj.style = () => ({
-                    "transform": this.strut_transform(),
-                });
-                return obj;
-            })(new this.$.$mol_view);
-        }
-        strut_transform() {
-            return "";
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_scroll.prototype, "moving_hor", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_scroll.prototype, "moving_vert", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_scroll.prototype, "scroll_top", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_scroll.prototype, "scroll_left", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_scroll.prototype, "scroll_bottom", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_scroll.prototype, "scroll_right", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_scroll.prototype, "event_scroll", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_scroll.prototype, "Strut", null);
-    $.$mol_scroll = $mol_scroll;
-})($ || ($ = {}));
-//scroll.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        function $mol_scroll_top() {
-            return 0;
-        }
-        $$.$mol_scroll_top = $mol_scroll_top;
-        function $mol_scroll_left() {
-            return 0;
-        }
-        $$.$mol_scroll_left = $mol_scroll_left;
-        function $mol_scroll_moving() {
-            return false;
-        }
-        $$.$mol_scroll_moving = $mol_scroll_moving;
-        function $mol_scroll_moving_vert() {
-            return false;
-        }
-        $$.$mol_scroll_moving_vert = $mol_scroll_moving_vert;
-        function $mol_scroll_moving_hor() {
-            return false;
-        }
-        $$.$mol_scroll_moving_hor = $mol_scroll_moving_hor;
-        class $mol_scroll extends $.$mol_scroll {
-            constructor() {
-                super(...arguments);
-                this._moving_task_timer = null;
-            }
-            scroll_bottom(next) {
-                return next || 0;
-            }
-            scroll_right(next) {
-                return next || 0;
-            }
-            event_scroll(next) {
-                this.moving_vert(this.scroll_top() !== this.dom_node().scrollTop);
-                this.moving_hor(this.scroll_left() !== this.dom_node().scrollLeft);
-                this.moving_task_stop();
-                new $.$mol_defer($.$mol_log_group(`${this}.event_scroll()`, () => {
-                    const el = this.dom_node();
-                    const top = Math.max(0, el.scrollTop);
-                    const left = Math.max(0, el.scrollLeft);
-                    this.scroll_top(top);
-                    this.scroll_left(left);
-                    this.scroll_bottom(Math.max(0, el.scrollHeight - top - el.offsetHeight));
-                    this.scroll_right(Math.max(0, el.scrollWidth - left - el.offsetWidth));
-                }));
-            }
-            event_repos(next) {
-                new $.$mol_defer(() => {
-                    const el = this.dom_node();
-                    this.scroll_bottom(Math.max(0, el.scrollHeight - this.scroll_top() - el.offsetHeight));
-                    this.scroll_right(Math.max(0, el.scrollWidth - this.scroll_left() - el.offsetWidth));
-                });
-            }
-            moving_task_stop() {
-                clearTimeout(this._moving_task_timer);
-                this._moving_task_timer = setTimeout($.$mol_log_group(`${this}.moving_task_stop()`, () => {
-                    this.moving_vert(false);
-                    this.moving_hor(false);
-                }), 50);
-            }
-            moving() {
-                return this.moving_hor() || this.moving_vert();
-            }
-            context_sub() {
-                return this.$.$mol_ambient({
-                    $mol_view_visible_height: () => {
-                        const sizeWin = $.$mol_window.size();
-                        const limit = this.$.$mol_view_visible_height();
-                        return this.scroll_top() + Math.min(sizeWin.height, limit);
-                    },
-                    $mol_view_visible_width: () => {
-                        const sizeWin = $.$mol_window.size();
-                        const limit = this.$.$mol_view_visible_width();
-                        return this.scroll_left() + Math.min(sizeWin.width, limit);
-                    },
-                    $mol_scroll_top: () => this.scroll_top(),
-                    $mol_scroll_left: () => this.scroll_left(),
-                    $mol_scroll_moving: () => this.moving(),
-                    $mol_scroll_moving_vert: () => this.moving_vert(),
-                    $mol_scroll_moving_hor: () => this.moving_hor(),
-                });
-            }
-            strut_transform() {
-                try {
-                    return `translate3d( 0 , ${this.content_height()}px , 0 )`;
-                }
-                catch (error) {
-                    return '';
-                }
-            }
-            sub_visible() {
-                const sub = [
-                    this.Strut(),
-                    ...(this.sub() || []),
-                ];
-                const context = this.context_sub();
-                sub.forEach(child => {
-                    if (child instanceof $.$mol_view) {
-                        child.$ = context;
-                    }
-                });
-                return sub;
-            }
-        }
-        __decorate([
-            $.$mol_mem
-        ], $mol_scroll.prototype, "scroll_bottom", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_scroll.prototype, "scroll_right", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_scroll.prototype, "context_sub", null);
-        $$.$mol_scroll = $mol_scroll;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//scroll.view.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_state_session extends $.$mol_object {
-        static native() {
-            if (this['native()'])
-                return this['native()'];
-            check: try {
-                const native = $.$mol_dom_context.sessionStorage;
-                if (!native)
-                    break check;
-                native.setItem('', '');
-                native.removeItem('');
-                return this['native()'] = native;
-            }
-            catch (error) {
-                console.warn(error);
-            }
-            return this['native()'] = {
-                getItem(key) {
-                    return this[':' + key];
-                },
-                setItem(key, value) {
-                    this[':' + key] = value;
-                },
-                removeItem(key) {
-                    this[':' + key] = void 0;
-                }
-            };
-        }
-        static value(key, next) {
-            if (next === void 0)
-                return JSON.parse(this.native().getItem(key) || 'null');
-            if (next === null)
-                this.native().removeItem(key);
-            else
-                this.native().setItem(key, JSON.stringify(next));
-            return next;
-        }
-        prefix() { return ''; }
-        value(key, next) {
-            return $mol_state_session.value(this.prefix() + '.' + key, next);
-        }
-    }
-    __decorate([
-        $.$mol_mem_key
-    ], $mol_state_session, "value", null);
-    $.$mol_state_session = $mol_state_session;
-})($ || ($ = {}));
-//session.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_page extends $.$mol_view {
-        sub() {
-            return [].concat(this.Head(), this.Body(), this.Foot());
-        }
-        Head() {
-            return ((obj) => {
-                obj.attr = () => ({
-                    "mol_theme": "$mol_theme_base",
-                });
-                obj.sub = () => this.head();
-                return obj;
-            })(new this.$.$mol_view);
-        }
-        head() {
-            return [].concat(this.Title(), this.Tools());
-        }
-        Title() {
-            return ((obj) => {
-                obj.sub = () => [].concat(this.title());
-                obj.event_click = (val) => this.event_top(val);
-                return obj;
-            })(new this.$.$mol_button);
-        }
-        event_top(val, force) {
-            return (val !== void 0) ? val : null;
-        }
-        Tools() {
-            return ((obj) => {
-                obj.sub = () => this.tools();
-                return obj;
-            })(new this.$.$mol_view);
-        }
-        tools() {
-            return [];
-        }
-        Body() {
-            return ((obj) => {
-                obj.scroll_top = (val) => this.body_scroll_top(val);
-                obj.sub = () => this.body();
-                return obj;
-            })(new this.$.$mol_scroll);
-        }
-        body_scroll_top(val, force) {
-            return (val !== void 0) ? val : 0;
-        }
-        body() {
-            return [];
-        }
-        Foot() {
-            return ((obj) => {
-                obj.attr = () => ({
-                    "mol_theme": "$mol_theme_base",
-                });
-                obj.sub = () => this.foot();
-                return obj;
-            })(new this.$.$mol_view);
-        }
-        foot() {
-            return [];
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_page.prototype, "Head", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_page.prototype, "Title", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_page.prototype, "event_top", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_page.prototype, "Tools", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_page.prototype, "Body", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_page.prototype, "body_scroll_top", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_page.prototype, "Foot", null);
-    $.$mol_page = $mol_page;
-})($ || ($ = {}));
-//page.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_page extends $.$mol_page {
-            body_scroll_top(next) {
-                return $.$mol_state_session.value(`${this}.body_scroll_top()`, next) || 0;
-            }
-        }
-        $$.$mol_page = $mol_page;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//page.view.js.map
-;
-"use strict";
 var $;
 (function ($) {
     class $mol_filler extends $.$mol_view {
@@ -3616,6 +3517,93 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //check.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_svg extends $.$mol_view {
+        dom_name() {
+            return "svg";
+        }
+        dom_name_space() {
+            return "http://www.w3.org/2000/svg";
+        }
+    }
+    $.$mol_svg = $mol_svg;
+})($ || ($ = {}));
+//svg.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_svg_root extends $.$mol_svg {
+        dom_name() {
+            return "svg";
+        }
+        attr() {
+            return (Object.assign({}, super.attr(), { "viewBox": this.view_box(), "preserveAspectRatio": this.aspect() }));
+        }
+        view_box() {
+            return "0 0 100 100";
+        }
+        aspect() {
+            return "xMidYMid";
+        }
+    }
+    $.$mol_svg_root = $mol_svg_root;
+})($ || ($ = {}));
+//root.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_svg_path extends $.$mol_svg {
+        dom_name() {
+            return "path";
+        }
+        attr() {
+            return (Object.assign({}, super.attr(), { "d": this.geometry() }));
+        }
+        geometry() {
+            return "";
+        }
+    }
+    $.$mol_svg_path = $mol_svg_path;
+})($ || ($ = {}));
+//path.view.tree.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mol_icon extends $.$mol_svg_root {
+        view_box() {
+            return "0 0 24 24";
+        }
+        sub() {
+            return [].concat(this.Path());
+        }
+        Path() {
+            return ((obj) => {
+                obj.geometry = () => this.path();
+                return obj;
+            })(new this.$.$mol_svg_path);
+        }
+        path() {
+            return "";
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_icon.prototype, "Path", null);
+    $.$mol_icon = $mol_icon;
+})($ || ($ = {}));
+//icon.view.tree.js.map
 ;
 "use strict";
 var $;
@@ -5273,6 +5261,956 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var $;
 (function ($) {
+    class $mol_labeler extends $.$mol_view {
+        sub() {
+            return [].concat(this.Title(), this.Content());
+        }
+        Title() {
+            return ((obj) => {
+                obj.sub = () => this.label();
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        label() {
+            return [].concat(this.title());
+        }
+        Content() {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.content());
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        content() {
+            return null;
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_labeler.prototype, "Title", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_labeler.prototype, "Content", null);
+    $.$mol_labeler = $mol_labeler;
+})($ || ($ = {}));
+//labeler.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_time_base {
+        static formatter(pattern) {
+            if (this.patterns[pattern])
+                return this.patterns[pattern];
+            var tokens = Object.keys(this.patterns)
+                .sort()
+                .reverse()
+                .map((token) => token.replace(/([-+*.\[\]()\^])/g, '\\$1'));
+            var lexer = RegExp('(.*?)(' + tokens.join('|') + '|$)', 'g');
+            var funcs = [];
+            pattern.replace(lexer, (str, text, token) => {
+                if (text)
+                    funcs.push(() => text);
+                if (token)
+                    funcs.push(this.patterns[token]);
+                return str;
+            });
+            return this.patterns[pattern] = (arg) => {
+                return funcs.reduce((res, func) => res + func(arg), '');
+            };
+        }
+        toString(pattern) {
+            var Base = this.constructor;
+            var formatter = Base.formatter(pattern);
+            return formatter.call(Base, this);
+        }
+    }
+    $mol_time_base.patterns = {};
+    $.$mol_time_base = $mol_time_base;
+})($ || ($ = {}));
+//base.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_time_duration extends $.$mol_time_base {
+        constructor(config = 0) {
+            super();
+            this.year = 0;
+            this.month = 0;
+            this.day = 0;
+            this.hour = 0;
+            this.minute = 0;
+            this.second = 0;
+            if (typeof config === 'number') {
+                this.second = config / 1000;
+                return;
+            }
+            if (typeof config === 'string') {
+                if (config === 'Z') {
+                    this.hour = 0;
+                    this.minute = 0;
+                    return;
+                }
+                duration: {
+                    const parser = /^P(?:([+-]?\d+(?:\.\d+)?)Y)?(?:([+-]?\d+(?:\.\d+)?)M)?(?:([+-]?\d+(?:\.\d+)?)D)?(?:T(?:([+-]?\d+(?:\.\d+)?)h)?(?:([+-]?\d+(?:\.\d+)?)m)?(?:([+-]?\d+(?:\.\d+)?)s)?)?$/i;
+                    const found = parser.exec(config);
+                    if (!found)
+                        break duration;
+                    if (found[1])
+                        this.year = Number(found[1]);
+                    if (found[2])
+                        this.month = Number(found[2]);
+                    if (found[3])
+                        this.day = Number(found[3]);
+                    if (found[4])
+                        this.hour = Number(found[4]);
+                    if (found[5])
+                        this.minute = Number(found[5]);
+                    if (found[6])
+                        this.second = Number(found[6]);
+                    return;
+                }
+                offset: {
+                    var parser = /^[+-](\d\d)(?::?(\d\d))?$/i;
+                    var found = parser.exec(config);
+                    if (!found)
+                        break offset;
+                    if (found[1])
+                        this.hour = Number(found[1]);
+                    if (found[2])
+                        this.minute = Number(found[2]);
+                    return;
+                }
+                throw new Error(`Can not parse time duration (${config})`);
+            }
+            this.year = config.year || 0;
+            this.month = config.month || 0;
+            this.day = config.day || 0;
+            this.hour = config.hour || 0;
+            this.minute = config.minute || 0;
+            this.second = config.second || 0;
+        }
+        summ(config) {
+            const duration = new $mol_time_duration(config);
+            return new $mol_time_duration({
+                year: this.year + duration.year,
+                month: this.month + duration.month,
+                day: this.day + duration.day,
+                hour: this.hour + duration.hour,
+                minute: this.minute + duration.minute,
+                second: this.second + duration.second,
+            });
+        }
+        mult(numb) {
+            return new $mol_time_duration({
+                year: this.year && this.year * numb,
+                month: this.month && this.month * numb,
+                day: this.day && this.day * numb,
+                hour: this.hour && this.hour * numb,
+                minute: this.minute && this.minute * numb,
+                second: this.second && this.second * numb,
+            });
+        }
+        count(config) {
+            const duration = new $mol_time_duration(config);
+            return this.valueOf() / duration.valueOf();
+        }
+        valueOf() {
+            var day = this.year * 365 + this.month * 30.4 + this.day;
+            var second = ((day * 24 + this.hour) * 60 + this.minute) * 60 + this.second;
+            return second * 1000;
+        }
+        toJSON() { return this.toString(); }
+        toString(pattern = 'P#Y#M#DT#h#m#s') {
+            return super.toString(pattern);
+        }
+    }
+    $mol_time_duration.patterns = {
+        '#Y': (duration) => {
+            if (!duration.year)
+                return '';
+            return duration.year + 'Y';
+        },
+        '#M': (duration) => {
+            if (!duration.month)
+                return '';
+            return duration.month + 'M';
+        },
+        '#D': (duration) => {
+            if (!duration.day)
+                return '';
+            return duration.day + 'D';
+        },
+        '#h': (duration) => {
+            if (!duration.hour)
+                return '';
+            return duration.hour + 'H';
+        },
+        '#m': (duration) => {
+            if (!duration.minute)
+                return '';
+            return duration.minute + 'M';
+        },
+        '#s': (duration) => {
+            if (!duration.second)
+                return '';
+            return duration.second + 'S';
+        },
+        '+hh': (duration) => {
+            var hour = duration.hour;
+            var sign = '+';
+            if (hour < 0) {
+                sign = '-';
+                hour = -hour;
+            }
+            return (hour < 10)
+                ? (sign + '0' + hour)
+                : (sign + hour);
+        },
+        'mm': (duration) => {
+            return (duration.minute < 10)
+                ? ('0' + duration.minute)
+                : String(duration.minute);
+        },
+    };
+    $.$mol_time_duration = $mol_time_duration;
+})($ || ($ = {}));
+//duration.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_time_moment extends $.$mol_time_base {
+        constructor(config = new Date) {
+            super();
+            if (typeof config === 'number')
+                config = new Date(config);
+            if (typeof config === 'string') {
+                var parsed = /^(?:(\d\d\d\d)(?:-?(\d\d)(?:-?(\d\d))?)?)?(?:[T ](\d\d)(?::?(\d\d)(?::?(\d\d(?:\.\d\d\d)?))?)?(Z|[\+\-]\d\d(?::?(?:\d\d)?)?)?)?$/.exec(config);
+                if (!parsed)
+                    throw new Error(`Can not parse time moment (${config})`);
+                if (parsed[1])
+                    this.year = Number(parsed[1]);
+                if (parsed[2])
+                    this.month = Number(parsed[2]) - 1;
+                if (parsed[3])
+                    this.day = Number(parsed[3]) - 1;
+                if (parsed[4])
+                    this.hour = Number(parsed[4]);
+                if (parsed[5])
+                    this.minute = Number(parsed[5]);
+                if (parsed[6])
+                    this.second = Number(parsed[6]);
+                if (parsed[7])
+                    this.offset = new $.$mol_time_duration(parsed[7]);
+                return;
+            }
+            if (config instanceof Date) {
+                this.year = config.getFullYear();
+                this.month = config.getMonth();
+                this.day = config.getDate() - 1;
+                this.hour = config.getHours();
+                this.minute = config.getMinutes();
+                this.second = config.getSeconds() + config.getMilliseconds() / 1000;
+                var offset = -config.getTimezoneOffset();
+                this.offset = new $.$mol_time_duration({
+                    hour: (offset < 0) ? Math.ceil(offset / 60) : Math.floor(offset / 60),
+                    minute: offset % 60
+                });
+                return;
+            }
+            this.year = config.year;
+            this.month = config.month;
+            this.day = config.day;
+            this.hour = config.hour;
+            this.minute = config.minute;
+            this.second = config.second;
+            if (config.offset !== undefined)
+                this.offset = config.offset && new $.$mol_time_duration(config.offset);
+        }
+        get weekday() {
+            return (this.native.getDay() + 6) % 7;
+        }
+        get native() {
+            if (this._native)
+                return this._native;
+            var utc = this.toOffset('Z');
+            return this._native = new Date(Date.UTC((utc.year || 0), (utc.month || 0), (utc.day || 0) + 1, (utc.hour || 0), (utc.minute || 0), (utc.second && Math.floor(utc.second) || 0), (utc.second && Math.floor((utc.second - Math.floor(utc.second)) * 1000) || 0)));
+        }
+        get normal() {
+            if (this._normal)
+                return this._normal;
+            const moment = new $mol_time_moment(this.native);
+            return this._normal = new $mol_time_moment({
+                year: (this.year === undefined) ? undefined : moment.year,
+                month: (this.month === undefined) ? undefined : moment.month,
+                day: (this.day === undefined) ? undefined : moment.day,
+                hour: (this.hour === undefined) ? undefined : moment.hour,
+                minute: (this.minute === undefined) ? undefined : moment.minute,
+                second: (this.second === undefined) ? undefined : moment.second,
+                offset: (this.offset === undefined) ? undefined : moment.offset,
+            });
+        }
+        merge(config) {
+            var moment = new $mol_time_moment(config);
+            return new $mol_time_moment({
+                year: (moment.year === undefined) ? this.year : moment.year,
+                month: (moment.month === undefined) ? this.month : moment.month,
+                day: (moment.day === undefined) ? this.day : moment.day,
+                hour: (moment.hour === undefined) ? this.hour : moment.hour,
+                minute: (moment.minute === undefined) ? this.minute : moment.minute,
+                second: (moment.second === undefined) ? this.second : moment.second,
+                offset: (moment.offset === undefined) ? this.offset : moment.offset,
+            });
+        }
+        shift(config) {
+            var duration = new $.$mol_time_duration(config);
+            var moment = new $mol_time_moment().merge(this);
+            var second = (moment.second + (duration.second || 0));
+            var native = new Date(moment.year + (duration.year || 0), moment.month + (duration.month || 0), moment.day + 1 + (duration.day || 0), moment.hour + (duration.hour || 0), moment.minute + (duration.minute || 0), Math.floor(second), (second - Math.floor(second)) * 1000);
+            if (isNaN(native.valueOf()))
+                throw new Error('Wrong time');
+            return new $mol_time_moment({
+                year: (this.year === undefined) ? undefined : native.getFullYear(),
+                month: (this.month === undefined) ? undefined : native.getMonth(),
+                day: (this.day === undefined) ? undefined : native.getDate() - 1,
+                hour: (this.hour === undefined) ? undefined : native.getHours(),
+                minute: (this.minute === undefined) ? undefined : native.getMinutes(),
+                second: (this.second === undefined) ? undefined : native.getSeconds() + native.getMilliseconds() / 1000,
+                offset: this.offset,
+            });
+        }
+        toOffset(config) {
+            const duration = new $.$mol_time_duration(config);
+            const offset = this.offset || new $mol_time_moment().offset;
+            const moment = this.shift(duration.summ(offset.mult(-1)));
+            return moment.merge({ offset: duration });
+        }
+        valueOf() { return this.native.getTime(); }
+        toJSON() { return this.toString(); }
+        toString(pattern = 'YYYY-MM-DDThh:mm:ss.sssZ') {
+            return super.toString(pattern);
+        }
+    }
+    $mol_time_moment.patterns = {
+        'YYYY': (moment) => {
+            if (moment.year == null)
+                return '';
+            return String(moment.year);
+        },
+        'AD': (moment) => {
+            if (moment.year == null)
+                return '';
+            return String(Math.floor(moment.year / 100) + 1);
+        },
+        'YY': (moment) => {
+            if (moment.year == null)
+                return '';
+            return String(moment.year % 100);
+        },
+        'Month': (moment) => {
+            if (moment.month == null)
+                return '';
+            return moment.native.toLocaleString(undefined, { month: 'long' });
+        },
+        'DD Month': (moment) => {
+            return moment.native.toLocaleString(undefined, { day: '2-digit', month: 'long' });
+        },
+        'D Month': (moment) => {
+            return moment.native.toLocaleString(undefined, { day: 'numeric', month: 'long' });
+        },
+        'Mon': (moment) => {
+            if (moment.month == null)
+                return '';
+            return moment.native.toLocaleString(undefined, { month: 'short' });
+        },
+        'DD Mon': (moment) => {
+            return moment.native.toLocaleString(undefined, { day: '2-digit', month: 'short' });
+        },
+        'D Mon': (moment) => {
+            return moment.native.toLocaleString(undefined, { day: 'numeric', month: 'short' });
+        },
+        '-MM': (moment) => {
+            if (moment.month == null)
+                return '';
+            return '-' + $mol_time_moment.patterns['MM'](moment);
+        },
+        'MM': (moment) => {
+            if (moment.month == null)
+                return '';
+            var month = moment.month + 1;
+            return (month < 10)
+                ? ('0' + month)
+                : ('' + month);
+        },
+        'M': (moment) => {
+            if (moment.month == null)
+                return '';
+            return String(moment.month + 1);
+        },
+        'WeekDay': (moment) => {
+            if (moment.weekday == null)
+                return '';
+            return moment.native.toLocaleString(undefined, { weekday: 'long' });
+        },
+        'WD': (moment) => {
+            if (moment.weekday == null)
+                return '';
+            return moment.native.toLocaleString(undefined, { weekday: 'short' });
+        },
+        '-DD': (moment) => {
+            if (moment.day == null)
+                return '';
+            return '-' + $mol_time_moment.patterns['DD'](moment);
+        },
+        'DD': (moment) => {
+            if (moment.day == null)
+                return '';
+            var day = moment.day + 1;
+            return (day < 10)
+                ? ('0' + day)
+                : String(day);
+        },
+        'D': (moment) => {
+            if (moment.day == null)
+                return '';
+            return String(moment.day + 1);
+        },
+        'Thh': (moment) => {
+            if (moment.hour == null)
+                return '';
+            return 'T' + $mol_time_moment.patterns['hh'](moment);
+        },
+        'hh': (moment) => {
+            if (moment.hour == null)
+                return '';
+            return (moment.hour < 10)
+                ? ('0' + moment.hour)
+                : String(moment.hour);
+        },
+        'h': (moment) => {
+            if (moment.hour == null)
+                return '';
+            return String(moment.hour);
+        },
+        ':mm': (moment) => {
+            if (moment.minute == null)
+                return '';
+            return ':' + $mol_time_moment.patterns['mm'](moment);
+        },
+        'mm': (moment) => {
+            if (moment.minute == null)
+                return '';
+            return (moment.minute < 10)
+                ? ('0' + moment.minute)
+                : String(moment.minute);
+        },
+        'm': (moment) => {
+            if (moment.minute == null)
+                return '';
+            return String(moment.minute);
+        },
+        ':ss': (moment) => {
+            if (moment.second == null)
+                return '';
+            return ':' + $mol_time_moment.patterns['ss'](moment);
+        },
+        'ss': (moment) => {
+            if (moment.second == null)
+                return '';
+            var second = Math.floor(moment.second);
+            return (second < 10)
+                ? ('0' + second)
+                : String(second);
+        },
+        's': (moment) => {
+            if (moment.second == null)
+                return '';
+            return String(Math.floor(moment.second));
+        },
+        '.sss': (moment) => {
+            if (moment.second == null)
+                return '';
+            if (moment.second - Math.floor(moment.second) === 0)
+                return '';
+            return '.' + $mol_time_moment.patterns['sss'](moment);
+        },
+        'sss': (moment) => {
+            if (moment.second == null)
+                return '';
+            var millisecond = Math.floor((moment.second - Math.floor(moment.second)) * 1000);
+            return (millisecond < 10)
+                ? ('00' + millisecond)
+                : (millisecond < 100)
+                    ? ('0' + millisecond)
+                    : String(millisecond);
+        },
+        'Z': (moment) => {
+            var offset = moment.offset;
+            if (!offset)
+                return '';
+            return offset.toString('+hh:mm');
+        }
+    };
+    $.$mol_time_moment = $mol_time_moment;
+})($ || ($ = {}));
+//moment.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    let $mpk_tss_domain_status;
+    (function ($mpk_tss_domain_status) {
+        $mpk_tss_domain_status["ready"] = "ready";
+        $mpk_tss_domain_status["error"] = "error";
+        $mpk_tss_domain_status["warning"] = "warning";
+        $mpk_tss_domain_status["unknown"] = "unknown";
+        $mpk_tss_domain_status["nr"] = "nr";
+    })($mpk_tss_domain_status = $.$mpk_tss_domain_status || ($.$mpk_tss_domain_status = {}));
+})($ || ($ = {}));
+//domain.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_unit extends $.$mol_object {
+        constructor(value) {
+            super();
+            this['valueOf()'] = value;
+        }
+        prefix() {
+            return '';
+        }
+        postfix() {
+            return '';
+        }
+        valueOf() {
+            return this['valueOf()'];
+        }
+        delimiter() {
+            return ' ';
+        }
+        value_view() {
+            return this.valueOf().toLocaleString();
+        }
+        toString() {
+            return this.prefix() + this.value_view() + this.postfix();
+        }
+        static summ(a, b) {
+            var Class = a.constructor;
+            if (Class !== b.constructor)
+                throw new Error(`Not same measure: ${Class} , ${b.constructor}`);
+            return new Class(a.valueOf() + b.valueOf());
+        }
+        mult(m) {
+            var Class = this.constructor;
+            return new Class(this.valueOf() * m);
+        }
+    }
+    $.$mol_unit = $mol_unit;
+})($ || ($ = {}));
+//unit.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_unit_money extends $.$mol_unit {
+    }
+    $.$mol_unit_money = $mol_unit_money;
+    class $mol_unit_money_usd extends $mol_unit_money {
+        prefix() {
+            return '$';
+        }
+    }
+    $.$mol_unit_money_usd = $mol_unit_money_usd;
+    class $mol_unit_money_rur extends $mol_unit_money {
+        postfix() {
+            return ' ₽';
+        }
+    }
+    $.$mol_unit_money_rur = $mol_unit_money_rur;
+})($ || ($ = {}));
+//money.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_stub_select_random(list) {
+        return list[Math.floor(Math.random() * list.length)];
+    }
+    $.$mol_stub_select_random = $mol_stub_select_random;
+    function $mol_stub_strings(prefix = '', count = 10, length = 10) {
+        if (prefix.length >= length)
+            return [];
+        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".split('');
+        let strings = [];
+        for (let i = 0; i < count; i++) {
+            let text = prefix;
+            for (let j = prefix.length; j < length; j++) {
+                text += $mol_stub_select_random(possible);
+            }
+            strings.push(text);
+        }
+        return strings;
+    }
+    $.$mol_stub_strings = $mol_stub_strings;
+    function $mol_stub_code(length = 8) {
+        var max = Math.pow(16, length);
+        var min = Math.pow(16, length - 1);
+        var value = min + Math.floor(Math.random() * (max - min));
+        return value.toString(16).toUpperCase();
+    }
+    $.$mol_stub_code = $mol_stub_code;
+    function $mol_stub_price(max = 1000) {
+        var min = Math.floor(max / 16 / 16);
+        var value = min + Math.floor(Math.random() * (max - min));
+        return new $.$mol_unit_money_usd(value);
+    }
+    $.$mol_stub_price = $mol_stub_price;
+    function $mol_stub_product_name() {
+        var name = $mol_stub_select_random([
+            'Monitor 15"',
+            'Monitor 17"',
+            'Monitor 19"',
+            'Graphics card',
+            'Frame grabber card'
+        ]);
+        var port = $mol_stub_select_random(['D-SUB', 'DVI', 'HDMI']);
+        var resolution = $mol_stub_select_random(['VGA', 'Full HD', '4K']);
+        return [name, port, resolution].join(', ');
+    }
+    $.$mol_stub_product_name = $mol_stub_product_name;
+    function $mol_stub_company_name_big() {
+        var product = $mol_stub_select_random(['Everything', 'Something', 'Anything', 'Nothing']);
+        var type = $mol_stub_select_random(['Company', 'Corporation', 'Holding']);
+        return `A ${type} that makes ${product}`;
+    }
+    $.$mol_stub_company_name_big = $mol_stub_company_name_big;
+    function $mol_stub_company_name_small() {
+        return $mol_stub_select_random(['ACME inc.', 'Dream Company', 'Just Company']);
+    }
+    $.$mol_stub_company_name_small = $mol_stub_company_name_small;
+    function $mol_stub_company_name() {
+        return $mol_stub_select_random([$mol_stub_company_name_small, $mol_stub_company_name_big])();
+    }
+    $.$mol_stub_company_name = $mol_stub_company_name;
+    function $mol_stub_person_name() {
+        var first = $mol_stub_select_random(['Ivan', 'Petr', 'Sidor']);
+        var last = $mol_stub_select_random(['Ivanov', 'Petrov', 'Sidorov']);
+        return `${first} ${last}`;
+    }
+    $.$mol_stub_person_name = $mol_stub_person_name;
+    function $mol_stub_city() {
+        return $mol_stub_select_random(['Moscow', 'London', 'Washington', 'Buenos Aires']);
+    }
+    $.$mol_stub_city = $mol_stub_city;
+    function $mol_stub_time(maxShift = 60 * 24 * 365) {
+        return new $.$mol_time_moment().shift({ minute: Math.round(Math.random() * maxShift) });
+    }
+    $.$mol_stub_time = $mol_stub_time;
+})($ || ($ = {}));
+//stub.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mpk_tss_stub_unit_type() {
+        return $.$mol_stub_select_random(['UPS', 'AVR']);
+    }
+    $.$mpk_tss_stub_unit_type = $mpk_tss_stub_unit_type;
+    function $mpk_tss_stub_unit_name() {
+        const firm = $.$mol_stub_select_random([
+            'Shtil 1103L',
+            'Shtil 1104M',
+            'AVR Electricity system'
+        ]);
+        const number = $.$mol_stub_select_random(['N1', 'N2', 'N3', 'N4']);
+        return `${firm} ${number}`;
+    }
+    $.$mpk_tss_stub_unit_name = $mpk_tss_stub_unit_name;
+    function $mpk_tss_stub_status() {
+        return $.$mol_stub_select_random(['ready', 'error', 'warning', 'unknown', 'nr']);
+    }
+    $.$mpk_tss_stub_status = $mpk_tss_stub_status;
+})($ || ($ = {}));
+//stub.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mpk_tss_pereferials_domain_unit_parameter extends $.$mol_object {
+        name() { return void 0; }
+        value() { return void 0; }
+        updated() { return void 0; }
+    }
+    $.$mpk_tss_pereferials_domain_unit_parameter = $mpk_tss_pereferials_domain_unit_parameter;
+    class $mpk_tss_pereferials_domain_unit extends $.$mol_object {
+        id() { return void 0; }
+        type() { return void 0; }
+        element() { return void 0; }
+        parameters() { return []; }
+        status() { return void 0; }
+    }
+    $.$mpk_tss_pereferials_domain_unit = $mpk_tss_pereferials_domain_unit;
+    class $mpk_tss_pereferials_domain extends $.$mol_object {
+        unit(id) {
+            throw new Error('implement');
+        }
+        units() {
+            throw new Error('implement');
+        }
+    }
+    $.$mpk_tss_pereferials_domain = $mpk_tss_pereferials_domain;
+    function $mpk_tss_pereferials_domain_stub_unit() {
+        const name = $.$mol_stub_select_random(['State', 'Power source', 'Voltage', 'Bat. level', 'Bat. time']);
+        let value = 'unknown';
+        switch (name) {
+            case 'State':
+                value = $.$mpk_tss_stub_status();
+                break;
+            case 'Power source':
+                value = $.$mol_stub_select_random(['Line', 'Internal']);
+                break;
+            case 'Voltage':
+                value = $.$mol_stub_select_random(['3V', '6V', '12V', '231V']);
+                break;
+            case 'Bat. level':
+                value = $.$mol_stub_select_random(['100%', '50%', '5%']);
+            case 'Bat. time':
+                value = $.$mol_stub_select_random(['11m', '22m', '40m', '1day']);
+                break;
+        }
+        return $mpk_tss_pereferials_domain_unit_parameter.make({
+            name: $.$mol_const(name),
+            value: $.$mol_const(value),
+            updated: $.$mol_const($.$mol_stub_time()),
+        });
+    }
+    $.$mpk_tss_pereferials_domain_stub_unit = $mpk_tss_pereferials_domain_stub_unit;
+    class $mpk_tss_pereferials_domain_mock extends $mpk_tss_pereferials_domain {
+        max_parameters() {
+            return 5;
+        }
+        max_units() {
+            return 10;
+        }
+        unit(id) {
+            const parameters = [];
+            const max = this.max_parameters();
+            for (let i = 0; i < max; i++) {
+                parameters.push($mpk_tss_pereferials_domain_stub_unit());
+            }
+            return $mpk_tss_pereferials_domain_unit.make({
+                id: $.$mol_const(id),
+                element: $.$mol_const($.$mpk_tss_stub_unit_name()),
+                type: $.$mol_const($.$mpk_tss_stub_unit_type()),
+                parameters: $.$mol_const(parameters),
+                status: $.$mol_const($.$mpk_tss_stub_status()),
+            });
+        }
+        units() {
+            var next = [];
+            const max = this.max_units();
+            for (var i = 1; i <= max; ++i) {
+                next.push(this.unit((i * 123456789 % 987654321).toString(16).toUpperCase()));
+            }
+            return next;
+        }
+    }
+    __decorate([
+        $.$mol_mem_key
+    ], $mpk_tss_pereferials_domain_mock.prototype, "unit", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferials_domain_mock.prototype, "units", null);
+    $.$mpk_tss_pereferials_domain_mock = $mpk_tss_pereferials_domain_mock;
+})($ || ($ = {}));
+//domain.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mpk_tss_pereferials_unit_details extends $.$mol_page {
+        unit() {
+            return null;
+        }
+        minimal_width() {
+            return 400;
+        }
+        tools() {
+            return [].concat(this.Details_close());
+        }
+        Details_close() {
+            return ((obj) => {
+                obj.arg = () => ({
+                    "unit": null,
+                });
+                obj.sub = () => [].concat(this.Details_close_icon());
+                return obj;
+            })(new this.$.$mol_link);
+        }
+        Details_close_icon() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mol_icon_cross);
+        }
+        body() {
+            return [].concat(this.List());
+        }
+        List() {
+            return ((obj) => {
+                obj.rows = () => [].concat(this.unit_parameters());
+                return obj;
+            })(new this.$.$mol_list);
+        }
+        unit_parameters() {
+            return [];
+        }
+        Parameter(parameter) {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.Parameter_item(parameter), this.Value_item(parameter), this.Updated_item(parameter));
+                return obj;
+            })(new this.$.$mol_row);
+        }
+        Parameter_item(parameter) {
+            return ((obj) => {
+                obj.title = () => this.parameter_title();
+                obj.Content = () => ((obj) => {
+                    obj.sub = () => [].concat(this.parameter_name(parameter));
+                    return obj;
+                })(new this.$.$mol_view);
+                return obj;
+            })(new this.$.$mol_labeler);
+        }
+        parameter_title() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_details_parameter_title");
+        }
+        parameter_name(parameter) {
+            return "";
+        }
+        Value_item(parameter) {
+            return ((obj) => {
+                obj.title = () => this.value_title();
+                obj.Content = () => ((obj) => {
+                    obj.sub = () => [].concat(this.parameter_value(parameter));
+                    return obj;
+                })(new this.$.$mol_view);
+                return obj;
+            })(new this.$.$mol_labeler);
+        }
+        value_title() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_details_value_title");
+        }
+        parameter_value(parameter) {
+            return "";
+        }
+        Updated_item(parameter) {
+            return ((obj) => {
+                obj.title = () => this.updated_title();
+                obj.Content = () => ((obj) => {
+                    obj.sub = () => [].concat(this.parameter_updated(parameter));
+                    return obj;
+                })(new this.$.$mol_view);
+                return obj;
+            })(new this.$.$mol_labeler);
+        }
+        updated_title() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_details_updated_title");
+        }
+        parameter_updated(parameter) {
+            return "";
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferials_unit_details.prototype, "Details_close", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferials_unit_details.prototype, "Details_close_icon", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferials_unit_details.prototype, "List", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $mpk_tss_pereferials_unit_details.prototype, "Parameter", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $mpk_tss_pereferials_unit_details.prototype, "Parameter_item", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $mpk_tss_pereferials_unit_details.prototype, "Value_item", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $mpk_tss_pereferials_unit_details.prototype, "Updated_item", null);
+    $.$mpk_tss_pereferials_unit_details = $mpk_tss_pereferials_unit_details;
+})($ || ($ = {}));
+//details.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mpk_tss_pereferials_unit_details extends $.$mpk_tss_pereferials_unit_details {
+            unit() {
+                throw new Error('unit');
+            }
+            title() {
+                return this.type() + ' | ' + this.element();
+            }
+            type() {
+                return this.unit().type();
+            }
+            element() {
+                return this.unit().element();
+            }
+            status() {
+                return this.unit().status();
+            }
+            unit_parameters() {
+                return this.unit().parameters().map(parameter => this.Parameter(parameter));
+            }
+            parameter_name(parameter) {
+                return parameter.name();
+            }
+            parameter_value(parameter) {
+                return parameter.value();
+            }
+            parameter_updated(parameter) {
+                const updated = parameter.updated();
+                return updated.toString('DD.MM.YYYY, hh:mm');
+            }
+            refresh_click(event) {
+                event.preventDefault();
+                alert('Refresh...');
+            }
+        }
+        $$.$mpk_tss_pereferials_unit_details = $mpk_tss_pereferials_unit_details;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//details.view.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
     class $mol_card extends $.$mol_list {
         attr() {
             return (Object.assign({}, super.attr(), { "mol_card_status_type": this.status() }));
@@ -5352,190 +6290,41 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var $;
 (function ($) {
-    class $mol_labeler extends $.$mol_view {
-        sub() {
-            return [].concat(this.Title(), this.Content());
-        }
-        Title() {
-            return ((obj) => {
-                obj.sub = () => this.label();
-                return obj;
-            })(new this.$.$mol_view);
-        }
-        label() {
-            return [].concat(this.title());
-        }
-        Content() {
-            return ((obj) => {
-                obj.sub = () => [].concat(this.content());
-                return obj;
-            })(new this.$.$mol_view);
-        }
-        content() {
-            return null;
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_labeler.prototype, "Title", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_labeler.prototype, "Content", null);
-    $.$mol_labeler = $mol_labeler;
-})($ || ($ = {}));
-//labeler.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mpk_tss_pereferials extends $.$mpk_tss_wrap {
-        self_title() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_self_title");
-        }
-        sub() {
-            return [].concat(this.Head(), this.Filter_title(), this.Body());
-        }
-        Filter_title() {
-            return ((obj) => {
-                obj.query = (val) => this.filter_title(val);
-                return obj;
-            })(new this.$.$mol_search);
-        }
-        filter_title(val, force) {
-            return (val !== void 0) ? val : "";
-        }
-        unit_current() {
-            return null;
-        }
-        body() {
-            return [].concat(this.Units());
-        }
-        Units() {
-            return ((obj) => {
-                obj.destructor = () => this.destructor();
-                obj.rows = () => [].concat(this.unit_cards());
-                return obj;
-            })(new this.$.$mol_list);
-        }
-        unit_cards() {
-            return [];
-        }
-        Unit_details(index) {
-            return ((obj) => {
-                obj.title = () => "Unit";
-                obj.minimal_width = () => 400;
-                obj.tools = () => [].concat(this.Details_close());
-                obj.body = () => [].concat(this.Details_body());
-                return obj;
-            })(new this.$.$mol_page);
-        }
-        Details_close() {
-            return ((obj) => {
-                obj.arg = () => ({
-                    "unit": null,
-                });
-                obj.sub = () => [].concat(this.Details_close_icon());
-                return obj;
-            })(new this.$.$mol_link);
-        }
-        Details_close_icon() {
-            return ((obj) => {
-                return obj;
-            })(new this.$.$mol_icon_cross);
-        }
-        Details_body() {
-            return ((obj) => {
-                obj.rows = () => [].concat(this.Unit_detail());
-                return obj;
-            })(new this.$.$mol_list);
-        }
-        Unit_detail() {
-            return ((obj) => {
-                obj.sub = () => [].concat(" Test");
-                return obj;
-            })(new this.$.$mol_row);
-        }
-        Unit_card(index) {
-            return ((obj) => {
-                obj.unit = () => this.unit(index);
-                obj.arg = () => this.unit_arg(index);
-                return obj;
-            })(new this.$.$mpk_tss_pereferials_unit);
-        }
-        unit(index) {
-            return null;
-        }
-        unit_arg(index) {
-            return ({
-                "unit": this.unit_id(index),
-            });
-        }
-        unit_id(index) {
-            return "";
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferials.prototype, "Filter_title", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferials.prototype, "filter_title", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferials.prototype, "Units", null);
-    __decorate([
-        $.$mol_mem_key
-    ], $mpk_tss_pereferials.prototype, "Unit_details", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferials.prototype, "Details_close", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferials.prototype, "Details_close_icon", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferials.prototype, "Details_body", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferials.prototype, "Unit_detail", null);
-    __decorate([
-        $.$mol_mem_key
-    ], $mpk_tss_pereferials.prototype, "Unit_card", null);
-    $.$mpk_tss_pereferials = $mpk_tss_pereferials;
-})($ || ($ = {}));
-(function ($) {
-    class $mpk_tss_pereferials_unit extends $.$mol_link {
-        unit() {
-            return null;
-        }
-        minimal_height() {
-            return 125;
-        }
-        sub() {
-            return [].concat(this.Card());
-        }
-        Card() {
-            return ((obj) => {
-                obj.unit = () => this.unit();
-                return obj;
-            })(new this.$.$mpk_tss_pereferials_unit_card);
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferials_unit.prototype, "Card", null);
-    $.$mpk_tss_pereferials_unit = $mpk_tss_pereferials_unit;
-})($ || ($ = {}));
-(function ($) {
     class $mpk_tss_pereferials_unit_card extends $.$mol_card {
         unit() {
             return null;
+        }
+        statuses() {
+            return ({
+                "warning": this.warning(),
+                "error": this.error(),
+                "success": this.success(),
+                "ready": this.ready(),
+                "nr": this.nr(),
+                "responding": this.responding(),
+                "unknown": this.unknown(),
+            });
+        }
+        warning() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_card_warning");
+        }
+        error() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_card_error");
+        }
+        success() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_card_success");
+        }
+        ready() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_card_ready");
+        }
+        nr() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_card_nr");
+        }
+        responding() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_card_responding");
+        }
+        unknown() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_card_unknown");
         }
         attr() {
             return (Object.assign({}, super.attr(), { "mpk_tss_pereferials_unit_type": this.status() }));
@@ -5555,9 +6344,12 @@ var $;
         }
         Status_text() {
             return ((obj) => {
-                obj.sub = () => [].concat(this.status());
+                obj.sub = () => [].concat(this.status_text());
                 return obj;
             })(new this.$.$mol_view);
+        }
+        status_text() {
+            return "";
         }
         Refresh_action() {
             return ((obj) => {
@@ -5639,44 +6431,135 @@ var $;
     ], $mpk_tss_pereferials_unit_card.prototype, "Element_item", null);
     $.$mpk_tss_pereferials_unit_card = $mpk_tss_pereferials_unit_card;
 })($ || ($ = {}));
+//card.view.tree.js.map
+;
+"use strict";
+var $;
 (function ($) {
-    class $mpk_tss_pereferials_unit_parameters extends $.$mol_list {
-        rows() {
-            return [].concat(this.Parameters());
+    var $$;
+    (function ($$) {
+        class $mpk_tss_pereferials_unit_card extends $.$mpk_tss_pereferials_unit_card {
+            unit() {
+                throw new Error('unit');
+            }
+            type() {
+                return this.unit().type();
+            }
+            element() {
+                return this.unit().element();
+            }
+            status() {
+                return this.unit().status();
+            }
+            status_text() {
+                return this.statuses()[this.status()] || this.statuses().unknown;
+            }
+            refresh_click(event) {
+                event.preventDefault();
+                alert('Refresh...');
+            }
         }
-        Parameters() {
+        $$.$mpk_tss_pereferials_unit_card = $mpk_tss_pereferials_unit_card;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//card.view.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mpk_tss_pereferials extends $.$mpk_tss_wrap {
+        self_title() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferials_self_title");
+        }
+        unit_current_page() {
+            return null;
+        }
+        sub() {
+            return [].concat(this.Head(), this.Filter_title(), this.Body());
+        }
+        Filter_title() {
             return ((obj) => {
-                obj.sub = () => [].concat(this.parameters());
+                obj.query = (val) => this.filter_title(val);
                 return obj;
-            })(new this.$.$mol_row);
+            })(new this.$.$mol_search);
         }
-        parameters() {
+        filter_title(val, force) {
+            return (val !== void 0) ? val : "";
+        }
+        body() {
+            return [].concat(this.Units());
+        }
+        Units() {
+            return ((obj) => {
+                obj.destructor = () => this.destructor();
+                obj.rows = () => this.unit_links();
+                return obj;
+            })(new this.$.$mol_list);
+        }
+        unit_links() {
             return [];
         }
-        Parameter(id) {
-            return this.Type_item();
-        }
-        Type_item() {
+        Unit_link(id) {
             return ((obj) => {
-                obj.title = () => this.type_title();
-                obj.content = () => this.type();
+                obj.minimal_height = () => 125;
+                obj.arg = () => this.unit_arg(id);
+                obj.sub = () => [].concat(this.Card(id));
                 return obj;
-            })(new this.$.$mol_labeler);
+            })(new this.$.$mol_link);
         }
-        type_title() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_parameters_type_title");
+        unit_arg(id) {
+            return ({
+                "unit": this.unit_link_id(id),
+            });
         }
-        type() {
+        unit_link_id(id) {
             return "";
+        }
+        Card(id) {
+            return ((obj) => {
+                obj.unit = () => this.unit_for_card(id);
+                return obj;
+            })(new this.$.$mpk_tss_pereferials_unit_card);
+        }
+        unit_for_card(id) {
+            return null;
+        }
+        Unit_details() {
+            return ((obj) => {
+                obj.minimal_width = () => 400;
+                obj.unit = () => this.unit_for_details();
+                return obj;
+            })(new this.$.$mpk_tss_pereferials_unit_details);
+        }
+        unit_for_details() {
+            return null;
         }
     }
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_pereferials_unit_parameters.prototype, "Parameters", null);
+    ], $mpk_tss_pereferials.prototype, "Filter_title", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_pereferials_unit_parameters.prototype, "Type_item", null);
-    $.$mpk_tss_pereferials_unit_parameters = $mpk_tss_pereferials_unit_parameters;
+    ], $mpk_tss_pereferials.prototype, "filter_title", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferials.prototype, "Units", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $mpk_tss_pereferials.prototype, "Unit_link", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $mpk_tss_pereferials.prototype, "Card", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferials.prototype, "Unit_details", null);
+    $.$mpk_tss_pereferials = $mpk_tss_pereferials;
 })($ || ($ = {}));
 //pereferials.view.tree.js.map
 ;
@@ -5692,191 +6575,43 @@ var $;
     var $$;
     (function ($$) {
         class $mpk_tss_pereferials extends $.$mpk_tss_pereferials {
-            units() {
-                return [
-                    {
-                        id: '1',
-                        type: 'UPS',
-                        element: 'Shtil SR1103L N1',
-                        status: 'error',
-                        paremeters: [
-                            {
-                                name: 'State',
-                                value: 'notresponding',
-                                update: new Date().toString(),
-                            },
-                            {
-                                name: 'Power source',
-                                value: null,
-                                update: null,
-                            },
-                            {
-                                name: 'Voltage',
-                                value: null,
-                                update: null,
-                            },
-                            {
-                                name: 'Bat. level',
-                                value: null,
-                                update: null,
-                            },
-                            {
-                                name: 'Bat. time',
-                                value: null,
-                                update: null,
-                            },
-                        ],
-                    },
-                    {
-                        id: '2',
-                        type: 'UPS',
-                        element: 'Shtil SR1103L N2',
-                        status: 'ready',
-                        paremeters: [
-                            {
-                                name: 'State',
-                                value: 'ready',
-                                update: new Date().toString(),
-                            },
-                            {
-                                name: 'Power source',
-                                value: 'AC',
-                                update: new Date().toString(),
-                            },
-                            {
-                                name: 'Voltage',
-                                value: 220,
-                                update: new Date().toString(),
-                            },
-                            {
-                                name: 'Bat. level',
-                                value: 33,
-                                update: new Date().toString(),
-                            },
-                            {
-                                name: 'Bat. time',
-                                value: 134,
-                                update: new Date().toString(),
-                            },
-                        ],
-                    },
-                    {
-                        id: '3',
-                        type: 'AVR',
-                        element: 'AVR Electricity system N1',
-                        status: 'ready',
-                        paremeters: [
-                            {
-                                name: 'State',
-                                value: 'ready',
-                                update: new Date().toString(),
-                            },
-                            {
-                                name: 'Voltage',
-                                value: 12,
-                                update: new Date().toString(),
-                            },
-                        ],
-                    },
-                    {
-                        id: '4',
-                        type: 'AVR',
-                        element: 'AVR Electricity system N4',
-                        status: 'ready',
-                        paremeters: [
-                            {
-                                name: 'State',
-                                value: 'ready',
-                                update: new Date().toString(),
-                            },
-                            {
-                                name: 'Voltage',
-                                value: 12,
-                                update: new Date().toString(),
-                            },
-                        ],
-                    },
-                    {
-                        id: '5',
-                        type: 'AVR',
-                        element: 'AVR Electricity system N1',
-                        status: 'ready',
-                        paremeters: [
-                            {
-                                name: 'State',
-                                value: 'ready',
-                                update: new Date().toString(),
-                            },
-                            {
-                                name: 'Voltage',
-                                value: 12,
-                                update: new Date().toString(),
-                            },
-                        ],
-                    },
-                    {
-                        id: '6',
-                        type: 'AVR',
-                        element: 'AVR Electricity system N1',
-                        status: 'ready',
-                        paremeters: [
-                            {
-                                name: 'State',
-                                value: 'ready',
-                                update: new Date().toString(),
-                            },
-                            {
-                                name: 'Voltage',
-                                value: 12,
-                                update: new Date().toString(),
-                            },
-                        ],
-                    },
-                ];
+            domain() {
+                return new $.$mpk_tss_pereferials_domain_mock();
             }
-            unit_cards() {
-                return this.units().map((unit, index) => this.Unit_card(index));
+            unit_links() {
+                return this.domain().units().map(unit => this.Unit_link(unit.id()));
             }
-            unit(index) {
-                return this.units()[index];
+            unit_for_card(id) {
+                return this.domain().unit(id);
             }
-            unit_id(index) {
-                return this.units()[index].id;
+            unit_link_id(id) {
+                return id;
             }
-            unit_current() {
-                const index = $.$mol_state_arg.value('unit');
-                const unit = index && this.unit(index);
-                if (!unit)
+            unit_current_id(next) {
+                return $.$mol_state_arg.value(this.state_key('unit'), next) || '';
+            }
+            unit_current_page() {
+                if (!this.unit_current_id())
                     return null;
-                return this.Unit_details(index);
+                return this.Unit_details();
+            }
+            unit_for_details() {
+                const id = this.unit_current_id();
+                if (!id)
+                    return null;
+                return this.domain().unit(id);
             }
             destructor() {
-                $.$mol_state_arg.value('unit', null);
+                this.unit_current_id(null);
             }
         }
         __decorate([
             $.$mol_mem
-        ], $mpk_tss_pereferials.prototype, "units", null);
+        ], $mpk_tss_pereferials.prototype, "domain", null);
+        __decorate([
+            $.$mol_mem
+        ], $mpk_tss_pereferials.prototype, "unit_links", null);
         $$.$mpk_tss_pereferials = $mpk_tss_pereferials;
-        class $mpk_tss_pereferials_unit_card extends $.$mpk_tss_pereferials_unit_card {
-            unit() {
-                return null;
-            }
-            type() {
-                return this.unit().type;
-            }
-            element() {
-                return this.unit().element;
-            }
-            status() {
-                return this.unit().status;
-            }
-            refresh_click(event) {
-                event.preventDefault();
-                alert('Refresh...');
-            }
-        }
-        $$.$mpk_tss_pereferials_unit_card = $mpk_tss_pereferials_unit_card;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //pereferials.view.js.map
@@ -6234,6 +6969,18 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //enter.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mpk_tss_icon_signout extends $.$mol_icon {
+        path() {
+            return "M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z";
+        }
+    }
+    $.$mpk_tss_icon_signout = $mpk_tss_icon_signout;
+})($ || ($ = {}));
+//signout.view.tree.js.map
 ;
 "use strict";
 var $;
@@ -7108,7 +7855,7 @@ var $;
         }
         Head() {
             return ((obj) => {
-                obj.sub = () => [].concat(this.Terminal_link(), this.Second());
+                obj.sub = () => [].concat(this.Terminal_link());
                 return obj;
             })(new this.$.$mol_view);
         }
@@ -7122,48 +7869,10 @@ var $;
         terminal_label() {
             return this.$.$mol_locale.text("$mpk_tss_terminal_label");
         }
-        Second() {
-            return ((obj) => {
-                obj.sub = () => [].concat(this.user_info());
-                return obj;
-            })(new this.$.$mol_view);
-        }
-        user_info() {
-            return null;
-        }
         Body() {
             return ((obj) => {
-                obj.entered = (v) => this.entered(v);
-                obj.logged_email = (v) => this.logged_email(v);
                 return obj;
             })(new this.$.$mpk_tss_main);
-        }
-        entered(v, force) {
-            return (v !== void 0) ? v : false;
-        }
-        logged_email(v, force) {
-            return (v !== void 0) ? v : "";
-        }
-        User_link() {
-            return ((obj) => {
-                obj.event_click = (event) => this.logout_click(event);
-                obj.sub = () => [].concat(this.User_email(), this.User_signout());
-                return obj;
-            })(new this.$.$mol_button_minor);
-        }
-        logout_click(event, force) {
-            return (event !== void 0) ? event : null;
-        }
-        User_email() {
-            return ((obj) => {
-                obj.sub = () => [].concat(this.logged_email());
-                return obj;
-            })(new this.$.$mol_view);
-        }
-        User_signout() {
-            return ((obj) => {
-                return obj;
-            })(new this.$.$mpk_tss_icon_signout);
         }
     }
     __decorate([
@@ -7174,28 +7883,7 @@ var $;
     ], $mpk_tss.prototype, "Terminal_link", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss.prototype, "Second", null);
-    __decorate([
-        $.$mol_mem
     ], $mpk_tss.prototype, "Body", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss.prototype, "entered", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss.prototype, "logged_email", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss.prototype, "User_link", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss.prototype, "logout_click", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss.prototype, "User_email", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss.prototype, "User_signout", null);
     $.$mpk_tss = $mpk_tss;
 })($ || ($ = {}));
 (function ($) {
@@ -7230,7 +7918,7 @@ var $;
             })(new this.$.$mpk_tss_software);
         }
         details() {
-            return this.Pereferials().unit_current();
+            return this.Pereferials().unit_current_page();
         }
         Pereferials() {
             return ((obj) => {
@@ -7273,7 +7961,7 @@ var $;
             return [];
         }
         common_tools() {
-            return [].concat(this.Details_close());
+            return [].concat(this.User_link(), this.Details_close());
         }
         Details_close() {
             return ((obj) => {
@@ -7288,6 +7976,27 @@ var $;
             return ((obj) => {
                 return obj;
             })(new this.$.$mol_icon_cross);
+        }
+        User_link() {
+            return ((obj) => {
+                obj.event_click = (event) => this.logout_click(event);
+                obj.sub = () => [].concat(this.User_email(), this.User_signout());
+                return obj;
+            })(new this.$.$mol_button_minor);
+        }
+        logout_click(event, force) {
+            return (event !== void 0) ? event : null;
+        }
+        User_email() {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.logged_email());
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        User_signout() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mpk_tss_icon_signout);
         }
         pages() {
             return [].concat(this.Sidebar(), this.Summary(), this.menu_pages(), this.details());
@@ -7337,6 +8046,7 @@ var $;
         }
         Summary() {
             return ((obj) => {
+                obj.tools = () => [].concat(this.User_link());
                 obj.breadcrumbs = () => [].concat(this.breadcrumbs());
                 obj.event_top = (event) => this.event_front_up(event);
                 return obj;
@@ -7388,6 +8098,18 @@ var $;
     ], $mpk_tss_main.prototype, "Details_close_icon", null);
     __decorate([
         $.$mol_mem
+    ], $mpk_tss_main.prototype, "User_link", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "logout_click", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "User_email", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "User_signout", null);
+    __decorate([
+        $.$mol_mem
     ], $mpk_tss_main.prototype, "Sidebar", null);
     __decorate([
         $.$mol_mem
@@ -7423,6 +8145,9 @@ var $;
     var $$;
     (function ($$) {
         class $mpk_tss extends $.$mpk_tss {
+        }
+        $$.$mpk_tss = $mpk_tss;
+        class $mpk_tss_main extends $.$mpk_tss_main {
             entered(next) {
                 if ($.$mol_state_arg.value(`entered`) != null)
                     return true;
@@ -7431,14 +8156,6 @@ var $;
             logout_click() {
                 this.entered(false);
             }
-            user_info() {
-                if (!this.entered())
-                    return null;
-                return this.User_link();
-            }
-        }
-        $$.$mpk_tss = $mpk_tss;
-        class $mpk_tss_main extends $.$mpk_tss_main {
             menu_items() {
                 return Object.keys(this.menu_pages()).map(id => this.Menu_item(id));
             }

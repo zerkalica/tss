@@ -430,6 +430,82 @@ declare namespace $ {
     }
 }
 declare namespace $ {
+    class $mol_scroll extends $mol_view {
+        minimal_height(): number;
+        moving_hor(val?: any, force?: $mol_atom_force): any;
+        moving_vert(val?: any, force?: $mol_atom_force): any;
+        field(): {
+            "scrollTop": any;
+            "scrollLeft": any;
+            "scrollBottom": any;
+            "scrollRight": any;
+        };
+        scroll_top(val?: any, force?: $mol_atom_force): any;
+        scroll_left(val?: any, force?: $mol_atom_force): any;
+        scroll_bottom(val?: any, force?: $mol_atom_force): any;
+        scroll_right(val?: any, force?: $mol_atom_force): any;
+        event_async(): {
+            "scroll": (event?: any) => any;
+        };
+        event_scroll(event?: any, force?: $mol_atom_force): any;
+        Strut(): $mol_view;
+        strut_transform(): string;
+    }
+}
+declare namespace $.$$ {
+    function $mol_scroll_top(): number;
+    function $mol_scroll_left(): number;
+    function $mol_scroll_moving(): boolean;
+    function $mol_scroll_moving_vert(): boolean;
+    function $mol_scroll_moving_hor(): boolean;
+    class $mol_scroll extends $.$mol_scroll {
+        scroll_bottom(next?: number): number;
+        scroll_right(next?: number): number;
+        event_scroll(next?: Event): void;
+        event_repos(next?: Event): void;
+        _moving_task_timer: any;
+        moving_task_stop(): void;
+        moving(): any;
+        context_sub(): $mol_ambient_context;
+        strut_transform(): string;
+        sub_visible(): (string | number | boolean | Node | $mol_view)[];
+    }
+}
+declare namespace $ {
+    class $mol_state_session<Value> extends $mol_object {
+        static 'native()': Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
+        static native(): Storage | {
+            getItem(key: string): any;
+            setItem(key: string, value: string): void;
+            removeItem(key: string): void;
+        };
+        static value<Value>(key: string, next?: Value): Value;
+        prefix(): string;
+        value(key: string, next?: Value): Value;
+    }
+}
+declare namespace $ {
+    class $mol_page extends $mol_view {
+        sub(): any[];
+        Head(): $mol_view;
+        head(): any[];
+        Title(): $mol_button;
+        event_top(val?: any, force?: $mol_atom_force): any;
+        Tools(): $mol_view;
+        tools(): any[];
+        Body(): $mol_scroll;
+        body_scroll_top(val?: any, force?: $mol_atom_force): any;
+        body(): any[];
+        Foot(): $mol_view;
+        foot(): any[];
+    }
+}
+declare namespace $.$$ {
+    class $mol_page extends $.$mol_page {
+        body_scroll_top(next?: number): number;
+    }
+}
+declare namespace $ {
     class $mol_state_local<Value> extends $mol_object {
         static 'native()': Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
         static native(): Storage | {
@@ -481,45 +557,6 @@ declare namespace $ {
         static source(lang: string): any;
         static texts(lang: string, next?: $mol_locale_dict): $mol_locale_dict;
         static text(key: string): string;
-    }
-}
-declare namespace $ {
-    class $mol_svg extends $mol_view {
-        dom_name(): string;
-        dom_name_space(): string;
-    }
-}
-declare namespace $ {
-    class $mol_svg_root extends $mol_svg {
-        dom_name(): string;
-        attr(): {
-            "viewBox": string;
-            "preserveAspectRatio": string;
-        };
-        view_box(): string;
-        aspect(): string;
-    }
-}
-declare namespace $ {
-    class $mol_svg_path extends $mol_svg {
-        dom_name(): string;
-        attr(): {
-            "d": string;
-        };
-        geometry(): string;
-    }
-}
-declare namespace $ {
-    class $mol_icon extends $mol_svg_root {
-        view_box(): string;
-        sub(): any[];
-        Path(): $mol_svg_path;
-        path(): string;
-    }
-}
-declare namespace $ {
-    class $mpk_tss_icon_signout extends $mol_icon {
-        path(): string;
     }
 }
 declare namespace $ {
@@ -737,82 +774,6 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
-    class $mol_scroll extends $mol_view {
-        minimal_height(): number;
-        moving_hor(val?: any, force?: $mol_atom_force): any;
-        moving_vert(val?: any, force?: $mol_atom_force): any;
-        field(): {
-            "scrollTop": any;
-            "scrollLeft": any;
-            "scrollBottom": any;
-            "scrollRight": any;
-        };
-        scroll_top(val?: any, force?: $mol_atom_force): any;
-        scroll_left(val?: any, force?: $mol_atom_force): any;
-        scroll_bottom(val?: any, force?: $mol_atom_force): any;
-        scroll_right(val?: any, force?: $mol_atom_force): any;
-        event_async(): {
-            "scroll": (event?: any) => any;
-        };
-        event_scroll(event?: any, force?: $mol_atom_force): any;
-        Strut(): $mol_view;
-        strut_transform(): string;
-    }
-}
-declare namespace $.$$ {
-    function $mol_scroll_top(): number;
-    function $mol_scroll_left(): number;
-    function $mol_scroll_moving(): boolean;
-    function $mol_scroll_moving_vert(): boolean;
-    function $mol_scroll_moving_hor(): boolean;
-    class $mol_scroll extends $.$mol_scroll {
-        scroll_bottom(next?: number): number;
-        scroll_right(next?: number): number;
-        event_scroll(next?: Event): void;
-        event_repos(next?: Event): void;
-        _moving_task_timer: any;
-        moving_task_stop(): void;
-        moving(): any;
-        context_sub(): $mol_ambient_context;
-        strut_transform(): string;
-        sub_visible(): (string | number | boolean | Node | $mol_view)[];
-    }
-}
-declare namespace $ {
-    class $mol_state_session<Value> extends $mol_object {
-        static 'native()': Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
-        static native(): Storage | {
-            getItem(key: string): any;
-            setItem(key: string, value: string): void;
-            removeItem(key: string): void;
-        };
-        static value<Value>(key: string, next?: Value): Value;
-        prefix(): string;
-        value(key: string, next?: Value): Value;
-    }
-}
-declare namespace $ {
-    class $mol_page extends $mol_view {
-        sub(): any[];
-        Head(): $mol_view;
-        head(): any[];
-        Title(): $mol_button;
-        event_top(val?: any, force?: $mol_atom_force): any;
-        Tools(): $mol_view;
-        tools(): any[];
-        Body(): $mol_scroll;
-        body_scroll_top(val?: any, force?: $mol_atom_force): any;
-        body(): any[];
-        Foot(): $mol_view;
-        foot(): any[];
-    }
-}
-declare namespace $.$$ {
-    class $mol_page extends $.$mol_page {
-        body_scroll_top(next?: number): number;
-    }
-}
-declare namespace $ {
     class $mol_filler extends $mol_view {
         minimal_height(): number;
         sub(): any[];
@@ -874,6 +835,40 @@ declare namespace $ {
 declare namespace $.$$ {
     class $mol_check extends $.$mol_check {
         event_click(next?: Event): void;
+    }
+}
+declare namespace $ {
+    class $mol_svg extends $mol_view {
+        dom_name(): string;
+        dom_name_space(): string;
+    }
+}
+declare namespace $ {
+    class $mol_svg_root extends $mol_svg {
+        dom_name(): string;
+        attr(): {
+            "viewBox": string;
+            "preserveAspectRatio": string;
+        };
+        view_box(): string;
+        aspect(): string;
+    }
+}
+declare namespace $ {
+    class $mol_svg_path extends $mol_svg {
+        dom_name(): string;
+        attr(): {
+            "d": string;
+        };
+        geometry(): string;
+    }
+}
+declare namespace $ {
+    class $mol_icon extends $mol_svg_root {
+        view_box(): string;
+        sub(): any[];
+        Path(): $mol_svg_path;
+        path(): string;
     }
 }
 declare namespace $ {
@@ -1285,6 +1280,233 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
+    class $mol_labeler extends $mol_view {
+        sub(): any[];
+        Title(): $mol_view;
+        label(): any[];
+        Content(): $mol_view;
+        content(): any;
+    }
+}
+declare namespace $ {
+    class $mol_time_base {
+        static patterns: any;
+        static formatter(pattern: string): any;
+        toString(pattern: string): string;
+    }
+}
+declare namespace $ {
+    type $mol_time_duration_config = number | string | {
+        year?: number;
+        month?: number;
+        day?: number;
+        hour?: number;
+        minute?: number;
+        second?: number;
+    };
+    class $mol_time_duration extends $mol_time_base {
+        constructor(config?: $mol_time_duration_config);
+        readonly year: number;
+        readonly month: number;
+        readonly day: number;
+        readonly hour: number;
+        readonly minute: number;
+        readonly second: number;
+        summ(config: $mol_time_duration_config): $mol_time_duration;
+        mult(numb: number): $mol_time_duration;
+        count(config: $mol_time_duration_config): number;
+        valueOf(): number;
+        toJSON(): string;
+        toString(pattern?: string): string;
+        static patterns: {
+            '#Y': (duration: $mol_time_duration) => string;
+            '#M': (duration: $mol_time_duration) => string;
+            '#D': (duration: $mol_time_duration) => string;
+            '#h': (duration: $mol_time_duration) => string;
+            '#m': (duration: $mol_time_duration) => string;
+            '#s': (duration: $mol_time_duration) => string;
+            '+hh': (duration: $mol_time_duration) => string;
+            'mm': (duration: $mol_time_duration) => string;
+        };
+    }
+}
+declare namespace $ {
+    type $mol_time_moment_config = number | Date | string | {
+        year?: number;
+        month?: number;
+        day?: number;
+        hour?: number;
+        minute?: number;
+        second?: number;
+        offset?: $mol_time_duration_config;
+    };
+    class $mol_time_moment extends $mol_time_base {
+        constructor(config?: $mol_time_moment_config);
+        readonly year: number;
+        readonly month: number;
+        readonly day: number;
+        readonly hour: number;
+        readonly minute: number;
+        readonly second: number;
+        readonly offset: $mol_time_duration;
+        readonly weekday: number;
+        private _native;
+        readonly native: Date;
+        private _normal;
+        readonly normal: $mol_time_moment;
+        merge(config: $mol_time_moment_config): $mol_time_moment;
+        shift(config: $mol_time_duration_config): $mol_time_moment;
+        toOffset(config: $mol_time_duration_config): $mol_time_moment;
+        valueOf(): number;
+        toJSON(): string;
+        toString(pattern?: string): string;
+        static patterns: {
+            'YYYY': (moment: $mol_time_moment) => string;
+            'AD': (moment: $mol_time_moment) => string;
+            'YY': (moment: $mol_time_moment) => string;
+            'Month': (moment: $mol_time_moment) => string;
+            'DD Month': (moment: $mol_time_moment) => string;
+            'D Month': (moment: $mol_time_moment) => string;
+            'Mon': (moment: $mol_time_moment) => string;
+            'DD Mon': (moment: $mol_time_moment) => string;
+            'D Mon': (moment: $mol_time_moment) => string;
+            '-MM': (moment: $mol_time_moment) => string;
+            'MM': (moment: $mol_time_moment) => string;
+            'M': (moment: $mol_time_moment) => string;
+            'WeekDay': (moment: $mol_time_moment) => string;
+            'WD': (moment: $mol_time_moment) => string;
+            '-DD': (moment: $mol_time_moment) => string;
+            'DD': (moment: $mol_time_moment) => string;
+            'D': (moment: $mol_time_moment) => string;
+            'Thh': (moment: $mol_time_moment) => string;
+            'hh': (moment: $mol_time_moment) => string;
+            'h': (moment: $mol_time_moment) => string;
+            ':mm': (moment: $mol_time_moment) => string;
+            'mm': (moment: $mol_time_moment) => string;
+            'm': (moment: $mol_time_moment) => string;
+            ':ss': (moment: $mol_time_moment) => string;
+            'ss': (moment: $mol_time_moment) => string;
+            's': (moment: $mol_time_moment) => string;
+            '.sss': (moment: $mol_time_moment) => string;
+            'sss': (moment: $mol_time_moment) => string;
+            'Z': (moment: $mol_time_moment) => string;
+        };
+    }
+}
+declare namespace $ {
+    enum $mpk_tss_domain_status {
+        ready = "ready",
+        error = "error",
+        warning = "warning",
+        unknown = "unknown",
+        nr = "nr"
+    }
+}
+declare namespace $ {
+    class $mol_unit extends $mol_object {
+        'valueOf()': number;
+        constructor(value?: number);
+        prefix(): string;
+        postfix(): string;
+        valueOf(): number;
+        delimiter(): string;
+        value_view(): string;
+        toString(): string;
+        static summ(a: $mol_unit, b: $mol_unit): any;
+        mult(m: number): this;
+    }
+}
+declare namespace $ {
+    class $mol_unit_money extends $mol_unit {
+    }
+    class $mol_unit_money_usd extends $mol_unit_money {
+        prefix(): string;
+    }
+    class $mol_unit_money_rur extends $mol_unit_money {
+        postfix(): string;
+    }
+}
+declare namespace $ {
+    function $mol_stub_select_random<Value>(list: Value[]): Value;
+    function $mol_stub_strings(prefix?: string, count?: number, length?: number): any[];
+    function $mol_stub_code(length?: number): string;
+    function $mol_stub_price(max?: number): $mol_unit_money_usd;
+    function $mol_stub_product_name(): string;
+    function $mol_stub_company_name_big(): string;
+    function $mol_stub_company_name_small(): string;
+    function $mol_stub_company_name(): string;
+    function $mol_stub_person_name(): string;
+    function $mol_stub_city(): string;
+    function $mol_stub_time(maxShift?: number): $mol_time_moment;
+}
+declare namespace $ {
+    function $mpk_tss_stub_unit_type(): string;
+    function $mpk_tss_stub_unit_name(): string;
+    function $mpk_tss_stub_status(): $mpk_tss_domain_status;
+}
+declare namespace $ {
+    type $mpk_tss_pereferials_domain_unit_type = string;
+    class $mpk_tss_pereferials_domain_unit_parameter extends $mol_object {
+        name(): string;
+        value(): string | null;
+        updated(): $mol_time_moment | null;
+    }
+    class $mpk_tss_pereferials_domain_unit extends $mol_object {
+        id(): string;
+        type(): $mpk_tss_pereferials_domain_unit_type;
+        element(): string;
+        parameters(): $mpk_tss_pereferials_domain_unit_parameter[];
+        status(): $mpk_tss_domain_status;
+    }
+    class $mpk_tss_pereferials_domain extends $mol_object {
+        unit(id: string): $mpk_tss_pereferials_domain_unit;
+        units(): $mpk_tss_pereferials_domain_unit[];
+    }
+    function $mpk_tss_pereferials_domain_stub_unit(): $mpk_tss_pereferials_domain_unit_parameter;
+    class $mpk_tss_pereferials_domain_mock extends $mpk_tss_pereferials_domain {
+        max_parameters(): number;
+        max_units(): number;
+        unit(id: string): $mpk_tss_pereferials_domain_unit;
+        units(): $mpk_tss_pereferials_domain_unit[];
+    }
+}
+declare namespace $ {
+    class $mpk_tss_pereferials_unit_details extends $mol_page {
+        unit(): any;
+        minimal_width(): number;
+        tools(): any[];
+        Details_close(): $mol_link;
+        Details_close_icon(): $mol_icon_cross;
+        body(): any[];
+        List(): $mol_list;
+        unit_parameters(): any[];
+        Parameter(parameter: any): $mol_row;
+        Parameter_item(parameter: any): $mol_labeler;
+        parameter_title(): string;
+        parameter_name(parameter: any): string;
+        Value_item(parameter: any): $mol_labeler;
+        value_title(): string;
+        parameter_value(parameter: any): string;
+        Updated_item(parameter: any): $mol_labeler;
+        updated_title(): string;
+        parameter_updated(parameter: any): string;
+    }
+}
+declare namespace $.$$ {
+    class $mpk_tss_pereferials_unit_details extends $.$mpk_tss_pereferials_unit_details {
+        unit(): $mpk_tss_pereferials_domain_unit;
+        title(): string;
+        type(): string;
+        element(): string;
+        status(): $mpk_tss_domain_status;
+        unit_parameters(): $.$mol_row[];
+        parameter_name(parameter: $mpk_tss_pereferials_domain_unit_parameter): string;
+        parameter_value(parameter: $mpk_tss_pereferials_domain_unit_parameter): string;
+        parameter_updated(parameter: $mpk_tss_pereferials_domain_unit_parameter): string;
+        refresh_click(event: Event): void;
+    }
+}
+declare namespace $ {
     class $mol_card extends $mol_list {
         attr(): {
             "mol_card_status_type": string;
@@ -1308,48 +1530,24 @@ declare namespace $ {
     }
 }
 declare namespace $ {
-    class $mol_labeler extends $mol_view {
-        sub(): any[];
-        Title(): $mol_view;
-        label(): any[];
-        Content(): $mol_view;
-        content(): any;
-    }
-}
-declare namespace $ {
-    class $mpk_tss_pereferials extends $mpk_tss_wrap {
-        self_title(): string;
-        sub(): any[];
-        Filter_title(): $mol_search;
-        filter_title(val?: any, force?: $mol_atom_force): any;
-        unit_current(): any;
-        body(): any[];
-        Units(): $mol_list;
-        unit_cards(): any[];
-        Unit_details(index: any): $mol_page;
-        Details_close(): $mol_link;
-        Details_close_icon(): $mol_icon_cross;
-        Details_body(): $mol_list;
-        Unit_detail(): $mol_row;
-        Unit_card(index: any): $mpk_tss_pereferials_unit;
-        unit(index: any): any;
-        unit_arg(index: any): {
-            "unit": string;
-        };
-        unit_id(index: any): string;
-    }
-}
-declare namespace $ {
-    class $mpk_tss_pereferials_unit extends $mol_link {
-        unit(): any;
-        minimal_height(): number;
-        sub(): any[];
-        Card(): $mpk_tss_pereferials_unit_card;
-    }
-}
-declare namespace $ {
     class $mpk_tss_pereferials_unit_card extends $mol_card {
         unit(): any;
+        statuses(): {
+            "warning": string;
+            "error": string;
+            "success": string;
+            "ready": string;
+            "nr": string;
+            "responding": string;
+            "unknown": string;
+        };
+        warning(): string;
+        error(): string;
+        success(): string;
+        ready(): string;
+        nr(): string;
+        responding(): string;
+        unknown(): string;
         attr(): {
             "mpk_tss_pereferials_unit_type": string;
             "mol_card_status_type": string;
@@ -1358,6 +1556,7 @@ declare namespace $ {
         Status(): $mol_view;
         Footer(): $mol_view;
         Status_text(): $mol_view;
+        status_text(): string;
         Refresh_action(): $mol_button_minor;
         refresh_click(event?: any, force?: $mol_atom_force): any;
         Refresh_icon(): $mpk_tss_icon_renew;
@@ -1372,60 +1571,47 @@ declare namespace $ {
         element(): string;
     }
 }
-declare namespace $ {
-    class $mpk_tss_pereferials_unit_parameters extends $mol_list {
-        rows(): any[];
-        Parameters(): $mol_row;
-        parameters(): any[];
-        Parameter(id: any): $mol_labeler;
-        Type_item(): $mol_labeler;
-        type_title(): string;
+declare namespace $.$$ {
+    class $mpk_tss_pereferials_unit_card extends $.$mpk_tss_pereferials_unit_card {
+        unit(): $mpk_tss_pereferials_domain_unit;
         type(): string;
+        element(): string;
+        status(): $mpk_tss_domain_status;
+        status_text(): string;
+        refresh_click(event: Event): void;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_pereferials extends $mpk_tss_wrap {
+        self_title(): string;
+        unit_current_page(): any;
+        sub(): any[];
+        Filter_title(): $mol_search;
+        filter_title(val?: any, force?: $mol_atom_force): any;
+        body(): any[];
+        Units(): $mol_list;
+        unit_links(): any[];
+        Unit_link(id: any): $mol_link;
+        unit_arg(id: any): {
+            "unit": string;
+        };
+        unit_link_id(id: any): string;
+        Card(id: any): $mpk_tss_pereferials_unit_card;
+        unit_for_card(id: any): any;
+        Unit_details(): $mpk_tss_pereferials_unit_details;
+        unit_for_details(): any;
     }
 }
 declare namespace $.$$ {
     class $mpk_tss_pereferials extends $.$mpk_tss_pereferials {
-        units(): {
-            id: string;
-            type: string;
-            element: string;
-            status: string;
-            paremeters: ({
-                name: string;
-                value: string;
-                update: string;
-            } | {
-                name: string;
-                value: number;
-                update: string;
-            })[];
-        }[];
-        unit_cards(): $mpk_tss_pereferials_unit[];
-        unit(index: any): {
-            id: string;
-            type: string;
-            element: string;
-            status: string;
-            paremeters: ({
-                name: string;
-                value: string;
-                update: string;
-            } | {
-                name: string;
-                value: number;
-                update: string;
-            })[];
-        };
-        unit_id(index: any): string;
-        unit_current(): any;
+        domain(): $mpk_tss_pereferials_domain_mock;
+        unit_links(): $.$mol_link[];
+        unit_for_card(id: string): $mpk_tss_pereferials_domain_unit;
+        unit_link_id(id: string): string;
+        unit_current_id(next?: string): any;
+        unit_current_page(): $.$mpk_tss_pereferials_unit_details;
+        unit_for_details(): $mpk_tss_pereferials_domain_unit;
         destructor(): void;
-    }
-    class $mpk_tss_pereferials_unit_card extends $.$mpk_tss_pereferials_unit_card {
-        unit(): any;
-        type(): any;
-        element(): any;
-        status(): any;
-        refresh_click(event: Event): void;
     }
 }
 declare namespace $ {
@@ -1503,6 +1689,11 @@ declare namespace $ {
 declare namespace $.$$ {
     class $mpk_tss_enter extends $.$mpk_tss_enter {
         event_submit(): void;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_icon_signout extends $mol_icon {
+        path(): string;
     }
 }
 declare namespace $ {
@@ -1744,15 +1935,7 @@ declare namespace $ {
         Head(): $mol_view;
         Terminal_link(): $mol_button_minor;
         terminal_label(): string;
-        Second(): $mol_view;
-        user_info(): any;
         Body(): $mpk_tss_main;
-        entered(v?: any, force?: $mol_atom_force): any;
-        logged_email(v?: any, force?: $mol_atom_force): any;
-        User_link(): $mol_button_minor;
-        logout_click(event?: any, force?: $mol_atom_force): any;
-        User_email(): $mol_view;
-        User_signout(): $mpk_tss_icon_signout;
     }
 }
 declare namespace $ {
@@ -1778,6 +1961,10 @@ declare namespace $ {
         common_tools(): any[];
         Details_close(): $mol_link;
         Details_close_icon(): $mol_icon_cross;
+        User_link(): $mol_button_minor;
+        logout_click(event?: any, force?: $mol_atom_force): any;
+        User_email(): $mol_view;
+        User_signout(): $mpk_tss_icon_signout;
         pages(): any[];
         Sidebar(): $mol_page;
         Logo(): $mol_image;
@@ -1793,11 +1980,10 @@ declare namespace $ {
 }
 declare namespace $.$$ {
     class $mpk_tss extends $.$mpk_tss {
-        entered(next?: boolean): boolean;
-        logout_click(): void;
-        user_info(): $mol_button_minor;
     }
     class $mpk_tss_main extends $.$mpk_tss_main {
+        entered(next?: boolean): boolean;
+        logout_click(): void;
         menu_items(): $.$mol_link[];
         menu_page_arg(id: string): {
             page: string;

@@ -25,32 +25,41 @@ $mol_button_major $mol_button_typed
 
 $mol_button_minor $mol_button_typed
 
-$mol_svg $mol_view
-	dom_name \svg
-	dom_name_space \http://www.w3.org/2000/svg
-
-
-$mol_svg_root $mol_svg
-	dom_name \svg
-	attr *
+$mol_scroll $mol_view
+	minimal_height 0
+	moving_hor?val false
+	moving_vert?val false
+	field *
 		^
-		viewBox <= view_box \0 0 100 100
-		preserveAspectRatio <= aspect \xMidYMid
-
-$mol_svg_path $mol_svg
-	dom_name \path
-	attr *
+		scrollTop <= scroll_top?val 0
+		scrollLeft <= scroll_left?val 0
+		scrollBottom <= scroll_bottom?val 0
+		scrollRight <= scroll_right?val 0
+	event_async *
 		^
-		d <= geometry \
+		scroll?event <=> event_scroll?event null
+		- DOMSubtreeModified?event <=> event_repos?event null
+	Strut $mol_view
+		style *
+			transform <= strut_transform \
 
-
-$mol_icon $mol_svg_root
-	view_box \0 0 24 24
+$mol_page $mol_view
 	sub /
-		<= Path $mol_svg_path
-			geometry <= path \
-
-$mpk_tss_icon_signout $mol_icon path \M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z
+		<= Head $mol_view
+			attr * mol_theme \$mol_theme_base
+			sub <= head /
+				<= Title $mol_button
+					sub /
+						<= title
+					event_click?val <=> event_top?val null
+				<= Tools $mol_view
+					sub <= tools /
+		<= Body $mol_scroll
+			scroll_top?val <=> body_scroll_top?val 0
+			sub <= body /
+		<= Foot $mol_view
+			attr * mol_theme \$mol_theme_base
+			sub <= foot /
 
 $mol_plugin $mol_object
 	dom_node null
@@ -157,42 +166,6 @@ $mol_link $mol_view
 		^
 		click?event <=> click?event <=> event_click?event null
 
-$mol_scroll $mol_view
-	minimal_height 0
-	moving_hor?val false
-	moving_vert?val false
-	field *
-		^
-		scrollTop <= scroll_top?val 0
-		scrollLeft <= scroll_left?val 0
-		scrollBottom <= scroll_bottom?val 0
-		scrollRight <= scroll_right?val 0
-	event_async *
-		^
-		scroll?event <=> event_scroll?event null
-		- DOMSubtreeModified?event <=> event_repos?event null
-	Strut $mol_view
-		style *
-			transform <= strut_transform \
-
-$mol_page $mol_view
-	sub /
-		<= Head $mol_view
-			attr * mol_theme \$mol_theme_base
-			sub <= head /
-				<= Title $mol_button
-					sub /
-						<= title
-					event_click?val <=> event_top?val null
-				<= Tools $mol_view
-					sub <= tools /
-		<= Body $mol_scroll
-			scroll_top?val <=> body_scroll_top?val 0
-			sub <= body /
-		<= Foot $mol_view
-			attr * mol_theme \$mol_theme_base
-			sub <= foot /
-
 $mol_filler $mol_view
 	minimal_height 500
 	sub /
@@ -237,6 +210,31 @@ $mol_check $mol_button_minor
 			<= Title $mol_view
 				sub /
 					<= title \
+
+$mol_svg $mol_view
+	dom_name \svg
+	dom_name_space \http://www.w3.org/2000/svg
+
+
+$mol_svg_root $mol_svg
+	dom_name \svg
+	attr *
+		^
+		viewBox <= view_box \0 0 100 100
+		preserveAspectRatio <= aspect \xMidYMid
+
+$mol_svg_path $mol_svg
+	dom_name \path
+	attr *
+		^
+		d <= geometry \
+
+
+$mol_icon $mol_svg_root
+	view_box \0 0 24 24
+	sub /
+		<= Path $mol_svg_path
+			geometry <= path \
 
 $mol_icon_tick $mol_icon path \M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z
 
@@ -461,6 +459,44 @@ $mol_row $mol_view
 
 $mol_row_sub $mol_view
 
+$mol_labeler $mol_view
+	sub /
+		<= Title $mol_view
+			sub <= label /
+				<= title
+		<= Content $mol_view
+			sub /
+				<= content null
+
+$mpk_tss_pereferials_unit_details $mol_page
+	unit null
+	minimal_width 400
+	tools /
+		<= Details_close $mol_link
+			arg * unit null
+			sub / <= Details_close_icon $mol_icon_cross
+	body /
+		<= List $mol_list
+			rows /
+				<= unit_parameters /
+	Parameter!parameter $mol_row
+		sub /
+			<= Parameter_item!parameter $mol_labeler
+				title <= parameter_title @ \Parameter
+				Content $mol_view
+					sub /
+						<= parameter_name!parameter \
+			<= Value_item!parameter $mol_labeler
+				title <= value_title @ \Value
+				Content $mol_view
+					sub /
+						<= parameter_value!parameter \
+			<= Updated_item!parameter $mol_labeler
+				title <= updated_title @ \Updated
+				Content $mol_view
+					sub /
+						<= parameter_updated!parameter \
+
 $mol_card $mol_list
 	attr *
 		^
@@ -475,55 +511,16 @@ $mol_card $mol_list
 
 $mpk_tss_icon_renew $mol_icon path \M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z
 
-$mol_labeler $mol_view
-	sub /
-		<= Title $mol_view
-			sub <= label /
-				<= title
-		<= Content $mol_view
-			sub /
-				<= content null
-
-$mpk_tss_pereferials $mpk_tss_wrap
-	self_title @ \Pereferials
-	sub /
-		<= Head
-		<= Filter_title $mol_search
-			query?val <=> filter_title?val \
-		<= Body
-	unit_current null
-	body /
-		<= Units $mol_list
-			destructor <= destructor
-			rows /
-				<= unit_cards /
-	Unit_details!index $mol_page
-		title \Unit
-		minimal_width 400
-		tools /
-			<= Details_close $mol_link
-				arg * unit null
-				sub / <= Details_close_icon $mol_icon_cross
-		body /
-			<= Details_body $mol_list
-				rows /
-					<= Unit_detail $mol_row
-						sub /
-							\ Test
-	Unit_card!index $mpk_tss_pereferials_unit
-		unit <= unit!index null
-		arg <= unit_arg!index *
-			unit <= unit_id!index \
-
-$mpk_tss_pereferials_unit $mol_link
-	unit null
-	minimal_height 125
-	sub /
-		<= Card $mpk_tss_pereferials_unit_card
-			unit <= unit
-
 $mpk_tss_pereferials_unit_card $mol_card
 	unit null
+	statuses *
+		warning <= warning @ \Warning
+		error <= error @ \Error
+		success <= success @ \Success
+		ready <= ready @ \Ready
+		nr <= nr @ \Not responding
+		responding <= responding @ \Responding
+		unknown <= unknown @ \Unknown
 	attr *
 		^
 		mpk_tss_pereferials_unit_type <= status \
@@ -531,7 +528,7 @@ $mpk_tss_pereferials_unit_card $mol_card
 		minimal_height 30
 		sub /
 			<= Status_text $mol_view
-				sub / <= status \
+				sub / <= status_text \
 			<= Refresh_action $mol_button_minor
 				event_click?event <=> refresh_click?event null
 				sub / <= Refresh_icon $mpk_tss_icon_renew
@@ -545,15 +542,30 @@ $mpk_tss_pereferials_unit_card $mol_card
 					title <= element_title @ \Element
 					content <= element \
 
-$mpk_tss_pereferials_unit_parameters $mol_list
-	rows /
-		<= Parameters $mol_row
-			sub /
-				<= parameters /
-	Parameter!id
-		<= Type_item $mol_labeler
-			title <= type_title @ \Type
-			content <= type \
+$mpk_tss_pereferials $mpk_tss_wrap
+	self_title @ \Pereferials
+	unit_current_page null
+	sub /
+		<= Head
+		<= Filter_title $mol_search
+			query?val <=> filter_title?val \
+		<= Body
+	body /
+		<= Units $mol_list
+			destructor <= destructor
+			rows <= unit_links /
+	-
+	Unit_link!id $mol_link
+		minimal_height 125
+		arg <= unit_arg!id *
+			unit <= unit_link_id!id \
+		sub /
+			<= Card!id $mpk_tss_pereferials_unit_card
+				unit <= unit_for_card!id null
+	-
+	Unit_details $mpk_tss_pereferials_unit_details
+		minimal_width 400
+		unit <= unit_for_details null
 
 $mpk_tss_sensors $mpk_tss_wrap
 	self_title @ \Sensors
@@ -606,6 +618,8 @@ $mpk_tss_enter $mol_view
 				sub / <= submitLabel @ \Log In
 				event_click?val <=> event_submit?val null
 				disabled <= submit_blocked false
+
+$mpk_tss_icon_signout $mol_icon path \M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z
 
 $mol_image $mol_view
 	dom_name \img
@@ -773,18 +787,7 @@ $mpk_tss $mol_view
 					enabled false
 					sub /
 						<= terminal_label @ \Terminal № 123
-				<= Second $mol_view sub /
-					<= user_info null
 		<= Body $mpk_tss_main
-			entered?v <=> entered?v false
-			logged_email?v <=> logged_email?v \
-	User_link $mol_button_minor
-		event_click?event <=> logout_click?event null
-		sub /
-			<= User_email $mol_view
-				sub /
-					<= logged_email
-			<= User_signout $mpk_tss_icon_signout
 
 $mpk_tss_main $mol_book
 	Menu_item!id $mol_link
@@ -798,7 +801,7 @@ $mpk_tss_main $mol_book
 		pereferials <= Pereferials $mpk_tss_pereferials
 			breadcrumbs / <= breadcrumbs
 			tools <= common_tools
-			unit_current => details
+			unit_current_page => details
 			event_top?event <=> event_front_up?event
 		sensors <= Sensors $mpk_tss_sensors
 			breadcrumbs / <= breadcrumbs
@@ -813,9 +816,17 @@ $mpk_tss_main $mol_book
 		login?v <=> logged_email?v \
 	breadcrumbs /
 	common_tools /
+		<= User_link
 		<= Details_close $mol_link
 			arg * page null
 			sub / <= Details_close_icon $mol_icon_cross
+	User_link $mol_button_minor
+		event_click?event <=> logout_click?event null
+		sub /
+			<= User_email $mol_view
+				sub /
+					<= logged_email
+			<= User_signout $mpk_tss_icon_signout
 	pages /
 		<= Sidebar $mol_page
 			head /
@@ -835,6 +846,8 @@ $mpk_tss_main $mol_book
 							sub /
 								\© 2019 MPK Software, Russia
 		<= Summary $mpk_tss_summary
+			tools /
+				<= User_link
 			breadcrumbs / <= breadcrumbs
 			event_top?event <=> event_front_up?event
 		<= menu_pages
