@@ -1265,6 +1265,21 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
+    class $mol_row extends $mol_view {
+    }
+}
+declare namespace $ {
+    class $mol_row_sub extends $mol_view {
+    }
+}
+declare namespace $.$$ {
+    class $mol_row extends $.$mol_row {
+        item_offsets_top(): number[];
+        sub_visible(): (string | number | boolean | Node | $mol_view)[];
+        minimal_height(): number;
+    }
+}
+declare namespace $ {
     class $mol_card extends $mol_list {
         attr(): {
             "mol_card_status_type": string;
@@ -1288,21 +1303,6 @@ declare namespace $ {
     }
 }
 declare namespace $ {
-    class $mol_row extends $mol_view {
-    }
-}
-declare namespace $ {
-    class $mol_row_sub extends $mol_view {
-    }
-}
-declare namespace $.$$ {
-    class $mol_row extends $.$mol_row {
-        item_offsets_top(): number[];
-        sub_visible(): (string | number | boolean | Node | $mol_view)[];
-        minimal_height(): number;
-    }
-}
-declare namespace $ {
     class $mol_labeler extends $mol_view {
         sub(): any[];
         Title(): $mol_view;
@@ -1321,8 +1321,11 @@ declare namespace $ {
         Units(): $mol_list;
         unit_cards(): any[];
         unit_current(): any;
-        Unit_details(id: any): $mol_view;
-        test(): string;
+        Unit_details(index: any): $mol_page;
+        Details_close(): $mol_link;
+        Details_close_icon(): $mol_icon_cross;
+        Details_body(): $mol_list;
+        Unit_detail(): $mol_row;
         Unit_card(index: any): $mpk_tss_pereferials_unit;
         unit(index: any): any;
         unit_arg(index: any): {
@@ -1361,6 +1364,17 @@ declare namespace $ {
         Element_item(): $mol_labeler;
         element_title(): string;
         element(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_pereferials_unit_parameters extends $mol_list {
+        rows(): any[];
+        Parameters(): $mol_row;
+        parameters(): any[];
+        Parameter(id: any): $mol_labeler;
+        Type_item(): $mol_labeler;
+        type_title(): string;
+        type(): string;
     }
 }
 declare namespace $.$$ {

@@ -455,6 +455,10 @@ $mol_search $mol_bar
 				<= Clear_icon $mol_icon_cross
 			event_click?val <=> event_clear?val null
 
+$mol_row $mol_view
+
+$mol_row_sub $mol_view
+
 $mol_card $mol_list
 	attr *
 		^
@@ -468,10 +472,6 @@ $mol_card $mol_list
 				<= status_text <= status \
 
 $mpk_tss_icon_renew $mol_icon path \M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z
-
-$mol_row $mol_view
-
-$mol_row_sub $mol_view
 
 $mol_labeler $mol_view
 	sub /
@@ -493,8 +493,19 @@ $mpk_tss_pereferials $mpk_tss_wrap
 		<= Units $mol_list rows /
 			<= unit_cards /
 		<= unit_current null
-	Unit_details!id $mol_view sub /
-		<= test @ \Test
+	Unit_details!index $mol_page
+		title \Unit
+		minimal_width 400
+		tools /
+			<= Details_close $mol_link
+				arg * unit null
+				sub / <= Details_close_icon $mol_icon_cross
+		body /
+			<= Details_body $mol_list
+				rows /
+					<= Unit_detail $mol_row
+						sub /
+							\ Test
 	Unit_card!index $mpk_tss_pereferials_unit
 		unit <= unit!index null
 		arg <= unit_arg!index *
@@ -528,6 +539,16 @@ $mpk_tss_pereferials_unit_card $mol_card
 				<= Element_item $mol_labeler
 					title <= element_title @ \Element
 					content <= element \
+
+$mpk_tss_pereferials_unit_parameters $mol_list
+	rows /
+		<= Parameters $mol_row
+			sub /
+				<= parameters /
+	Parameter!id
+		<= Type_item $mol_labeler
+			title <= type_title @ \Type
+			content <= type \
 
 $mpk_tss_sensors $mpk_tss_wrap
 	self_title @ \Sensors
@@ -788,7 +809,7 @@ $mpk_tss $mol_book
 			tools / <= User_link
 			event_top?event <=> event_front_up?event
 		<= menu_pages
-		<= details null
+		<= details
 	breadcrumbs /
 		<= main_title @ \Terminal № 1238798
 	User_link $mol_button_minor
