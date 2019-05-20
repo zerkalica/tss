@@ -6362,8 +6362,17 @@ var $;
 })($ || ($ = {}));
 (function ($) {
     class $mpk_tss_pereferials_unit_details_parameter extends $.$mol_row {
-        unknown() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_details_parameter_unknown");
+        Unknown() {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.unknown_text());
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        unknown_text() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_details_parameter_unknown_text");
+        }
+        updated_now_text() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_details_parameter_updated_now_text");
         }
         parameter() {
             return null;
@@ -6432,9 +6441,12 @@ var $;
             return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_details_parameter_updated_title");
         }
         parameter_updated() {
-            return "";
+            return null;
         }
     }
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferials_unit_details_parameter.prototype, "Unknown", null);
     __decorate([
         $.$mol_mem_key
     ], $mpk_tss_pereferials_unit_details_parameter.prototype, "Value_string", null);
@@ -6497,9 +6509,9 @@ var $;
             Value_content() {
                 const value = this.parameter().value();
                 if (!value)
-                    return this.unknown();
+                    return this.unknown_text();
                 switch (value.type) {
-                    case 'string': return this.Value_string(value.value);
+                    case 'string': return value.value;
                     case 'status': return this.Value_status(value.value);
                 }
                 return null;
@@ -6512,7 +6524,14 @@ var $;
             }
             parameter_updated() {
                 const updated = this.parameter().updated();
-                return updated ? updated.toString('DD.MM.YYYY, hh:mm') : this.unknown();
+                if (!updated)
+                    return this.Unknown();
+                const current = new $.$mol_time_moment();
+                if (current.native.toDateString() === updated.native.toDateString()
+                    && current.hour === updated.hour
+                    && current.minute === updated.minute)
+                    return this.updated_now_text();
+                return updated.toString('DD.MM.YYYY, hh:mm');
             }
         }
         $$.$mpk_tss_pereferials_unit_details_parameter = $mpk_tss_pereferials_unit_details_parameter;
