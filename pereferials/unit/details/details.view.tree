@@ -13,7 +13,9 @@ $mpk_tss_pereferials_unit_details $mol_page
 		parameter <= parameter_item!parameter null
 
 $mpk_tss_pereferials_unit_details_parameter $mol_row
-	unknown @ \Unknown
+	Unknown $mol_view sub /
+		<= unknown_text @ \Unknown
+	updated_now_text @ \Now
 	parameter null
 	Value_string!val $mol_view
 		sub /
@@ -33,4 +35,4 @@ $mpk_tss_pereferials_unit_details_parameter $mol_row
 			title <= updated_title @ \Updated
 			Content $mol_view
 				sub /
-					<= parameter_updated \
+					<= parameter_updated null

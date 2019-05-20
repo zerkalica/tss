@@ -33,7 +33,6 @@ namespace $.$$ {
 			alert('Refresh...')
 		}
 	}
-
 	export class $mpk_tss_pereferials_unit_details_parameter extends $.$mpk_tss_pereferials_unit_details_parameter {
 		parameter(): $mpk_tss_pereferials_domain_unit_parameter {
 			throw new Error('parameter')
@@ -45,9 +44,9 @@ namespace $.$$ {
 
 		Value_content() {
 			const value = this.parameter().value()
-			if (!value) return this.unknown()
+			if (!value) return this.unknown_text()
 			switch (value.type) {
-				case 'string': return this.Value_string(value.value)
+				case 'string': return value.value
 				case 'status': return this.Value_status(value.value)
 			}
 
@@ -64,7 +63,15 @@ namespace $.$$ {
 
 		parameter_updated() {
 			const updated = this.parameter().updated()
-			return updated ? updated.toString('DD.MM.YYYY, hh:mm') : this.unknown()
+			if (!updated) return this.Unknown()
+			const current = new $mol_time_moment()
+			if (
+				current.native.toDateString() === updated.native.toDateString()
+				&& current.hour === updated.hour
+				&& current.minute === updated.minute
+			)
+				return this.updated_now_text()
+			return updated.toString('DD.MM.YYYY, hh:mm')
 		}
 	}
 	

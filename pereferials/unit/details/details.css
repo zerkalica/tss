@@ -1,5 +1,5 @@
 [mpk_tss_pereferials_unit_details] {
-	flex: 1 0 35rem;
+	flex: 100 0 37rem;
 }
 
 [mpk_tss_pereferials_unit_details_list] {
@@ -7,20 +7,28 @@
 }
 
 [mpk_tss_pereferials_unit_details_parameter] {
-	justify-content: space-between;
+	/* justify-content: space-between; */
+	padding: 0;
+	margin: 0 0rem;
 }
 
 [mpk_tss_pereferials_unit_details_parameter]:nth-child(2n) {
-	/* background: #666; */
+	background: var(--mol_theme_line);
 }
 [mpk_tss_pereferials_unit_details_parameter_name] {
-	flex-basis: 10rem;
+	flex-grow: 0;
+	flex-basis: 15rem;
 }
 
 [mpk_tss_pereferials_unit_details_parameter_value] {
-	flex-basis: 7rem;
+	flex-grow: 0;
+	flex-basis: 10rem;
 }
 
 [mpk_tss_pereferials_unit_details_parameter_updated] {
-	flex-basis: 10rem;
+	flex-basis: 9rem;
+}
+
+[mpk_tss_pereferials_unit_details_parameter_unknown] {
+	color: var(--mol_theme_shade);
 }
