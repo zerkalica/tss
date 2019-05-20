@@ -5568,6 +5568,60 @@ var $;
                             },
                         ],
                     },
+                    {
+                        id: '4',
+                        type: 'AVR',
+                        element: 'AVR Electricity system N4',
+                        status: 'ready',
+                        paremeters: [
+                            {
+                                name: 'State',
+                                value: 'ready',
+                                update: new Date().toString(),
+                            },
+                            {
+                                name: 'Voltage',
+                                value: 12,
+                                update: new Date().toString(),
+                            },
+                        ],
+                    },
+                    {
+                        id: '5',
+                        type: 'AVR',
+                        element: 'AVR Electricity system N1',
+                        status: 'ready',
+                        paremeters: [
+                            {
+                                name: 'State',
+                                value: 'ready',
+                                update: new Date().toString(),
+                            },
+                            {
+                                name: 'Voltage',
+                                value: 12,
+                                update: new Date().toString(),
+                            },
+                        ],
+                    },
+                    {
+                        id: '6',
+                        type: 'AVR',
+                        element: 'AVR Electricity system N1',
+                        status: 'ready',
+                        paremeters: [
+                            {
+                                name: 'State',
+                                value: 'ready',
+                                update: new Date().toString(),
+                            },
+                            {
+                                name: 'Voltage',
+                                value: 12,
+                                update: new Date().toString(),
+                            },
+                        ],
+                    },
                 ];
             }
             unit_cards() {
@@ -5844,6 +5898,9 @@ var $;
     class $mpk_tss_enter extends $.$mol_view {
         entered(val, force) {
             return (val !== void 0) ? val : false;
+        }
+        minimal_width() {
+            return 200;
         }
         sub() {
             return [].concat(this.form());

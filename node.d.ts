@@ -1475,6 +1475,7 @@ declare namespace $ {
 declare namespace $ {
     class $mpk_tss_enter extends $mol_view {
         entered(val?: any, force?: $mol_atom_force): any;
+        minimal_width(): number;
         sub(): any[];
         form(): $mol_form;
         loginField(): $mol_form_field;

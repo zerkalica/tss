@@ -585,6 +585,7 @@ $mol_form_field $mol_labeler
 
 $mpk_tss_enter $mol_view
 	entered?val false
+	minimal_width 200
 	sub / <= form $mol_form
 		form_fields /
 			<= loginField $mol_form_field
