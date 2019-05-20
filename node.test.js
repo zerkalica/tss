@@ -6319,9 +6319,9 @@ var $;
             Value_content() {
                 const value = this.parameter().value();
                 if (!value)
-                    return this.unknown_text();
+                    return this.Unknown();
                 switch (value.type) {
-                    case 'string': return value.value;
+                    case 'string': return this.Value_string(value.value);
                     case 'status': return this.Value_status(value.value);
                 }
                 return null;

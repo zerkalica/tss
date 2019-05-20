@@ -1657,7 +1657,7 @@ declare namespace $.$$ {
     class $mpk_tss_pereferials_unit_details_parameter extends $.$mpk_tss_pereferials_unit_details_parameter {
         parameter(): $mpk_tss_pereferials_domain_unit_parameter;
         parameter_name(): string;
-        Value_content(): string | $.$mpk_tss_pereferials_unit_status;
+        Value_content(): $mol_view | $.$mpk_tss_pereferials_unit_status;
         value_string_data(data: string): string;
         value_status_data(status: $mpk_tss_pereferials_domain_unit_status): $mpk_tss_pereferials_domain_unit_status;
         parameter_updated(): string | $mol_view;
