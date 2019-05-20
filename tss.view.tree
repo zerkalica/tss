@@ -6,18 +6,7 @@ $mpk_tss $mol_view
 					enabled false
 					sub /
 						<= terminal_label @ \Terminal № 123
-				<= Second $mol_view sub /
-					<= user_info null
 		<= Body $mpk_tss_main
-			entered?v <=> entered?v false
-			logged_email?v <=> logged_email?v \
-	User_link $mol_button_minor
-		event_click?event <=> logout_click?event null
-		sub /
-			<= User_email $mol_view
-				sub /
-					<= logged_email
-			<= User_signout $mpk_tss_icon_signout
 
 $mpk_tss_main $mol_book
 	Menu_item!id $mol_link
@@ -31,7 +20,7 @@ $mpk_tss_main $mol_book
 		pereferials <= Pereferials $mpk_tss_pereferials
 			breadcrumbs / <= breadcrumbs
 			tools <= common_tools
-			unit_current => details
+			unit_current_page => details
 			event_top?event <=> event_front_up?event
 		sensors <= Sensors $mpk_tss_sensors
 			breadcrumbs / <= breadcrumbs
@@ -46,9 +35,17 @@ $mpk_tss_main $mol_book
 		login?v <=> logged_email?v \
 	breadcrumbs /
 	common_tools /
+		<= User_link
 		<= Details_close $mol_link
 			arg * page null
 			sub / <= Details_close_icon $mol_icon_cross
+	User_link $mol_button_minor
+		event_click?event <=> logout_click?event null
+		sub /
+			<= User_email $mol_view
+				sub /
+					<= logged_email
+			<= User_signout $mpk_tss_icon_signout
 	pages /
 		<= Sidebar $mol_page
 			head /
@@ -68,6 +65,8 @@ $mpk_tss_main $mol_book
 							sub /
 								\© 2019 MPK Software, Russia
 		<= Summary $mpk_tss_summary
+			tools /
+				<= User_link
 			breadcrumbs / <= breadcrumbs
 			event_top?event <=> event_front_up?event
 		<= menu_pages

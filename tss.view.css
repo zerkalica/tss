@@ -1,5 +1,8 @@
+[mpk_tss_main] > [mol_page] {
+    box-shadow: none;
+}
+
 [mpk_tss] {
-	/* box-shadow: none; */
 	flex-direction: column;
 	display: flex;
 }
@@ -51,7 +54,7 @@
 }
 
 [mpk_tss_main_sidebar] {
-	flex: 1 0 auto;
+	flex: 0 0 auto;
 	background-color: var(--mol_theme_line);
 }
 

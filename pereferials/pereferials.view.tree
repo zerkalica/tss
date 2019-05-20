@@ -1,70 +1,24 @@
 $mpk_tss_pereferials $mpk_tss_wrap
 	self_title @ \Pereferials
+	unit_current_page null
 	sub /
 		<= Head
 		<= Filter_title $mol_search
 			query?val <=> filter_title?val \
 		<= Body
-	unit_current null
 	body /
 		<= Units $mol_list
 			destructor <= destructor
-			rows /
-				<= unit_cards /
-	Unit_details!index $mol_page
-		title \Unit
+			rows <= unit_links /
+	-
+	Unit_link!id $mol_link
+		minimal_height 125
+		arg <= unit_arg!id *
+			unit <= unit_link_id!id \
+		sub /
+			<= Card!id $mpk_tss_pereferials_unit_card
+				unit <= unit_for_card!id null
+	-
+	Unit_details $mpk_tss_pereferials_unit_details
 		minimal_width 400
-		tools /
-			<= Details_close $mol_link
-				arg * unit null
-				sub / <= Details_close_icon $mol_icon_cross
-		body /
-			<= Details_body $mol_list
-				rows /
-					<= Unit_detail $mol_row
-						sub /
-							\ Test
-	Unit_card!index $mpk_tss_pereferials_unit
-		unit <= unit!index null
-		arg <= unit_arg!index *
-			unit <= unit_id!index \
-
-$mpk_tss_pereferials_unit $mol_link
-	unit null
-	minimal_height 125
-	sub /
-		<= Card $mpk_tss_pereferials_unit_card
-			unit <= unit
-
-$mpk_tss_pereferials_unit_card $mol_card
-	unit null
-	attr *
-		^
-		mpk_tss_pereferials_unit_type <= status \
-	Status <= Footer $mol_view
-		minimal_height 30
-		sub /
-			<= Status_text $mol_view
-				sub / <= status \
-			<= Refresh_action $mol_button_minor
-				event_click?event <=> refresh_click?event null
-				sub / <= Refresh_icon $mpk_tss_icon_renew
-	Content <= Group $mol_row
-		sub /
-			<= items /
-				<= Type_item $mol_labeler
-					title <= type_title @ \Type
-					content <= type \
-				<= Element_item $mol_labeler
-					title <= element_title @ \Element
-					content <= element \
-
-$mpk_tss_pereferials_unit_parameters $mol_list
-	rows /
-		<= Parameters $mol_row
-			sub /
-				<= parameters /
-	Parameter!id
-		<= Type_item $mol_labeler
-			title <= type_title @ \Type
-			content <= type \
+		unit <= unit_for_details null

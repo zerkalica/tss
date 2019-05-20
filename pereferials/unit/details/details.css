@@ -1,0 +1,19 @@
+[mpk_tss_pereferials_unit_details_list] {
+	background: var(--mol_theme_field);
+}
+
+[mpk_tss_pereferials_unit_details_parameter] {
+	/* justify-content: space-between; */
+}
+
+[mpk_tss_pereferials_unit_details_parameter_item] {
+	/* flex: 2 1 10rem; */
+}
+
+[mpk_tss_pereferials_unit_details_value_item] {
+	/* flex: 1 0 7rem; */
+}
+
+[mpk_tss_pereferials_unit_details_updated_item] {
+	/* flex: 0 0 15rem; */
+}

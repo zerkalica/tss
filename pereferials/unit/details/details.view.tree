@@ -1,0 +1,28 @@
+$mpk_tss_pereferials_unit_details $mol_page
+	unit null
+	minimal_width 400
+	tools /
+		<= Details_close $mol_link
+			arg * unit null
+			sub / <= Details_close_icon $mol_icon_cross
+	body /
+		<= List $mol_list
+			rows /
+				<= unit_parameters /
+	Parameter!parameter $mol_row
+		sub /
+			<= Parameter_item!parameter $mol_labeler
+				title <= parameter_title @ \Parameter
+				Content $mol_view
+					sub /
+						<= parameter_name!parameter \
+			<= Value_item!parameter $mol_labeler
+				title <= value_title @ \Value
+				Content $mol_view
+					sub /
+						<= parameter_value!parameter \
+			<= Updated_item!parameter $mol_labeler
+				title <= updated_title @ \Updated
+				Content $mol_view
+					sub /
+						<= parameter_updated!parameter \

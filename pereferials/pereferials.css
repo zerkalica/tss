@@ -1,5 +1,5 @@
 [mpk_tss_pereferials] {
-	flex: 1 1 400px;
+	flex: 0 1 400px;
 }
 [mpk_tss_pereferials_results] {
 	margin-top: 0.5rem;
@@ -16,40 +16,8 @@
 }
 
 [mpk_tss_pereferials_units] {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-}
-
-[mpk_tss_pereferials_unit_card_group] {
-	flex-wrap: nowrap;
-	padding: 0;
-}
-
-[mpk_tss_pereferials_unit_card_refresh_action] {
-	color: white;
-}
-[mpk_tss_pereferials_unit_card_footer] {
-	background: var(--mol_theme_line);
-	text-transform: capitalize;
-	padding: 0 1rem;
-	line-height: 2;
-	margin: 0;
-}
-
-[mpk_tss_pereferials_unit_type="ready"] {
-	--mol_theme_line: hsl(140, 50%, 50%);
-}
-
-[mpk_tss_pereferials_unit_type="error"] {
-	--mol_theme_line: hsl(0, 50%, 50%);
-}
-
-[mpk_tss_pereferials_unit_type="warning"] {
-	--mol_theme_line: hsl(29, 50%, 50%);
-}
-
-[mpk_tss_pereferials_unit_details] {
-	flex: 1000 1 600px;
+	display: flex;
+	flex-direction: column;
 }
 
 [mpk_tss_pereferials_body] {
