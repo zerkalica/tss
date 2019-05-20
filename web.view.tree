@@ -455,6 +455,30 @@ $mol_search $mol_bar
 				<= Clear_icon $mol_icon_cross
 			event_click?val <=> event_clear?val null
 
+$mol_card $mol_list
+	attr *
+		^
+		mol_card_status_type <= status \
+	rows /
+		<= Content $mol_view
+			sub <= content /
+		<= Status $mol_view
+			minimal_height 30
+			sub /
+				<= status_text <= status \
+
+$mpk_tss_pereferials_unit_status $mol_view
+	status null
+	statuses *
+		ready <= ready @ \Ready
+		error <= error @ \Error
+		not_responding <= not_responding @ \Not responding
+		inactive <= inactive @ \Inactive
+		unknown <= unknown @ \Unknown
+	sub / <= status_text <= unknown
+
+$mpk_tss_icon_renew $mol_icon path \M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z
+
 $mol_row $mol_view
 
 $mol_row_sub $mol_view
@@ -468,67 +492,16 @@ $mol_labeler $mol_view
 			sub /
 				<= content null
 
-$mpk_tss_pereferials_unit_details $mol_page
-	unit null
-	minimal_width 400
-	tools /
-		<= Details_close $mol_link
-			arg * unit null
-			sub / <= Details_close_icon $mol_icon_cross
-	body /
-		<= List $mol_list
-			rows /
-				<= unit_parameters /
-	Parameter!parameter $mol_row
-		sub /
-			<= Parameter_item!parameter $mol_labeler
-				title <= parameter_title @ \Parameter
-				Content $mol_view
-					sub /
-						<= parameter_name!parameter \
-			<= Value_item!parameter $mol_labeler
-				title <= value_title @ \Value
-				Content $mol_view
-					sub /
-						<= parameter_value!parameter \
-			<= Updated_item!parameter $mol_labeler
-				title <= updated_title @ \Updated
-				Content $mol_view
-					sub /
-						<= parameter_updated!parameter \
-
-$mol_card $mol_list
-	attr *
-		^
-		mol_card_status_type <= status \
-	rows /
-		<= Content $mol_view
-			sub <= content /
-		<= Status $mol_view
-			minimal_height 30
-			sub /
-				<= status_text <= status \
-
-$mpk_tss_icon_renew $mol_icon path \M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z
-
 $mpk_tss_pereferials_unit_card $mol_card
 	unit null
-	statuses *
-		warning <= warning @ \Warning
-		error <= error @ \Error
-		success <= success @ \Success
-		ready <= ready @ \Ready
-		nr <= nr @ \Not responding
-		responding <= responding @ \Responding
-		unknown <= unknown @ \Unknown
 	attr *
 		^
 		mpk_tss_pereferials_unit_type <= status \
 	Status <= Footer $mol_view
 		minimal_height 30
 		sub /
-			<= Status_text $mol_view
-				sub / <= status_text \
+			<= Status_text $mpk_tss_pereferials_unit_status
+				status <= status
 			<= Refresh_action $mol_button_minor
 				event_click?event <=> refresh_click?event null
 				sub / <= Refresh_icon $mpk_tss_icon_renew
@@ -541,6 +514,43 @@ $mpk_tss_pereferials_unit_card $mol_card
 				<= Element_item $mol_labeler
 					title <= element_title @ \Element
 					content <= element \
+
+$mpk_tss_pereferials_unit_details $mol_page
+	unit null
+	minimal_width 400
+	tools /
+		<= Details_close $mol_link
+			arg * unit null
+			sub / <= Details_close_icon $mol_icon_cross
+	body /
+		<= List $mol_list
+			rows /
+				<= unit_parameters /
+	Parameter!parameter $mpk_tss_pereferials_unit_details_parameter
+		parameter <= parameter_item!parameter null
+
+$mpk_tss_pereferials_unit_details_parameter $mol_row
+	unknown @ \Unknown
+	parameter null
+	Value_string!val $mol_view
+		sub /
+			<= value_string_data!val \
+	Value_status!status $mpk_tss_pereferials_unit_status
+		status <= value_status_data!status null
+	sub /
+		<= Name $mol_labeler
+			title <= name_title @ \Parameter
+			Content $mol_view
+				sub /
+					<= parameter_name \
+		<= Value $mol_labeler
+			title <= value_title @ \Value
+			Content <= Value_content null
+		<= Updated $mol_labeler
+			title <= updated_title @ \Updated
+			Content $mol_view
+				sub /
+					<= parameter_updated \
 
 $mpk_tss_pereferials $mpk_tss_wrap
 	self_title @ \Pereferials

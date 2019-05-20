@@ -1309,6 +1309,53 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
+    class $mol_card extends $mol_list {
+        attr(): {
+            "mol_card_status_type": string;
+        };
+        status(): string;
+        rows(): any[];
+        Content(): $mol_view;
+        content(): any[];
+        Status(): $mol_view;
+        status_text(): string;
+    }
+}
+declare namespace $.$$ {
+    class $mol_card extends $.$mol_card {
+        rows(): $mol_view[];
+    }
+}
+declare namespace $ {
+    class $mpk_tss_pereferials_unit_status extends $mol_view {
+        status(): any;
+        statuses(): {
+            "ready": string;
+            "error": string;
+            "not_responding": string;
+            "inactive": string;
+            "unknown": string;
+        };
+        ready(): string;
+        error(): string;
+        not_responding(): string;
+        inactive(): string;
+        unknown(): string;
+        sub(): any[];
+        status_text(): string;
+    }
+}
+declare namespace $.$$ {
+    class $mpk_tss_pereferials_unit_status extends $.$mpk_tss_pereferials_unit_status {
+        status_text(): any;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_icon_renew extends $mol_icon {
+        path(): string;
+    }
+}
+declare namespace $ {
     class $mol_row extends $mol_view {
     }
 }
@@ -1438,15 +1485,6 @@ declare namespace $ {
     }
 }
 declare namespace $ {
-    enum $mpk_tss_domain_status {
-        ready = "ready",
-        error = "error",
-        warning = "warning",
-        unknown = "unknown",
-        nr = "nr"
-    }
-}
-declare namespace $ {
     class $mol_unit extends $mol_object {
         'valueOf()': number;
         constructor(value?: number);
@@ -1484,114 +1522,60 @@ declare namespace $ {
     function $mol_stub_time(maxShift?: number): $mol_time_moment;
 }
 declare namespace $ {
+    enum $mpk_tss_domain_status {
+        ready = "ready",
+        error = "error",
+        warning = "warning",
+        unknown = "unknown",
+        nr = "nr"
+    }
+}
+declare namespace $ {
     function $mpk_tss_stub_unit_type(): string;
     function $mpk_tss_stub_unit_name(): string;
     function $mpk_tss_stub_status(): $mpk_tss_domain_status;
 }
 declare namespace $ {
     type $mpk_tss_pereferials_domain_unit_type = string;
+    type $mpk_tss_pereferials_domain_unit_parameter_value = {
+        type: 'string';
+        value: string;
+    } | {
+        type: 'status';
+        value: $mpk_tss_pereferials_domain_unit_status;
+    };
     class $mpk_tss_pereferials_domain_unit_parameter extends $mol_object {
         name(): string;
-        value(): string | null;
+        value(): $mpk_tss_pereferials_domain_unit_parameter_value | null;
         updated(): $mol_time_moment | null;
+    }
+    enum $mpk_tss_pereferials_domain_unit_status {
+        ready = "ready",
+        error = "error",
+        not_responding = "not_responding",
+        inactive = "inactive",
+        unknown = "unknown"
     }
     class $mpk_tss_pereferials_domain_unit extends $mol_object {
         id(): string;
         type(): $mpk_tss_pereferials_domain_unit_type;
         element(): string;
         parameters(): $mpk_tss_pereferials_domain_unit_parameter[];
-        status(): $mpk_tss_domain_status;
+        status(): $mpk_tss_pereferials_domain_unit_status;
     }
     class $mpk_tss_pereferials_domain extends $mol_object {
         unit(id: string): $mpk_tss_pereferials_domain_unit;
         units(): $mpk_tss_pereferials_domain_unit[];
     }
-    function $mpk_tss_pereferials_domain_stub_unit(): $mpk_tss_pereferials_domain_unit_parameter;
     class $mpk_tss_pereferials_domain_mock extends $mpk_tss_pereferials_domain {
-        max_parameters(): number;
         max_units(): number;
         unit(id: string): $mpk_tss_pereferials_domain_unit;
         units(): $mpk_tss_pereferials_domain_unit[];
     }
 }
 declare namespace $ {
-    class $mpk_tss_pereferials_unit_details extends $mol_page {
-        unit(): any;
-        minimal_width(): number;
-        tools(): any[];
-        Details_close(): $mol_link;
-        Details_close_icon(): $mol_icon_cross;
-        body(): any[];
-        List(): $mol_list;
-        unit_parameters(): any[];
-        Parameter(parameter: any): $mol_row;
-        Parameter_item(parameter: any): $mol_labeler;
-        parameter_title(): string;
-        parameter_name(parameter: any): string;
-        Value_item(parameter: any): $mol_labeler;
-        value_title(): string;
-        parameter_value(parameter: any): string;
-        Updated_item(parameter: any): $mol_labeler;
-        updated_title(): string;
-        parameter_updated(parameter: any): string;
-    }
-}
-declare namespace $.$$ {
-    class $mpk_tss_pereferials_unit_details extends $.$mpk_tss_pereferials_unit_details {
-        unit(): $mpk_tss_pereferials_domain_unit;
-        title(): string;
-        type(): string;
-        element(): string;
-        status(): $mpk_tss_domain_status;
-        unit_parameters(): $.$mol_row[];
-        parameter_name(parameter: $mpk_tss_pereferials_domain_unit_parameter): string;
-        parameter_value(parameter: $mpk_tss_pereferials_domain_unit_parameter): string;
-        parameter_updated(parameter: $mpk_tss_pereferials_domain_unit_parameter): string;
-        refresh_click(event: Event): void;
-    }
-}
-declare namespace $ {
-    class $mol_card extends $mol_list {
-        attr(): {
-            "mol_card_status_type": string;
-        };
-        status(): string;
-        rows(): any[];
-        Content(): $mol_view;
-        content(): any[];
-        Status(): $mol_view;
-        status_text(): string;
-    }
-}
-declare namespace $.$$ {
-    class $mol_card extends $.$mol_card {
-        rows(): $mol_view[];
-    }
-}
-declare namespace $ {
-    class $mpk_tss_icon_renew extends $mol_icon {
-        path(): string;
-    }
-}
-declare namespace $ {
     class $mpk_tss_pereferials_unit_card extends $mol_card {
         unit(): any;
-        statuses(): {
-            "warning": string;
-            "error": string;
-            "success": string;
-            "ready": string;
-            "nr": string;
-            "responding": string;
-            "unknown": string;
-        };
-        warning(): string;
-        error(): string;
-        success(): string;
-        ready(): string;
-        nr(): string;
-        responding(): string;
-        unknown(): string;
         attr(): {
             "mpk_tss_pereferials_unit_type": string;
             "mol_card_status_type": string;
@@ -1599,8 +1583,7 @@ declare namespace $ {
         status(): string;
         Status(): $mol_view;
         Footer(): $mol_view;
-        Status_text(): $mol_view;
-        status_text(): string;
+        Status_text(): $mpk_tss_pereferials_unit_status;
         Refresh_action(): $mol_button_minor;
         refresh_click(event?: any, force?: $mol_atom_force): any;
         Refresh_icon(): $mpk_tss_icon_renew;
@@ -1620,9 +1603,62 @@ declare namespace $.$$ {
         unit(): $mpk_tss_pereferials_domain_unit;
         type(): string;
         element(): string;
-        status(): $mpk_tss_domain_status;
-        status_text(): string;
+        status(): $mpk_tss_pereferials_domain_unit_status;
         refresh_click(event: Event): void;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_pereferials_unit_details extends $mol_page {
+        unit(): any;
+        minimal_width(): number;
+        tools(): any[];
+        Details_close(): $mol_link;
+        Details_close_icon(): $mol_icon_cross;
+        body(): any[];
+        List(): $mol_list;
+        unit_parameters(): any[];
+        Parameter(parameter: any): $mpk_tss_pereferials_unit_details_parameter;
+        parameter_item(parameter: any): any;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_pereferials_unit_details_parameter extends $mol_row {
+        unknown(): string;
+        parameter(): any;
+        Value_string(val: any): $mol_view;
+        value_string_data(val: any): string;
+        Value_status(status: any): $mpk_tss_pereferials_unit_status;
+        value_status_data(status: any): any;
+        sub(): any[];
+        Name(): $mol_labeler;
+        name_title(): string;
+        parameter_name(): string;
+        Value(): $mol_labeler;
+        value_title(): string;
+        Value_content(): any;
+        Updated(): $mol_labeler;
+        updated_title(): string;
+        parameter_updated(): string;
+    }
+}
+declare namespace $.$$ {
+    class $mpk_tss_pereferials_unit_details extends $.$mpk_tss_pereferials_unit_details {
+        unit(): $mpk_tss_pereferials_domain_unit;
+        title(): string;
+        type(): string;
+        element(): string;
+        status(): $mpk_tss_pereferials_domain_unit_status;
+        unit_parameters(): $.$mpk_tss_pereferials_unit_details_parameter[];
+        parameter_item(parameter: $mpk_tss_pereferials_domain_unit_parameter): $mpk_tss_pereferials_domain_unit_parameter;
+        refresh_click(event: Event): void;
+    }
+    class $mpk_tss_pereferials_unit_details_parameter extends $.$mpk_tss_pereferials_unit_details_parameter {
+        parameter(): $mpk_tss_pereferials_domain_unit_parameter;
+        parameter_name(): string;
+        Value_content(): string | $mol_view | $.$mpk_tss_pereferials_unit_status;
+        value_string_data(data: string): string;
+        value_status_data(status: $mpk_tss_pereferials_domain_unit_status): $mpk_tss_pereferials_domain_unit_status;
+        parameter_updated(): string;
     }
 }
 declare namespace $ {
@@ -2036,4 +2072,8 @@ declare namespace $.$$ {
         page_id(): string;
         pages(): any[];
     }
+}
+declare namespace $ {
+    function $mpk_tss_pereferials_domain_stub_unit_status(): $mpk_tss_pereferials_domain_unit_status;
+    function $mpk_tss_pereferials_domain_stub_unit_parameters(unknown: boolean): $mpk_tss_pereferials_domain_unit_parameter[];
 }

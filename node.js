@@ -4986,6 +4986,144 @@ var $;
 //search.view.js.map
 ;
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mol_card extends $.$mol_list {
+        attr() {
+            return (Object.assign({}, super.attr(), { "mol_card_status_type": this.status() }));
+        }
+        status() {
+            return "";
+        }
+        rows() {
+            return [].concat(this.Content(), this.Status());
+        }
+        Content() {
+            return ((obj) => {
+                obj.sub = () => this.content();
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        content() {
+            return [];
+        }
+        Status() {
+            return ((obj) => {
+                obj.minimal_height = () => 30;
+                obj.sub = () => [].concat(this.status_text());
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        status_text() {
+            return this.status();
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_card.prototype, "Content", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_card.prototype, "Status", null);
+    $.$mol_card = $mol_card;
+})($ || ($ = {}));
+//card.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_card extends $.$mol_card {
+            rows() {
+                return [
+                    this.Content(),
+                    ...this.status_text() ? [this.Status()] : [],
+                ];
+            }
+        }
+        $$.$mol_card = $mol_card;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//card.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mpk_tss_pereferials_unit_status extends $.$mol_view {
+        status() {
+            return null;
+        }
+        statuses() {
+            return ({
+                "ready": this.ready(),
+                "error": this.error(),
+                "not_responding": this.not_responding(),
+                "inactive": this.inactive(),
+                "unknown": this.unknown(),
+            });
+        }
+        ready() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_status_ready");
+        }
+        error() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_status_error");
+        }
+        not_responding() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_status_not_responding");
+        }
+        inactive() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_status_inactive");
+        }
+        unknown() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_status_unknown");
+        }
+        sub() {
+            return [].concat(this.status_text());
+        }
+        status_text() {
+            return this.unknown();
+        }
+    }
+    $.$mpk_tss_pereferials_unit_status = $mpk_tss_pereferials_unit_status;
+})($ || ($ = {}));
+//status.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mpk_tss_pereferials_unit_status extends $.$mpk_tss_pereferials_unit_status {
+            status_text() {
+                if (!this.status())
+                    return this.statuses().unknown;
+                return this.statuses()[this.status()] || this.statuses().unknown;
+            }
+        }
+        $$.$mpk_tss_pereferials_unit_status = $mpk_tss_pereferials_unit_status;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//status.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mpk_tss_icon_renew extends $.$mol_icon {
+        path() {
+            return "M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z";
+        }
+    }
+    $.$mpk_tss_icon_renew = $mpk_tss_icon_renew;
+})($ || ($ = {}));
+//renew.view.tree.js.map
+;
+"use strict";
 var $;
 (function ($) {
     class $mol_row extends $.$mol_view {
@@ -5578,20 +5716,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    let $mpk_tss_domain_status;
-    (function ($mpk_tss_domain_status) {
-        $mpk_tss_domain_status["ready"] = "ready";
-        $mpk_tss_domain_status["error"] = "error";
-        $mpk_tss_domain_status["warning"] = "warning";
-        $mpk_tss_domain_status["unknown"] = "unknown";
-        $mpk_tss_domain_status["nr"] = "nr";
-    })($mpk_tss_domain_status = $.$mpk_tss_domain_status || ($.$mpk_tss_domain_status = {}));
-})($ || ($ = {}));
-//domain.js.map
-;
-"use strict";
-var $;
-(function ($) {
     class $mol_unit extends $.$mol_object {
         constructor(value) {
             super();
@@ -5733,6 +5857,20 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    let $mpk_tss_domain_status;
+    (function ($mpk_tss_domain_status) {
+        $mpk_tss_domain_status["ready"] = "ready";
+        $mpk_tss_domain_status["error"] = "error";
+        $mpk_tss_domain_status["warning"] = "warning";
+        $mpk_tss_domain_status["unknown"] = "unknown";
+        $mpk_tss_domain_status["nr"] = "nr";
+    })($mpk_tss_domain_status = $.$mpk_tss_domain_status || ($.$mpk_tss_domain_status = {}));
+})($ || ($ = {}));
+//domain.js.map
+;
+"use strict";
+var $;
+(function ($) {
     function $mpk_tss_stub_unit_type() {
         return $.$mol_stub_select_random(['UPS', 'AVR']);
     }
@@ -5769,6 +5907,14 @@ var $;
         updated() { return void 0; }
     }
     $.$mpk_tss_pereferials_domain_unit_parameter = $mpk_tss_pereferials_domain_unit_parameter;
+    let $mpk_tss_pereferials_domain_unit_status;
+    (function ($mpk_tss_pereferials_domain_unit_status) {
+        $mpk_tss_pereferials_domain_unit_status["ready"] = "ready";
+        $mpk_tss_pereferials_domain_unit_status["error"] = "error";
+        $mpk_tss_pereferials_domain_unit_status["not_responding"] = "not_responding";
+        $mpk_tss_pereferials_domain_unit_status["inactive"] = "inactive";
+        $mpk_tss_pereferials_domain_unit_status["unknown"] = "unknown";
+    })($mpk_tss_pereferials_domain_unit_status = $.$mpk_tss_pereferials_domain_unit_status || ($.$mpk_tss_pereferials_domain_unit_status = {}));
     class $mpk_tss_pereferials_domain_unit extends $.$mol_object {
         id() { return void 0; }
         type() { return void 0; }
@@ -5786,51 +5932,18 @@ var $;
         }
     }
     $.$mpk_tss_pereferials_domain = $mpk_tss_pereferials_domain;
-    function $mpk_tss_pereferials_domain_stub_unit() {
-        const name = $.$mol_stub_select_random(['State', 'Power source', 'Voltage', 'Bat. level', 'Bat. time']);
-        let value = 'unknown';
-        switch (name) {
-            case 'State':
-                value = $.$mpk_tss_stub_status();
-                break;
-            case 'Power source':
-                value = $.$mol_stub_select_random(['Line', 'Internal']);
-                break;
-            case 'Voltage':
-                value = $.$mol_stub_select_random(['3V', '6V', '12V', '231V']);
-                break;
-            case 'Bat. level':
-                value = $.$mol_stub_select_random(['100%', '50%', '5%']);
-            case 'Bat. time':
-                value = $.$mol_stub_select_random(['11m', '22m', '40m', '1day']);
-                break;
-        }
-        return $mpk_tss_pereferials_domain_unit_parameter.make({
-            name: $.$mol_const(name),
-            value: $.$mol_const(value),
-            updated: $.$mol_const($.$mol_stub_time()),
-        });
-    }
-    $.$mpk_tss_pereferials_domain_stub_unit = $mpk_tss_pereferials_domain_stub_unit;
     class $mpk_tss_pereferials_domain_mock extends $mpk_tss_pereferials_domain {
-        max_parameters() {
-            return 5;
-        }
         max_units() {
             return 10;
         }
         unit(id) {
-            const parameters = [];
-            const max = this.max_parameters();
-            for (let i = 0; i < max; i++) {
-                parameters.push($mpk_tss_pereferials_domain_stub_unit());
-            }
+            const status = $.$mpk_tss_pereferials_domain_stub_unit_status();
             return $mpk_tss_pereferials_domain_unit.make({
                 id: $.$mol_const(id),
                 element: $.$mol_const($.$mpk_tss_stub_unit_name()),
                 type: $.$mol_const($.$mpk_tss_stub_unit_type()),
-                parameters: $.$mol_const(parameters),
-                status: $.$mol_const($.$mpk_tss_stub_status()),
+                parameters: $.$mol_const($.$mpk_tss_pereferials_domain_stub_unit_parameters(status === $mpk_tss_pereferials_domain_unit_status.not_responding)),
+                status: $.$mol_const(status),
             });
         }
         units() {
@@ -5861,289 +5974,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var $;
 (function ($) {
-    class $mpk_tss_pereferials_unit_details extends $.$mol_page {
-        unit() {
-            return null;
-        }
-        minimal_width() {
-            return 400;
-        }
-        tools() {
-            return [].concat(this.Details_close());
-        }
-        Details_close() {
-            return ((obj) => {
-                obj.arg = () => ({
-                    "unit": null,
-                });
-                obj.sub = () => [].concat(this.Details_close_icon());
-                return obj;
-            })(new this.$.$mol_link);
-        }
-        Details_close_icon() {
-            return ((obj) => {
-                return obj;
-            })(new this.$.$mol_icon_cross);
-        }
-        body() {
-            return [].concat(this.List());
-        }
-        List() {
-            return ((obj) => {
-                obj.rows = () => [].concat(this.unit_parameters());
-                return obj;
-            })(new this.$.$mol_list);
-        }
-        unit_parameters() {
-            return [];
-        }
-        Parameter(parameter) {
-            return ((obj) => {
-                obj.sub = () => [].concat(this.Parameter_item(parameter), this.Value_item(parameter), this.Updated_item(parameter));
-                return obj;
-            })(new this.$.$mol_row);
-        }
-        Parameter_item(parameter) {
-            return ((obj) => {
-                obj.title = () => this.parameter_title();
-                obj.Content = () => ((obj) => {
-                    obj.sub = () => [].concat(this.parameter_name(parameter));
-                    return obj;
-                })(new this.$.$mol_view);
-                return obj;
-            })(new this.$.$mol_labeler);
-        }
-        parameter_title() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_details_parameter_title");
-        }
-        parameter_name(parameter) {
-            return "";
-        }
-        Value_item(parameter) {
-            return ((obj) => {
-                obj.title = () => this.value_title();
-                obj.Content = () => ((obj) => {
-                    obj.sub = () => [].concat(this.parameter_value(parameter));
-                    return obj;
-                })(new this.$.$mol_view);
-                return obj;
-            })(new this.$.$mol_labeler);
-        }
-        value_title() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_details_value_title");
-        }
-        parameter_value(parameter) {
-            return "";
-        }
-        Updated_item(parameter) {
-            return ((obj) => {
-                obj.title = () => this.updated_title();
-                obj.Content = () => ((obj) => {
-                    obj.sub = () => [].concat(this.parameter_updated(parameter));
-                    return obj;
-                })(new this.$.$mol_view);
-                return obj;
-            })(new this.$.$mol_labeler);
-        }
-        updated_title() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_details_updated_title");
-        }
-        parameter_updated(parameter) {
-            return "";
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferials_unit_details.prototype, "Details_close", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferials_unit_details.prototype, "Details_close_icon", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferials_unit_details.prototype, "List", null);
-    __decorate([
-        $.$mol_mem_key
-    ], $mpk_tss_pereferials_unit_details.prototype, "Parameter", null);
-    __decorate([
-        $.$mol_mem_key
-    ], $mpk_tss_pereferials_unit_details.prototype, "Parameter_item", null);
-    __decorate([
-        $.$mol_mem_key
-    ], $mpk_tss_pereferials_unit_details.prototype, "Value_item", null);
-    __decorate([
-        $.$mol_mem_key
-    ], $mpk_tss_pereferials_unit_details.prototype, "Updated_item", null);
-    $.$mpk_tss_pereferials_unit_details = $mpk_tss_pereferials_unit_details;
-})($ || ($ = {}));
-//details.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mpk_tss_pereferials_unit_details extends $.$mpk_tss_pereferials_unit_details {
-            unit() {
-                throw new Error('unit');
-            }
-            title() {
-                return this.type() + ' | ' + this.element();
-            }
-            type() {
-                return this.unit().type();
-            }
-            element() {
-                return this.unit().element();
-            }
-            status() {
-                return this.unit().status();
-            }
-            unit_parameters() {
-                return this.unit().parameters().map(parameter => this.Parameter(parameter));
-            }
-            parameter_name(parameter) {
-                return parameter.name();
-            }
-            parameter_value(parameter) {
-                return parameter.value();
-            }
-            parameter_updated(parameter) {
-                const updated = parameter.updated();
-                return updated.toString('DD.MM.YYYY, hh:mm');
-            }
-            refresh_click(event) {
-                event.preventDefault();
-                alert('Refresh...');
-            }
-        }
-        $$.$mpk_tss_pereferials_unit_details = $mpk_tss_pereferials_unit_details;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//details.view.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_card extends $.$mol_list {
-        attr() {
-            return (Object.assign({}, super.attr(), { "mol_card_status_type": this.status() }));
-        }
-        status() {
-            return "";
-        }
-        rows() {
-            return [].concat(this.Content(), this.Status());
-        }
-        Content() {
-            return ((obj) => {
-                obj.sub = () => this.content();
-                return obj;
-            })(new this.$.$mol_view);
-        }
-        content() {
-            return [];
-        }
-        Status() {
-            return ((obj) => {
-                obj.minimal_height = () => 30;
-                obj.sub = () => [].concat(this.status_text());
-                return obj;
-            })(new this.$.$mol_view);
-        }
-        status_text() {
-            return this.status();
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_card.prototype, "Content", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_card.prototype, "Status", null);
-    $.$mol_card = $mol_card;
-})($ || ($ = {}));
-//card.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_card extends $.$mol_card {
-            rows() {
-                return [
-                    this.Content(),
-                    ...this.status_text() ? [this.Status()] : [],
-                ];
-            }
-        }
-        $$.$mol_card = $mol_card;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//card.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mpk_tss_icon_renew extends $.$mol_icon {
-        path() {
-            return "M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z";
-        }
-    }
-    $.$mpk_tss_icon_renew = $mpk_tss_icon_renew;
-})($ || ($ = {}));
-//renew.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
     class $mpk_tss_pereferials_unit_card extends $.$mol_card {
         unit() {
             return null;
-        }
-        statuses() {
-            return ({
-                "warning": this.warning(),
-                "error": this.error(),
-                "success": this.success(),
-                "ready": this.ready(),
-                "nr": this.nr(),
-                "responding": this.responding(),
-                "unknown": this.unknown(),
-            });
-        }
-        warning() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_card_warning");
-        }
-        error() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_card_error");
-        }
-        success() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_card_success");
-        }
-        ready() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_card_ready");
-        }
-        nr() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_card_nr");
-        }
-        responding() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_card_responding");
-        }
-        unknown() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_card_unknown");
         }
         attr() {
             return (Object.assign({}, super.attr(), { "mpk_tss_pereferials_unit_type": this.status() }));
@@ -6163,12 +5996,9 @@ var $;
         }
         Status_text() {
             return ((obj) => {
-                obj.sub = () => [].concat(this.status_text());
+                obj.status = () => this.status();
                 return obj;
-            })(new this.$.$mol_view);
-        }
-        status_text() {
-            return "";
+            })(new this.$.$mpk_tss_pereferials_unit_status);
         }
         Refresh_action() {
             return ((obj) => {
@@ -6270,9 +6100,6 @@ var $;
             status() {
                 return this.unit().status();
             }
-            status_text() {
-                return this.statuses()[this.status()] || this.statuses().unknown;
-            }
             refresh_click(event) {
                 event.preventDefault();
                 alert('Refresh...');
@@ -6282,6 +6109,235 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //card.view.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mpk_tss_pereferials_unit_details extends $.$mol_page {
+        unit() {
+            return null;
+        }
+        minimal_width() {
+            return 400;
+        }
+        tools() {
+            return [].concat(this.Details_close());
+        }
+        Details_close() {
+            return ((obj) => {
+                obj.arg = () => ({
+                    "unit": null,
+                });
+                obj.sub = () => [].concat(this.Details_close_icon());
+                return obj;
+            })(new this.$.$mol_link);
+        }
+        Details_close_icon() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mol_icon_cross);
+        }
+        body() {
+            return [].concat(this.List());
+        }
+        List() {
+            return ((obj) => {
+                obj.rows = () => [].concat(this.unit_parameters());
+                return obj;
+            })(new this.$.$mol_list);
+        }
+        unit_parameters() {
+            return [];
+        }
+        Parameter(parameter) {
+            return ((obj) => {
+                obj.parameter = () => this.parameter_item(parameter);
+                return obj;
+            })(new this.$.$mpk_tss_pereferials_unit_details_parameter);
+        }
+        parameter_item(parameter) {
+            return null;
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferials_unit_details.prototype, "Details_close", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferials_unit_details.prototype, "Details_close_icon", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferials_unit_details.prototype, "List", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $mpk_tss_pereferials_unit_details.prototype, "Parameter", null);
+    $.$mpk_tss_pereferials_unit_details = $mpk_tss_pereferials_unit_details;
+})($ || ($ = {}));
+(function ($) {
+    class $mpk_tss_pereferials_unit_details_parameter extends $.$mol_row {
+        unknown() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_details_parameter_unknown");
+        }
+        parameter() {
+            return null;
+        }
+        Value_string(val) {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.value_string_data(val));
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        value_string_data(val) {
+            return "";
+        }
+        Value_status(status) {
+            return ((obj) => {
+                obj.status = () => this.value_status_data(status);
+                return obj;
+            })(new this.$.$mpk_tss_pereferials_unit_status);
+        }
+        value_status_data(status) {
+            return null;
+        }
+        sub() {
+            return [].concat(this.Name(), this.Value(), this.Updated());
+        }
+        Name() {
+            return ((obj) => {
+                obj.title = () => this.name_title();
+                obj.Content = () => ((obj) => {
+                    obj.sub = () => [].concat(this.parameter_name());
+                    return obj;
+                })(new this.$.$mol_view);
+                return obj;
+            })(new this.$.$mol_labeler);
+        }
+        name_title() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_details_parameter_name_title");
+        }
+        parameter_name() {
+            return "";
+        }
+        Value() {
+            return ((obj) => {
+                obj.title = () => this.value_title();
+                obj.Content = () => this.Value_content();
+                return obj;
+            })(new this.$.$mol_labeler);
+        }
+        value_title() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_details_parameter_value_title");
+        }
+        Value_content() {
+            return null;
+        }
+        Updated() {
+            return ((obj) => {
+                obj.title = () => this.updated_title();
+                obj.Content = () => ((obj) => {
+                    obj.sub = () => [].concat(this.parameter_updated());
+                    return obj;
+                })(new this.$.$mol_view);
+                return obj;
+            })(new this.$.$mol_labeler);
+        }
+        updated_title() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_details_parameter_updated_title");
+        }
+        parameter_updated() {
+            return "";
+        }
+    }
+    __decorate([
+        $.$mol_mem_key
+    ], $mpk_tss_pereferials_unit_details_parameter.prototype, "Value_string", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $mpk_tss_pereferials_unit_details_parameter.prototype, "Value_status", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferials_unit_details_parameter.prototype, "Name", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferials_unit_details_parameter.prototype, "Value", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferials_unit_details_parameter.prototype, "Updated", null);
+    $.$mpk_tss_pereferials_unit_details_parameter = $mpk_tss_pereferials_unit_details_parameter;
+})($ || ($ = {}));
+//details.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mpk_tss_pereferials_unit_details extends $.$mpk_tss_pereferials_unit_details {
+            unit() {
+                throw new Error('unit');
+            }
+            title() {
+                return this.type() + ' | ' + this.element();
+            }
+            type() {
+                return this.unit().type();
+            }
+            element() {
+                return this.unit().element();
+            }
+            status() {
+                return this.unit().status();
+            }
+            unit_parameters() {
+                return this.unit().parameters().map(parameter => this.Parameter(parameter));
+            }
+            parameter_item(parameter) {
+                return parameter;
+            }
+            refresh_click(event) {
+                event.preventDefault();
+                alert('Refresh...');
+            }
+        }
+        $$.$mpk_tss_pereferials_unit_details = $mpk_tss_pereferials_unit_details;
+        class $mpk_tss_pereferials_unit_details_parameter extends $.$mpk_tss_pereferials_unit_details_parameter {
+            parameter() {
+                throw new Error('parameter');
+            }
+            parameter_name() {
+                return this.parameter().name();
+            }
+            Value_content() {
+                const value = this.parameter().value();
+                if (!value)
+                    return this.unknown();
+                switch (value.type) {
+                    case 'string': return this.Value_string(value.value);
+                    case 'status': return this.Value_status(value.value);
+                }
+                return null;
+            }
+            value_string_data(data) {
+                return data;
+            }
+            value_status_data(status) {
+                return status;
+            }
+            parameter_updated() {
+                const updated = this.parameter().updated();
+                return updated ? updated.toString('DD.MM.YYYY, hh:mm') : this.unknown();
+            }
+        }
+        $$.$mpk_tss_pereferials_unit_details_parameter = $mpk_tss_pereferials_unit_details_parameter;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//details.view.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -8006,4 +8062,51 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //tss.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mpk_tss_pereferials_domain_stub_unit_status() {
+        return $.$mol_stub_select_random([
+            'ready', 'error', 'not_responding', 'inactive', 'unknown'
+        ]);
+    }
+    $.$mpk_tss_pereferials_domain_stub_unit_status = $mpk_tss_pereferials_domain_stub_unit_status;
+    function $mpk_tss_pereferials_domain_stub_unit_parameters(unknown) {
+        const mc = (arg) => $.$mol_const(unknown ? null : arg);
+        const str = (value) => mc({ type: 'string', value });
+        return [
+            $.$mpk_tss_pereferials_domain_unit_parameter.make({
+                name: $.$mol_const('State'),
+                value: $.$mol_const({
+                    type: 'status',
+                    value: $mpk_tss_pereferials_domain_stub_unit_status(),
+                }),
+                updated: $.$mol_const($.$mol_stub_time(60)),
+            }),
+            $.$mpk_tss_pereferials_domain_unit_parameter.make({
+                name: $.$mol_const('Power source'),
+                value: str($.$mol_stub_select_random(['Line', 'Internal'])),
+                updated: mc($.$mol_stub_time(60)),
+            }),
+            $.$mpk_tss_pereferials_domain_unit_parameter.make({
+                name: $.$mol_const('Voltage'),
+                value: str(String(200 + Math.ceil(Math.random() * 10)) + 'V'),
+                updated: mc($.$mol_stub_time(60)),
+            }),
+            $.$mpk_tss_pereferials_domain_unit_parameter.make({
+                name: $.$mol_const('Bat. level'),
+                value: str(String(Math.ceil(Math.random() * 100)) + '%'),
+                updated: mc($.$mol_stub_time(60)),
+            }),
+            $.$mpk_tss_pereferials_domain_unit_parameter.make({
+                name: $.$mol_const('Bat. time'),
+                value: str(String(10 + Math.ceil(Math.random() * 360)) + 'm'),
+                updated: mc($.$mol_stub_time(60)),
+            }),
+        ];
+    }
+    $.$mpk_tss_pereferials_domain_stub_unit_parameters = $mpk_tss_pereferials_domain_stub_unit_parameters;
+})($ || ($ = {}));
+//stub.js.map
 //# sourceMappingURL=node.js.map
