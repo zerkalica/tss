@@ -1285,6 +1285,7 @@ declare namespace $.$$ {
 declare namespace $ {
     class $mpk_tss_pereferials_unit_status extends $mol_view {
         status(): any;
+        colors(): boolean;
         statuses(): {
             "ready": string;
             "error": string;
@@ -1304,6 +1305,11 @@ declare namespace $ {
 declare namespace $.$$ {
     class $mpk_tss_pereferials_unit_status extends $.$mpk_tss_pereferials_unit_status {
         status_text(): any;
+        attr(): {
+            [key: string]: string | number | boolean;
+        } | {
+            'mpk_tss_pereferials_unit_status_type': any;
+        };
     }
 }
 declare namespace $ {
@@ -1516,8 +1522,8 @@ declare namespace $ {
         id(): string;
         type(): $mpk_tss_pereferials_domain_unit_type;
         element(): string;
-        parameters(): $mpk_tss_pereferials_domain_unit_parameter[];
         status(): $mpk_tss_pereferials_domain_unit_status;
+        parameters(): $mpk_tss_pereferials_domain_unit_parameter[];
     }
     class $mpk_tss_pereferials_domain extends $mol_object {
         unit(id: string): $mpk_tss_pereferials_domain_unit;
@@ -1680,6 +1686,21 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
+    class $mpk_tss_icon_signout extends $mol_icon {
+        path(): string;
+    }
+}
+declare namespace $ {
+    class $mol_image extends $mol_view {
+        dom_name(): string;
+        field(): {
+            "src": string;
+            "alt": string;
+        };
+        uri(): string;
+    }
+}
+declare namespace $ {
     class $mol_form extends $mol_view {
         submit_blocked(): boolean;
         sub(): any[];
@@ -1705,11 +1726,11 @@ declare namespace $ {
     }
 }
 declare namespace $ {
-    class $mpk_tss_enter extends $mol_view {
+    class $mpk_tss_enter extends $mol_list {
         entered(val?: any, force?: $mol_atom_force): any;
         minimal_width(): number;
         sub(): any[];
-        form(): $mol_form;
+        Form(): $mol_form;
         loginField(): $mol_form_field;
         loginLabel(): string;
         loginControl(): $mol_string;
@@ -1727,21 +1748,6 @@ declare namespace $ {
 declare namespace $.$$ {
     class $mpk_tss_enter extends $.$mpk_tss_enter {
         event_submit(): void;
-    }
-}
-declare namespace $ {
-    class $mpk_tss_icon_signout extends $mol_icon {
-        path(): string;
-    }
-}
-declare namespace $ {
-    class $mol_image extends $mol_view {
-        dom_name(): string;
-        field(): {
-            "src": string;
-            "alt": string;
-        };
-        uri(): string;
     }
 }
 declare namespace $ {
@@ -1992,9 +1998,6 @@ declare namespace $ {
         Pereferials(): $mpk_tss_pereferials;
         Sensors(): $mpk_tss_sensors;
         Reports(): $mpk_tss_reports;
-        Enter(): $mpk_tss_enter;
-        entered(val?: any, force?: $mol_atom_force): any;
-        logged_email(v?: any, force?: $mol_atom_force): any;
         breadcrumbs(): any[];
         common_tools(): any[];
         Details_close(): $mol_link;
@@ -2007,12 +2010,30 @@ declare namespace $ {
         Sidebar(): $mol_page;
         Logo(): $mol_image;
         event_top(val?: any, force?: $mol_atom_force): any;
+        sidebar_items(): any[];
+        Enter(): $mpk_tss_enter;
+        entered(val?: any, force?: $mol_atom_force): any;
+        logged_email(v?: any, force?: $mol_atom_force): any;
         Menu(): $mol_list;
         menu_items(): any[];
         Foot_content(): $mol_row;
         Foot_text(): $mol_view;
         Summary(): $mpk_tss_summary;
-        Placeholder(): $mol_book_placeholder;
+        Placeholder(): $mpk_tss_placeholder;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_placeholder extends $mol_page {
+        minimal_width(): number;
+        attr(): {
+            "tabindex": any;
+        };
+        title(): string;
+        tools(): any[];
+        Links(): $mol_view;
+        Vkontakte(): $mol_link;
+        Vkontakte_icon(): $mol_icon;
+        body(): any[];
         Image(): $mol_image;
     }
 }
@@ -2028,10 +2049,11 @@ declare namespace $.$$ {
         };
         menu_page_title(id: string): any;
         page_id(): any;
+        sidebar_items(): $.$mol_list[];
         pages(): any[];
     }
 }
 declare namespace $ {
     function $mpk_tss_pereferials_domain_stub_unit_status(): $mpk_tss_pereferials_domain_unit_status;
-    function $mpk_tss_pereferials_domain_stub_unit_parameters(unknown: boolean): $mpk_tss_pereferials_domain_unit_parameter[];
+    function $mpk_tss_pereferials_domain_stub_unit_parameters(status: $mpk_tss_pereferials_domain_unit_status): $mpk_tss_pereferials_domain_unit_parameter[];
 }

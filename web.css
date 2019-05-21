@@ -985,6 +985,20 @@
 	background: var(--mol_theme_line);
 }
 
+[mpk_tss_pereferials_unit_status_type="ready"] {
+	color: hsl(140, 50%, 50%);
+}
+
+[mpk_tss_pereferials_unit_status_type="not_responding"],
+[mpk_tss_pereferials_unit_status_type="error"] {
+	color: hsl(0, 50%, 50%);
+}
+
+[mpk_tss_pereferials_unit_status_type="unknown"],
+[mpk_tss_pereferials_unit_status_type="inactive"] {
+	color: hsl(0, 0%, 61%);
+}
+
 [mol_row] {
 	display: flex;
 	flex-wrap: wrap;
@@ -1129,6 +1143,7 @@
 
 [mpk_tss_pereferials_body] {
 	overflow-y: scroll;
+	padding: 0.3rem;
 }
 
 [mpk_tss_reports_results] {
@@ -1138,6 +1153,16 @@
 
 [mpk_tss_reports_results_table] {
 	margin: 0;
+}
+
+[mol_image] {
+	box-shadow: 0 0 0 1px var(--mol_theme_line);
+	box-shadow: 0 0 0 1px var(--mol_theme_line);
+	border-radius: 2px;
+	border-radius: var(--mol_skin_round);
+	overflow: hidden;
+	flex: 0 1 auto;
+	max-width: 100%;
 }
 
 [mol_form_bar_fields] {
@@ -1169,21 +1194,10 @@
 	display: inline-block;
 }
 
-[mpk_tss_enter] {
+[mpk_tss_enter_body] {
 	flex: 1 1 auto;
 	justify-content: center;
 	display: flex;
-	align-items: center;
-}
-
-[mol_image] {
-	box-shadow: 0 0 0 1px var(--mol_theme_line);
-	box-shadow: 0 0 0 1px var(--mol_theme_line);
-	border-radius: 2px;
-	border-radius: var(--mol_skin_round);
-	overflow: hidden;
-	flex: 0 1 auto;
-	max-width: 100%;
 }
 
 [mol_section_head] {
@@ -1429,8 +1443,7 @@
 }
 
 [mpk_tss_main] > [mol_page] {
-
-	/* box-shadow: none; */
+	box-shadow: none;
 }
 
 [mpk_tss] {
@@ -1506,14 +1519,50 @@
 	flex-direction: column;
 }
 
-[mpk_tss_main_image] {
+[mpk_tss_main_user_email] {
+	margin-right: 0.5rem;
+}
+
+[mpk_tss_main_placeholder] {
+	font-size: 1em;
+	padding: 0;
+	align-items: stretch;
+	background: none;
+	flex: 1000 1000 400px;
+	position: relative;
+	animation: none !important;
+}
+
+[mpk_tss_placeholder_head] {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	flex: 0 0 auto;
+	position: relative;
+	margin: 0;
+	min-height: calc( 1.5em + 1rem );
+	padding: .5rem;
+}
+
+[mol_view][mpk_tss_placeholder_body] {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+	padding: 1rem;
+	background-color: rgba(238, 238, 238, 0.199);
+}
+
+[mpk_tss_placeholder_image] {
 	width: 25%;
 	box-shadow: none;
 	opacity: .25;
 }
 
-[mpk_tss_main_user_email] {
-	margin-right: 0.5rem;
+[mpk_tss_placeholder_links] {
+	flex: 0 0 auto;
+	display: flex;
+	flex-wrap: wrap;
 }
 
 /*# sourceMappingURL=web.css.map */

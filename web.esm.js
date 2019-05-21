@@ -5240,6 +5240,9 @@ var $;
         status() {
             return null;
         }
+        colors() {
+            return true;
+        }
         statuses() {
             return ({
                 "ready": this.ready(),
@@ -5285,6 +5288,11 @@ var $;
                 if (!this.status())
                     return this.statuses().unknown;
                 return this.statuses()[this.status()] || this.statuses().unknown;
+            }
+            attr() {
+                if (!this.colors())
+                    return super.attr();
+                return (Object.assign({}, super.attr(), { 'mpk_tss_pereferials_unit_status_type': this.status() }));
             }
         }
         $$.$mpk_tss_pereferials_unit_status = $mpk_tss_pereferials_unit_status;
@@ -6100,8 +6108,8 @@ var $;
         id() { return void 0; }
         type() { return void 0; }
         element() { return void 0; }
-        parameters() { return []; }
         status() { return void 0; }
+        parameters() { return []; }
     }
     $.$mpk_tss_pereferials_domain_unit = $mpk_tss_pereferials_domain_unit;
     class $mpk_tss_pereferials_domain extends $.$mol_object {
@@ -6123,7 +6131,7 @@ var $;
                 id: $.$mol_const(id),
                 element: $.$mol_const($.$mpk_tss_stub_unit_name()),
                 type: $.$mol_const($.$mpk_tss_stub_unit_type()),
-                parameters: $.$mol_const($.$mpk_tss_pereferials_domain_stub_unit_parameters(status === $mpk_tss_pereferials_domain_unit_status.not_responding)),
+                parameters: $.$mol_const($.$mpk_tss_pereferials_domain_stub_unit_parameters(status)),
                 status: $.$mol_const(status),
             });
         }
@@ -6177,6 +6185,7 @@ var $;
         }
         Status_text() {
             return ((obj) => {
+                obj.colors = () => false;
                 obj.status = () => this.status();
                 return obj;
             })(new this.$.$mpk_tss_pereferials_unit_status);
@@ -6806,6 +6815,36 @@ var $;
 //reports.view.js.map
 ;
 "use strict";
+var $;
+(function ($) {
+    class $mpk_tss_icon_signout extends $.$mol_icon {
+        path() {
+            return "M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z";
+        }
+    }
+    $.$mpk_tss_icon_signout = $mpk_tss_icon_signout;
+})($ || ($ = {}));
+//signout.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_image extends $.$mol_view {
+        dom_name() {
+            return "img";
+        }
+        field() {
+            return (Object.assign({}, super.field(), { "src": this.uri(), "alt": this.title() }));
+        }
+        uri() {
+            return "";
+        }
+    }
+    $.$mol_image = $mol_image;
+})($ || ($ = {}));
+//image.view.tree.js.map
+;
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6922,7 +6961,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var $;
 (function ($) {
-    class $mpk_tss_enter extends $.$mol_view {
+    class $mpk_tss_enter extends $.$mol_list {
         entered(val, force) {
             return (val !== void 0) ? val : false;
         }
@@ -6930,9 +6969,9 @@ var $;
             return 200;
         }
         sub() {
-            return [].concat(this.form());
+            return [].concat(this.Form());
         }
-        form() {
+        Form() {
             return ((obj) => {
                 obj.form_fields = () => [].concat(this.loginField(), this.passwordField());
                 obj.buttons = () => [].concat(this.submit());
@@ -7001,7 +7040,7 @@ var $;
     ], $mpk_tss_enter.prototype, "entered", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_enter.prototype, "form", null);
+    ], $mpk_tss_enter.prototype, "Form", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_enter.prototype, "loginField", null);
@@ -7044,36 +7083,6 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //enter.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mpk_tss_icon_signout extends $.$mol_icon {
-        path() {
-            return "M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z";
-        }
-    }
-    $.$mpk_tss_icon_signout = $mpk_tss_icon_signout;
-})($ || ($ = {}));
-//signout.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_image extends $.$mol_view {
-        dom_name() {
-            return "img";
-        }
-        field() {
-            return (Object.assign({}, super.field(), { "src": this.uri(), "alt": this.title() }));
-        }
-        uri() {
-            return "";
-        }
-    }
-    $.$mol_image = $mol_image;
-})($ || ($ = {}));
-//image.view.tree.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -8019,19 +8028,6 @@ var $;
                 return obj;
             })(new this.$.$mpk_tss_reports);
         }
-        Enter() {
-            return ((obj) => {
-                obj.entered = (val) => this.entered(val);
-                obj.login = (v) => this.logged_email(v);
-                return obj;
-            })(new this.$.$mpk_tss_enter);
-        }
-        entered(val, force) {
-            return (val !== void 0) ? val : false;
-        }
-        logged_email(v, force) {
-            return (v !== void 0) ? v : "";
-        }
         breadcrumbs() {
             return [];
         }
@@ -8081,7 +8077,7 @@ var $;
                 obj.head = () => [].concat(this.Logo());
                 obj.title = () => this.$.$mol_locale.text("$mpk_tss_main_Sidebar");
                 obj.minimal_width = () => 200;
-                obj.body = () => [].concat(this.Menu());
+                obj.body = () => [].concat(this.sidebar_items());
                 obj.foot = () => [].concat(this.Foot_content());
                 return obj;
             })(new this.$.$mol_page);
@@ -8097,6 +8093,22 @@ var $;
         }
         event_top(val, force) {
             return (val !== void 0) ? val : null;
+        }
+        sidebar_items() {
+            return [].concat(this.Enter(), this.Menu());
+        }
+        Enter() {
+            return ((obj) => {
+                obj.entered = (val) => this.entered(val);
+                obj.login = (v) => this.logged_email(v);
+                return obj;
+            })(new this.$.$mpk_tss_enter);
+        }
+        entered(val, force) {
+            return (val !== void 0) ? val : false;
+        }
+        logged_email(v, force) {
+            return (v !== void 0) ? v : "";
         }
         Menu() {
             return ((obj) => {
@@ -8129,16 +8141,10 @@ var $;
         }
         Placeholder() {
             return ((obj) => {
-                obj.title = () => this.title();
-                obj.sub = () => [].concat(this.Image());
+                obj.minimal_width = () => 400;
+                obj.title = () => "";
                 return obj;
-            })(new this.$.$mol_book_placeholder);
-        }
-        Image() {
-            return ((obj) => {
-                obj.uri = () => "mpk/tss/placeholder.svg";
-                return obj;
-            })(new this.$.$mol_image);
+            })(new this.$.$mpk_tss_placeholder);
         }
     }
     __decorate([
@@ -8156,15 +8162,6 @@ var $;
     __decorate([
         $.$mol_mem
     ], $mpk_tss_main.prototype, "Reports", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_main.prototype, "Enter", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_main.prototype, "entered", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_main.prototype, "logged_email", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_main.prototype, "Details_close", null);
@@ -8194,6 +8191,15 @@ var $;
     ], $mpk_tss_main.prototype, "event_top", null);
     __decorate([
         $.$mol_mem
+    ], $mpk_tss_main.prototype, "Enter", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "entered", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "logged_email", null);
+    __decorate([
+        $.$mol_mem
     ], $mpk_tss_main.prototype, "Menu", null);
     __decorate([
         $.$mol_mem
@@ -8207,10 +8213,65 @@ var $;
     __decorate([
         $.$mol_mem
     ], $mpk_tss_main.prototype, "Placeholder", null);
+    $.$mpk_tss_main = $mpk_tss_main;
+})($ || ($ = {}));
+(function ($) {
+    class $mpk_tss_placeholder extends $.$mol_page {
+        minimal_width() {
+            return 400;
+        }
+        attr() {
+            return (Object.assign({}, super.attr(), { "tabindex": null }));
+        }
+        title() {
+            return "qwe";
+        }
+        tools() {
+            return [].concat(this.Links());
+        }
+        Links() {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.Vkontakte());
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        Vkontakte() {
+            return ((obj) => {
+                obj.uri = () => "https://vk.com";
+                obj.sub = () => [].concat(this.Vkontakte_icon());
+                return obj;
+            })(new this.$.$mol_link);
+        }
+        Vkontakte_icon() {
+            return ((obj) => {
+                obj.view_box = () => "0 0 548.358 548.358";
+                obj.path = () => "M545.451,400.298c-0.664-1.431-1.283-2.618-1.858-3.569c-9.514-17.135-27.695-38.167-54.532-63.102l-0.567-0.571l-0.284-0.28l-0.287-0.287h-0.288c-12.18-11.611-19.893-19.418-23.123-23.415c-5.91-7.614-7.234-15.321-4.004-23.13c2.282-5.9,10.854-18.36,25.696-37.397c7.807-10.089,13.99-18.175,18.556-24.267c32.931-43.78,47.208-71.756,42.828-83.939l-1.701-2.847c-1.143-1.714-4.093-3.282-8.846-4.712c-4.764-1.427-10.853-1.663-18.278-0.712l-82.224,0.568c-1.332-0.472-3.234-0.428-5.712,0.144c-2.475,0.572-3.713,0.859-3.713,0.859l-1.431,0.715l-1.136,0.859c-0.952,0.568-1.999,1.567-3.142,2.995c-1.137,1.423-2.088,3.093-2.848,4.996c-8.952,23.031-19.13,44.444-30.553,64.238c-7.043,11.803-13.511,22.032-19.418,30.693c-5.899,8.658-10.848,15.037-14.842,19.126c-4,4.093-7.61,7.372-10.852,9.849c-3.237,2.478-5.708,3.525-7.419,3.142c-1.715-0.383-3.33-0.763-4.859-1.143c-2.663-1.714-4.805-4.045-6.42-6.995c-1.622-2.95-2.714-6.663-3.285-11.136c-0.568-4.476-0.904-8.326-1-11.563c-0.089-3.233-0.048-7.806,0.145-13.706c0.198-5.903,0.287-9.897,0.287-11.991c0-7.234,0.141-15.085,0.424-23.555c0.288-8.47,0.521-15.181,0.716-20.125c0.194-4.949,0.284-10.185,0.284-15.705s-0.336-9.849-1-12.991c-0.656-3.138-1.663-6.184-2.99-9.137c-1.335-2.95-3.289-5.232-5.853-6.852c-2.569-1.618-5.763-2.902-9.564-3.856c-10.089-2.283-22.936-3.518-38.547-3.71c-35.401-0.38-58.148,1.906-68.236,6.855c-3.997,2.091-7.614,4.948-10.848,8.562c-3.427,4.189-3.905,6.475-1.431,6.851c11.422,1.711,19.508,5.804,24.267,12.275l1.715,3.429c1.334,2.474,2.666,6.854,3.999,13.134c1.331,6.28,2.19,13.227,2.568,20.837c0.95,13.897,0.95,25.793,0,35.689c-0.953,9.9-1.853,17.607-2.712,23.127c-0.859,5.52-2.143,9.993-3.855,13.418c-1.715,3.426-2.856,5.52-3.428,6.28c-0.571,0.76-1.047,1.239-1.425,1.427c-2.474,0.948-5.047,1.431-7.71,1.431c-2.667,0-5.901-1.334-9.707-4c-3.805-2.666-7.754-6.328-11.847-10.992c-4.093-4.665-8.709-11.184-13.85-19.558c-5.137-8.374-10.467-18.271-15.987-29.691l-4.567-8.282c-2.855-5.328-6.755-13.086-11.704-23.267c-4.952-10.185-9.329-20.037-13.134-29.554c-1.521-3.997-3.806-7.04-6.851-9.134l-1.429-0.859c-0.95-0.76-2.475-1.567-4.567-2.427c-2.095-0.859-4.281-1.475-6.567-1.854l-78.229,0.568c-7.994,0-13.418,1.811-16.274,5.428l-1.143,1.711C0.288,140.146,0,141.668,0,143.763c0,2.094,0.571,4.664,1.714,7.707c11.42,26.84,23.839,52.725,37.257,77.659c13.418,24.934,25.078,45.019,34.973,60.237c9.897,15.229,19.985,29.602,30.264,43.112c10.279,13.515,17.083,22.176,20.412,25.981c3.333,3.812,5.951,6.662,7.854,8.565l7.139,6.851c4.568,4.569,11.276,10.041,20.127,16.416c8.853,6.379,18.654,12.659,29.408,18.85c10.756,6.181,23.269,11.225,37.546,15.126c14.275,3.905,28.169,5.472,41.684,4.716h32.834c6.659-0.575,11.704-2.669,15.133-6.283l1.136-1.431c0.764-1.136,1.479-2.901,2.139-5.276c0.668-2.379,1-5,1-7.851c-0.195-8.183,0.428-15.558,1.852-22.124c1.423-6.564,3.045-11.513,4.859-14.846c1.813-3.33,3.859-6.14,6.136-8.418c2.282-2.283,3.908-3.666,4.862-4.142c0.948-0.479,1.705-0.804,2.276-0.999c4.568-1.522,9.944-0.048,16.136,4.429c6.187,4.473,11.99,9.996,17.418,16.56c5.425,6.57,11.943,13.941,19.555,22.124c7.617,8.186,14.277,14.271,19.985,18.274l5.708,3.426c3.812,2.286,8.761,4.38,14.853,6.283c6.081,1.902,11.409,2.378,15.984,1.427l73.087-1.14c7.229,0,12.854-1.197,16.844-3.572c3.998-2.379,6.373-5,7.139-7.851c0.764-2.854,0.805-6.092,0.145-9.712C546.782,404.25,546.115,401.725,545.451,400.298z";
+                return obj;
+            })(new this.$.$mol_icon);
+        }
+        body() {
+            return [].concat(this.Image());
+        }
+        Image() {
+            return ((obj) => {
+                obj.uri = () => "mpk/tss/placeholder.svg";
+                return obj;
+            })(new this.$.$mol_image);
+        }
+    }
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_main.prototype, "Image", null);
-    $.$mpk_tss_main = $mpk_tss_main;
+    ], $mpk_tss_placeholder.prototype, "Links", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_placeholder.prototype, "Vkontakte", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_placeholder.prototype, "Vkontakte_icon", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_placeholder.prototype, "Image", null);
+    $.$mpk_tss_placeholder = $mpk_tss_placeholder;
 })($ || ($ = {}));
 //tss.view.tree.js.map
 ;
@@ -8243,9 +8304,14 @@ var $;
             page_id() {
                 return this.$.$mol_state_arg.value('page');
             }
-            pages() {
+            sidebar_items() {
                 if (!this.entered())
                     return [this.Enter()];
+                return [this.Menu()];
+            }
+            pages() {
+                if (!this.entered())
+                    return [this.Sidebar()];
                 const id = this.page_id();
                 return [
                     this.Sidebar(),
@@ -8272,7 +8338,8 @@ var $;
         ]);
     }
     $.$mpk_tss_pereferials_domain_stub_unit_status = $mpk_tss_pereferials_domain_stub_unit_status;
-    function $mpk_tss_pereferials_domain_stub_unit_parameters(unknown) {
+    function $mpk_tss_pereferials_domain_stub_unit_parameters(status) {
+        const unknown = status === $.$mpk_tss_pereferials_domain_unit_status.not_responding;
         const mc = (arg) => $.$mol_const(unknown ? null : arg);
         const str = (value) => mc({ type: 'string', value });
         return [
@@ -8280,7 +8347,7 @@ var $;
                 name: $.$mol_const('State'),
                 value: $.$mol_const({
                     type: 'status',
-                    value: $mpk_tss_pereferials_domain_stub_unit_status(),
+                    value: status,
                 }),
                 updated: $.$mol_const($.$mol_stub_time(60)),
             }),
