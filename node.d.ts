@@ -1447,57 +1447,6 @@ declare namespace $ {
     }
 }
 declare namespace $ {
-    class $mol_unit extends $mol_object {
-        'valueOf()': number;
-        constructor(value?: number);
-        prefix(): string;
-        postfix(): string;
-        valueOf(): number;
-        delimiter(): string;
-        value_view(): string;
-        toString(): string;
-        static summ(a: $mol_unit, b: $mol_unit): any;
-        mult(m: number): this;
-    }
-}
-declare namespace $ {
-    class $mol_unit_money extends $mol_unit {
-    }
-    class $mol_unit_money_usd extends $mol_unit_money {
-        prefix(): string;
-    }
-    class $mol_unit_money_rur extends $mol_unit_money {
-        postfix(): string;
-    }
-}
-declare namespace $ {
-    function $mol_stub_select_random<Value>(list: Value[]): Value;
-    function $mol_stub_strings(prefix?: string, count?: number, length?: number): any[];
-    function $mol_stub_code(length?: number): string;
-    function $mol_stub_price(max?: number): $mol_unit_money_usd;
-    function $mol_stub_product_name(): string;
-    function $mol_stub_company_name_big(): string;
-    function $mol_stub_company_name_small(): string;
-    function $mol_stub_company_name(): string;
-    function $mol_stub_person_name(): string;
-    function $mol_stub_city(): string;
-    function $mol_stub_time(maxShift?: number): $mol_time_moment;
-}
-declare namespace $ {
-    enum $mpk_tss_domain_status {
-        ready = "ready",
-        error = "error",
-        warning = "warning",
-        unknown = "unknown",
-        nr = "nr"
-    }
-}
-declare namespace $ {
-    function $mpk_tss_stub_unit_type(): string;
-    function $mpk_tss_stub_unit_name(): string;
-    function $mpk_tss_stub_status(): $mpk_tss_domain_status;
-}
-declare namespace $ {
     type $mpk_tss_pereferials_domain_unit_type = string;
     type $mpk_tss_pereferials_domain_unit_parameter_value = {
         type: 'string';
@@ -2054,6 +2003,45 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
+    class $mol_unit extends $mol_object {
+        'valueOf()': number;
+        constructor(value?: number);
+        prefix(): string;
+        postfix(): string;
+        valueOf(): number;
+        delimiter(): string;
+        value_view(): string;
+        toString(): string;
+        static summ(a: $mol_unit, b: $mol_unit): any;
+        mult(m: number): this;
+    }
+}
+declare namespace $ {
+    class $mol_unit_money extends $mol_unit {
+    }
+    class $mol_unit_money_usd extends $mol_unit_money {
+        prefix(): string;
+    }
+    class $mol_unit_money_rur extends $mol_unit_money {
+        postfix(): string;
+    }
+}
+declare namespace $ {
+    function $mol_stub_select_random<Value>(list: Value[]): Value;
+    function $mol_stub_strings(prefix?: string, count?: number, length?: number): any[];
+    function $mol_stub_code(length?: number): string;
+    function $mol_stub_price(max?: number): $mol_unit_money_usd;
+    function $mol_stub_product_name(): string;
+    function $mol_stub_company_name_big(): string;
+    function $mol_stub_company_name_small(): string;
+    function $mol_stub_company_name(): string;
+    function $mol_stub_person_name(): string;
+    function $mol_stub_city(): string;
+    function $mol_stub_time(maxShift?: number): $mol_time_moment;
+}
+declare namespace $ {
     function $mpk_tss_pereferials_domain_stub_unit_status(): $mpk_tss_pereferials_domain_unit_status;
+    function $mpk_tss_pereferials_domain_stub_unit_type(): string;
+    function $mpk_tss_pereferials_domain_stub_unit_name(): string;
     function $mpk_tss_pereferials_domain_stub_unit_parameters(status: $mpk_tss_pereferials_domain_unit_status): $mpk_tss_pereferials_domain_unit_parameter[];
 }

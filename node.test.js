@@ -5713,185 +5713,6 @@ var $;
 //moment.js.map
 ;
 "use strict";
-var $;
-(function ($) {
-    class $mol_unit extends $.$mol_object {
-        constructor(value) {
-            super();
-            this['valueOf()'] = value;
-        }
-        prefix() {
-            return '';
-        }
-        postfix() {
-            return '';
-        }
-        valueOf() {
-            return this['valueOf()'];
-        }
-        delimiter() {
-            return ' ';
-        }
-        value_view() {
-            return this.valueOf().toLocaleString();
-        }
-        toString() {
-            return this.prefix() + this.value_view() + this.postfix();
-        }
-        static summ(a, b) {
-            var Class = a.constructor;
-            if (Class !== b.constructor)
-                throw new Error(`Not same measure: ${Class} , ${b.constructor}`);
-            return new Class(a.valueOf() + b.valueOf());
-        }
-        mult(m) {
-            var Class = this.constructor;
-            return new Class(this.valueOf() * m);
-        }
-    }
-    $.$mol_unit = $mol_unit;
-})($ || ($ = {}));
-//unit.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_unit_money extends $.$mol_unit {
-    }
-    $.$mol_unit_money = $mol_unit_money;
-    class $mol_unit_money_usd extends $mol_unit_money {
-        prefix() {
-            return '$';
-        }
-    }
-    $.$mol_unit_money_usd = $mol_unit_money_usd;
-    class $mol_unit_money_rur extends $mol_unit_money {
-        postfix() {
-            return ' ₽';
-        }
-    }
-    $.$mol_unit_money_rur = $mol_unit_money_rur;
-})($ || ($ = {}));
-//money.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    function $mol_stub_select_random(list) {
-        return list[Math.floor(Math.random() * list.length)];
-    }
-    $.$mol_stub_select_random = $mol_stub_select_random;
-    function $mol_stub_strings(prefix = '', count = 10, length = 10) {
-        if (prefix.length >= length)
-            return [];
-        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".split('');
-        let strings = [];
-        for (let i = 0; i < count; i++) {
-            let text = prefix;
-            for (let j = prefix.length; j < length; j++) {
-                text += $mol_stub_select_random(possible);
-            }
-            strings.push(text);
-        }
-        return strings;
-    }
-    $.$mol_stub_strings = $mol_stub_strings;
-    function $mol_stub_code(length = 8) {
-        var max = Math.pow(16, length);
-        var min = Math.pow(16, length - 1);
-        var value = min + Math.floor(Math.random() * (max - min));
-        return value.toString(16).toUpperCase();
-    }
-    $.$mol_stub_code = $mol_stub_code;
-    function $mol_stub_price(max = 1000) {
-        var min = Math.floor(max / 16 / 16);
-        var value = min + Math.floor(Math.random() * (max - min));
-        return new $.$mol_unit_money_usd(value);
-    }
-    $.$mol_stub_price = $mol_stub_price;
-    function $mol_stub_product_name() {
-        var name = $mol_stub_select_random([
-            'Monitor 15"',
-            'Monitor 17"',
-            'Monitor 19"',
-            'Graphics card',
-            'Frame grabber card'
-        ]);
-        var port = $mol_stub_select_random(['D-SUB', 'DVI', 'HDMI']);
-        var resolution = $mol_stub_select_random(['VGA', 'Full HD', '4K']);
-        return [name, port, resolution].join(', ');
-    }
-    $.$mol_stub_product_name = $mol_stub_product_name;
-    function $mol_stub_company_name_big() {
-        var product = $mol_stub_select_random(['Everything', 'Something', 'Anything', 'Nothing']);
-        var type = $mol_stub_select_random(['Company', 'Corporation', 'Holding']);
-        return `A ${type} that makes ${product}`;
-    }
-    $.$mol_stub_company_name_big = $mol_stub_company_name_big;
-    function $mol_stub_company_name_small() {
-        return $mol_stub_select_random(['ACME inc.', 'Dream Company', 'Just Company']);
-    }
-    $.$mol_stub_company_name_small = $mol_stub_company_name_small;
-    function $mol_stub_company_name() {
-        return $mol_stub_select_random([$mol_stub_company_name_small, $mol_stub_company_name_big])();
-    }
-    $.$mol_stub_company_name = $mol_stub_company_name;
-    function $mol_stub_person_name() {
-        var first = $mol_stub_select_random(['Ivan', 'Petr', 'Sidor']);
-        var last = $mol_stub_select_random(['Ivanov', 'Petrov', 'Sidorov']);
-        return `${first} ${last}`;
-    }
-    $.$mol_stub_person_name = $mol_stub_person_name;
-    function $mol_stub_city() {
-        return $mol_stub_select_random(['Moscow', 'London', 'Washington', 'Buenos Aires']);
-    }
-    $.$mol_stub_city = $mol_stub_city;
-    function $mol_stub_time(maxShift = 60 * 24 * 365) {
-        return new $.$mol_time_moment().shift({ minute: Math.round(Math.random() * maxShift) });
-    }
-    $.$mol_stub_time = $mol_stub_time;
-})($ || ($ = {}));
-//stub.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    let $mpk_tss_domain_status;
-    (function ($mpk_tss_domain_status) {
-        $mpk_tss_domain_status["ready"] = "ready";
-        $mpk_tss_domain_status["error"] = "error";
-        $mpk_tss_domain_status["warning"] = "warning";
-        $mpk_tss_domain_status["unknown"] = "unknown";
-        $mpk_tss_domain_status["nr"] = "nr";
-    })($mpk_tss_domain_status = $.$mpk_tss_domain_status || ($.$mpk_tss_domain_status = {}));
-})($ || ($ = {}));
-//domain.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    function $mpk_tss_stub_unit_type() {
-        return $.$mol_stub_select_random(['UPS', 'AVR']);
-    }
-    $.$mpk_tss_stub_unit_type = $mpk_tss_stub_unit_type;
-    function $mpk_tss_stub_unit_name() {
-        const firm = $.$mol_stub_select_random([
-            'Shtil 1103L',
-            'Shtil 1104M',
-            'AVR Electricity system'
-        ]);
-        const number = $.$mol_stub_select_random(['N1', 'N2', 'N3', 'N4']);
-        return `${firm} ${number}`;
-    }
-    $.$mpk_tss_stub_unit_name = $mpk_tss_stub_unit_name;
-    function $mpk_tss_stub_status() {
-        return $.$mol_stub_select_random(['ready', 'error', 'warning', 'unknown', 'nr']);
-    }
-    $.$mpk_tss_stub_status = $mpk_tss_stub_status;
-})($ || ($ = {}));
-//stub.js.map
-;
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5933,14 +5754,14 @@ var $;
     $.$mpk_tss_pereferials_domain = $mpk_tss_pereferials_domain;
     class $mpk_tss_pereferials_domain_mock extends $mpk_tss_pereferials_domain {
         max_units() {
-            return 10;
+            return 4;
         }
         unit(id) {
             const status = $.$mpk_tss_pereferials_domain_stub_unit_status();
             return $mpk_tss_pereferials_domain_unit.make({
                 id: $.$mol_const(id),
-                element: $.$mol_const($.$mpk_tss_stub_unit_name()),
-                type: $.$mol_const($.$mpk_tss_stub_unit_type()),
+                element: $.$mol_const($.$mpk_tss_pereferials_domain_stub_unit_name()),
+                type: $.$mol_const($.$mpk_tss_pereferials_domain_stub_unit_type()),
                 parameters: $.$mol_const($.$mpk_tss_pereferials_domain_stub_unit_parameters(status)),
                 status: $.$mol_const(status),
             });
@@ -7673,7 +7494,7 @@ var $;
             return ((obj) => {
                 obj.title = () => this.log_title();
                 obj.Content = () => ((obj) => {
-                    obj.text = () => " Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent\n Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent, Report was sucessfully sent, Report was sucessfully sent, \n Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent\n Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent\n Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent\n Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent\n Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent\n Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent\n Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent\n Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent\n Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent\n Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent\n Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent\n Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent\n Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent\n Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent\n Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent\n Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent\n Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent\n Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent\n Wed 24 Apr 2019 02:33:14 PM MSK: Report was sucessfully sent";
+                    obj.text = () => " Wed 24 Apr 2019 02:33:14 PM MSK: Report was successfully sent\n Wed 24 Apr 2019 02:32:24 PM MSK: Connection to SKAT server (10.32.35.11) established\n Wed 24 Apr 2019 02:32:09 PM MSK: Connecting to SKAT server (10.32.35.11), attempt 1...\n Wed 24 Apr 2019 02:31:49 PM MSK: Violation report prepared to sending\n Wed 24 Apr 2019 02:31:45 PM MSK: Violation report successfully created\n Wed 24 Apr 2019 02:31:40 PM MSK: Values processing finished. Violation detected\n Wed 24 Apr 2019 02:31:35 PM MSK: Values processing finished. Violation detected\n Wed 24 Apr 2019 02:30:05 PM MSK: Values processing started";
                     return obj;
                 })(new this.$.$mol_text);
                 return obj;
@@ -8142,12 +7963,166 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_unit extends $.$mol_object {
+        constructor(value) {
+            super();
+            this['valueOf()'] = value;
+        }
+        prefix() {
+            return '';
+        }
+        postfix() {
+            return '';
+        }
+        valueOf() {
+            return this['valueOf()'];
+        }
+        delimiter() {
+            return ' ';
+        }
+        value_view() {
+            return this.valueOf().toLocaleString();
+        }
+        toString() {
+            return this.prefix() + this.value_view() + this.postfix();
+        }
+        static summ(a, b) {
+            var Class = a.constructor;
+            if (Class !== b.constructor)
+                throw new Error(`Not same measure: ${Class} , ${b.constructor}`);
+            return new Class(a.valueOf() + b.valueOf());
+        }
+        mult(m) {
+            var Class = this.constructor;
+            return new Class(this.valueOf() * m);
+        }
+    }
+    $.$mol_unit = $mol_unit;
+})($ || ($ = {}));
+//unit.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_unit_money extends $.$mol_unit {
+    }
+    $.$mol_unit_money = $mol_unit_money;
+    class $mol_unit_money_usd extends $mol_unit_money {
+        prefix() {
+            return '$';
+        }
+    }
+    $.$mol_unit_money_usd = $mol_unit_money_usd;
+    class $mol_unit_money_rur extends $mol_unit_money {
+        postfix() {
+            return ' ₽';
+        }
+    }
+    $.$mol_unit_money_rur = $mol_unit_money_rur;
+})($ || ($ = {}));
+//money.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_stub_select_random(list) {
+        return list[Math.floor(Math.random() * list.length)];
+    }
+    $.$mol_stub_select_random = $mol_stub_select_random;
+    function $mol_stub_strings(prefix = '', count = 10, length = 10) {
+        if (prefix.length >= length)
+            return [];
+        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".split('');
+        let strings = [];
+        for (let i = 0; i < count; i++) {
+            let text = prefix;
+            for (let j = prefix.length; j < length; j++) {
+                text += $mol_stub_select_random(possible);
+            }
+            strings.push(text);
+        }
+        return strings;
+    }
+    $.$mol_stub_strings = $mol_stub_strings;
+    function $mol_stub_code(length = 8) {
+        var max = Math.pow(16, length);
+        var min = Math.pow(16, length - 1);
+        var value = min + Math.floor(Math.random() * (max - min));
+        return value.toString(16).toUpperCase();
+    }
+    $.$mol_stub_code = $mol_stub_code;
+    function $mol_stub_price(max = 1000) {
+        var min = Math.floor(max / 16 / 16);
+        var value = min + Math.floor(Math.random() * (max - min));
+        return new $.$mol_unit_money_usd(value);
+    }
+    $.$mol_stub_price = $mol_stub_price;
+    function $mol_stub_product_name() {
+        var name = $mol_stub_select_random([
+            'Monitor 15"',
+            'Monitor 17"',
+            'Monitor 19"',
+            'Graphics card',
+            'Frame grabber card'
+        ]);
+        var port = $mol_stub_select_random(['D-SUB', 'DVI', 'HDMI']);
+        var resolution = $mol_stub_select_random(['VGA', 'Full HD', '4K']);
+        return [name, port, resolution].join(', ');
+    }
+    $.$mol_stub_product_name = $mol_stub_product_name;
+    function $mol_stub_company_name_big() {
+        var product = $mol_stub_select_random(['Everything', 'Something', 'Anything', 'Nothing']);
+        var type = $mol_stub_select_random(['Company', 'Corporation', 'Holding']);
+        return `A ${type} that makes ${product}`;
+    }
+    $.$mol_stub_company_name_big = $mol_stub_company_name_big;
+    function $mol_stub_company_name_small() {
+        return $mol_stub_select_random(['ACME inc.', 'Dream Company', 'Just Company']);
+    }
+    $.$mol_stub_company_name_small = $mol_stub_company_name_small;
+    function $mol_stub_company_name() {
+        return $mol_stub_select_random([$mol_stub_company_name_small, $mol_stub_company_name_big])();
+    }
+    $.$mol_stub_company_name = $mol_stub_company_name;
+    function $mol_stub_person_name() {
+        var first = $mol_stub_select_random(['Ivan', 'Petr', 'Sidor']);
+        var last = $mol_stub_select_random(['Ivanov', 'Petrov', 'Sidorov']);
+        return `${first} ${last}`;
+    }
+    $.$mol_stub_person_name = $mol_stub_person_name;
+    function $mol_stub_city() {
+        return $mol_stub_select_random(['Moscow', 'London', 'Washington', 'Buenos Aires']);
+    }
+    $.$mol_stub_city = $mol_stub_city;
+    function $mol_stub_time(maxShift = 60 * 24 * 365) {
+        return new $.$mol_time_moment().shift({ minute: Math.round(Math.random() * maxShift) });
+    }
+    $.$mol_stub_time = $mol_stub_time;
+})($ || ($ = {}));
+//stub.js.map
+;
+"use strict";
+var $;
+(function ($) {
     function $mpk_tss_pereferials_domain_stub_unit_status() {
         return $.$mol_stub_select_random([
             'ready', 'error', 'not_responding', 'inactive', 'unknown'
         ]);
     }
     $.$mpk_tss_pereferials_domain_stub_unit_status = $mpk_tss_pereferials_domain_stub_unit_status;
+    function $mpk_tss_pereferials_domain_stub_unit_type() {
+        return $.$mol_stub_select_random(['UPS']);
+    }
+    $.$mpk_tss_pereferials_domain_stub_unit_type = $mpk_tss_pereferials_domain_stub_unit_type;
+    function $mpk_tss_pereferials_domain_stub_unit_name() {
+        const firm = $.$mol_stub_select_random([
+            'Shtil 1103L',
+            'Shtil 1104M',
+        ]);
+        const number = $.$mol_stub_select_random(['N1', 'N2', 'N3', 'N4']);
+        return `${firm} ${number}`;
+    }
+    $.$mpk_tss_pereferials_domain_stub_unit_name = $mpk_tss_pereferials_domain_stub_unit_name;
     function $mpk_tss_pereferials_domain_stub_unit_parameters(status) {
         const unknown = status === $.$mpk_tss_pereferials_domain_unit_status.not_responding;
         const mc = (arg) => $.$mol_const(unknown ? null : arg);
@@ -9292,30 +9267,6 @@ var $;
 var $;
 (function ($) {
     $.$mol_test({
-        'convertion to primitives'() {
-            var unit = new $.$mol_unit_money_usd(5);
-            $.$mol_assert_equal(unit.valueOf(), 5);
-            $.$mol_assert_equal(unit * 2, 10);
-            $.$mol_assert_equal(unit + '', '5');
-            $.$mol_assert_equal(`${unit}`, '$5');
-            $.$mol_assert_equal(unit.toString(), '$5');
-            $.$mol_assert_equal(String(unit), '$5');
-        },
-        'arithmetic'() {
-            var usd1 = new $.$mol_unit_money_usd(2);
-            var usd2 = new $.$mol_unit_money_usd(3);
-            var rur = new $.$mol_unit_money_rur(2);
-            $.$mol_assert_equal($.$mol_unit.summ(usd1, usd2).toString(), '$5');
-            $.$mol_assert_equal(usd1.mult(2).toString(), '$4');
-        },
-    });
-})($ || ($ = {}));
-//unit.test.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_test({
         'search numbers'() {
             const syntax = new $.$mol_syntax({
                 'number': /[+-]?\d+(?:\.\d+)?/
@@ -9376,4 +9327,28 @@ var $;
     });
 })($ || ($ = {}));
 //md.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'convertion to primitives'() {
+            var unit = new $.$mol_unit_money_usd(5);
+            $.$mol_assert_equal(unit.valueOf(), 5);
+            $.$mol_assert_equal(unit * 2, 10);
+            $.$mol_assert_equal(unit + '', '5');
+            $.$mol_assert_equal(`${unit}`, '$5');
+            $.$mol_assert_equal(unit.toString(), '$5');
+            $.$mol_assert_equal(String(unit), '$5');
+        },
+        'arithmetic'() {
+            var usd1 = new $.$mol_unit_money_usd(2);
+            var usd2 = new $.$mol_unit_money_usd(3);
+            var rur = new $.$mol_unit_money_rur(2);
+            $.$mol_assert_equal($.$mol_unit.summ(usd1, usd2).toString(), '$5');
+            $.$mol_assert_equal(usd1.mult(2).toString(), '$4');
+        },
+    });
+})($ || ($ = {}));
+//unit.test.js.map
 //# sourceMappingURL=node.test.js.map
