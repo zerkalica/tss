@@ -1,5 +1,6 @@
 $mpk_tss_pereferials_unit_status $mol_view
 	status null
+	colors true
 	statuses *
 		ready <= ready @ \Ready
 		error <= error @ \Error

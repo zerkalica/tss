@@ -6,8 +6,10 @@ namespace $ {
 	}
 
 	export function $mpk_tss_pereferials_domain_stub_unit_parameters(
-		unknown: boolean
+		status: $mpk_tss_pereferials_domain_unit_status
 	): $mpk_tss_pereferials_domain_unit_parameter[] {
+		const unknown = status === $mpk_tss_pereferials_domain_unit_status.not_responding
+
 		const mc = <V>(arg: V) => $mol_const(unknown ? null : arg)
 		const str = (value: string) => mc({type: 'string', value} as $mpk_tss_pereferials_domain_unit_parameter_value)
 
@@ -17,7 +19,7 @@ namespace $ {
 				value: $mol_const(
 					{
 						type: 'status',
-						value: $mpk_tss_pereferials_domain_stub_unit_status(),
+						value: status,
 					} as $mpk_tss_pereferials_domain_unit_parameter_value
 				),
 				updated: $mol_const($mol_stub_time(60)),

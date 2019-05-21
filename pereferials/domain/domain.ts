@@ -27,8 +27,9 @@ namespace $ {
 		id() : string { return void 0 }
 		type(): $mpk_tss_pereferials_domain_unit_type { return void 0 }
 		element(): string { return void 0}
-		parameters(): $mpk_tss_pereferials_domain_unit_parameter[] { return [] }
 		status(): $mpk_tss_pereferials_domain_unit_status { return void 0}
+
+		parameters(): $mpk_tss_pereferials_domain_unit_parameter[] { return [] }
 	}
 
 	export class $mpk_tss_pereferials_domain extends $mol_object {
@@ -52,9 +53,8 @@ namespace $ {
 				id : $mol_const(id) ,
 				element: $mol_const($mpk_tss_stub_unit_name()),
 				type: $mol_const($mpk_tss_stub_unit_type()),
-				parameters: $mol_const($mpk_tss_pereferials_domain_stub_unit_parameters(
-					status === $mpk_tss_pereferials_domain_unit_status.not_responding)
-				),
+				parameters: $mol_const($mpk_tss_pereferials_domain_stub_unit_parameters(status
+				)),
 				status: $mol_const(status),
 			})
 		}

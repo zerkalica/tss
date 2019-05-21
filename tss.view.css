@@ -1,11 +1,12 @@
 [mpk_tss_main] > [mol_page] {
-    /* box-shadow: none; */
+	box-shadow: none;
 }
 
 [mpk_tss] {
 	flex-direction: column;
 	display: flex;
 }
+
 [mpk_tss_terminal_link],
 [mpk_tss_user_link] {
 	padding: 0.3rem 1rem;
@@ -70,12 +71,48 @@
 	flex-direction: column;
 }
 
-[mpk_tss_main_image] {
+[mpk_tss_main_user_email] {
+	margin-right: 0.5rem;
+}
+
+[mpk_tss_main_placeholder] {
+	font-size: 1em;
+	padding: 0;
+	align-items: stretch;
+	background: none;
+	flex: 1000 1000 400px;
+	position: relative;
+	animation: none !important;
+}
+
+[mpk_tss_placeholder_head] {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    flex: 0 0 auto;
+    position: relative;
+    margin: 0;
+    min-height: calc( 1.5em + 1rem );
+    padding: .5rem;	
+}
+
+[mol_view][mpk_tss_placeholder_body] {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+	padding: 1rem;
+	background-color: rgba(238, 238, 238, 0.199);
+}
+
+[mpk_tss_placeholder_image] {
 	width: 25%;
 	box-shadow: none;
 	opacity: .25;
 }
 
-[mpk_tss_main_user_email] {
-	margin-right: 0.5rem;
+[mpk_tss_placeholder_links] {
+	flex: 0 0 auto;
+	display: flex;
+	flex-wrap: wrap;
 }

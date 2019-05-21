@@ -29,8 +29,14 @@ namespace $.$$ {
 			return this.$.$mol_state_arg.value( 'page' )
 		}
 
-		pages() {
+		sidebar_items() {
 			if( !this.entered() ) return [ this.Enter() ]
+
+			return [this.Menu()]
+		}
+
+		pages() {
+			if( !this.entered() ) return [ this.Sidebar() ]
 
 			const id = this.page_id()
 

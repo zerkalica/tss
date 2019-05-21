@@ -7,6 +7,7 @@ $mpk_tss_pereferials_unit_card $mol_card
 		minimal_height 30
 		sub /
 			<= Status_text $mpk_tss_pereferials_unit_status
+				colors false
 				status <= status
 			<= Refresh_action $mol_button_minor
 				event_click?event <=> refresh_click?event null
