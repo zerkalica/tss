@@ -1,0 +1,25 @@
+[mpk_tss_summary_status_type="warning"] {
+	background-color: rgb(219, 146, 10);
+}
+
+[mpk_tss_summary_status_type="error"] {
+	background-color: rgb(202, 6, 6);
+}
+
+[mpk_tss_summary_status_type="success"] {
+	background-color: rgb(16, 139, 16);
+}
+
+[mpk_tss_summary_status_type="ready"] {
+	background-color: rgb(4, 116, 4);
+}
+
+[mpk_tss_summary_status] {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: .1rem .5rem;
+	color: white;
+	min-width: 5rem;
+	border-radius: var(--mol_skin_round);
+}

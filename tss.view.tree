@@ -17,7 +17,7 @@ $mpk_tss_main $mol_book
 			breadcrumbs / <= breadcrumbs
 			tools <= common_tools
 			event_top?event <=> event_front_up?event
-		pereferials <= Pereferials $mpk_tss_pereferials
+		pereferials <= Pereferials $mpk_tss_pereferial
 			breadcrumbs / <= breadcrumbs
 			tools <= common_tools
 			unit_current_page => details

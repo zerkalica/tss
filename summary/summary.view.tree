@@ -1,9 +1,10 @@
 $mpk_tss_summary $mpk_tss_wrap
 	self_title @ \Summary
+	minimal_width 600
 	body /
-		<= Statuses $mpk_tss_section
+		<= Statuses $mpk_tss_summary_section
 			Content /
-				<= All $mpk_tss_status
+				<= All $mpk_tss_summary_status
 					type \warning
 				<= Software $mpk_tss_summary_item
 					title @ \Software
@@ -36,5 +37,5 @@ $mpk_tss_summary_item $mol_link
 		<= Title $mol_view
 			sub /
 				<= title
-		<= Status $mpk_tss_status
+		<= Status $mpk_tss_summary_status
 			type <= type

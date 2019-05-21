@@ -1,0 +1,12 @@
+$mpk_tss_summary_status $mol_view
+	title \
+	statuses *
+		warning <= warning @ \Warning
+		error <= error @ \Error
+		success <= success @ \Success
+		ready <= ready @ \Ready
+	sub /
+		<= title
+	attr *
+		^
+		mpk_tss_summary_status_type <= type \success
