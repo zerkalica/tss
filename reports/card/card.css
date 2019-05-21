@@ -1,0 +1,34 @@
+[mpk_tss_reports_card_group] {
+	flex-wrap: nowrap;
+	padding: 0;
+}
+
+[mpk_tss_reports_card_refresh_action] {
+	color: white;
+}
+
+[mpk_tss_reports_card_footer] {
+	background: var(--mol_theme_line);
+	text-transform: capitalize;
+	padding: 0 0rem;
+	line-height: 2;
+	margin: 0;
+	display: flex;
+	justify-content: space-between;
+}
+
+[mpk_tss_reports_card_status_text] {
+	padding: 0 0.5rem;	
+}
+
+[mpk_tss_reports_type="ready"] {
+	--mol_theme_line: hsl(140, 50%, 50%);
+}
+
+[mpk_tss_reports_type="warning"] {
+	--mol_theme_line: hsl(46, 73%, 55%);
+}
+
+[mpk_tss_reports_type="error"] {
+	--mol_theme_line: hsl(0, 50%, 50%);
+}

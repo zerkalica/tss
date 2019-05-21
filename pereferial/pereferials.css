@@ -1,14 +1,9 @@
 [mpk_tss_pereferial] {
 	flex: 0 1 400px;
 }
+
 [mpk_tss_pereferial_results] {
 	margin-top: 0.5rem;
-	box-shadow: none;
-}
-
-[mol_grid_table] {
-	margin: 0;
-	width: 100%;
 }
 
 [mpk_tss_pereferial_filter_title] {

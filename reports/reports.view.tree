@@ -1,14 +1,24 @@
 $mpk_tss_reports $mpk_tss_wrap
 	self_title @ \Reports
-	column_names /
-		<= column_train @ \Train
-		<= column_status @ \Status
-		<= column_date @ \Date
-		<= column_report @ \Report
-	body /
+	report_current_page null
+	sub /
+		<= Head
 		<= Filter_title $mol_search
 			query?val <=> filter_title?val \
-		<= Results $mol_grid
-			row_height 40
-			records <= records *
-			col_head_content!col <= column_name!col /
+		<= Body
+	body /
+		<= Reports $mol_list
+			destructor <= destructor
+			rows <= report_links /
+	-
+	Report_link!id $mol_link
+		minimal_height 125
+		arg <= report_arg!id *
+			report <= report_link_id!id \
+		sub /
+			<= Card!id $mpk_tss_reports_card
+				report <= report_for_card!id null
+	-
+	Report_details $mpk_tss_reports_details
+		minimal_width 400
+		report <= report_for_details null

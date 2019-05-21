@@ -28,6 +28,7 @@ $mpk_tss_main $mol_book
 			event_top?event <=> event_front_up?event
 		reports <= Reports $mpk_tss_reports
 			breadcrumbs / <= breadcrumbs
+			report_current_page => details
 			tools <= common_tools
 			event_top?event <=> event_front_up?event
 	breadcrumbs /

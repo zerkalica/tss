@@ -1,0 +1,9 @@
+$mpk_tss_reports_status $mol_view
+	status null
+	colors true
+	statuses *
+		ready <= ready @ \Ready
+		warning <= warning @ \Warning
+		error <= error @ \Error
+		unknown <= unknown @ \Unknown
+	sub / <= status_text <= unknown

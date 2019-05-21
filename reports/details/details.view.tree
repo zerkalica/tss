@@ -1,0 +1,11 @@
+$mpk_tss_reports_details $mol_page
+	report null
+	minimal_width 400
+	tools /
+		<= Details_close $mol_link
+			arg * report null
+			sub / <= Details_close_icon $mol_icon_cross
+	body /
+		<= List $mol_list
+			rows /
+				<= report_parameters /

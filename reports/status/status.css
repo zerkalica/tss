@@ -1,0 +1,17 @@
+[mpk_tss_reports_status_type="ready"] {
+	color: hsl(140, 50%, 50%);
+}
+
+[mpk_tss_reports_status_type="warning"] {
+	color: hsl(46, 73%, 55%);
+}
+
+[mpk_tss_reports_status_type="error"] {
+	color: hsl(0, 50%, 50%);
+}
+
+
+[mpk_tss_reports_status_type="unknown"],
+[mpk_tss_reports_status_type="inactive"] {
+	color: hsl(0, 0%, 61%);
+}

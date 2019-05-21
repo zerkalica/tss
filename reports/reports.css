@@ -1,8 +1,21 @@
-[mpk_tss_reports_results] {
-	margin-top: 0.5rem;
-	box-shadow: none;
+[mpk_tss_reports] {
+	flex: 0 1 400px;
 }
 
-[mpk_tss_reports_results_table] {
-	margin: 0;
+[mpk_tss_reports_results] {
+	margin-top: 0.5rem;
+}
+
+[mpk_tss_reports_filter_title] {
+	align-self: stretch;
+}
+
+[mpk_tss_reports_reports] {
+	display: flex;
+	flex-direction: column;
+}
+
+[mpk_tss_reports_body] {
+	overflow-y: scroll;
+	padding: 0.3rem;
 }

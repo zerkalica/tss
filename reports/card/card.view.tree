@@ -1,0 +1,30 @@
+$mpk_tss_reports_card $mol_card
+	report null
+	attr *
+		^
+		mpk_tss_reports_type <= violation_status \
+	status <= violation_status
+	Status <= Footer $mol_view
+		minimal_height 30
+		sub /
+			<= Status_text $mpk_tss_reports_status
+				colors false
+				status <= violation_status
+			<= Refresh_action $mol_button_minor
+				event_click?event <=> refresh_click?event null
+				sub / <= Refresh_icon $mpk_tss_icon_download
+	Content <= Group $mol_row
+		sub /
+			<= items /
+				<= Name $mol_labeler
+					title <= Name_title @ \Train
+					content <= train_number \
+				<= Violation_status $mol_labeler
+					title <= violation_status_title @ \Status
+					content <= violation_status \
+				<= Measurement_start $mol_labeler
+					title <= measurement_start_title @ \Date
+					content <= measurement_start \
+				<= Report_status $mol_labeler
+					title <= report_status_title @ \Report
+					content <= report_status \

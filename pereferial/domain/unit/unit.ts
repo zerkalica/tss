@@ -10,9 +10,9 @@ namespace $ {
 	}
 
 	export class $mpk_tss_pereferial_domain_unit_parameter extends $mol_object {
-		name(): string { return void 0 }
-		value(): $mpk_tss_pereferial_domain_unit_parameter_value | null { return void 0}
-		updated(): $mol_time_moment | null { return void 0}
+		name(): string { throw new $mpk_tss_todo }
+		value(): $mpk_tss_pereferial_domain_unit_parameter_value | null { throw new $mpk_tss_todo }
+		updated(): $mol_time_moment | null { throw new $mpk_tss_todo}
 	}
 
 	export enum $mpk_tss_pereferial_domain_unit_status {
@@ -24,10 +24,10 @@ namespace $ {
 	}
 
 	export class $mpk_tss_pereferial_domain_unit extends $mol_object {
-		id() : string { return void 0 }
-		type(): $mpk_tss_pereferial_domain_unit_type { return void 0 }
-		element(): string { return void 0 }
-		status(): $mpk_tss_pereferial_domain_unit_status { return void 0}
+		id() : string { throw new $mpk_tss_todo }
+		type(): $mpk_tss_pereferial_domain_unit_type { throw new $mpk_tss_todo }
+		element(): string { throw new $mpk_tss_todo }
+		status(): $mpk_tss_pereferial_domain_unit_status { throw new $mpk_tss_todo }
  
 		parameters(): $mpk_tss_pereferial_domain_unit_parameter[] { return [] }
 	}
