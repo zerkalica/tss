@@ -43,7 +43,7 @@ namespace $ {
 
 	export class $mpk_tss_pereferials_domain_mock extends $mpk_tss_pereferials_domain {
 		max_units() {
-			return 10
+			return 4
 		}
 
 		@ $mol_mem_key
@@ -51,8 +51,8 @@ namespace $ {
 			const status = $mpk_tss_pereferials_domain_stub_unit_status()
 			return $mpk_tss_pereferials_domain_unit.make({
 				id : $mol_const(id) ,
-				element: $mol_const($mpk_tss_stub_unit_name()),
-				type: $mol_const($mpk_tss_stub_unit_type()),
+				element: $mol_const($mpk_tss_pereferials_domain_stub_unit_name()),
+				type: $mol_const($mpk_tss_pereferials_domain_stub_unit_type()),
 				parameters: $mol_const($mpk_tss_pereferials_domain_stub_unit_parameters(status
 				)),
 				status: $mol_const(status),

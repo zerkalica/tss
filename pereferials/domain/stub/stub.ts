@@ -5,6 +5,21 @@ namespace $ {
 		] as $mpk_tss_pereferials_domain_unit_status[])
 	}
 
+	export function $mpk_tss_pereferials_domain_stub_unit_type() {
+		return $mol_stub_select_random( [ 'UPS' ] )
+	}
+
+	export function $mpk_tss_pereferials_domain_stub_unit_name() {
+		const firm = $mol_stub_select_random( [
+			'Shtil 1103L',
+			'Shtil 1104M',
+		] )
+		const number = $mol_stub_select_random( [ 'N1', 'N2', 'N3', 'N4' ] )
+
+		return `${firm} ${number}`
+	}
+
+
 	export function $mpk_tss_pereferials_domain_stub_unit_parameters(
 		status: $mpk_tss_pereferials_domain_unit_status
 	): $mpk_tss_pereferials_domain_unit_parameter[] {
