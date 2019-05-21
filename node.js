@@ -5055,7 +5055,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mpk_tss_pereferials_unit_status extends $.$mol_view {
+    class $mpk_tss_pereferial_unit_status extends $.$mol_view {
         status() {
             return null;
         }
@@ -5072,19 +5072,19 @@ var $;
             });
         }
         ready() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_status_ready");
+            return this.$.$mol_locale.text("$mpk_tss_pereferial_unit_status_ready");
         }
         error() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_status_error");
+            return this.$.$mol_locale.text("$mpk_tss_pereferial_unit_status_error");
         }
         not_responding() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_status_not_responding");
+            return this.$.$mol_locale.text("$mpk_tss_pereferial_unit_status_not_responding");
         }
         inactive() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_status_inactive");
+            return this.$.$mol_locale.text("$mpk_tss_pereferial_unit_status_inactive");
         }
         unknown() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_status_unknown");
+            return this.$.$mol_locale.text("$mpk_tss_pereferial_unit_status_unknown");
         }
         sub() {
             return [].concat(this.status_text());
@@ -5093,7 +5093,7 @@ var $;
             return this.unknown();
         }
     }
-    $.$mpk_tss_pereferials_unit_status = $mpk_tss_pereferials_unit_status;
+    $.$mpk_tss_pereferial_unit_status = $mpk_tss_pereferial_unit_status;
 })($ || ($ = {}));
 //status.view.tree.js.map
 ;
@@ -5102,7 +5102,7 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        class $mpk_tss_pereferials_unit_status extends $.$mpk_tss_pereferials_unit_status {
+        class $mpk_tss_pereferial_unit_status extends $.$mpk_tss_pereferial_unit_status {
             status_text() {
                 if (!this.status())
                     return this.statuses().unknown;
@@ -5111,10 +5111,10 @@ var $;
             attr() {
                 if (!this.colors())
                     return super.attr();
-                return (Object.assign({}, super.attr(), { 'mpk_tss_pereferials_unit_status_type': this.status() }));
+                return (Object.assign({}, super.attr(), { 'mpk_tss_pereferial_unit_status_type': this.status() }));
             }
         }
-        $$.$mpk_tss_pereferials_unit_status = $mpk_tss_pereferials_unit_status;
+        $$.$mpk_tss_pereferial_unit_status = $mpk_tss_pereferial_unit_status;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //status.view.js.map
@@ -5722,77 +5722,32 @@ var $;
 //moment.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
-    class $mpk_tss_pereferials_domain_unit_parameter extends $.$mol_object {
+    class $mpk_tss_pereferial_domain_unit_parameter extends $.$mol_object {
         name() { return void 0; }
         value() { return void 0; }
         updated() { return void 0; }
     }
-    $.$mpk_tss_pereferials_domain_unit_parameter = $mpk_tss_pereferials_domain_unit_parameter;
-    let $mpk_tss_pereferials_domain_unit_status;
-    (function ($mpk_tss_pereferials_domain_unit_status) {
-        $mpk_tss_pereferials_domain_unit_status["ready"] = "ready";
-        $mpk_tss_pereferials_domain_unit_status["error"] = "error";
-        $mpk_tss_pereferials_domain_unit_status["not_responding"] = "not_responding";
-        $mpk_tss_pereferials_domain_unit_status["inactive"] = "inactive";
-        $mpk_tss_pereferials_domain_unit_status["unknown"] = "unknown";
-    })($mpk_tss_pereferials_domain_unit_status = $.$mpk_tss_pereferials_domain_unit_status || ($.$mpk_tss_pereferials_domain_unit_status = {}));
-    class $mpk_tss_pereferials_domain_unit extends $.$mol_object {
+    $.$mpk_tss_pereferial_domain_unit_parameter = $mpk_tss_pereferial_domain_unit_parameter;
+    let $mpk_tss_pereferial_domain_unit_status;
+    (function ($mpk_tss_pereferial_domain_unit_status) {
+        $mpk_tss_pereferial_domain_unit_status["ready"] = "ready";
+        $mpk_tss_pereferial_domain_unit_status["error"] = "error";
+        $mpk_tss_pereferial_domain_unit_status["not_responding"] = "not_responding";
+        $mpk_tss_pereferial_domain_unit_status["inactive"] = "inactive";
+        $mpk_tss_pereferial_domain_unit_status["unknown"] = "unknown";
+    })($mpk_tss_pereferial_domain_unit_status = $.$mpk_tss_pereferial_domain_unit_status || ($.$mpk_tss_pereferial_domain_unit_status = {}));
+    class $mpk_tss_pereferial_domain_unit extends $.$mol_object {
         id() { return void 0; }
         type() { return void 0; }
         element() { return void 0; }
         status() { return void 0; }
         parameters() { return []; }
     }
-    $.$mpk_tss_pereferials_domain_unit = $mpk_tss_pereferials_domain_unit;
-    class $mpk_tss_pereferials_domain extends $.$mol_object {
-        unit(id) {
-            throw new Error('implement');
-        }
-        units() {
-            throw new Error('implement');
-        }
-    }
-    $.$mpk_tss_pereferials_domain = $mpk_tss_pereferials_domain;
-    class $mpk_tss_pereferials_domain_mock extends $mpk_tss_pereferials_domain {
-        max_units() {
-            return 4;
-        }
-        unit(id) {
-            const status = $.$mpk_tss_pereferials_domain_stub_unit_status();
-            return $mpk_tss_pereferials_domain_unit.make({
-                id: $.$mol_const(id),
-                element: $.$mol_const($.$mpk_tss_pereferials_domain_stub_unit_name()),
-                type: $.$mol_const($.$mpk_tss_pereferials_domain_stub_unit_type()),
-                parameters: $.$mol_const($.$mpk_tss_pereferials_domain_stub_unit_parameters(status)),
-                status: $.$mol_const(status),
-            });
-        }
-        units() {
-            var next = [];
-            const max = this.max_units();
-            for (var i = 1; i <= max; ++i) {
-                next.push(this.unit((i * 123456789 % 987654321).toString(16).toUpperCase()));
-            }
-            return next;
-        }
-    }
-    __decorate([
-        $.$mol_mem_key
-    ], $mpk_tss_pereferials_domain_mock.prototype, "unit", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferials_domain_mock.prototype, "units", null);
-    $.$mpk_tss_pereferials_domain_mock = $mpk_tss_pereferials_domain_mock;
+    $.$mpk_tss_pereferial_domain_unit = $mpk_tss_pereferial_domain_unit;
 })($ || ($ = {}));
-//domain.js.map
+//unit.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -5803,12 +5758,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var $;
 (function ($) {
-    class $mpk_tss_pereferials_unit_card extends $.$mol_card {
+    class $mpk_tss_pereferial_unit_card extends $.$mol_card {
         unit() {
             return null;
         }
         attr() {
-            return (Object.assign({}, super.attr(), { "mpk_tss_pereferials_unit_type": this.status() }));
+            return (Object.assign({}, super.attr(), { "mpk_tss_pereferial_unit_type": this.status() }));
         }
         status() {
             return "";
@@ -5828,7 +5783,7 @@ var $;
                 obj.colors = () => false;
                 obj.status = () => this.status();
                 return obj;
-            })(new this.$.$mpk_tss_pereferials_unit_status);
+            })(new this.$.$mpk_tss_pereferial_unit_status);
         }
         Refresh_action() {
             return ((obj) => {
@@ -5865,7 +5820,7 @@ var $;
             })(new this.$.$mol_labeler);
         }
         type_title() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_card_type_title");
+            return this.$.$mol_locale.text("$mpk_tss_pereferial_unit_card_type_title");
         }
         type() {
             return "";
@@ -5878,7 +5833,7 @@ var $;
             })(new this.$.$mol_labeler);
         }
         element_title() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_card_element_title");
+            return this.$.$mol_locale.text("$mpk_tss_pereferial_unit_card_element_title");
         }
         element() {
             return "";
@@ -5886,29 +5841,29 @@ var $;
     }
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_pereferials_unit_card.prototype, "Footer", null);
+    ], $mpk_tss_pereferial_unit_card.prototype, "Footer", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_pereferials_unit_card.prototype, "Status_text", null);
+    ], $mpk_tss_pereferial_unit_card.prototype, "Status_text", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_pereferials_unit_card.prototype, "Refresh_action", null);
+    ], $mpk_tss_pereferial_unit_card.prototype, "Refresh_action", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_pereferials_unit_card.prototype, "refresh_click", null);
+    ], $mpk_tss_pereferial_unit_card.prototype, "refresh_click", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_pereferials_unit_card.prototype, "Refresh_icon", null);
+    ], $mpk_tss_pereferial_unit_card.prototype, "Refresh_icon", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_pereferials_unit_card.prototype, "Group", null);
+    ], $mpk_tss_pereferial_unit_card.prototype, "Group", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_pereferials_unit_card.prototype, "Type_item", null);
+    ], $mpk_tss_pereferial_unit_card.prototype, "Type_item", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_pereferials_unit_card.prototype, "Element_item", null);
-    $.$mpk_tss_pereferials_unit_card = $mpk_tss_pereferials_unit_card;
+    ], $mpk_tss_pereferial_unit_card.prototype, "Element_item", null);
+    $.$mpk_tss_pereferial_unit_card = $mpk_tss_pereferial_unit_card;
 })($ || ($ = {}));
 //card.view.tree.js.map
 ;
@@ -5917,7 +5872,7 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        class $mpk_tss_pereferials_unit_card extends $.$mpk_tss_pereferials_unit_card {
+        class $mpk_tss_pereferial_unit_card extends $.$mpk_tss_pereferial_unit_card {
             unit() {
                 throw new Error('unit');
             }
@@ -5935,7 +5890,7 @@ var $;
                 alert('Refresh...');
             }
         }
-        $$.$mpk_tss_pereferials_unit_card = $mpk_tss_pereferials_unit_card;
+        $$.$mpk_tss_pereferial_unit_card = $mpk_tss_pereferial_unit_card;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //card.view.js.map
@@ -5949,7 +5904,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var $;
 (function ($) {
-    class $mpk_tss_pereferials_unit_details extends $.$mol_page {
+    class $mpk_tss_pereferial_unit_details extends $.$mol_page {
         unit() {
             return null;
         }
@@ -5989,7 +5944,7 @@ var $;
             return ((obj) => {
                 obj.parameter = () => this.parameter_item(parameter);
                 return obj;
-            })(new this.$.$mpk_tss_pereferials_unit_details_parameter);
+            })(new this.$.$mpk_tss_pereferial_unit_details_parameter);
         }
         parameter_item(parameter) {
             return null;
@@ -5997,20 +5952,20 @@ var $;
     }
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_pereferials_unit_details.prototype, "Details_close", null);
+    ], $mpk_tss_pereferial_unit_details.prototype, "Details_close", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_pereferials_unit_details.prototype, "Details_close_icon", null);
+    ], $mpk_tss_pereferial_unit_details.prototype, "Details_close_icon", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_pereferials_unit_details.prototype, "List", null);
+    ], $mpk_tss_pereferial_unit_details.prototype, "List", null);
     __decorate([
         $.$mol_mem_key
-    ], $mpk_tss_pereferials_unit_details.prototype, "Parameter", null);
-    $.$mpk_tss_pereferials_unit_details = $mpk_tss_pereferials_unit_details;
+    ], $mpk_tss_pereferial_unit_details.prototype, "Parameter", null);
+    $.$mpk_tss_pereferial_unit_details = $mpk_tss_pereferial_unit_details;
 })($ || ($ = {}));
 (function ($) {
-    class $mpk_tss_pereferials_unit_details_parameter extends $.$mol_row {
+    class $mpk_tss_pereferial_unit_details_parameter extends $.$mol_row {
         Unknown() {
             return ((obj) => {
                 obj.sub = () => [].concat(this.unknown_text());
@@ -6018,10 +5973,10 @@ var $;
             })(new this.$.$mol_view);
         }
         unknown_text() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_details_parameter_unknown_text");
+            return this.$.$mol_locale.text("$mpk_tss_pereferial_unit_details_parameter_unknown_text");
         }
         updated_now_text() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_details_parameter_updated_now_text");
+            return this.$.$mol_locale.text("$mpk_tss_pereferial_unit_details_parameter_updated_now_text");
         }
         parameter() {
             return null;
@@ -6039,7 +5994,7 @@ var $;
             return ((obj) => {
                 obj.status = () => this.value_status_data(status);
                 return obj;
-            })(new this.$.$mpk_tss_pereferials_unit_status);
+            })(new this.$.$mpk_tss_pereferial_unit_status);
         }
         value_status_data(status) {
             return null;
@@ -6058,7 +6013,7 @@ var $;
             })(new this.$.$mol_labeler);
         }
         name_title() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_details_parameter_name_title");
+            return this.$.$mol_locale.text("$mpk_tss_pereferial_unit_details_parameter_name_title");
         }
         parameter_name() {
             return "";
@@ -6071,7 +6026,7 @@ var $;
             })(new this.$.$mol_labeler);
         }
         value_title() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_details_parameter_value_title");
+            return this.$.$mol_locale.text("$mpk_tss_pereferial_unit_details_parameter_value_title");
         }
         Value_content() {
             return null;
@@ -6087,7 +6042,7 @@ var $;
             })(new this.$.$mol_labeler);
         }
         updated_title() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_unit_details_parameter_updated_title");
+            return this.$.$mol_locale.text("$mpk_tss_pereferial_unit_details_parameter_updated_title");
         }
         parameter_updated() {
             return null;
@@ -6095,23 +6050,23 @@ var $;
     }
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_pereferials_unit_details_parameter.prototype, "Unknown", null);
+    ], $mpk_tss_pereferial_unit_details_parameter.prototype, "Unknown", null);
     __decorate([
         $.$mol_mem_key
-    ], $mpk_tss_pereferials_unit_details_parameter.prototype, "Value_string", null);
+    ], $mpk_tss_pereferial_unit_details_parameter.prototype, "Value_string", null);
     __decorate([
         $.$mol_mem_key
-    ], $mpk_tss_pereferials_unit_details_parameter.prototype, "Value_status", null);
+    ], $mpk_tss_pereferial_unit_details_parameter.prototype, "Value_status", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_pereferials_unit_details_parameter.prototype, "Name", null);
+    ], $mpk_tss_pereferial_unit_details_parameter.prototype, "Name", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_pereferials_unit_details_parameter.prototype, "Value", null);
+    ], $mpk_tss_pereferial_unit_details_parameter.prototype, "Value", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_pereferials_unit_details_parameter.prototype, "Updated", null);
-    $.$mpk_tss_pereferials_unit_details_parameter = $mpk_tss_pereferials_unit_details_parameter;
+    ], $mpk_tss_pereferial_unit_details_parameter.prototype, "Updated", null);
+    $.$mpk_tss_pereferial_unit_details_parameter = $mpk_tss_pereferial_unit_details_parameter;
 })($ || ($ = {}));
 //details.view.tree.js.map
 ;
@@ -6120,7 +6075,7 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        class $mpk_tss_pereferials_unit_details extends $.$mpk_tss_pereferials_unit_details {
+        class $mpk_tss_pereferial_unit_details extends $.$mpk_tss_pereferial_unit_details {
             unit() {
                 throw new Error('unit');
             }
@@ -6147,8 +6102,8 @@ var $;
                 alert('Refresh...');
             }
         }
-        $$.$mpk_tss_pereferials_unit_details = $mpk_tss_pereferials_unit_details;
-        class $mpk_tss_pereferials_unit_details_parameter extends $.$mpk_tss_pereferials_unit_details_parameter {
+        $$.$mpk_tss_pereferial_unit_details = $mpk_tss_pereferial_unit_details;
+        class $mpk_tss_pereferial_unit_details_parameter extends $.$mpk_tss_pereferial_unit_details_parameter {
             parameter() {
                 throw new Error('parameter');
             }
@@ -6183,10 +6138,166 @@ var $;
                 return updated.toString('DD.MM.YYYY, hh:mm');
             }
         }
-        $$.$mpk_tss_pereferials_unit_details_parameter = $mpk_tss_pereferials_unit_details_parameter;
+        $$.$mpk_tss_pereferial_unit_details_parameter = $mpk_tss_pereferial_unit_details_parameter;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //details.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mpk_tss_pereferial_domain extends $.$mol_object {
+        unit(id) {
+            throw new Error('implement');
+        }
+        units() {
+            throw new Error('implement');
+        }
+    }
+    $.$mpk_tss_pereferial_domain = $mpk_tss_pereferial_domain;
+})($ || ($ = {}));
+//domain.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_unit extends $.$mol_object {
+        constructor(value) {
+            super();
+            this['valueOf()'] = value;
+        }
+        prefix() {
+            return '';
+        }
+        postfix() {
+            return '';
+        }
+        valueOf() {
+            return this['valueOf()'];
+        }
+        delimiter() {
+            return ' ';
+        }
+        value_view() {
+            return this.valueOf().toLocaleString();
+        }
+        toString() {
+            return this.prefix() + this.value_view() + this.postfix();
+        }
+        static summ(a, b) {
+            var Class = a.constructor;
+            if (Class !== b.constructor)
+                throw new Error(`Not same measure: ${Class} , ${b.constructor}`);
+            return new Class(a.valueOf() + b.valueOf());
+        }
+        mult(m) {
+            var Class = this.constructor;
+            return new Class(this.valueOf() * m);
+        }
+    }
+    $.$mol_unit = $mol_unit;
+})($ || ($ = {}));
+//unit.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_unit_money extends $.$mol_unit {
+    }
+    $.$mol_unit_money = $mol_unit_money;
+    class $mol_unit_money_usd extends $mol_unit_money {
+        prefix() {
+            return '$';
+        }
+    }
+    $.$mol_unit_money_usd = $mol_unit_money_usd;
+    class $mol_unit_money_rur extends $mol_unit_money {
+        postfix() {
+            return ' ₽';
+        }
+    }
+    $.$mol_unit_money_rur = $mol_unit_money_rur;
+})($ || ($ = {}));
+//money.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_stub_select_random(list) {
+        return list[Math.floor(Math.random() * list.length)];
+    }
+    $.$mol_stub_select_random = $mol_stub_select_random;
+    function $mol_stub_strings(prefix = '', count = 10, length = 10) {
+        if (prefix.length >= length)
+            return [];
+        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".split('');
+        let strings = [];
+        for (let i = 0; i < count; i++) {
+            let text = prefix;
+            for (let j = prefix.length; j < length; j++) {
+                text += $mol_stub_select_random(possible);
+            }
+            strings.push(text);
+        }
+        return strings;
+    }
+    $.$mol_stub_strings = $mol_stub_strings;
+    function $mol_stub_code(length = 8) {
+        var max = Math.pow(16, length);
+        var min = Math.pow(16, length - 1);
+        var value = min + Math.floor(Math.random() * (max - min));
+        return value.toString(16).toUpperCase();
+    }
+    $.$mol_stub_code = $mol_stub_code;
+    function $mol_stub_price(max = 1000) {
+        var min = Math.floor(max / 16 / 16);
+        var value = min + Math.floor(Math.random() * (max - min));
+        return new $.$mol_unit_money_usd(value);
+    }
+    $.$mol_stub_price = $mol_stub_price;
+    function $mol_stub_product_name() {
+        var name = $mol_stub_select_random([
+            'Monitor 15"',
+            'Monitor 17"',
+            'Monitor 19"',
+            'Graphics card',
+            'Frame grabber card'
+        ]);
+        var port = $mol_stub_select_random(['D-SUB', 'DVI', 'HDMI']);
+        var resolution = $mol_stub_select_random(['VGA', 'Full HD', '4K']);
+        return [name, port, resolution].join(', ');
+    }
+    $.$mol_stub_product_name = $mol_stub_product_name;
+    function $mol_stub_company_name_big() {
+        var product = $mol_stub_select_random(['Everything', 'Something', 'Anything', 'Nothing']);
+        var type = $mol_stub_select_random(['Company', 'Corporation', 'Holding']);
+        return `A ${type} that makes ${product}`;
+    }
+    $.$mol_stub_company_name_big = $mol_stub_company_name_big;
+    function $mol_stub_company_name_small() {
+        return $mol_stub_select_random(['ACME inc.', 'Dream Company', 'Just Company']);
+    }
+    $.$mol_stub_company_name_small = $mol_stub_company_name_small;
+    function $mol_stub_company_name() {
+        return $mol_stub_select_random([$mol_stub_company_name_small, $mol_stub_company_name_big])();
+    }
+    $.$mol_stub_company_name = $mol_stub_company_name;
+    function $mol_stub_person_name() {
+        var first = $mol_stub_select_random(['Ivan', 'Petr', 'Sidor']);
+        var last = $mol_stub_select_random(['Ivanov', 'Petrov', 'Sidorov']);
+        return `${first} ${last}`;
+    }
+    $.$mol_stub_person_name = $mol_stub_person_name;
+    function $mol_stub_city() {
+        return $mol_stub_select_random(['Moscow', 'London', 'Washington', 'Buenos Aires']);
+    }
+    $.$mol_stub_city = $mol_stub_city;
+    function $mol_stub_time(maxShift = 60 * 24 * 365) {
+        return new $.$mol_time_moment().shift({ minute: Math.round(Math.random() * maxShift) });
+    }
+    $.$mol_stub_time = $mol_stub_time;
+})($ || ($ = {}));
+//stub.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -6197,9 +6308,102 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var $;
 (function ($) {
-    class $mpk_tss_pereferials extends $.$mpk_tss_wrap {
+    class $mpk_tss_pereferial_domain_mock extends $.$mpk_tss_pereferial_domain {
+        max_units() {
+            return 4;
+        }
+        unit(id) {
+            const status = $mpk_tss_pereferial_domain_mock_stub_status();
+            return $.$mpk_tss_pereferial_domain_unit.make({
+                id: $.$mol_const(id),
+                element: $.$mol_const($mpk_tss_pereferial_domain_mock_stub_name()),
+                type: $.$mol_const($mpk_tss_pereferial_domain_mock_stub_type()),
+                parameters: $.$mol_const($mpk_tss_pereferial_domain_mock_stub_parameters(status)),
+                status: $.$mol_const(status),
+            });
+        }
+        units() {
+            var next = [];
+            const max = this.max_units();
+            for (var i = 1; i <= max; ++i) {
+                next.push(this.unit((i * 123456789 % 987654321).toString(16).toUpperCase()));
+            }
+            return next;
+        }
+    }
+    __decorate([
+        $.$mol_mem_key
+    ], $mpk_tss_pereferial_domain_mock.prototype, "unit", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferial_domain_mock.prototype, "units", null);
+    $.$mpk_tss_pereferial_domain_mock = $mpk_tss_pereferial_domain_mock;
+    function $mpk_tss_pereferial_domain_mock_stub_status() {
+        return $.$mol_stub_select_random([
+            'ready', 'error', 'not_responding', 'inactive', 'unknown'
+        ]);
+    }
+    function $mpk_tss_pereferial_domain_mock_stub_type() {
+        return $.$mol_stub_select_random(['UPS']);
+    }
+    function $mpk_tss_pereferial_domain_mock_stub_name() {
+        const firm = $.$mol_stub_select_random([
+            'Shtil 1103L',
+            'Shtil 1104M',
+        ]);
+        const number = $.$mol_stub_select_random(['N1', 'N2', 'N3', 'N4']);
+        return `${firm} ${number}`;
+    }
+    function $mpk_tss_pereferial_domain_mock_stub_parameters(status) {
+        const unknown = status === $.$mpk_tss_pereferial_domain_unit_status.not_responding;
+        const mc = (arg) => $.$mol_const(unknown ? null : arg);
+        const str = (value) => mc({ type: 'string', value });
+        return [
+            $.$mpk_tss_pereferial_domain_unit_parameter.make({
+                name: $.$mol_const('State'),
+                value: $.$mol_const({
+                    type: 'status',
+                    value: status,
+                }),
+                updated: $.$mol_const($.$mol_stub_time(60)),
+            }),
+            $.$mpk_tss_pereferial_domain_unit_parameter.make({
+                name: $.$mol_const('Power source'),
+                value: str($.$mol_stub_select_random(['Line', 'Internal'])),
+                updated: mc($.$mol_stub_time(60)),
+            }),
+            $.$mpk_tss_pereferial_domain_unit_parameter.make({
+                name: $.$mol_const('Voltage'),
+                value: str(String(200 + Math.ceil(Math.random() * 10)) + 'V'),
+                updated: mc($.$mol_stub_time(60)),
+            }),
+            $.$mpk_tss_pereferial_domain_unit_parameter.make({
+                name: $.$mol_const('Bat. level'),
+                value: str(String(Math.ceil(Math.random() * 100)) + '%'),
+                updated: mc($.$mol_stub_time(60)),
+            }),
+            $.$mpk_tss_pereferial_domain_unit_parameter.make({
+                name: $.$mol_const('Bat. time'),
+                value: str(String(10 + Math.ceil(Math.random() * 360)) + 'm'),
+                updated: mc($.$mol_stub_time(60)),
+            }),
+        ];
+    }
+})($ || ($ = {}));
+//mock.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mpk_tss_pereferial extends $.$mpk_tss_wrap {
         self_title() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferials_self_title");
+            return this.$.$mol_locale.text("$mpk_tss_pereferial_self_title");
         }
         unit_current_page() {
             return null;
@@ -6249,7 +6453,7 @@ var $;
             return ((obj) => {
                 obj.unit = () => this.unit_for_card(id);
                 return obj;
-            })(new this.$.$mpk_tss_pereferials_unit_card);
+            })(new this.$.$mpk_tss_pereferial_unit_card);
         }
         unit_for_card(id) {
             return null;
@@ -6259,7 +6463,7 @@ var $;
                 obj.minimal_width = () => 400;
                 obj.unit = () => this.unit_for_details();
                 return obj;
-            })(new this.$.$mpk_tss_pereferials_unit_details);
+            })(new this.$.$mpk_tss_pereferial_unit_details);
         }
         unit_for_details() {
             return null;
@@ -6267,23 +6471,23 @@ var $;
     }
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_pereferials.prototype, "Filter_title", null);
+    ], $mpk_tss_pereferial.prototype, "Filter_title", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_pereferials.prototype, "filter_title", null);
+    ], $mpk_tss_pereferial.prototype, "filter_title", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_pereferials.prototype, "Units", null);
+    ], $mpk_tss_pereferial.prototype, "Units", null);
     __decorate([
         $.$mol_mem_key
-    ], $mpk_tss_pereferials.prototype, "Unit_link", null);
+    ], $mpk_tss_pereferial.prototype, "Unit_link", null);
     __decorate([
         $.$mol_mem_key
-    ], $mpk_tss_pereferials.prototype, "Card", null);
+    ], $mpk_tss_pereferial.prototype, "Card", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_pereferials.prototype, "Unit_details", null);
-    $.$mpk_tss_pereferials = $mpk_tss_pereferials;
+    ], $mpk_tss_pereferial.prototype, "Unit_details", null);
+    $.$mpk_tss_pereferial = $mpk_tss_pereferial;
 })($ || ($ = {}));
 //pereferials.view.tree.js.map
 ;
@@ -6298,9 +6502,9 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        class $mpk_tss_pereferials extends $.$mpk_tss_pereferials {
+        class $mpk_tss_pereferial extends $.$mpk_tss_pereferial {
             domain() {
-                return new $.$mpk_tss_pereferials_domain_mock();
+                return new $.$mpk_tss_pereferial_domain_mock();
             }
             unit_links() {
                 return this.domain().units().map(unit => this.Unit_link(unit.id()));
@@ -6331,11 +6535,11 @@ var $;
         }
         __decorate([
             $.$mol_mem
-        ], $mpk_tss_pereferials.prototype, "domain", null);
+        ], $mpk_tss_pereferial.prototype, "domain", null);
         __decorate([
             $.$mol_mem
-        ], $mpk_tss_pereferials.prototype, "unit_links", null);
-        $$.$mpk_tss_pereferials = $mpk_tss_pereferials;
+        ], $mpk_tss_pereferial.prototype, "unit_links", null);
+        $$.$mpk_tss_pereferial = $mpk_tss_pereferial;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //pereferials.view.js.map
@@ -6733,6 +6937,411 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var $;
 (function ($) {
+    class $mpk_tss extends $.$mol_view {
+        sub() {
+            return [].concat(this.Head(), this.Body());
+        }
+        Head() {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.Terminal_link());
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        Terminal_link() {
+            return ((obj) => {
+                obj.enabled = () => false;
+                obj.sub = () => [].concat(this.terminal_label());
+                return obj;
+            })(new this.$.$mol_button_minor);
+        }
+        terminal_label() {
+            return this.$.$mol_locale.text("$mpk_tss_terminal_label");
+        }
+        Body() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mpk_tss_main);
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss.prototype, "Head", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss.prototype, "Terminal_link", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss.prototype, "Body", null);
+    $.$mpk_tss = $mpk_tss;
+})($ || ($ = {}));
+(function ($) {
+    class $mpk_tss_main extends $.$mol_book {
+        Menu_item(id) {
+            return ((obj) => {
+                obj.arg = () => this.menu_page_arg(id);
+                obj.title = () => this.menu_page_title(id);
+                return obj;
+            })(new this.$.$mol_link);
+        }
+        menu_page_arg(id) {
+            return ({});
+        }
+        menu_page_title(id) {
+            return "";
+        }
+        menu_pages() {
+            return ({
+                "software": this.Software(),
+                "pereferials": this.Pereferials(),
+                "sensors": this.Sensors(),
+                "reports": this.Reports(),
+            });
+        }
+        Software() {
+            return ((obj) => {
+                obj.breadcrumbs = () => [].concat(this.breadcrumbs());
+                obj.tools = () => this.common_tools();
+                obj.event_top = (event) => this.event_front_up(event);
+                return obj;
+            })(new this.$.$mpk_tss_software);
+        }
+        details() {
+            return this.Pereferials().unit_current_page();
+        }
+        Pereferials() {
+            return ((obj) => {
+                obj.breadcrumbs = () => [].concat(this.breadcrumbs());
+                obj.tools = () => this.common_tools();
+                obj.event_top = (event) => this.event_front_up(event);
+                return obj;
+            })(new this.$.$mpk_tss_pereferial);
+        }
+        Sensors() {
+            return ((obj) => {
+                obj.breadcrumbs = () => [].concat(this.breadcrumbs());
+                obj.tools = () => this.common_tools();
+                obj.event_top = (event) => this.event_front_up(event);
+                return obj;
+            })(new this.$.$mpk_tss_sensors);
+        }
+        Reports() {
+            return ((obj) => {
+                obj.breadcrumbs = () => [].concat(this.breadcrumbs());
+                obj.tools = () => this.common_tools();
+                obj.event_top = (event) => this.event_front_up(event);
+                return obj;
+            })(new this.$.$mpk_tss_reports);
+        }
+        breadcrumbs() {
+            return [];
+        }
+        common_tools() {
+            return [].concat(this.User_link(), this.Details_close());
+        }
+        Details_close() {
+            return ((obj) => {
+                obj.arg = () => ({
+                    "page": null,
+                });
+                obj.sub = () => [].concat(this.Details_close_icon());
+                return obj;
+            })(new this.$.$mol_link);
+        }
+        Details_close_icon() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mol_icon_cross);
+        }
+        User_link() {
+            return ((obj) => {
+                obj.event_click = (event) => this.logout_click(event);
+                obj.sub = () => [].concat(this.User_email(), this.User_signout());
+                return obj;
+            })(new this.$.$mol_button_minor);
+        }
+        logout_click(event, force) {
+            return (event !== void 0) ? event : null;
+        }
+        User_email() {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.logged_email());
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        User_signout() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mpk_tss_icon_signout);
+        }
+        pages() {
+            return [].concat(this.Sidebar(), this.Summary(), this.menu_pages(), this.details());
+        }
+        Sidebar() {
+            return ((obj) => {
+                obj.head = () => [].concat(this.Logo());
+                obj.title = () => this.$.$mol_locale.text("$mpk_tss_main_Sidebar");
+                obj.minimal_width = () => 200;
+                obj.body = () => [].concat(this.sidebar_items());
+                obj.foot = () => [].concat(this.Foot_content());
+                return obj;
+            })(new this.$.$mol_page);
+        }
+        Logo() {
+            return ((obj) => {
+                obj.uri = () => "mpk/tss/tss_logo.svg";
+                obj.event = () => ({
+                    "click": (val) => this.event_top(val),
+                });
+                return obj;
+            })(new this.$.$mol_image);
+        }
+        event_top(val, force) {
+            return (val !== void 0) ? val : null;
+        }
+        sidebar_items() {
+            return [].concat(this.Enter(), this.Menu());
+        }
+        Enter() {
+            return ((obj) => {
+                obj.entered = (val) => this.entered(val);
+                obj.login = (v) => this.logged_email(v);
+                return obj;
+            })(new this.$.$mpk_tss_enter);
+        }
+        entered(val, force) {
+            return (val !== void 0) ? val : false;
+        }
+        logged_email(v, force) {
+            return (v !== void 0) ? v : "";
+        }
+        Menu() {
+            return ((obj) => {
+                obj.rows = () => [].concat(this.menu_items());
+                return obj;
+            })(new this.$.$mol_list);
+        }
+        menu_items() {
+            return [];
+        }
+        Foot_content() {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.Foot_text());
+                return obj;
+            })(new this.$.$mol_row);
+        }
+        Foot_text() {
+            return ((obj) => {
+                obj.sub = () => [].concat("© 2019 MPK Software, Russia");
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        Summary() {
+            return ((obj) => {
+                obj.tools = () => [].concat(this.User_link());
+                obj.breadcrumbs = () => [].concat(this.breadcrumbs());
+                obj.event_top = (event) => this.event_front_up(event);
+                return obj;
+            })(new this.$.$mpk_tss_summary);
+        }
+        Placeholder() {
+            return ((obj) => {
+                obj.minimal_width = () => 400;
+                obj.title = () => "";
+                return obj;
+            })(new this.$.$mpk_tss_placeholder);
+        }
+    }
+    __decorate([
+        $.$mol_mem_key
+    ], $mpk_tss_main.prototype, "Menu_item", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "Software", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "Pereferials", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "Sensors", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "Reports", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "Details_close", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "Details_close_icon", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "User_link", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "logout_click", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "User_email", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "User_signout", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "Sidebar", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "Logo", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "event_top", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "Enter", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "entered", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "logged_email", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "Menu", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "Foot_content", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "Foot_text", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "Summary", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "Placeholder", null);
+    $.$mpk_tss_main = $mpk_tss_main;
+})($ || ($ = {}));
+(function ($) {
+    class $mpk_tss_placeholder extends $.$mol_page {
+        minimal_width() {
+            return 400;
+        }
+        attr() {
+            return (Object.assign({}, super.attr(), { "tabindex": null }));
+        }
+        title() {
+            return "qwe";
+        }
+        tools() {
+            return [].concat(this.Links());
+        }
+        Links() {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.Vkontakte());
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        Vkontakte() {
+            return ((obj) => {
+                obj.uri = () => "https://vk.com";
+                obj.sub = () => [].concat(this.Vkontakte_icon());
+                return obj;
+            })(new this.$.$mol_link);
+        }
+        Vkontakte_icon() {
+            return ((obj) => {
+                obj.view_box = () => "0 0 548.358 548.358";
+                obj.path = () => "M545.451,400.298c-0.664-1.431-1.283-2.618-1.858-3.569c-9.514-17.135-27.695-38.167-54.532-63.102l-0.567-0.571l-0.284-0.28l-0.287-0.287h-0.288c-12.18-11.611-19.893-19.418-23.123-23.415c-5.91-7.614-7.234-15.321-4.004-23.13c2.282-5.9,10.854-18.36,25.696-37.397c7.807-10.089,13.99-18.175,18.556-24.267c32.931-43.78,47.208-71.756,42.828-83.939l-1.701-2.847c-1.143-1.714-4.093-3.282-8.846-4.712c-4.764-1.427-10.853-1.663-18.278-0.712l-82.224,0.568c-1.332-0.472-3.234-0.428-5.712,0.144c-2.475,0.572-3.713,0.859-3.713,0.859l-1.431,0.715l-1.136,0.859c-0.952,0.568-1.999,1.567-3.142,2.995c-1.137,1.423-2.088,3.093-2.848,4.996c-8.952,23.031-19.13,44.444-30.553,64.238c-7.043,11.803-13.511,22.032-19.418,30.693c-5.899,8.658-10.848,15.037-14.842,19.126c-4,4.093-7.61,7.372-10.852,9.849c-3.237,2.478-5.708,3.525-7.419,3.142c-1.715-0.383-3.33-0.763-4.859-1.143c-2.663-1.714-4.805-4.045-6.42-6.995c-1.622-2.95-2.714-6.663-3.285-11.136c-0.568-4.476-0.904-8.326-1-11.563c-0.089-3.233-0.048-7.806,0.145-13.706c0.198-5.903,0.287-9.897,0.287-11.991c0-7.234,0.141-15.085,0.424-23.555c0.288-8.47,0.521-15.181,0.716-20.125c0.194-4.949,0.284-10.185,0.284-15.705s-0.336-9.849-1-12.991c-0.656-3.138-1.663-6.184-2.99-9.137c-1.335-2.95-3.289-5.232-5.853-6.852c-2.569-1.618-5.763-2.902-9.564-3.856c-10.089-2.283-22.936-3.518-38.547-3.71c-35.401-0.38-58.148,1.906-68.236,6.855c-3.997,2.091-7.614,4.948-10.848,8.562c-3.427,4.189-3.905,6.475-1.431,6.851c11.422,1.711,19.508,5.804,24.267,12.275l1.715,3.429c1.334,2.474,2.666,6.854,3.999,13.134c1.331,6.28,2.19,13.227,2.568,20.837c0.95,13.897,0.95,25.793,0,35.689c-0.953,9.9-1.853,17.607-2.712,23.127c-0.859,5.52-2.143,9.993-3.855,13.418c-1.715,3.426-2.856,5.52-3.428,6.28c-0.571,0.76-1.047,1.239-1.425,1.427c-2.474,0.948-5.047,1.431-7.71,1.431c-2.667,0-5.901-1.334-9.707-4c-3.805-2.666-7.754-6.328-11.847-10.992c-4.093-4.665-8.709-11.184-13.85-19.558c-5.137-8.374-10.467-18.271-15.987-29.691l-4.567-8.282c-2.855-5.328-6.755-13.086-11.704-23.267c-4.952-10.185-9.329-20.037-13.134-29.554c-1.521-3.997-3.806-7.04-6.851-9.134l-1.429-0.859c-0.95-0.76-2.475-1.567-4.567-2.427c-2.095-0.859-4.281-1.475-6.567-1.854l-78.229,0.568c-7.994,0-13.418,1.811-16.274,5.428l-1.143,1.711C0.288,140.146,0,141.668,0,143.763c0,2.094,0.571,4.664,1.714,7.707c11.42,26.84,23.839,52.725,37.257,77.659c13.418,24.934,25.078,45.019,34.973,60.237c9.897,15.229,19.985,29.602,30.264,43.112c10.279,13.515,17.083,22.176,20.412,25.981c3.333,3.812,5.951,6.662,7.854,8.565l7.139,6.851c4.568,4.569,11.276,10.041,20.127,16.416c8.853,6.379,18.654,12.659,29.408,18.85c10.756,6.181,23.269,11.225,37.546,15.126c14.275,3.905,28.169,5.472,41.684,4.716h32.834c6.659-0.575,11.704-2.669,15.133-6.283l1.136-1.431c0.764-1.136,1.479-2.901,2.139-5.276c0.668-2.379,1-5,1-7.851c-0.195-8.183,0.428-15.558,1.852-22.124c1.423-6.564,3.045-11.513,4.859-14.846c1.813-3.33,3.859-6.14,6.136-8.418c2.282-2.283,3.908-3.666,4.862-4.142c0.948-0.479,1.705-0.804,2.276-0.999c4.568-1.522,9.944-0.048,16.136,4.429c6.187,4.473,11.99,9.996,17.418,16.56c5.425,6.57,11.943,13.941,19.555,22.124c7.617,8.186,14.277,14.271,19.985,18.274l5.708,3.426c3.812,2.286,8.761,4.38,14.853,6.283c6.081,1.902,11.409,2.378,15.984,1.427l73.087-1.14c7.229,0,12.854-1.197,16.844-3.572c3.998-2.379,6.373-5,7.139-7.851c0.764-2.854,0.805-6.092,0.145-9.712C546.782,404.25,546.115,401.725,545.451,400.298z";
+                return obj;
+            })(new this.$.$mol_icon);
+        }
+        body() {
+            return [].concat(this.Image());
+        }
+        Image() {
+            return ((obj) => {
+                obj.uri = () => "mpk/tss/placeholder.svg";
+                return obj;
+            })(new this.$.$mol_image);
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_placeholder.prototype, "Links", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_placeholder.prototype, "Vkontakte", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_placeholder.prototype, "Vkontakte_icon", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_placeholder.prototype, "Image", null);
+    $.$mpk_tss_placeholder = $mpk_tss_placeholder;
+})($ || ($ = {}));
+//tss.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mpk_tss extends $.$mpk_tss {
+        }
+        $$.$mpk_tss = $mpk_tss;
+        class $mpk_tss_main extends $.$mpk_tss_main {
+            entered(next) {
+                if ($.$mol_state_arg.value(`entered`) != null)
+                    return true;
+                return $.$mol_state_session.value(`${this}.entered()`, next) || false;
+            }
+            logout_click() {
+                this.entered(false);
+            }
+            menu_items() {
+                return Object.keys(this.menu_pages()).map(id => this.Menu_item(id));
+            }
+            menu_page_arg(id) {
+                return { page: id };
+            }
+            menu_page_title(id) {
+                return this.menu_pages()[id].self_title();
+            }
+            page_id() {
+                return this.$.$mol_state_arg.value('page');
+            }
+            sidebar_items() {
+                if (!this.entered())
+                    return [this.Enter()];
+                return [this.Menu()];
+            }
+            pages() {
+                if (!this.entered())
+                    return [this.Sidebar()];
+                const id = this.page_id();
+                return [
+                    this.Sidebar(),
+                    id ? null : this.Summary(),
+                    id === 'reports' && this.Reports(),
+                    id === 'software' && this.Software(),
+                    id === 'pereferials' && this.Pereferials(),
+                    id === 'sensors' && this.Sensors(),
+                    this.details(),
+                ].filter(Boolean);
+            }
+        }
+        $$.$mpk_tss_main = $mpk_tss_main;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//tss.view.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
     class $mol_section extends $.$mol_list {
         rows() {
             return [].concat(this.Head(), this.Content());
@@ -6760,16 +7369,16 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mpk_tss_section extends $.$mol_section {
+    class $mpk_tss_summary_section extends $.$mol_section {
     }
-    $.$mpk_tss_section = $mpk_tss_section;
+    $.$mpk_tss_summary_section = $mpk_tss_summary_section;
 })($ || ($ = {}));
 //section.view.tree.js.map
 ;
 "use strict";
 var $;
 (function ($) {
-    class $mpk_tss_status extends $.$mol_view {
+    class $mpk_tss_summary_status extends $.$mol_view {
         title() {
             return "";
         }
@@ -6782,28 +7391,28 @@ var $;
             });
         }
         warning() {
-            return this.$.$mol_locale.text("$mpk_tss_status_warning");
+            return this.$.$mol_locale.text("$mpk_tss_summary_status_warning");
         }
         error() {
-            return this.$.$mol_locale.text("$mpk_tss_status_error");
+            return this.$.$mol_locale.text("$mpk_tss_summary_status_error");
         }
         success() {
-            return this.$.$mol_locale.text("$mpk_tss_status_success");
+            return this.$.$mol_locale.text("$mpk_tss_summary_status_success");
         }
         ready() {
-            return this.$.$mol_locale.text("$mpk_tss_status_ready");
+            return this.$.$mol_locale.text("$mpk_tss_summary_status_ready");
         }
         sub() {
             return [].concat(this.title());
         }
         attr() {
-            return (Object.assign({}, super.attr(), { "mpk_tss_status_type": this.type() }));
+            return (Object.assign({}, super.attr(), { "mpk_tss_summary_status_type": this.type() }));
         }
         type() {
             return "success";
         }
     }
-    $.$mpk_tss_status = $mpk_tss_status;
+    $.$mpk_tss_summary_status = $mpk_tss_summary_status;
 })($ || ($ = {}));
 //status.view.tree.js.map
 ;
@@ -6812,12 +7421,12 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        class $mpk_tss_status extends $.$mpk_tss_status {
+        class $mpk_tss_summary_status extends $.$mpk_tss_summary_status {
             title() {
                 return this.statuses()[this.type()] || super.type();
             }
         }
-        $$.$mpk_tss_status = $mpk_tss_status;
+        $$.$mpk_tss_summary_status = $mpk_tss_summary_status;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //status.view.js.map
@@ -7454,6 +8063,9 @@ var $;
         self_title() {
             return this.$.$mol_locale.text("$mpk_tss_summary_self_title");
         }
+        minimal_width() {
+            return 600;
+        }
         body() {
             return [].concat(this.Statuses(), this.Log());
         }
@@ -7461,13 +8073,13 @@ var $;
             return ((obj) => {
                 obj.Content = () => [].concat(this.All(), this.Software(), this.Sensors(), this.Pereferials());
                 return obj;
-            })(new this.$.$mpk_tss_section);
+            })(new this.$.$mpk_tss_summary_section);
         }
         All() {
             return ((obj) => {
                 obj.type = () => "warning";
                 return obj;
-            })(new this.$.$mpk_tss_status);
+            })(new this.$.$mpk_tss_summary_status);
         }
         Software() {
             return ((obj) => {
@@ -7551,7 +8163,7 @@ var $;
             return ((obj) => {
                 obj.type = () => this.type();
                 return obj;
-            })(new this.$.$mpk_tss_status);
+            })(new this.$.$mpk_tss_summary_status);
         }
     }
     __decorate([
@@ -7563,611 +8175,4 @@ var $;
     $.$mpk_tss_summary_item = $mpk_tss_summary_item;
 })($ || ($ = {}));
 //summary.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mpk_tss extends $.$mol_view {
-        sub() {
-            return [].concat(this.Head(), this.Body());
-        }
-        Head() {
-            return ((obj) => {
-                obj.sub = () => [].concat(this.Terminal_link());
-                return obj;
-            })(new this.$.$mol_view);
-        }
-        Terminal_link() {
-            return ((obj) => {
-                obj.enabled = () => false;
-                obj.sub = () => [].concat(this.terminal_label());
-                return obj;
-            })(new this.$.$mol_button_minor);
-        }
-        terminal_label() {
-            return this.$.$mol_locale.text("$mpk_tss_terminal_label");
-        }
-        Body() {
-            return ((obj) => {
-                return obj;
-            })(new this.$.$mpk_tss_main);
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss.prototype, "Head", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss.prototype, "Terminal_link", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss.prototype, "Body", null);
-    $.$mpk_tss = $mpk_tss;
-})($ || ($ = {}));
-(function ($) {
-    class $mpk_tss_main extends $.$mol_book {
-        Menu_item(id) {
-            return ((obj) => {
-                obj.arg = () => this.menu_page_arg(id);
-                obj.title = () => this.menu_page_title(id);
-                return obj;
-            })(new this.$.$mol_link);
-        }
-        menu_page_arg(id) {
-            return ({});
-        }
-        menu_page_title(id) {
-            return "";
-        }
-        menu_pages() {
-            return ({
-                "software": this.Software(),
-                "pereferials": this.Pereferials(),
-                "sensors": this.Sensors(),
-                "reports": this.Reports(),
-            });
-        }
-        Software() {
-            return ((obj) => {
-                obj.breadcrumbs = () => [].concat(this.breadcrumbs());
-                obj.tools = () => this.common_tools();
-                obj.event_top = (event) => this.event_front_up(event);
-                return obj;
-            })(new this.$.$mpk_tss_software);
-        }
-        details() {
-            return this.Pereferials().unit_current_page();
-        }
-        Pereferials() {
-            return ((obj) => {
-                obj.breadcrumbs = () => [].concat(this.breadcrumbs());
-                obj.tools = () => this.common_tools();
-                obj.event_top = (event) => this.event_front_up(event);
-                return obj;
-            })(new this.$.$mpk_tss_pereferials);
-        }
-        Sensors() {
-            return ((obj) => {
-                obj.breadcrumbs = () => [].concat(this.breadcrumbs());
-                obj.tools = () => this.common_tools();
-                obj.event_top = (event) => this.event_front_up(event);
-                return obj;
-            })(new this.$.$mpk_tss_sensors);
-        }
-        Reports() {
-            return ((obj) => {
-                obj.breadcrumbs = () => [].concat(this.breadcrumbs());
-                obj.tools = () => this.common_tools();
-                obj.event_top = (event) => this.event_front_up(event);
-                return obj;
-            })(new this.$.$mpk_tss_reports);
-        }
-        breadcrumbs() {
-            return [];
-        }
-        common_tools() {
-            return [].concat(this.User_link(), this.Details_close());
-        }
-        Details_close() {
-            return ((obj) => {
-                obj.arg = () => ({
-                    "page": null,
-                });
-                obj.sub = () => [].concat(this.Details_close_icon());
-                return obj;
-            })(new this.$.$mol_link);
-        }
-        Details_close_icon() {
-            return ((obj) => {
-                return obj;
-            })(new this.$.$mol_icon_cross);
-        }
-        User_link() {
-            return ((obj) => {
-                obj.event_click = (event) => this.logout_click(event);
-                obj.sub = () => [].concat(this.User_email(), this.User_signout());
-                return obj;
-            })(new this.$.$mol_button_minor);
-        }
-        logout_click(event, force) {
-            return (event !== void 0) ? event : null;
-        }
-        User_email() {
-            return ((obj) => {
-                obj.sub = () => [].concat(this.logged_email());
-                return obj;
-            })(new this.$.$mol_view);
-        }
-        User_signout() {
-            return ((obj) => {
-                return obj;
-            })(new this.$.$mpk_tss_icon_signout);
-        }
-        pages() {
-            return [].concat(this.Sidebar(), this.Summary(), this.menu_pages(), this.details());
-        }
-        Sidebar() {
-            return ((obj) => {
-                obj.head = () => [].concat(this.Logo());
-                obj.title = () => this.$.$mol_locale.text("$mpk_tss_main_Sidebar");
-                obj.minimal_width = () => 200;
-                obj.body = () => [].concat(this.sidebar_items());
-                obj.foot = () => [].concat(this.Foot_content());
-                return obj;
-            })(new this.$.$mol_page);
-        }
-        Logo() {
-            return ((obj) => {
-                obj.uri = () => "mpk/tss/tss_logo.svg";
-                obj.event = () => ({
-                    "click": (val) => this.event_top(val),
-                });
-                return obj;
-            })(new this.$.$mol_image);
-        }
-        event_top(val, force) {
-            return (val !== void 0) ? val : null;
-        }
-        sidebar_items() {
-            return [].concat(this.Enter(), this.Menu());
-        }
-        Enter() {
-            return ((obj) => {
-                obj.entered = (val) => this.entered(val);
-                obj.login = (v) => this.logged_email(v);
-                return obj;
-            })(new this.$.$mpk_tss_enter);
-        }
-        entered(val, force) {
-            return (val !== void 0) ? val : false;
-        }
-        logged_email(v, force) {
-            return (v !== void 0) ? v : "";
-        }
-        Menu() {
-            return ((obj) => {
-                obj.rows = () => [].concat(this.menu_items());
-                return obj;
-            })(new this.$.$mol_list);
-        }
-        menu_items() {
-            return [];
-        }
-        Foot_content() {
-            return ((obj) => {
-                obj.sub = () => [].concat(this.Foot_text());
-                return obj;
-            })(new this.$.$mol_row);
-        }
-        Foot_text() {
-            return ((obj) => {
-                obj.sub = () => [].concat("© 2019 MPK Software, Russia");
-                return obj;
-            })(new this.$.$mol_view);
-        }
-        Summary() {
-            return ((obj) => {
-                obj.tools = () => [].concat(this.User_link());
-                obj.breadcrumbs = () => [].concat(this.breadcrumbs());
-                obj.event_top = (event) => this.event_front_up(event);
-                return obj;
-            })(new this.$.$mpk_tss_summary);
-        }
-        Placeholder() {
-            return ((obj) => {
-                obj.minimal_width = () => 400;
-                obj.title = () => "";
-                return obj;
-            })(new this.$.$mpk_tss_placeholder);
-        }
-    }
-    __decorate([
-        $.$mol_mem_key
-    ], $mpk_tss_main.prototype, "Menu_item", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_main.prototype, "Software", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_main.prototype, "Pereferials", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_main.prototype, "Sensors", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_main.prototype, "Reports", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_main.prototype, "Details_close", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_main.prototype, "Details_close_icon", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_main.prototype, "User_link", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_main.prototype, "logout_click", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_main.prototype, "User_email", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_main.prototype, "User_signout", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_main.prototype, "Sidebar", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_main.prototype, "Logo", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_main.prototype, "event_top", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_main.prototype, "Enter", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_main.prototype, "entered", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_main.prototype, "logged_email", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_main.prototype, "Menu", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_main.prototype, "Foot_content", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_main.prototype, "Foot_text", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_main.prototype, "Summary", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_main.prototype, "Placeholder", null);
-    $.$mpk_tss_main = $mpk_tss_main;
-})($ || ($ = {}));
-(function ($) {
-    class $mpk_tss_placeholder extends $.$mol_page {
-        minimal_width() {
-            return 400;
-        }
-        attr() {
-            return (Object.assign({}, super.attr(), { "tabindex": null }));
-        }
-        title() {
-            return "qwe";
-        }
-        tools() {
-            return [].concat(this.Links());
-        }
-        Links() {
-            return ((obj) => {
-                obj.sub = () => [].concat(this.Vkontakte());
-                return obj;
-            })(new this.$.$mol_view);
-        }
-        Vkontakte() {
-            return ((obj) => {
-                obj.uri = () => "https://vk.com";
-                obj.sub = () => [].concat(this.Vkontakte_icon());
-                return obj;
-            })(new this.$.$mol_link);
-        }
-        Vkontakte_icon() {
-            return ((obj) => {
-                obj.view_box = () => "0 0 548.358 548.358";
-                obj.path = () => "M545.451,400.298c-0.664-1.431-1.283-2.618-1.858-3.569c-9.514-17.135-27.695-38.167-54.532-63.102l-0.567-0.571l-0.284-0.28l-0.287-0.287h-0.288c-12.18-11.611-19.893-19.418-23.123-23.415c-5.91-7.614-7.234-15.321-4.004-23.13c2.282-5.9,10.854-18.36,25.696-37.397c7.807-10.089,13.99-18.175,18.556-24.267c32.931-43.78,47.208-71.756,42.828-83.939l-1.701-2.847c-1.143-1.714-4.093-3.282-8.846-4.712c-4.764-1.427-10.853-1.663-18.278-0.712l-82.224,0.568c-1.332-0.472-3.234-0.428-5.712,0.144c-2.475,0.572-3.713,0.859-3.713,0.859l-1.431,0.715l-1.136,0.859c-0.952,0.568-1.999,1.567-3.142,2.995c-1.137,1.423-2.088,3.093-2.848,4.996c-8.952,23.031-19.13,44.444-30.553,64.238c-7.043,11.803-13.511,22.032-19.418,30.693c-5.899,8.658-10.848,15.037-14.842,19.126c-4,4.093-7.61,7.372-10.852,9.849c-3.237,2.478-5.708,3.525-7.419,3.142c-1.715-0.383-3.33-0.763-4.859-1.143c-2.663-1.714-4.805-4.045-6.42-6.995c-1.622-2.95-2.714-6.663-3.285-11.136c-0.568-4.476-0.904-8.326-1-11.563c-0.089-3.233-0.048-7.806,0.145-13.706c0.198-5.903,0.287-9.897,0.287-11.991c0-7.234,0.141-15.085,0.424-23.555c0.288-8.47,0.521-15.181,0.716-20.125c0.194-4.949,0.284-10.185,0.284-15.705s-0.336-9.849-1-12.991c-0.656-3.138-1.663-6.184-2.99-9.137c-1.335-2.95-3.289-5.232-5.853-6.852c-2.569-1.618-5.763-2.902-9.564-3.856c-10.089-2.283-22.936-3.518-38.547-3.71c-35.401-0.38-58.148,1.906-68.236,6.855c-3.997,2.091-7.614,4.948-10.848,8.562c-3.427,4.189-3.905,6.475-1.431,6.851c11.422,1.711,19.508,5.804,24.267,12.275l1.715,3.429c1.334,2.474,2.666,6.854,3.999,13.134c1.331,6.28,2.19,13.227,2.568,20.837c0.95,13.897,0.95,25.793,0,35.689c-0.953,9.9-1.853,17.607-2.712,23.127c-0.859,5.52-2.143,9.993-3.855,13.418c-1.715,3.426-2.856,5.52-3.428,6.28c-0.571,0.76-1.047,1.239-1.425,1.427c-2.474,0.948-5.047,1.431-7.71,1.431c-2.667,0-5.901-1.334-9.707-4c-3.805-2.666-7.754-6.328-11.847-10.992c-4.093-4.665-8.709-11.184-13.85-19.558c-5.137-8.374-10.467-18.271-15.987-29.691l-4.567-8.282c-2.855-5.328-6.755-13.086-11.704-23.267c-4.952-10.185-9.329-20.037-13.134-29.554c-1.521-3.997-3.806-7.04-6.851-9.134l-1.429-0.859c-0.95-0.76-2.475-1.567-4.567-2.427c-2.095-0.859-4.281-1.475-6.567-1.854l-78.229,0.568c-7.994,0-13.418,1.811-16.274,5.428l-1.143,1.711C0.288,140.146,0,141.668,0,143.763c0,2.094,0.571,4.664,1.714,7.707c11.42,26.84,23.839,52.725,37.257,77.659c13.418,24.934,25.078,45.019,34.973,60.237c9.897,15.229,19.985,29.602,30.264,43.112c10.279,13.515,17.083,22.176,20.412,25.981c3.333,3.812,5.951,6.662,7.854,8.565l7.139,6.851c4.568,4.569,11.276,10.041,20.127,16.416c8.853,6.379,18.654,12.659,29.408,18.85c10.756,6.181,23.269,11.225,37.546,15.126c14.275,3.905,28.169,5.472,41.684,4.716h32.834c6.659-0.575,11.704-2.669,15.133-6.283l1.136-1.431c0.764-1.136,1.479-2.901,2.139-5.276c0.668-2.379,1-5,1-7.851c-0.195-8.183,0.428-15.558,1.852-22.124c1.423-6.564,3.045-11.513,4.859-14.846c1.813-3.33,3.859-6.14,6.136-8.418c2.282-2.283,3.908-3.666,4.862-4.142c0.948-0.479,1.705-0.804,2.276-0.999c4.568-1.522,9.944-0.048,16.136,4.429c6.187,4.473,11.99,9.996,17.418,16.56c5.425,6.57,11.943,13.941,19.555,22.124c7.617,8.186,14.277,14.271,19.985,18.274l5.708,3.426c3.812,2.286,8.761,4.38,14.853,6.283c6.081,1.902,11.409,2.378,15.984,1.427l73.087-1.14c7.229,0,12.854-1.197,16.844-3.572c3.998-2.379,6.373-5,7.139-7.851c0.764-2.854,0.805-6.092,0.145-9.712C546.782,404.25,546.115,401.725,545.451,400.298z";
-                return obj;
-            })(new this.$.$mol_icon);
-        }
-        body() {
-            return [].concat(this.Image());
-        }
-        Image() {
-            return ((obj) => {
-                obj.uri = () => "mpk/tss/placeholder.svg";
-                return obj;
-            })(new this.$.$mol_image);
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_placeholder.prototype, "Links", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_placeholder.prototype, "Vkontakte", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_placeholder.prototype, "Vkontakte_icon", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_placeholder.prototype, "Image", null);
-    $.$mpk_tss_placeholder = $mpk_tss_placeholder;
-})($ || ($ = {}));
-//tss.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mpk_tss extends $.$mpk_tss {
-        }
-        $$.$mpk_tss = $mpk_tss;
-        class $mpk_tss_main extends $.$mpk_tss_main {
-            entered(next) {
-                if ($.$mol_state_arg.value(`entered`) != null)
-                    return true;
-                return $.$mol_state_session.value(`${this}.entered()`, next) || false;
-            }
-            logout_click() {
-                this.entered(false);
-            }
-            menu_items() {
-                return Object.keys(this.menu_pages()).map(id => this.Menu_item(id));
-            }
-            menu_page_arg(id) {
-                return { page: id };
-            }
-            menu_page_title(id) {
-                return this.menu_pages()[id].self_title();
-            }
-            page_id() {
-                return this.$.$mol_state_arg.value('page');
-            }
-            sidebar_items() {
-                if (!this.entered())
-                    return [this.Enter()];
-                return [this.Menu()];
-            }
-            pages() {
-                if (!this.entered())
-                    return [this.Sidebar()];
-                const id = this.page_id();
-                return [
-                    this.Sidebar(),
-                    id ? null : this.Summary(),
-                    id === 'reports' && this.Reports(),
-                    id === 'software' && this.Software(),
-                    id === 'pereferials' && this.Pereferials(),
-                    id === 'sensors' && this.Sensors(),
-                    this.details(),
-                ].filter(Boolean);
-            }
-        }
-        $$.$mpk_tss_main = $mpk_tss_main;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//tss.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_unit extends $.$mol_object {
-        constructor(value) {
-            super();
-            this['valueOf()'] = value;
-        }
-        prefix() {
-            return '';
-        }
-        postfix() {
-            return '';
-        }
-        valueOf() {
-            return this['valueOf()'];
-        }
-        delimiter() {
-            return ' ';
-        }
-        value_view() {
-            return this.valueOf().toLocaleString();
-        }
-        toString() {
-            return this.prefix() + this.value_view() + this.postfix();
-        }
-        static summ(a, b) {
-            var Class = a.constructor;
-            if (Class !== b.constructor)
-                throw new Error(`Not same measure: ${Class} , ${b.constructor}`);
-            return new Class(a.valueOf() + b.valueOf());
-        }
-        mult(m) {
-            var Class = this.constructor;
-            return new Class(this.valueOf() * m);
-        }
-    }
-    $.$mol_unit = $mol_unit;
-})($ || ($ = {}));
-//unit.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_unit_money extends $.$mol_unit {
-    }
-    $.$mol_unit_money = $mol_unit_money;
-    class $mol_unit_money_usd extends $mol_unit_money {
-        prefix() {
-            return '$';
-        }
-    }
-    $.$mol_unit_money_usd = $mol_unit_money_usd;
-    class $mol_unit_money_rur extends $mol_unit_money {
-        postfix() {
-            return ' ₽';
-        }
-    }
-    $.$mol_unit_money_rur = $mol_unit_money_rur;
-})($ || ($ = {}));
-//money.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    function $mol_stub_select_random(list) {
-        return list[Math.floor(Math.random() * list.length)];
-    }
-    $.$mol_stub_select_random = $mol_stub_select_random;
-    function $mol_stub_strings(prefix = '', count = 10, length = 10) {
-        if (prefix.length >= length)
-            return [];
-        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".split('');
-        let strings = [];
-        for (let i = 0; i < count; i++) {
-            let text = prefix;
-            for (let j = prefix.length; j < length; j++) {
-                text += $mol_stub_select_random(possible);
-            }
-            strings.push(text);
-        }
-        return strings;
-    }
-    $.$mol_stub_strings = $mol_stub_strings;
-    function $mol_stub_code(length = 8) {
-        var max = Math.pow(16, length);
-        var min = Math.pow(16, length - 1);
-        var value = min + Math.floor(Math.random() * (max - min));
-        return value.toString(16).toUpperCase();
-    }
-    $.$mol_stub_code = $mol_stub_code;
-    function $mol_stub_price(max = 1000) {
-        var min = Math.floor(max / 16 / 16);
-        var value = min + Math.floor(Math.random() * (max - min));
-        return new $.$mol_unit_money_usd(value);
-    }
-    $.$mol_stub_price = $mol_stub_price;
-    function $mol_stub_product_name() {
-        var name = $mol_stub_select_random([
-            'Monitor 15"',
-            'Monitor 17"',
-            'Monitor 19"',
-            'Graphics card',
-            'Frame grabber card'
-        ]);
-        var port = $mol_stub_select_random(['D-SUB', 'DVI', 'HDMI']);
-        var resolution = $mol_stub_select_random(['VGA', 'Full HD', '4K']);
-        return [name, port, resolution].join(', ');
-    }
-    $.$mol_stub_product_name = $mol_stub_product_name;
-    function $mol_stub_company_name_big() {
-        var product = $mol_stub_select_random(['Everything', 'Something', 'Anything', 'Nothing']);
-        var type = $mol_stub_select_random(['Company', 'Corporation', 'Holding']);
-        return `A ${type} that makes ${product}`;
-    }
-    $.$mol_stub_company_name_big = $mol_stub_company_name_big;
-    function $mol_stub_company_name_small() {
-        return $mol_stub_select_random(['ACME inc.', 'Dream Company', 'Just Company']);
-    }
-    $.$mol_stub_company_name_small = $mol_stub_company_name_small;
-    function $mol_stub_company_name() {
-        return $mol_stub_select_random([$mol_stub_company_name_small, $mol_stub_company_name_big])();
-    }
-    $.$mol_stub_company_name = $mol_stub_company_name;
-    function $mol_stub_person_name() {
-        var first = $mol_stub_select_random(['Ivan', 'Petr', 'Sidor']);
-        var last = $mol_stub_select_random(['Ivanov', 'Petrov', 'Sidorov']);
-        return `${first} ${last}`;
-    }
-    $.$mol_stub_person_name = $mol_stub_person_name;
-    function $mol_stub_city() {
-        return $mol_stub_select_random(['Moscow', 'London', 'Washington', 'Buenos Aires']);
-    }
-    $.$mol_stub_city = $mol_stub_city;
-    function $mol_stub_time(maxShift = 60 * 24 * 365) {
-        return new $.$mol_time_moment().shift({ minute: Math.round(Math.random() * maxShift) });
-    }
-    $.$mol_stub_time = $mol_stub_time;
-})($ || ($ = {}));
-//stub.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    function $mpk_tss_pereferials_domain_stub_unit_status() {
-        return $.$mol_stub_select_random([
-            'ready', 'error', 'not_responding', 'inactive', 'unknown'
-        ]);
-    }
-    $.$mpk_tss_pereferials_domain_stub_unit_status = $mpk_tss_pereferials_domain_stub_unit_status;
-    function $mpk_tss_pereferials_domain_stub_unit_type() {
-        return $.$mol_stub_select_random(['UPS']);
-    }
-    $.$mpk_tss_pereferials_domain_stub_unit_type = $mpk_tss_pereferials_domain_stub_unit_type;
-    function $mpk_tss_pereferials_domain_stub_unit_name() {
-        const firm = $.$mol_stub_select_random([
-            'Shtil 1103L',
-            'Shtil 1104M',
-        ]);
-        const number = $.$mol_stub_select_random(['N1', 'N2', 'N3', 'N4']);
-        return `${firm} ${number}`;
-    }
-    $.$mpk_tss_pereferials_domain_stub_unit_name = $mpk_tss_pereferials_domain_stub_unit_name;
-    function $mpk_tss_pereferials_domain_stub_unit_parameters(status) {
-        const unknown = status === $.$mpk_tss_pereferials_domain_unit_status.not_responding;
-        const mc = (arg) => $.$mol_const(unknown ? null : arg);
-        const str = (value) => mc({ type: 'string', value });
-        return [
-            $.$mpk_tss_pereferials_domain_unit_parameter.make({
-                name: $.$mol_const('State'),
-                value: $.$mol_const({
-                    type: 'status',
-                    value: status,
-                }),
-                updated: $.$mol_const($.$mol_stub_time(60)),
-            }),
-            $.$mpk_tss_pereferials_domain_unit_parameter.make({
-                name: $.$mol_const('Power source'),
-                value: str($.$mol_stub_select_random(['Line', 'Internal'])),
-                updated: mc($.$mol_stub_time(60)),
-            }),
-            $.$mpk_tss_pereferials_domain_unit_parameter.make({
-                name: $.$mol_const('Voltage'),
-                value: str(String(200 + Math.ceil(Math.random() * 10)) + 'V'),
-                updated: mc($.$mol_stub_time(60)),
-            }),
-            $.$mpk_tss_pereferials_domain_unit_parameter.make({
-                name: $.$mol_const('Bat. level'),
-                value: str(String(Math.ceil(Math.random() * 100)) + '%'),
-                updated: mc($.$mol_stub_time(60)),
-            }),
-            $.$mpk_tss_pereferials_domain_unit_parameter.make({
-                name: $.$mol_const('Bat. time'),
-                value: str(String(10 + Math.ceil(Math.random() * 360)) + 'm'),
-                updated: mc($.$mol_stub_time(60)),
-            }),
-        ];
-    }
-    $.$mpk_tss_pereferials_domain_stub_unit_parameters = $mpk_tss_pereferials_domain_stub_unit_parameters;
-})($ || ($ = {}));
-//stub.js.map
 //# sourceMappingURL=node.js.map
