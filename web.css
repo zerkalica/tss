@@ -874,6 +874,10 @@
 	flex: 1 1 auto;
 }
 
+[mpk_tss_card] {
+	padding: 0.5rem;
+}
+
 [mpk_tss_card_group] {
 	flex-wrap: nowrap;
 	padding: 0;
@@ -1035,27 +1039,198 @@
 	--mol_theme_control: white;
 }
 
+[mol_float] {
+	position: sticky;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	opacity: 1;
+	transition: opacity .25s ease-in;
+	display: block;
+}
+
+[mol_float_scrolling] {
+	opacity: 0;
+	transition-duration: 0;
+}
+
+[mpk_tss_table] {
+	border-spacing: 0;
+}
+
+[mpk_tss_table_head_cell] {
+	display: table-cell;
+	background-color: white;
+	padding: 0.3rem 0.5rem;
+	border-right: 1px solid var(--mol_theme_line);
+	border-right: 1px solid var(--mol_theme_line);
+}
+
 [mpk_tss_table_cell] {
-	padding: 0.3rem 0.3rem;
+	border-right: 1px solid var(--mol_theme_line);
+	border-right: 1px solid var(--mol_theme_line);
+	padding: 0.3rem 0.5rem;
+	word-wrap: none;
+}
+
+[mpk_tss_table_row] {
+	background-color: var(--mol_theme_field);
+	background-color: var(--mol_theme_field);
 }
 
 [mpk_tss_table_row]:nth-child(2n) {
-	background: var(--mol_theme_line);
-	background: var(--mol_theme_line);
+	background: var(--mol_theme_back);
+	background: var(--mol_theme_back);
+}
+
+[mpk_tss_table_row]:hover {
+	background: var(--mol_theme_current);
+	background: var(--mol_theme_current);
 }
 
 [mpk_tss_reports_details] {
-	flex: 100 0 37rem;
+	flex: 1 0 auto;
 }
 
 [mpk_tss_reports_details_carriages] {
-	background: var(--mol_theme_field);
-	background: var(--mol_theme_field);
+
+	/* background: var(--mol_theme_field); */
 	padding: 0.3em 0.5rem;
 }
 
-[mpk_tss_reports_details_head_rows] {
-	position: sticky;
+[mpk_tss_reports_details_carriages] >
+[mpk_tss_reports_details_carriages_row="warning"] {
+	background-color: yellow;
+}
+
+[mol_plot_pane] {
+	flex: 1 1 auto;
+	align-self: stretch;
+	stroke-width: 2px;
+}
+
+[mol_plot_graph] {
+	stroke: currentColor;
+}
+
+[mol_plot_graph_sample] {
+	border-width: 0;
+	border-style: solid;
+}
+
+[mol_plot_graph_type="dashed"] {
+	stroke-dasharray: 4 4;
+	border-style: dashed;
+}
+
+[mol_plot_fill] {
+	stroke: none;
+	stroke-width: 0;
+	opacity: .1;
+	fill: currentColor;
+}
+
+[mol_plot_fill_sample] {
+	opacity: .1;
+	background: currentColor;
+	position: absolute;
+	bottom: 0;
+	top: .75em;
+	left: 0;
+	right: 0;
+}
+
+[mol_plot_line] {
+	color: #3a8ccb;
+	color: var(--mol_skin_base);
+	fill: none;
+	stroke-linejoin: round;
+}
+
+[mol_plot_line_sample] {
+	height: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border-width: 2px 0 0;
+	position: absolute;
+	top: .75em;
+	transform: translateY(-50%);
+}
+
+[mol_plot_dot] {
+	color: #3a8ccb;
+	color: var(--mol_skin_base);
+	stroke-linecap: round;
+}
+
+[mol_plot_dot_sample] {
+	width: .5rem;
+	height: .5rem;
+	border-radius: 1rem;
+	background: currentColor;
+	position: absolute;
+	top: .75em;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+[mol_plot_bar] {
+	color: #3a8ccb;
+	color: var(--mol_skin_base);
+	stroke-linecap: butt;
+	stroke-width: 1rem;
+}
+
+[mol_plot_bar_sample] {
+	background: currentColor;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+[mol_svg_text] {
+	fill: currentColor;
+	stroke: none;
+}
+
+[mol_plot_ruler_vert_curve] {
+	color: var(--mol_theme_line);
+	color: var(--mol_theme_line);
+	stroke-width: .1%;
+	stroke: currentColor;
+}
+
+[mol_plot_ruler_vert_label] {
+	color: var(--mol_theme_text);
+	color: var(--mol_theme_text);
+	transform: translateY( 4px );
+}
+
+[mol_plot_ruler_vert_title] {
+	color: var(--mol_theme_shade);
+	color: var(--mol_theme_shade);
+}
+
+[mol_plot_ruler_hor_curve] {
+	color: var(--mol_theme_line);
+	color: var(--mol_theme_line);
+	stroke-width: .1%;
+	stroke: currentColor;
+}
+
+[mol_plot_ruler_hor_label] {
+	color: var(--mol_theme_text);
+	color: var(--mol_theme_text);
+	transform: translateY( -4px );
+}
+
+[mol_plot_ruler_hor_title] {
+	color: var(--mol_theme_shade);
+	color: var(--mol_theme_shade);
+	transform: translateY( -4px );
 }
 
 [mpk_tss_reports] {
@@ -1294,21 +1469,6 @@
 	min-width: 5rem;
 	border-radius: 2px;
 	border-radius: var(--mol_skin_round);
-}
-
-[mol_float] {
-	position: sticky;
-	top: 0;
-	left: 0;
-	z-index: 1;
-	opacity: 1;
-	transition: opacity .25s ease-in;
-	display: block;
-}
-
-[mol_float_scrolling] {
-	opacity: 0;
-	transition-duration: 0;
 }
 
 [mol_check] {

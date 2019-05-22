@@ -27,6 +27,8 @@
 	"$mpk_tss_reports_card_name_title": "Train",
 	"$mpk_tss_reports_card_report_status_title": "Report",
 	"$mpk_tss_reports_details_Action_title": "Action",
+	"$mpk_tss_reports_details_carriage_Time_title": "ms",
+	"$mpk_tss_reports_details_carriage_Voltage_title": "V",
 	"$mpk_tss_reports_details_load_type_title": "Load",
 	"$mpk_tss_reports_details_measured_speed_title": "Speed, km/h",
 	"$mpk_tss_reports_details_title_prefix": "Train",

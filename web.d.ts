@@ -826,6 +826,7 @@ declare namespace $ {
 declare namespace $ {
     class $mpk_tss_wrap extends $mol_page {
         minimal_width(): number;
+        subpages(): any[];
         self_title(): string;
         breadcrumbs(): any[];
         body(): any[];
@@ -1550,7 +1551,6 @@ declare namespace $ {
     class $mpk_tss_pereferial extends $mpk_tss_wrap {
         self_title(): string;
         minimal_width(): number;
-        unit_current_page(): any;
         sub(): any[];
         Filter_title(): $mol_search;
         filter_title(val?: any, force?: $mol_atom_force): any;
@@ -1558,19 +1558,17 @@ declare namespace $ {
         Units(): $mol_list;
         unit_links(): any[];
         Unit_link(id: any): $mpk_tss_pereferial_card;
-        unit_for_card(id: any): any;
-        Unit_details(): $mpk_tss_pereferial_details;
-        unit_for_details(): any;
+        unit(id: any): any;
+        Unit_details(id: any): $mpk_tss_pereferial_details;
     }
 }
 declare namespace $.$$ {
     class $mpk_tss_pereferial extends $.$mpk_tss_pereferial {
         domain(): $mpk_tss_pereferial_domain_mock;
         unit_links(): $.$mpk_tss_pereferial_card[];
-        unit_for_card(id: string): $mpk_tss_pereferial_domain_unit;
+        unit(id: string): $mpk_tss_pereferial_domain_unit;
         unit_current_id(next?: string): string;
-        unit_current_page(): $.$mpk_tss_pereferial_details;
-        unit_for_details(): $mpk_tss_pereferial_domain_unit;
+        subpages(): $.$mpk_tss_pereferial_details[];
         destructor(): void;
     }
 }
@@ -1609,7 +1607,7 @@ declare namespace $ {
         reports(): $mpk_tss_reports_domain_report[];
     }
     enum $mpk_tss_reports_domain_violation_status {
-        ready = "success",
+        ready = "ready",
         warning = "warning"
     }
     enum $mpk_tss_reports_domain_load_type {
@@ -1700,6 +1698,10 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
+    class $mol_float extends $mol_view {
+    }
+}
+declare namespace $ {
     class $mpk_tss_table extends $mol_view {
         dom_name(): string;
         sub(): any[];
@@ -1714,7 +1716,14 @@ declare namespace $ {
     }
 }
 declare namespace $ {
-    class $mpk_tss_table_row extends $mol_view {
+    class $mpk_tss_table_head_cell extends $mol_float {
+        dom_name(): string;
+        sub(): any[];
+        content(): any;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_table_row extends $mol_link {
         dom_name(): string;
         sub(): any[];
         cells(): any[];
@@ -1745,17 +1754,17 @@ declare namespace $ {
         body(): any[];
         Carriages(): $mpk_tss_table;
         Head_rows(): $mpk_tss_table_head;
-        Content(): $mpk_tss_table_cell;
+        Content(): $mpk_tss_table_head_cell;
         carriage_number_title(): string;
-        Violation_status(): $mpk_tss_table_cell;
+        Violation_status(): $mpk_tss_table_head_cell;
         violation_status_title(): string;
-        Load_type(): $mpk_tss_table_cell;
+        Load_type(): $mpk_tss_table_head_cell;
         load_type_title(): string;
-        Measured_speed(): $mpk_tss_table_cell;
+        Measured_speed(): $mpk_tss_table_head_cell;
         measured_speed_title(): string;
-        Violation_type(): $mpk_tss_table_cell;
+        Violation_type(): $mpk_tss_table_head_cell;
         violation_type_title(): string;
-        Action(): $mpk_tss_table_cell;
+        Action(): $mpk_tss_table_head_cell;
         Action_title(): string;
         carriage_rows(): any[];
         Carriage_row(id: any): $mpk_tss_reports_details_carriage_row;
@@ -1764,13 +1773,23 @@ declare namespace $ {
 }
 declare namespace $ {
     class $mpk_tss_reports_details_carriage_row extends $mpk_tss_table_row {
+        attr(): {
+            "mpk_tss_reports_details_carriages_row": string;
+            "href": string;
+            "title": string;
+            "target": string;
+            "download": string;
+            "mol_link_current": boolean;
+        };
+        violation_status(): string;
         carriage(): any;
+        event_click(event?: any, force?: $mol_atom_force): any;
+        row_click(event?: any, force?: $mol_atom_force): any;
         cells(): any[];
         Content(): $mpk_tss_table_cell;
         carriage_number(): string;
         Violation_status(): $mpk_tss_table_cell;
         Violation_status_text(): $mpk_tss_reports_status;
-        violation_status(): string;
         Load_type(): $mpk_tss_table_cell;
         load_type(): string;
         Measured_speed(): $mpk_tss_table_cell;
@@ -1778,7 +1797,9 @@ declare namespace $ {
         Violation_type(): $mpk_tss_table_cell;
         violation_type(): string;
         Action(): $mpk_tss_table_cell;
-        action_text(): string;
+        Action_button(): $mol_button_minor;
+        download_click(event?: any, force?: $mol_atom_force): any;
+        Action_icon(): $mpk_tss_icon_download;
     }
 }
 declare namespace $.$$ {
@@ -1790,11 +1811,283 @@ declare namespace $.$$ {
     }
     class $mpk_tss_reports_details_carriage_row extends $.$mpk_tss_reports_details_carriage_row {
         carriage(): $mpk_tss_reports_domain_carriage;
+        carriage_id(): string;
         carriage_number(): string;
         violation_status(): $mpk_tss_reports_domain_violation_status;
         load_type(): $mpk_tss_reports_domain_load_type;
         measured_speed(): string;
         violation_type(): $mpk_tss_reports_domain_violation_type;
+        row_click(): void;
+        download_click(event?: Event): void;
+    }
+}
+declare namespace $ {
+    class $mol_plot_pane extends $mol_svg_root {
+        aspect(): string;
+        hue_base(val?: any, force?: $mol_atom_force): any;
+        hue_shift(val?: any, force?: $mol_atom_force): any;
+        gap(): number;
+        gap_hor(): number;
+        gap_vert(): number;
+        gap_left(): number;
+        gap_right(): number;
+        gap_top(): number;
+        gap_bottom(): number;
+        shift(): any[];
+        scale(): any[];
+        size_real(): any[];
+        sub(): any[];
+        graphs_sorted(): any[];
+        graphs_colored(): any[];
+        graphs_positioned(): any[];
+        graphs(): any[];
+        plugins(): any[];
+        width(): any;
+        height(): any;
+        Meter(): $mol_meter;
+    }
+}
+declare namespace $.$$ {
+    class $mol_plot_pane extends $.$mol_plot_pane {
+        dimensions(): number[][];
+        size(): number[];
+        dimensions_expanded(): number[][];
+        size_expaned(): number[];
+        graph_hue(index: number): number;
+        graphs_colored(): any[];
+        size_real(): any[];
+        view_box(): string;
+        scale(): number[];
+        shift(): number[];
+        graphs_positioned(): any[];
+        graphs_sorted(): $mol_view[];
+    }
+}
+declare namespace $ {
+    class $mol_svg_group extends $mol_svg {
+        dom_name(): string;
+    }
+}
+declare namespace $ {
+    class $mol_plot_graph extends $mol_svg_group {
+        series(): {};
+        points(): any[];
+        points_scaled(): any[];
+        points_raw(): any[];
+        threshold(): number;
+        shift(): any[];
+        scale(): any[];
+        dimensions_expanded(): any[];
+        dimensions(): any[];
+        size_real(): any[];
+        hue(): number;
+        attr(): {
+            "mol_plot_graph_type": string;
+        };
+        type(): string;
+        style(): {
+            "color": string;
+        };
+        color(): string;
+        Sample(): any;
+        front(): any[];
+        back(): any[];
+    }
+}
+declare namespace $ {
+    class $mol_plot_graph_sample extends $mol_view {
+        attr(): {
+            "mol_plot_graph_type": string;
+        };
+        type(): string;
+        style(): {
+            "color": string;
+        };
+        color(): string;
+    }
+}
+declare namespace $.$$ {
+    class $mol_plot_graph extends $.$mol_plot_graph {
+        points_raw(): any[][];
+        points_scaled(): number[][];
+        points(): number[][];
+        dimensions(): number[][];
+        color(): string;
+        front(): this[];
+    }
+}
+declare namespace $ {
+    class $mol_plot_group extends $mol_plot_graph {
+        sub(): any[];
+        graphs_enriched(): any[];
+        graphs(): any[];
+        Sample(): $mol_plot_graph_sample;
+        graph_samples(): any[];
+    }
+}
+declare namespace $.$$ {
+    class $mol_plot_group extends $.$mol_plot_group {
+        graphs_enriched(): any[];
+        graph_samples(): any[];
+        back(): $mol_view[];
+        front(): $mol_view[];
+    }
+}
+declare namespace $ {
+    class $mol_plot_fill extends $mol_plot_graph {
+        front(): any[];
+        sub(): any[];
+        Curve(): $mol_svg_path;
+        curve(): string;
+        Sample(): $mol_plot_graph_sample;
+    }
+}
+declare namespace $.$$ {
+    class $mol_plot_fill extends $.$mol_plot_fill {
+        curve(): string;
+        back(): this[];
+    }
+}
+declare namespace $ {
+    class $mol_plot_line extends $mol_plot_graph {
+        color_fill(): string;
+        sub(): any[];
+        Curve(): $mol_svg_path;
+        curve(): string;
+        Sample(): $mol_plot_graph_sample;
+    }
+}
+declare namespace $.$$ {
+    class $mol_plot_line extends $.$mol_plot_line {
+        curve(): string;
+    }
+}
+declare namespace $ {
+    class $mol_plot_dot extends $mol_plot_graph {
+        style(): {
+            "stroke-width": number;
+            "color": string;
+        };
+        diameter(): number;
+        sub(): any[];
+        Curve(): $mol_svg_path;
+        curve(): string;
+        Sample(): $mol_plot_graph_sample;
+    }
+}
+declare namespace $.$$ {
+    class $mol_plot_dot extends $.$mol_plot_dot {
+        points_visible(): any[];
+        curve(): string;
+    }
+}
+declare namespace $ {
+    class $mol_plot_bar extends $mol_plot_graph {
+        style(): {
+            "stroke-width": string;
+            "color": string;
+        };
+        stroke_width(): string;
+        sub(): any[];
+        Curve(): $mol_svg_path;
+        curve(): string;
+        Sample(): $mol_plot_graph_sample;
+    }
+}
+declare namespace $.$$ {
+    class $mol_plot_bar extends $.$mol_plot_bar {
+        curve(): string;
+        stroke_width(): string;
+        color(): string;
+        dimensions(): number[][];
+    }
+}
+declare namespace $ {
+    class $mol_svg_text extends $mol_svg {
+        dom_name(): string;
+        pos(): any[];
+        attr(): {
+            "x": string;
+            "y": string;
+            "text-anchor": string;
+        };
+        pos_x(): string;
+        pos_y(): string;
+        align(): string;
+        sub(): any[];
+        text(): string;
+    }
+}
+declare namespace $.$$ {
+    class $mol_svg_text extends $.$mol_svg_text {
+        pos_x(): any;
+        pos_y(): any;
+    }
+}
+declare namespace $ {
+    function $mol_math_round_expand(val: number, gap?: number): number;
+}
+declare namespace $ {
+    class $mol_plot_ruler_vert extends $mol_plot_graph {
+        front(): any[];
+        color(): any;
+        sub(): any[];
+        Curve(): $mol_svg_path;
+        curve(): string;
+        labels(): any[];
+        Title(): $mol_svg_text;
+        title_pos(): any[];
+        title_pos_x(): string;
+        title_pos_y(): string;
+        Label(index: any): $mol_svg_text;
+        label_pos(index: any): any[];
+        label_pos_x(index: any): string;
+        label_pos_y(index: any): string;
+        label_text(index: any): string;
+    }
+}
+declare namespace $.$$ {
+    class $mol_plot_ruler_vert extends $.$mol_plot_ruler_vert {
+        dimensions(): number[][];
+        step(): number;
+        points_raw(): number[][];
+        curve(): string;
+        labels(): $.$mol_svg_text[];
+        label_pos_y(index: number): string;
+        label_text(index: number): string;
+        back(): this[];
+    }
+}
+declare namespace $ {
+    class $mol_plot_ruler_hor extends $mol_plot_graph {
+        front(): any[];
+        color(): any;
+        sub(): any[];
+        Curve(): $mol_svg_path;
+        curve(): string;
+        labels(): any[];
+        Title(): $mol_svg_text;
+        title_pos(): any[];
+        title_pos_x(): string;
+        title_pos_y(): string;
+        Label(index: any): $mol_svg_text;
+        label_pos(index: any): any[];
+        label_pos_x(index: any): string;
+        label_pos_y(index: any): string;
+        label_text(index: any): string;
+    }
+}
+declare namespace $.$$ {
+    class $mol_plot_ruler_hor extends $.$mol_plot_ruler_hor {
+        count(): number;
+        step(): number;
+        keys_visible(): string[];
+        points(): any[];
+        curve(): string;
+        labels(): $.$mol_svg_text[];
+        label_pos_x(key: string): string;
+        label_text(key: string): string;
+        back(): this[];
     }
 }
 declare namespace $ {
@@ -1820,7 +2113,6 @@ declare namespace $ {
 declare namespace $ {
     class $mpk_tss_reports extends $mpk_tss_wrap {
         self_title(): string;
-        report_current_page(): any;
         sub(): any[];
         Filter_title(): $mol_search;
         filter_title(val?: any, force?: $mol_atom_force): any;
@@ -1830,6 +2122,29 @@ declare namespace $ {
         Report_link(id: any): $mpk_tss_reports_card;
         report(id: any): any;
         Report_details(id: any): $mpk_tss_reports_details;
+        Carriage_details(id: any): $mpk_tss_reports_details_carriage;
+        carriage(id: any): any;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_reports_details_carriage extends $mol_page {
+        carriage(): any;
+        body(): any[];
+        Plot(): $mol_plot_pane;
+        Saturation(): $mol_plot_group;
+        saturation_series(): any[];
+        Saturation_fill(): $mol_plot_fill;
+        Saturation_line(): $mol_plot_line;
+        Input(): $mol_plot_group;
+        input_series(): any[];
+        Input_line(): $mol_plot_line;
+        Input_dots(): $mol_plot_dot;
+        Output(): $mol_plot_bar;
+        output_series(): any[];
+        Voltage(): $mol_plot_ruler_vert;
+        Voltage_title(): string;
+        Time(): $mol_plot_ruler_hor;
+        Time_title(): string;
     }
 }
 declare namespace $.$$ {
@@ -1838,7 +2153,8 @@ declare namespace $.$$ {
         report_links(): $.$mpk_tss_reports_card[];
         report(id: string): $mpk_tss_reports_domain_report;
         report_current_id(next?: string): string;
-        report_current_page(): $.$mpk_tss_reports_details;
+        carriage_current_id(next?: string): string;
+        subpages(): ($.$mpk_tss_reports_details | $mpk_tss_reports_details_carriage)[];
         destructor(): void;
     }
 }
@@ -2018,10 +2334,6 @@ declare namespace $ {
 declare namespace $.$$ {
     class $mpk_tss_summary_status extends $.$mpk_tss_summary_status {
         title(): string;
-    }
-}
-declare namespace $ {
-    class $mol_float extends $mol_view {
     }
 }
 declare namespace $ {
