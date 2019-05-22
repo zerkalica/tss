@@ -1,4 +1,4 @@
-$mpk_tss_trains_details $mol_page
+$mpk_tss_reports_details $mol_page
 	report null
 	minimal_width 400
 	title_prefix @ \Train
@@ -19,19 +19,19 @@ $mpk_tss_trains_details $mol_page
 						<= Violation_type $mpk_tss_table_head_cell content <= violation_type_title @ \Violation
 						<= Action $mpk_tss_table_head_cell content <= Action_title @ \Action
 				<= carriage_rows /
-	Carriage_row!id $mpk_tss_trains_details_carriage_row
+	Carriage_row!id $mpk_tss_reports_details_carriage_row
 		carriage <= carriage_in_row!id null
 
-$mpk_tss_trains_details_carriage_row $mpk_tss_table_row
+$mpk_tss_reports_details_carriage_row $mpk_tss_table_row
 	attr *
 		^
-		mpk_tss_trains_details_carriages_row <= violation_status \
+		mpk_tss_reports_details_carriages_row <= violation_status \
 	carriage null
 	event_click?event <=> row_click?event null
 	cells /
 		<= Content $mpk_tss_table_cell content <= carriage_number \
 		<= Violation_status $mpk_tss_table_cell
-			content <= Violation_status_text $mpk_tss_trains_status
+			content <= Violation_status_text $mpk_tss_reports_status
 				colors false
 				status <= violation_status \
 		<= Load_type $mpk_tss_table_cell content <= load_type \

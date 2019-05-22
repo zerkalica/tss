@@ -1,4 +1,4 @@
-$mpk_tss_trains_status $mol_view
+$mpk_tss_reports_status $mol_view
 	status null
 	colors true
 	statuses *

@@ -22,7 +22,7 @@ $mpk_tss_main $mol_book
 		sensors <= Sensors $mpk_tss_sensors
 			tools <= common_tools
 			event_top?event <=> event_front_up?event
-		reports <= Reports $mpk_tss_trains
+		reports <= Reports $mpk_tss_reports
 			tools <= common_tools
 			event_top?event <=> event_front_up?event
 	common_tools /

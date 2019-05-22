@@ -1,0 +1,13 @@
+[mpk_tss_reports_details] {
+	flex: 1 0 auto;
+}
+
+[mpk_tss_reports_details_carriages] {
+	/* background: var(--mol_theme_field); */
+	padding: 0.3em 0.5rem;
+}
+
+[mpk_tss_reports_details_carriages] >
+[mpk_tss_reports_details_carriages_row="warning"] {
+	background-color: yellow;
+}

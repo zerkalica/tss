@@ -1,6 +1,6 @@
 namespace $.$$ {
-	export class $mpk_tss_trains_card extends $.$mpk_tss_trains_card {
-		report(): $mpk_tss_trains_domain_report {
+	export class $mpk_tss_reports_card extends $.$mpk_tss_reports_card {
+		report(): $mpk_tss_reports_domain_report {
 			throw new $mpk_tss_todo
 		}
 
