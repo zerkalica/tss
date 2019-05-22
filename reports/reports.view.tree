@@ -11,13 +11,8 @@ $mpk_tss_reports $mpk_tss_wrap
 			destructor <= destructor
 			rows <= report_links /
 	-
-	Report_link!id $mol_link
-		minimal_height 125
-		arg <= report_arg!id *
-			report <= report_link_id!id \
-		sub /
-			<= Card!id $mpk_tss_reports_card
-				report <= report_for_card!id null
+	Report_link!id $mpk_tss_reports_card
+		report <= report_for_card!id null
 	-
 	Report_details $mpk_tss_reports_details
 		minimal_width 400

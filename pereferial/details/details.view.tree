@@ -1,4 +1,4 @@
-$mpk_tss_pereferial_unit_details $mol_page
+$mpk_tss_pereferial_details $mol_page
 	unit null
 	minimal_width 400
 	tools /
@@ -9,10 +9,10 @@ $mpk_tss_pereferial_unit_details $mol_page
 		<= List $mol_list
 			rows /
 				<= unit_parameters /
-	Parameter!parameter $mpk_tss_pereferial_unit_details_parameter
+	Parameter!parameter $mpk_tss_pereferial_details_parameter
 		parameter <= parameter_item!parameter null
 
-$mpk_tss_pereferial_unit_details_parameter $mol_row
+$mpk_tss_pereferial_details_parameter $mol_row
 	Unknown $mol_view sub /
 		<= unknown_text @ \Unknown
 	updated_now_text @ \Now
@@ -20,7 +20,7 @@ $mpk_tss_pereferial_unit_details_parameter $mol_row
 	Value_string!val $mol_view
 		sub /
 			<= value_string_data!val \
-	Value_status!status $mpk_tss_pereferial_unit_status
+	Value_status!status $mpk_tss_pereferial_status
 		status <= value_status_data!status null
 	sub /
 		<= Name $mol_labeler

@@ -1,13 +1,13 @@
-[mpk_tss_pereferial_unit_card_group] {
+[mpk_tss_pereferial_card_group] {
 	flex-wrap: nowrap;
 	padding: 0;
 }
 
-[mpk_tss_pereferial_unit_card_refresh_action] {
+[mpk_tss_pereferial_card_refresh_action] {
 	color: white;
 }
 
-[mpk_tss_pereferial_unit_card_footer] {
+[mpk_tss_pereferial_card_footer] {
 	background: var(--mol_theme_line);
 	text-transform: capitalize;
 	padding: 0 0rem;
@@ -17,16 +17,16 @@
 	justify-content: space-between;
 }
 
-[mpk_tss_pereferial_unit_card_status_text] {
+[mpk_tss_pereferial_card_status_text] {
 	padding: 0 0.5rem;	
 }
 
-[mpk_tss_pereferial_unit_type="ready"] {
+[mpk_tss_pereferial_type="ready"] {
 	--mol_theme_line: hsl(140, 50%, 50%);
 }
 
-[mpk_tss_pereferial_unit_type="not_responding"],
-[mpk_tss_pereferial_unit_type="error"] {
+[mpk_tss_pereferial_type="not_responding"],
+[mpk_tss_pereferial_type="error"] {
 	--mol_theme_line: hsl(0, 50%, 50%);
 }
 

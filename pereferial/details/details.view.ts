@@ -1,6 +1,6 @@
 namespace $.$$ {
-	export class $mpk_tss_pereferial_unit_details extends $.$mpk_tss_pereferial_unit_details {
-		unit(): $mpk_tss_pereferial_domain_unit {
+	export class $mpk_tss_pereferial_details extends $.$mpk_tss_pereferial_details {
+		unit(): $mpk_tss_pereferial_domain {
 			throw new Error('unit')
 		}
 
@@ -24,7 +24,7 @@ namespace $.$$ {
 			return this.unit().parameters().map(parameter => this.Parameter(parameter))
 		}
 
-		parameter_item(parameter: $mpk_tss_pereferial_domain_unit_parameter) {
+		parameter_item(parameter: $mpk_tss_pereferial_domain_parameter) {
 			return parameter
 		}
 
@@ -33,8 +33,8 @@ namespace $.$$ {
 			alert('Refresh...')
 		}
 	}
-	export class $mpk_tss_pereferial_unit_details_parameter extends $.$mpk_tss_pereferial_unit_details_parameter {
-		parameter(): $mpk_tss_pereferial_domain_unit_parameter {
+	export class $mpk_tss_pereferial_details_parameter extends $.$mpk_tss_pereferial_details_parameter {
+		parameter(): $mpk_tss_pereferial_domain_parameter {
 			throw new Error('parameter')
 		}
 
@@ -57,7 +57,7 @@ namespace $.$$ {
 			return data
 		}
 
-		value_status_data(status: $mpk_tss_pereferial_domain_unit_status) {
+		value_status_data(status: $mpk_tss_pereferial_domain_status) {
 			return status
 		}
 

@@ -14,10 +14,6 @@ namespace $.$$ {
 			return this.domain().report(id)
 		}
 
-		report_link_id(id: string) {
-			return id
-		}
-
 		report_current_id( next? : string ) {
 			return $mol_state_arg.value( this.state_key( 'report' ) , next ) || ''
 		}

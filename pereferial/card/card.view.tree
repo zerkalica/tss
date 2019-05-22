@@ -1,12 +1,12 @@
-$mpk_tss_pereferial_unit_card $mol_card
+$mpk_tss_pereferial_card $mol_card
 	unit null
 	attr *
 		^
-		mpk_tss_pereferial_unit_type <= status \
+		mpk_tss_pereferial_type <= status \
 	Status <= Footer $mol_view
 		minimal_height 30
 		sub /
-			<= Status_text $mpk_tss_pereferial_unit_status
+			<= Status_text $mpk_tss_pereferial_status
 				colors false
 				status <= status
 			<= Refresh_action $mol_button_minor

@@ -1,6 +1,6 @@
 namespace $.$$ {
-	export class $mpk_tss_pereferial_unit_card extends $.$mpk_tss_pereferial_unit_card {
-		unit(): $mpk_tss_pereferial_domain_unit {
+	export class $mpk_tss_pereferial_card extends $.$mpk_tss_pereferial_card {
+		unit(): $mpk_tss_pereferial_domain {
 			throw new Error('unit')
 		}
 

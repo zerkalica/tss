@@ -22,12 +22,12 @@ namespace $ {
 	class $mpk_tss_reports_domain_mock_report extends $mpk_tss_reports_domain_report {
 		@$mol_mem
 		train_number() {
-			return String($mpk_tss_reports_domain_mock_stub_number(1000, 9000))
+			return String($mpk_tss_stub_number(1000, 9000))
 		}
 
 		@$mol_mem
 		send_count() {
-			return $mpk_tss_reports_domain_mock_stub_number(0, 10)
+			return $mpk_tss_stub_number(0, 10)
 		}
 
 		@$mol_mem
@@ -63,7 +63,7 @@ namespace $ {
 	class $mpk_tss_reports_domain_mock_carriage extends $mpk_tss_reports_domain_carriage {
 		@$mol_mem
 		violation_status() {
-			return $mpk_tss_reports_domain_mock_stub_wheel_status()
+			return $mpk_tss_reports_domain_mock_stub_violation_status()
 		}
 
 		@$mol_mem
@@ -73,7 +73,7 @@ namespace $ {
 
 		@$mol_mem
 		measured_speed() {
-			return $mpk_tss_reports_domain_mock_stub_number()
+			return $mpk_tss_stub_number()
 		}
 
 		@$mol_mem
@@ -92,19 +92,15 @@ namespace $ {
 		}
 	}
 
-	function $mpk_tss_reports_domain_mock_stub_number(min = 20, max = 80) {
-		return min + Math.floor(Math.random() * (max - min))
-	}
-
 	function $mpk_tss_reports_domain_mock_stub_violation_type() {
 		return $mol_stub_select_random( [
 			'slider', null
 		] as (null | $mpk_tss_reports_domain_violation_type)[])
 	}
 
-	function $mpk_tss_reports_domain_mock_stub_wheel_status() {
+	function $mpk_tss_reports_domain_mock_stub_violation_status() {
 		return $mol_stub_select_random( [
-			'ready', 'error', 'warning', 'unknown'
+			'ready', 'warning',
 		] as $mpk_tss_reports_domain_violation_status[])
 	}
 

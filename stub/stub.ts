@@ -10,4 +10,8 @@ namespace $ {
 		}
 		return ids
 	} 
+
+	export function $mpk_tss_stub_number(min = 20, max = 80) {
+		return min + Math.floor(Math.random() * (max - min))
+	}
 }

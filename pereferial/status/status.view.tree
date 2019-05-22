@@ -1,4 +1,4 @@
-$mpk_tss_pereferial_unit_status $mol_view
+$mpk_tss_pereferial_status $mol_view
 	status null
 	colors true
 	statuses *

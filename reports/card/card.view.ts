@@ -4,6 +4,10 @@ namespace $.$$ {
 			throw new $mpk_tss_todo
 		}
 
+		report_id() {
+			return this.report().id()
+		}
+
 		train_number() {
 			return this.report().train_number()
 		}
@@ -22,8 +26,8 @@ namespace $.$$ {
 			return this.report().report_status()
 		}
 
-		report_click(event: Event) {
-			event.preventDefault()
+		report_status_click(even?: Event) {
+			if (event) event.preventDefault()
 			alert('Report...')
 		}
 	}

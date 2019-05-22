@@ -14,10 +14,8 @@ namespace $ {
 	}
 
 	export enum $mpk_tss_reports_domain_violation_status {
-		ready = 'ready',
+		ready = 'success',
 		warning = 'warning',
-		error = 'error',
-		unknown = 'unknown',
 	}
 
 	export enum $mpk_tss_reports_domain_load_type {
@@ -27,7 +25,6 @@ namespace $ {
 
 	export enum $mpk_tss_reports_domain_violation_type {
 		slider = 'slider',
-		glider = 'glider',
 	}
 
 	export class $mpk_tss_reports_domain_wheel extends $mol_object {

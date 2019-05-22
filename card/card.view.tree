@@ -1,0 +1,13 @@
+$mpk_tss_card $mol_link
+	minimal_height 32
+	sub /
+		<= Card $mol_card
+			status <= status \
+			Status <= Footer $mol_view
+				sub /
+					<= Status_text null
+					<= Status_action $mol_button_minor
+						event_click?event <=> status_click?event null
+						sub / <= Status_icon $mpk_tss_icon_download
+			Content <= Group $mol_row
+				sub / <= items /

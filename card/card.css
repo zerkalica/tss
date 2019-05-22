@@ -1,0 +1,19 @@
+[mpk_tss_card_group] {
+	flex-wrap: nowrap;
+	padding: 0;
+}
+
+[mpk_tss_card_footer] {
+	background: var(--mol_theme_line);
+	text-transform: capitalize;
+	padding: 0 0rem;
+	line-height: 2;
+	margin: 0;
+	display: flex;
+	justify-content: space-between;
+}
+
+[mpk_tss_card_status_text] {
+	padding: 0 0.5rem;
+}
+
