@@ -22,11 +22,12 @@ namespace $.$$ {
 			return $mol_state_arg.value( this.state_key( 'carriage' ) , next ) || ''
 		}
 
-		subpages() {
-			return [
-				this.report_current_id() && this.Report_details(this.report_current_id()),
-				this.carriage_current_id() && this.Carriage_details(this.carriage_current_id()),
-			]
+		Report_current() {
+			return this.report_current_id() && this.Report_details(this.report_current_id())
+		}
+
+		Carriage_current() {
+			return this.carriage_current_id() && this.Carriage_details(this.report_current_id())
 		}
 
 		destructor() {

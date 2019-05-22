@@ -7,7 +7,7 @@ $mpk_tss_pereferial $mol_view
 			tools <= tools /
 			title <= title
 			filter_value?val <=> filter_value?val \
-			destructor <= destructor
+			destructor <= clean_url null
 			body /
 				<= List $mol_list
 					rows <= unit_links /

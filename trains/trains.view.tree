@@ -1,25 +1,35 @@
-$mpk_tss_trains $mpk_tss_wrap
+$mpk_tss_trains $mol_view
 	title @ \Reports
-	sub /
-		<= Head
-		<= Filter_title $mol_search
-			query?val <=> filter_title?val \
-		<= Body
-	body /
-		<= Reports $mol_list
-			destructor <= destructor
-			rows <= report_links /
+	pages /
+		<= Main $mpk_tss_trains_page
+			minimal_width 200
+			event_top?e <=> event_top?e null
+			tools <= tools /
+			title <= title
+			filter_value?val <=> filter_value?val \
+			destructor <= destructor null
+			body /
+				<= Reports $mol_list
+					rows <= report_links /
+		<= Report_current null
+		<= Carriage_current null
 	-
 	Report_link!id $mpk_tss_trains_card
 		report <= report!id null
 	-
 	Report_details!id $mpk_tss_trains_details
-		minimal_width 400
 		report <= report!id null
+	-
 	Carriage_details!id $mpk_tss_trains_carriage
-		event_top?event <=> event_front_up?event null
 		carriage <= carriage!id null
 		title \Details
+
+$mpk_tss_trains_page $mol_page
+	sub /
+		<= Head
+		<= Filter_value $mol_search
+			query?val <=> filter_value?val \
+		<= Body
 
 $mpk_tss_trains_carriage $mol_page
 	carriage null

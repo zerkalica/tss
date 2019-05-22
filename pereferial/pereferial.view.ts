@@ -26,7 +26,7 @@ namespace $.$$ {
 			this.Main().focused(true)
 		}
 
-		destructor() {
+		clean_url() {
 			this.unit_current_id(null)
 		}
 	}

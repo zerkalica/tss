@@ -2,14 +2,14 @@
 	flex: 1 0 20rem;
 }
 
+[mpk_tss_pereferial_page_body] {
+	overflow-y: scroll;
+}
+
 [mpk_tss_pereferial_page_filter_value] {
 	align-self: stretch;
 }
 
 [mpk_tss_pereferial_unit_link] {
 	display: block;
-}
-
-[mpk_tss_pereferial_page_body] {
-	overflow-y: scroll;
 }

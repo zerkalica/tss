@@ -43,12 +43,11 @@ namespace $.$$ {
 			return [].concat([
 				this.Sidebar(),
 				id ? null : this.Summary(),
-				id === 'reports' && this.Reports(),
 				id === 'software' && this.Software(),
 				id === 'sensors' && this.Sensors(),
 			])
 				.concat(id === 'pereferial' && this.Pereferial().pages())
-				.concat(this.Reports().subpages())
+				.concat(id === 'reports' && this.Reports().pages())
 				.filter(Boolean)
 		}
 	}
