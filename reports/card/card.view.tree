@@ -4,16 +4,13 @@ $mpk_tss_reports_card $mpk_tss_card
 	status <= violation_status
 	Status_text $mpk_tss_reports_status
 		colors false
-		status <= violation_status
+		status <= violation_status \
 	Status_icon $mpk_tss_icon_download
 	status_click?event <=> report_status_click?event null
 	items /
 		<= Name $mol_labeler
 			title <= name_title @ \Train
 			content <= train_number \
-		<= Violation_status $mol_labeler
-			title <= violation_status_title @ \Status
-			content <= violation_status \
 		<= Measurement_start $mol_labeler
 			title <= measurement_start_title @ \Date
 			content <= measurement_start \

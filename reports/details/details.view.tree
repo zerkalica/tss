@@ -1,11 +1,35 @@
 $mpk_tss_reports_details $mol_page
 	report null
 	minimal_width 400
+	title_prefix @ \Train
+	carriage_in_table!id null
 	tools /
 		<= Details_close $mol_link
 			arg * report null
 			sub / <= Details_close_icon $mol_icon_cross
 	body /
-		<= List $mol_list
+		<= Carriages $mpk_tss_table
 			rows /
-				<= report_parameters /
+				<= Head_rows $mpk_tss_table_head
+					cells /
+						<= Content $mpk_tss_table_cell content <= carriage_number_title \№
+						<= Violation_status $mpk_tss_table_cell content <= violation_status_title @ \Status
+						<= Load_type $mpk_tss_table_cell content <= load_type_title @ \Load
+						<= Measured_speed $mpk_tss_table_cell content <= measured_speed_title @ \Speed, km/h
+						<= Violation_type $mpk_tss_table_cell content <= violation_type_title @ \Violation
+						<= Action $mpk_tss_table_cell content <= Action_title @ \Action
+				<= carriage_rows /
+	Carriage_row!id $mpk_tss_reports_details_carriage_row
+		carriage <= carriage_in_row!id null
+
+$mpk_tss_reports_details_carriage_row $mpk_tss_table_row
+	carriage null
+	cells /
+		<= Content $mpk_tss_table_cell content <= carriage_number \
+		<= Violation_status $mpk_tss_table_cell
+			content <= Violation_status_text $mpk_tss_reports_status
+				status <= violation_status \
+		<= Load_type $mpk_tss_table_cell content <= load_type \
+		<= Measured_speed $mpk_tss_table_cell content <= measured_speed \
+		<= Violation_type $mpk_tss_table_cell content <= violation_type \
+		<= Action $mpk_tss_table_cell content <= action_text \q

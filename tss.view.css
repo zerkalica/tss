@@ -84,7 +84,7 @@
 	padding: 0;
 	align-items: stretch;
 	background: none;
-	flex: 1000 1000 400px;
+	flex: 1000 1000 auto;
 	position: relative;
 	animation: none !important;
 }

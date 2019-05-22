@@ -12,8 +12,8 @@ $mpk_tss_reports $mpk_tss_wrap
 			rows <= report_links /
 	-
 	Report_link!id $mpk_tss_reports_card
-		report <= report_for_card!id null
+		report <= report!id null
 	-
-	Report_details $mpk_tss_reports_details
+	Report_details!id $mpk_tss_reports_details
 		minimal_width 400
-		report <= report_for_details null
+		report <= report!id null

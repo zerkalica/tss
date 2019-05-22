@@ -10,7 +10,7 @@ namespace $.$$ {
 			return this.domain().reports().map(report => this.Report_link(report.id()))
 		}
 
-		report_for_card(id: string) {
+		report(id: string) {
 			return this.domain().report(id)
 		}
 
@@ -21,14 +21,7 @@ namespace $.$$ {
 		report_current_page() {
 			if (!this.report_current_id()) return null
 
-			return this.Report_details()
-		}
-
-		report_for_details() {
-			const id = this.report_current_id()
-			if (!id) return null
-
-			return this.domain().report( id )
+			return this.Report_details(this.report_current_id())
 		}
 
 		destructor() {

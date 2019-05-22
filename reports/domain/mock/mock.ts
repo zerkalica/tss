@@ -22,7 +22,7 @@ namespace $ {
 	class $mpk_tss_reports_domain_mock_report extends $mpk_tss_reports_domain_report {
 		@$mol_mem
 		train_number() {
-			return String($mpk_tss_stub_number(1000, 9000))
+			return String($mpk_tss_stub_number(1000, 9000)) + '-' + String($mpk_tss_stub_number(1000, 9000))
 		}
 
 		@$mol_mem

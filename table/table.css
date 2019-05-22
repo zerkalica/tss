@@ -1,0 +1,8 @@
+
+[mpk_tss_table_cell] {
+	padding: 0.3rem 0.3rem;
+}
+
+[mpk_tss_table_row]:nth-child(2n) {
+	background: var(--mol_theme_line);
+}

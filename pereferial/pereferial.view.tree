@@ -1,5 +1,6 @@
 $mpk_tss_pereferial $mpk_tss_wrap
 	self_title @ \Pereferials
+	minimal_width 200
 	unit_current_page null
 	sub /
 		<= Head
