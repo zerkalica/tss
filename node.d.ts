@@ -1505,6 +1505,7 @@ declare namespace $ {
 declare namespace $ {
     class $mpk_tss_pereferial extends $mpk_tss_wrap {
         self_title(): string;
+        minimal_width(): number;
         unit_current_page(): any;
         sub(): any[];
         Filter_title(): $mol_search;
@@ -1541,13 +1542,9 @@ declare namespace $ {
         statuses(): {
             "ready": string;
             "warning": string;
-            "error": string;
-            "unknown": string;
         };
         ready(): string;
         warning(): string;
-        error(): string;
-        unknown(): string;
         sub(): any[];
         status_text(): string;
     }
@@ -1631,6 +1628,7 @@ declare namespace $ {
         report_id(): string;
         status(): string;
         Status_text(): $mpk_tss_reports_status;
+        violation_status(): string;
         Status_icon(): $mpk_tss_icon_download;
         status_click(event?: any, force?: $mol_atom_force): any;
         report_status_click(event?: any, force?: $mol_atom_force): any;
@@ -1638,9 +1636,6 @@ declare namespace $ {
         Name(): $mol_labeler;
         name_title(): string;
         train_number(): string;
-        Violation_status(): $mol_labeler;
-        violation_status_title(): string;
-        violation_status(): string;
         Measurement_start(): $mol_labeler;
         measurement_start_title(): string;
         measurement_start(): string;
@@ -1661,20 +1656,101 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
+    class $mpk_tss_table extends $mol_view {
+        dom_name(): string;
+        sub(): any[];
+        rows(): any[];
+    }
+}
+declare namespace $ {
+    class $mpk_tss_table_head extends $mol_view {
+        dom_name(): string;
+        sub(): any[];
+        cells(): any[];
+    }
+}
+declare namespace $ {
+    class $mpk_tss_table_row extends $mol_view {
+        dom_name(): string;
+        sub(): any[];
+        cells(): any[];
+    }
+}
+declare namespace $ {
+    class $mpk_tss_table_cell extends $mol_view {
+        dom_name(): string;
+        attr(): {
+            "colspan": number;
+            "rowspan": number;
+        };
+        cols(): number;
+        rows(): number;
+        sub(): any[];
+        content(): any;
+    }
+}
+declare namespace $ {
     class $mpk_tss_reports_details extends $mol_page {
         report(): any;
         minimal_width(): number;
+        title_prefix(): string;
+        carriage_in_table(id: any): any;
         tools(): any[];
         Details_close(): $mol_link;
         Details_close_icon(): $mol_icon_cross;
         body(): any[];
-        List(): $mol_list;
-        report_parameters(): any[];
+        Carriages(): $mpk_tss_table;
+        Head_rows(): $mpk_tss_table_head;
+        Content(): $mpk_tss_table_cell;
+        carriage_number_title(): string;
+        Violation_status(): $mpk_tss_table_cell;
+        violation_status_title(): string;
+        Load_type(): $mpk_tss_table_cell;
+        load_type_title(): string;
+        Measured_speed(): $mpk_tss_table_cell;
+        measured_speed_title(): string;
+        Violation_type(): $mpk_tss_table_cell;
+        violation_type_title(): string;
+        Action(): $mpk_tss_table_cell;
+        Action_title(): string;
+        carriage_rows(): any[];
+        Carriage_row(id: any): $mpk_tss_reports_details_carriage_row;
+        carriage_in_row(id: any): any;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_reports_details_carriage_row extends $mpk_tss_table_row {
+        carriage(): any;
+        cells(): any[];
+        Content(): $mpk_tss_table_cell;
+        carriage_number(): string;
+        Violation_status(): $mpk_tss_table_cell;
+        Violation_status_text(): $mpk_tss_reports_status;
+        violation_status(): string;
+        Load_type(): $mpk_tss_table_cell;
+        load_type(): string;
+        Measured_speed(): $mpk_tss_table_cell;
+        measured_speed(): string;
+        Violation_type(): $mpk_tss_table_cell;
+        violation_type(): string;
+        Action(): $mpk_tss_table_cell;
+        action_text(): string;
     }
 }
 declare namespace $.$$ {
     class $mpk_tss_reports_details extends $.$mpk_tss_reports_details {
         report(): $mpk_tss_reports_domain_report;
+        title(): string;
+        carriage_in_row(id: string): $mpk_tss_reports_domain_carriage;
+        carriage_rows(): $.$mpk_tss_reports_details_carriage_row[];
+    }
+    class $mpk_tss_reports_details_carriage_row extends $.$mpk_tss_reports_details_carriage_row {
+        carriage(): $mpk_tss_reports_domain_carriage;
+        carriage_number(): string;
+        violation_status(): $mpk_tss_reports_domain_violation_status;
+        load_type(): $mpk_tss_reports_domain_load_type;
+        measured_speed(): string;
+        violation_type(): $mpk_tss_reports_domain_violation_type;
     }
 }
 declare namespace $ {
@@ -1708,19 +1784,17 @@ declare namespace $ {
         Reports(): $mol_list;
         report_links(): any[];
         Report_link(id: any): $mpk_tss_reports_card;
-        report_for_card(id: any): any;
-        Report_details(): $mpk_tss_reports_details;
-        report_for_details(): any;
+        report(id: any): any;
+        Report_details(id: any): $mpk_tss_reports_details;
     }
 }
 declare namespace $.$$ {
     class $mpk_tss_reports extends $.$mpk_tss_reports {
         domain(): $mpk_tss_reports_domain_mock;
         report_links(): $.$mpk_tss_reports_card[];
-        report_for_card(id: string): $mpk_tss_reports_domain_report;
+        report(id: string): $mpk_tss_reports_domain_report;
         report_current_id(next?: string): any;
         report_current_page(): $.$mpk_tss_reports_details;
-        report_for_details(): $mpk_tss_reports_domain_report;
         destructor(): void;
     }
 }
@@ -1840,15 +1914,11 @@ declare namespace $ {
 }
 declare namespace $ {
     class $mpk_tss_placeholder extends $mol_page {
-        minimal_width(): number;
         attr(): {
             "tabindex": any;
         };
         title(): string;
         tools(): any[];
-        Links(): $mol_view;
-        Vkontakte(): $mol_link;
-        Vkontakte_icon(): $mol_icon;
         body(): any[];
         Image(): $mol_image;
     }

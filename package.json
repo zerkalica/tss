@@ -1,6 +1,6 @@
 {
   "name": "mpk_tss",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "main": "node.js",
   "module": "node.esm.js",
   "browser": "web.esm.js",
