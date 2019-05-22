@@ -1,8 +1,8 @@
-$mpk_tss_reports_card $mpk_tss_card
+$mpk_tss_trains_card $mpk_tss_card
 	report null
 	arg * report <= report_id \
 	status <= violation_status
-	Status_text $mpk_tss_reports_status
+	Status_text $mpk_tss_trains_status
 		colors false
 		status <= violation_status \
 	Status_icon $mpk_tss_icon_download

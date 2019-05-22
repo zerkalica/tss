@@ -1,0 +1,25 @@
+[mpk_tss_trains] {
+	flex: 1 0 22rem;
+}
+
+[mpk_tss_trains_results] {
+	margin-top: 0.5rem;
+}
+
+[mpk_tss_trains_filter_title] {
+	align-self: stretch;
+}
+
+[mpk_tss_trains_trains] {
+	display: flex;
+	flex-direction: column;
+}
+
+[mpk_tss_trains_body] {
+	overflow-y: scroll;
+	padding: 0.3rem;
+}
+
+[mpk_tss_trains_carriage] {
+	flex: 1000 0 600px;
+}

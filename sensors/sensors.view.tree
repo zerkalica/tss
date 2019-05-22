@@ -1,2 +1,4 @@
-$mpk_tss_sensors $mpk_tss_wrap
-	self_title @ \Sensors
+$mpk_tss_sensors $mol_page
+	title @ \Sensors
+	body /
+		<= Content $mol_filler

@@ -1,21 +1,15 @@
-[mpk_tss_pereferial] {
+[mpk_tss_pereferial_main] {
 	flex: 1 0 20rem;
 }
 
-[mpk_tss_pereferial_results] {
-	margin-top: 0.5rem;
-}
-
-[mpk_tss_pereferial_filter_title] {
+[mpk_tss_pereferial_page_filter_value] {
 	align-self: stretch;
 }
 
-[mpk_tss_pereferial_units] {
-	display: flex;
-	flex-direction: column;
+[mpk_tss_pereferial_unit_link] {
+	display: block;
 }
 
-[mpk_tss_pereferial_body] {
+[mpk_tss_pereferial_page_body] {
 	overflow-y: scroll;
-	padding: 0.3rem;
 }

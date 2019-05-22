@@ -18,10 +18,12 @@ namespace $.$$ {
 			return $mol_state_arg.value( this.state_key( 'unit' ) , next ) || ''
 		}
 
-		subpages() {
-			return [
-				this.unit_current_id() && this.Unit_details(this.unit_current_id())
-			]
+		Unit_current() {
+			return this.unit_current_id() && this.Unit_details(this.unit_current_id())
+		}
+
+		details_event_top(event?: Event) {
+			this.Main().focused(true)
 		}
 
 		destructor() {

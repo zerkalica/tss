@@ -1,8 +1,8 @@
 namespace $.$$ {
-	export class $mpk_tss_reports extends $.$mpk_tss_reports {
+	export class $mpk_tss_trains extends $.$mpk_tss_trains {
 		@$mol_mem
 		domain() {
-			return new $mpk_tss_reports_domain_mock()
+			return new $mpk_tss_trains_domain_mock()
 		}
 
 		@$mol_mem

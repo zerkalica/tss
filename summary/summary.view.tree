@@ -1,5 +1,5 @@
-$mpk_tss_summary $mpk_tss_wrap
-	self_title @ \Summary
+$mpk_tss_summary $mol_page
+	title @ \Summary
 	minimal_width 600
 	body /
 		<= Statuses $mpk_tss_summary_section

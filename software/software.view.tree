@@ -1,2 +1,4 @@
-$mpk_tss_software $mpk_tss_wrap
-	self_title @ \Software
+$mpk_tss_software $mol_page
+	title @ \Software
+	body /
+		<= Content $mol_filler

@@ -22,7 +22,7 @@ namespace $.$$ {
 		}
 
 		menu_page_title(id: string) {
-			return this.menu_pages()[id].self_title()
+			return this.menu_pages()[id].title()
 		}
 
 		page_id() {
@@ -45,10 +45,9 @@ namespace $.$$ {
 				id ? null : this.Summary(),
 				id === 'reports' && this.Reports(),
 				id === 'software' && this.Software(),
-				id === 'pereferial' && this.Pereferial(),
 				id === 'sensors' && this.Sensors(),
 			])
-				.concat(this.Pereferial().subpages())
+				.concat(id === 'pereferial' && this.Pereferial().pages())
 				.concat(this.Reports().subpages())
 				.filter(Boolean)
 		}

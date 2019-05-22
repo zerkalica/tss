@@ -1,20 +1,26 @@
-$mpk_tss_pereferial $mpk_tss_wrap
-	self_title @ \Pereferials
-	minimal_width 200
-	sub /
-		<= Head
-		<= Filter_title $mol_search
-			query?val <=> filter_title?val \
-		<= Body
-	body /
-		<= Units $mol_list
+$mpk_tss_pereferial $mol_view
+	title @ \Pereferials
+	pages /
+		<= Main $mpk_tss_pereferial_page
+			minimal_width 200
+			event_top?e <=> event_top?e null
+			tools <= tools /
+			title <= title
+			filter_value?val <=> filter_value?val \
 			destructor <= destructor
-			rows <= unit_links /
-	-
+			body /
+				<= List $mol_list
+					rows <= unit_links /
+		<= Unit_current null
+	Unit_details!id $mpk_tss_pereferial_details
+		event_top?e <=> details_event_top?e null
+		unit <= unit!id null
 	Unit_link!id $mpk_tss_pereferial_card
 		unit <= unit!id null
-	-
-	Unit_details!id $mpk_tss_pereferial_details
-		minimal_width 200
-		unit <= unit!id null
-	
+
+$mpk_tss_pereferial_page $mol_page
+	sub /
+		<= Head
+		<= Filter_value $mol_search
+			query?val <=> filter_value?val \
+		<= Body
