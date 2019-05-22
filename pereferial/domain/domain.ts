@@ -8,20 +8,8 @@ namespace $ {
 		}
 	}
 
-	export type $mpk_tss_pereferial_domain_type = string
-
-	export type $mpk_tss_pereferial_domain_parameter_value = {
-		type: 'string'
-		value: string
-	} | {
-		type: 'status'
-		value: $mpk_tss_pereferial_domain_status
-	}
-
-	export class $mpk_tss_pereferial_domain_parameter extends $mol_object {
-		name(): string { throw new $mpk_tss_todo }
-		value(): $mpk_tss_pereferial_domain_parameter_value | null { throw new $mpk_tss_todo }
-		updated(): $mol_time_moment | null { throw new $mpk_tss_todo}
+	export enum $mpk_tss_pereferial_domain_type {
+		ups = 'UPS',
 	}
 
 	export enum $mpk_tss_pereferial_domain_status {
@@ -35,9 +23,24 @@ namespace $ {
 	export class $mpk_tss_pereferial_domain_unit extends $mol_object {
 		id() : string { throw new $mpk_tss_todo }
 		type(): $mpk_tss_pereferial_domain_type { throw new $mpk_tss_todo }
-		element(): string { throw new $mpk_tss_todo }
+		name(): string { throw new $mpk_tss_todo }
 		status(): $mpk_tss_pereferial_domain_status { throw new $mpk_tss_todo }
- 
-		parameters(): $mpk_tss_pereferial_domain_parameter[] { return [] }
+		updated(next?: $mol_time_moment): $mol_time_moment | null { throw new $mpk_tss_todo }
+	}
+
+	export enum $mpk_tss_pereferial_domain_ups_power_source {
+		line = 'Line',
+		internal = 'Internal',
+	}
+
+	export class $mpk_tss_pereferial_domain_ups extends $mpk_tss_pereferial_domain_unit {
+		type(): $mpk_tss_pereferial_domain_type { return $mpk_tss_pereferial_domain_type.ups }
+		power_source(): $mpk_tss_pereferial_domain_ups_power_source { throw new $mpk_tss_todo }
+		voltage(): number { throw new $mpk_tss_todo }
+		/**
+		  Battery level 0-100%
+		 */
+		battery_level(): number { throw new $mpk_tss_todo }
+		battery_time(): $mol_time_duration { throw new $mpk_tss_todo }
 	}
 }

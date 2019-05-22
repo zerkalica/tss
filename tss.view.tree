@@ -17,10 +17,9 @@ $mpk_tss_main $mol_book
 			breadcrumbs / <= breadcrumbs
 			tools <= common_tools
 			event_top?event <=> event_front_up?event
-		pereferials <= Pereferials $mpk_tss_pereferial
+		pereferial <= Pereferial $mpk_tss_pereferial
 			breadcrumbs / <= breadcrumbs
 			tools <= common_tools
-			unit_current_page => details
 			event_top?event <=> event_front_up?event
 		sensors <= Sensors $mpk_tss_sensors
 			breadcrumbs / <= breadcrumbs
@@ -28,7 +27,6 @@ $mpk_tss_main $mol_book
 			event_top?event <=> event_front_up?event
 		reports <= Reports $mpk_tss_reports
 			breadcrumbs / <= breadcrumbs
-			report_current_page => details
 			tools <= common_tools
 			event_top?event <=> event_front_up?event
 	breadcrumbs /
@@ -71,7 +69,7 @@ $mpk_tss_main $mol_book
 			breadcrumbs / <= breadcrumbs
 			event_top?event <=> event_front_up?event
 		<= menu_pages
-		<= details
+		<= details null
 	Placeholder $mpk_tss_placeholder
 		minimal_width 400
 		title \

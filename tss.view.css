@@ -2,6 +2,10 @@
 	box-shadow: none;
 }
 
+[mpk_tss_main] > [mol_page_body] {
+	box-shadow: 0 0 0 1px var(--mol_theme_line);
+}
+
 [mpk_tss] {
 	flex-direction: column;
 	display: flex;

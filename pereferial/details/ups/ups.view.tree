@@ -1,0 +1,25 @@
+$mpk_tss_pereferial_details_ups $mpk_tss_parameter_list
+	unit null
+	Unknown $mpk_tss_parameter_unknown
+	rows /
+		<= State $mpk_tss_parameter
+			name <= name_title @ \State
+			value <= Status $mpk_tss_pereferial_status
+				status <= status \
+			updated <= updated null
+		<= Power $mpk_tss_parameter
+			name <= power_title @ \Power source
+			value <= power_source null
+			updated <= updated null
+		<= Voltage $mpk_tss_parameter
+			name <= voltage_title @ \Voltage
+			value <= voltage null
+			updated <= updated null
+		<= Bat_level $mpk_tss_parameter
+			name <= bat_level_title @ \Bat. level
+			value <= battery_level null
+			updated <= updated null
+		<= Bat_time $mpk_tss_parameter
+			name <= bat_time_title @ \Bat. time
+			value <= battery_time null
+			updated <= updated null

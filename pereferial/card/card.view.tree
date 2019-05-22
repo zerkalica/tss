@@ -1,23 +1,16 @@
-$mpk_tss_pereferial_card $mol_card
+$mpk_tss_pereferial_card $mpk_tss_card
 	unit null
-	attr *
-		^
-		mpk_tss_pereferial_type <= status \
-	Status <= Footer $mol_view
-		minimal_height 30
-		sub /
-			<= Status_text $mpk_tss_pereferial_status
-				colors false
-				status <= status
-			<= Refresh_action $mol_button_minor
-				event_click?event <=> refresh_click?event null
-				sub / <= Refresh_icon $mpk_tss_icon_renew
-	Content <= Group $mol_row
-		sub /
-			<= items /
-				<= Type_item $mol_labeler
-					title <= type_title @ \Type
-					content <= type \
-				<= Element_item $mol_labeler
-					title <= element_title @ \Element
-					content <= element \
+	arg * unit <= unit_id \
+	status <= unit_status \
+	Status_text $mpk_tss_pereferial_status
+		colors false
+		status <= unit_status
+	Status_icon $mpk_tss_icon_renew
+	status_click?event <=> unit_status_click?event null
+	items /
+		<= Type_item $mol_labeler
+			title <= type_title @ \Type
+			content <= type \
+		<= Name_item $mol_labeler
+			title <= name_title @ \Element
+			content <= name \

@@ -15,5 +15,5 @@ $mpk_tss_pereferial $mpk_tss_wrap
 		unit <= unit_for_card!id null
 	-
 	Unit_details $mpk_tss_pereferial_details
-		minimal_width 400
+		minimal_width 200
 		unit <= unit_for_details null

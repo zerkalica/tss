@@ -15,9 +15,9 @@ $mpk_tss_summary $mpk_tss_wrap
 					type \ready
 					arg * page \sensors
 				<= Pereferials $mpk_tss_summary_item
-					title @ \Pereferials
+					title @ \Pereferial
 					type \error
-					arg * page \pereferials
+					arg * page \pereferial
 		<= Log $mol_expander
 			title <= log_title @ \Show log ...
 			Content $mol_text

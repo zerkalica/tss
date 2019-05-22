@@ -45,9 +45,11 @@ namespace $.$$ {
 				id ? null : this.Summary(),
 				id === 'reports' && this.Reports(),
 				id === 'software' && this.Software(),
-				id === 'pereferials' && this.Pereferials(),
+				id === 'pereferial' && this.Pereferial(),
 				id === 'sensors' && this.Sensors(),
-				this.details(),
+
+				this.Pereferial().unit_current_page(),
+				this.Reports().report_current_page(),
 			].filter(Boolean)
 		}
 	}

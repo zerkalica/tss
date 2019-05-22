@@ -14,10 +14,6 @@ namespace $.$$ {
 			return this.domain().unit(id)
 		}
 
-		unit_link_id(id: string) {
-			return id
-		}
-
 		unit_current_id( next? : string ) {
 			return $mol_state_arg.value( this.state_key( 'unit' ) , next ) || ''
 		}

@@ -10,7 +10,7 @@
 	align-self: stretch;
 }
 
-[mpk_tss_pereferials] {
+[mpk_tss_pereferial_units] {
 	display: flex;
 	flex-direction: column;
 }

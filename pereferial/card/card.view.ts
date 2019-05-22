@@ -1,24 +1,28 @@
 namespace $.$$ {
 	export class $mpk_tss_pereferial_card extends $.$mpk_tss_pereferial_card {
-		unit(): $mpk_tss_pereferial_domain {
-			throw new Error('unit')
+		unit(): $mpk_tss_pereferial_domain_unit {
+			throw new $mpk_tss_todo
+		}
+
+		unit_id() {
+			return this.unit().id()
 		}
 
 		type() {
 			return this.unit().type()
 		}
 
-		element() {
-			return this.unit().element()
+		name() {
+			return this.unit().name()
 		}
 
-		status() {
+		unit_status() {
 			return this.unit().status()
 		}
 
-		refresh_click(event: Event) {
-			event.preventDefault()
-			alert('Refresh...')
+		unit_status_click(event?: Event) {
+			if (event) event.preventDefault()
+			this.unit().updated(new $mol_time_moment())
 		}
 	}
 }
