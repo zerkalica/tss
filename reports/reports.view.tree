@@ -1,6 +1,5 @@
 $mpk_tss_reports $mpk_tss_wrap
 	self_title @ \Reports
-	report_current_page null
 	sub /
 		<= Head
 		<= Filter_title $mol_search
@@ -17,3 +16,32 @@ $mpk_tss_reports $mpk_tss_wrap
 	Report_details!id $mpk_tss_reports_details
 		minimal_width 400
 		report <= report!id null
+	Carriage_details!id $mpk_tss_reports_details_carriage
+		carriage <= carriage!id null
+		title \Details
+
+$mpk_tss_reports_details_carriage $mol_page
+	carriage null
+	body /
+		<= Plot $mol_plot_pane
+			gap 48
+			graphs /
+				<= Saturation $mol_plot_group
+					series <= saturation_series /
+					graphs /
+						<= Saturation_fill $mol_plot_fill
+						<= Saturation_line $mol_plot_line
+							type \dashed
+				<= Input $mol_plot_group
+					series <= input_series /
+					graphs /
+						<= Input_line $mol_plot_line
+						<= Input_dots $mol_plot_dot
+				<= Output $mol_plot_bar
+					series <= output_series /
+				<= Voltage $mol_plot_ruler_vert
+					title <= Voltage_title @ \V
+				<= Time $mol_plot_ruler_hor
+					title <= Time_title @ \ms
+					series <= output_series /
+

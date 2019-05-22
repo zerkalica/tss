@@ -1,6 +1,6 @@
 namespace $ {
 	export class $mpk_tss_reports_domain_mock extends $mpk_tss_reports_domain {
-		max_reports() { return 30 }
+		max_reports() { return 100 }
 
 		@$mol_mem_key
 		report(id: string): $mpk_tss_reports_domain_report {
@@ -32,7 +32,11 @@ namespace $ {
 
 		@$mol_mem
 		violation_status() {
-			return this.carriages()[0].violation_status()
+			return this.carriages().reduce((status, carriage) => {
+				if (carriage.violation_status() === $mpk_tss_reports_domain_violation_status.warning)
+					return $mpk_tss_reports_domain_violation_status.warning
+				return status
+			}, $mpk_tss_reports_domain_violation_status.ready)
 		}
 
 		@$mol_mem
@@ -47,8 +51,11 @@ namespace $ {
 
 		@$mol_mem
 		carriages(): $mpk_tss_reports_domain_carriage[] {
-			return $mpk_tss_stub_ids(35).map((id, index) => {
+			return $mpk_tss_stub_ids(45).map((id, index) => {
 				const carriage = this.carriage(id)
+				if (Math.random() > 0.96) {
+					carriage.violation_status = $mol_const($mpk_tss_reports_domain_violation_status.warning)
+				}
 				carriage.carriage_number = $mol_const(index + 1)
 				return carriage
 			})
@@ -63,7 +70,7 @@ namespace $ {
 	class $mpk_tss_reports_domain_mock_carriage extends $mpk_tss_reports_domain_carriage {
 		@$mol_mem
 		violation_status() {
-			return $mpk_tss_reports_domain_mock_stub_violation_status()
+			return $mpk_tss_reports_domain_violation_status.ready
 		}
 
 		@$mol_mem
@@ -78,6 +85,7 @@ namespace $ {
 
 		@$mol_mem
 		violation_type() {
+			if (this.violation_status() == $mpk_tss_reports_domain_violation_status.ready) return null
 			return $mpk_tss_reports_domain_mock_stub_violation_type()
 		}
 
@@ -94,14 +102,8 @@ namespace $ {
 
 	function $mpk_tss_reports_domain_mock_stub_violation_type() {
 		return $mol_stub_select_random( [
-			'slider', null
-		] as (null | $mpk_tss_reports_domain_violation_type)[])
-	}
-
-	function $mpk_tss_reports_domain_mock_stub_violation_status() {
-		return $mol_stub_select_random( [
-			'ready', 'warning',
-		] as $mpk_tss_reports_domain_violation_status[])
+			'slider'
+		] as ($mpk_tss_reports_domain_violation_type)[])
 	}
 
 	function $mpk_tss_reports_domain_mock_stub_report_status() {

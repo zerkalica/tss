@@ -18,14 +18,20 @@ namespace $.$$ {
 			return $mol_state_arg.value( this.state_key( 'report' ) , next ) || ''
 		}
 
-		report_current_page() {
-			if (!this.report_current_id()) return null
+		carriage_current_id( next? : string ) {
+			return $mol_state_arg.value( this.state_key( 'carriage' ) , next ) || ''
+		}
 
-			return this.Report_details(this.report_current_id())
+		subpages() {
+			return [
+				this.report_current_id() && this.Report_details(this.report_current_id()),
+				this.carriage_current_id() && this.Carriage_details(this.carriage_current_id()),
+			]
 		}
 
 		destructor() {
 			this.report_current_id(null)
+			this.carriage_current_id(null)
 		}
 	}
 }

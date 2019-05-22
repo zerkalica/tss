@@ -1,5 +1,6 @@
 $mpk_tss_wrap $mol_page
 	minimal_width 200
+	subpages /
 	self_title \
 	breadcrumbs /
 	body /

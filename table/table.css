@@ -1,8 +1,28 @@
+[mpk_tss_table] {
+	border-spacing: 0;
+}
+
+[mpk_tss_table_head_cell] {
+	display: table-cell;
+	background-color: white;
+	padding: 0.3rem 0.5rem;
+	border-right: 1px solid var(--mol_theme_line);
+}
 
 [mpk_tss_table_cell] {
-	padding: 0.3rem 0.3rem;
+	border-right: 1px solid var(--mol_theme_line);
+	padding: 0.3rem 0.5rem;
+	word-wrap: none;
+}
+
+[mpk_tss_table_row] {
+	background-color: var(--mol_theme_field);
 }
 
 [mpk_tss_table_row]:nth-child(2n) {
-	background: var(--mol_theme_line);
+	background: var(--mol_theme_back);
+}
+
+[mpk_tss_table_row]:hover {
+	background: var(--mol_theme_current);
 }

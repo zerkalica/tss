@@ -1,3 +1,7 @@
+[mpk_tss_card] {
+	padding: 0.5rem;
+}
+
 [mpk_tss_card_group] {
 	flex-wrap: nowrap;
 	padding: 0;

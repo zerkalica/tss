@@ -40,17 +40,17 @@ namespace $.$$ {
 
 			const id = this.page_id()
 
-			return [
+			return [].concat([
 				this.Sidebar(),
 				id ? null : this.Summary(),
 				id === 'reports' && this.Reports(),
 				id === 'software' && this.Software(),
 				id === 'pereferial' && this.Pereferial(),
 				id === 'sensors' && this.Sensors(),
-
-				this.Pereferial().unit_current_page(),
-				this.Reports().report_current_page(),
-			].filter(Boolean)
+			])
+				.concat(this.Pereferial().subpages())
+				.concat(this.Reports().subpages())
+				.filter(Boolean)
 		}
 	}
 }

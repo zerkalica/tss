@@ -10,7 +10,7 @@ namespace $.$$ {
 			return this.domain().units().map(unit => this.Unit_link(unit.id()))
 		}
 
-		unit_for_card(id: string) {
+		unit(id: string) {
 			return this.domain().unit(id)
 		}
 
@@ -18,17 +18,10 @@ namespace $.$$ {
 			return $mol_state_arg.value( this.state_key( 'unit' ) , next ) || ''
 		}
 
-		unit_current_page() {
-			if (!this.unit_current_id()) return null
-
-			return this.Unit_details()
-		}
-
-		unit_for_details() {
-			const id = this.unit_current_id()
-			if (!id) return null
-
-			return this.domain().unit( id )
+		subpages() {
+			return [
+				this.unit_current_id() && this.Unit_details(this.unit_current_id())
+			]
 		}
 
 		destructor() {

@@ -6,7 +6,11 @@ $mpk_tss_table_head $mol_view
 	dom_name \tr
 	sub <= cells /
 
-$mpk_tss_table_row $mol_view
+$mpk_tss_table_head_cell $mol_float
+	dom_name \th
+	sub / <= content null
+
+$mpk_tss_table_row $mol_link
 	dom_name \tr
 	sub <= cells /
 
