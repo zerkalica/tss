@@ -1,20 +1,5 @@
 {
 	"$mol_search_hint": "Поиск..",
 	"$mol_select_hint": "Поиск..",
-	"$mol_select_no_options_message": "Нет вариантов",
-	"$mpk_tss_Sidebar": "Logo and username",
-	"$mpk_tss_main_title": "Terminal № 1238798",
-	"$mpk_tss_pereferial_self_title": "Pereferials",
-	"$mpk_tss_reports_self_title": "Reports",
-	"$mpk_tss_sensors_self_title": "Sensors",
-	"$mpk_tss_software_self_title": "Software",
-	"$mpk_tss_status_error": "Error",
-	"$mpk_tss_status_ready": "Ready",
-	"$mpk_tss_status_success": "Success",
-	"$mpk_tss_status_warning": "Warning",
-	"$mpk_tss_summary_Pereferials": "Pereferials",
-	"$mpk_tss_summary_Sensors": "Sensors",
-	"$mpk_tss_summary_Software": "Software",
-	"$mpk_tss_summary_log_title": "Show log ...",
-	"$mpk_tss_summary_self_title": "Summary"
+	"$mol_select_no_options_message": "Нет вариантов"
 }
