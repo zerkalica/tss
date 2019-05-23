@@ -29,5 +29,9 @@ namespace $.$$ {
 		clean_url() {
 			this.unit_current_id(null)
 		}
+
+		destructor() {
+			this.clean_url()
+		}
 	}
 }

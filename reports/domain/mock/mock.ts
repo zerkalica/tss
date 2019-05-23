@@ -85,7 +85,7 @@ namespace $ {
 
 		@$mol_mem
 		measured_speed() {
-			return $mpk_tss_stub_number()
+			return $mpk_tss_stub_number(50, 55)
 		}
 
 		@$mol_mem

@@ -1,5 +1,6 @@
 [mpk_tss_card] {
 	padding: 0.5rem;
+	display: block;
 }
 
 [mpk_tss_card_group] {
@@ -20,4 +21,3 @@
 [mpk_tss_card_status_text] {
 	padding: 0 0.5rem;
 }
-

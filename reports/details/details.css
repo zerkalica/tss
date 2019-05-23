@@ -11,3 +11,7 @@
 [mpk_tss_reports_details_carriages_row="warning"] {
 	background-color: yellow;
 }
+
+[mpk_tss_reports_details_carriages] {
+	display:  block;
+}

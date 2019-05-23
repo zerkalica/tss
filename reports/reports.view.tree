@@ -6,22 +6,17 @@ $mpk_tss_reports $mol_view
 			tools <= tools /
 			title <= title
 			filter_value?val <=> filter_value?val \
-			destructor <= destructor null
+			destructor <= clear_url null
 			body /
 				<= Reports $mol_list
 					rows <= report_links /
-		<= Report_current null
-		<= Carriage_current null
+		<= Details_pages null
 	-
 	Report_link!id $mpk_tss_reports_card
 		report <= report!id null
 	-
 	Report_details!id $mpk_tss_reports_details
 		report <= report!id null
-	-
-	Carriage_details!id $mpk_tss_reports_carriage
-		carriage <= carriage!id null
-		title \Details
 
 $mpk_tss_reports_page $mol_page
 	minimal_width 200
@@ -30,10 +25,3 @@ $mpk_tss_reports_page $mol_page
 		<= Filter_value $mol_search
 			query?val <=> filter_value?val \
 		<= Body
-
-$mpk_tss_reports_carriage $mol_page
-	carriage null
-	minimal_width 700
-	body /
-		<= Content $mol_filler
-

@@ -1,0 +1,23 @@
+$mpk_tss_reports_details_card $mpk_tss_reports_status_card
+	carriage null
+	arg * carriage <= carriage_id \
+	title_prefix @ \Carriage
+	status <= violation_status \
+	Status_text $mpk_tss_reports_status
+		colors false
+		status <= violation_status_total \
+	Status_icon $mpk_tss_icon_download
+	status_click?event <=> carriage_status_click?event null
+	items /
+		<= Place $mol_labeler
+			title <= place_title @ \Place
+			content <= place \
+		<= Carriage_number $mol_labeler
+			title <= carriage_number_title @ \Carriage
+			content <= carriage_number \
+		<= Load_type $mol_labeler
+			title <= load_type_title @ \Load
+			content <= load_type \
+		<= Measured_speed $mol_labeler
+			title <= measured_speed_title @ \Speed
+			content <= measured_speed \
