@@ -45,8 +45,9 @@ namespace $ {
 	}
 
 	export class $mpk_tss_reports_domain_carriage extends $mol_object {
-		id(): string { return String(this.carriage_number()) }
-		carriage_number(): number { throw new t }
+		id(): string { return this.carriage_number() }
+		carriage_number(): string { throw new t }
+		place(): number { throw new t }
 		violation_status(): $mpk_tss_reports_domain_violation_status { throw new t }
 		violation_type(): $mpk_tss_reports_domain_violation_type | null { throw new t }
 		load_type(): $mpk_tss_reports_domain_load_type { throw new t }

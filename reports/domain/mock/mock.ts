@@ -22,7 +22,7 @@ namespace $ {
 	class $mpk_tss_reports_domain_mock_report extends $mpk_tss_reports_domain_report {
 		@$mol_mem
 		train_number() {
-			return String($mpk_tss_stub_number(1000, 9000)) + '-' + String($mpk_tss_stub_number(1000, 9000))
+			return '' + $mpk_tss_stub_number(1000, 9000) + '-' + $mpk_tss_stub_number(1000, 9000)
 		}
 
 		@$mol_mem
@@ -51,12 +51,12 @@ namespace $ {
 
 		@$mol_mem
 		carriages(): $mpk_tss_reports_domain_carriage[] {
-			return $mpk_tss_stub_ids(45).map((id, index) => {
+			return $mpk_tss_stub_ids($mpk_tss_stub_number(30, 45)).map((id, index) => {
 				const carriage = this.carriage(id)
 				if (Math.random() > 0.96) {
 					carriage.violation_status = $mol_const($mpk_tss_reports_domain_violation_status.warning)
 				}
-				carriage.carriage_number = $mol_const(index + 1)
+				carriage.place = $mol_const(index + 1)
 				return carriage
 			})
 		}
@@ -71,6 +71,11 @@ namespace $ {
 		@$mol_mem
 		violation_status() {
 			return $mpk_tss_reports_domain_violation_status.ready
+		}
+
+		@$mol_mem
+		carriage_number() {
+			return '' + $mpk_tss_stub_number(1000, 9000) + '-' + $mpk_tss_stub_number(1000, 9000)
 		}
 
 		@$mol_mem

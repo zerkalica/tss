@@ -26,8 +26,12 @@ namespace $.$$ {
 			return this.carriage().id()
 		}
 
+		place() {
+			return '' + this.carriage().place()
+		}
+
 		carriage_number() {
-			return '' + this.carriage().carriage_number()
+			return this.carriage().carriage_number()
 		}
 
 		violation_status() {
