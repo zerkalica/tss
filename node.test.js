@@ -6713,7 +6713,7 @@ var $;
         }
         Main() {
             return ((obj) => {
-                obj.minimal_width = () => 400;
+                obj.minimal_width = () => 1200;
                 obj.title = () => this.title();
                 obj.tools = () => [].concat(this.Details_close());
                 obj.body = () => [].concat(this.Carriages());
