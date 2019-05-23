@@ -659,6 +659,24 @@
 	padding: 0 0.5rem;
 }
 
+[mpk_tss_card] > [mol_card_status_type="success"] {
+	--mol_theme_line: var(--mpk_theme_success);
+	--mol_theme_line: var(--mpk_theme_success);
+	--mol_theme_control: var(--mol_theme_field);
+	--mol_theme_control: var(--mol_theme_field);
+}
+
+[mpk_tss_card] > [mol_card_status_type="warning"] {
+	--mol_theme_line: var(--mpk_theme_warning);
+	--mol_theme_line: var(--mpk_theme_warning);
+	--mol_theme_control: var(--mol_theme_field);
+	--mol_theme_control: var(--mol_theme_field);
+}
+
+[mpk_tss_card_shaded="true"] > [mol_card] {
+	--mol_theme_line: lightgray;
+}
+
 [mpk_tss_pereferial_card] > [mol_card_status_type="ready"] {
 	--mol_theme_line: hsl(140, 50%, 50%);
 	--mol_theme_control: white;
@@ -963,45 +981,22 @@
 	align-self: stretch;
 }
 
-[mpk_tss_reports_status_type="ready"] {
-	color: hsl(141, 51%, 29%);
+[mpk_tss_reports_status_type="success"] {
+	color: color(var(--mol_theme_success) blackness(+50%));
+	color: color(var(--mol_theme_success) blackness(+50%));
 }
 
 [mpk_tss_reports_status_type="warning"] {
-	color: hsl(46, 78%, 33%);
+	color: color(var(--mol_theme_warning) blackness(+50%));
+	color: color(var(--mol_theme_warning) blackness(+50%));
 }
 
-[mpk_tss_reports_status_card] > [mol_card_status_type="ready"] {
-	--mol_theme_line: hsl(140, 50%, 50%);
-	--mol_theme_control: white;
-}
-
-[mpk_tss_reports_status_card] > [mol_card_status_type="warning"] {
-	--mol_theme_line: hsl(46, 73%, 55%);
-	--mol_theme_control: white;
-}
-
-[mpk_tss_reports_details] {
-	flex: 1000 0 auto;
-}
-
-[mpk_tss_reports_details_carriages] {
-
-	/* background: var(--mol_theme_field); */
-	padding: 0.3em 0.5rem;
-}
-
-[mpk_tss_reports_details_carriages] >
-[mpk_tss_reports_details_carriages_row="warning"] {
-	background-color: yellow;
-}
-
-[mpk_tss_reports_details_carriages] {
-	display: block;
+[mpk_tss_reports_details_main] {
+	flex: 1 0 20rem;
 }
 
 [mpk_tss_reports_main] {
-	flex: 1 0 22rem;
+	flex: 1 0 27rem;
 }
 
 [mpk_tss_reports_page_body] {
@@ -1063,6 +1058,11 @@
 	flex: 1 1 auto;
 	justify-content: center;
 	display: flex;
+}
+
+[mpk_theme="$mpk_theme_base"] , :root {
+	--mpk_theme_warning: hsl(46, 73%, 55%);
+	--mpk_theme_success: hsl(140, 50%, 50%);
 }
 
 [mpk_tss_main] > [mol_page] {

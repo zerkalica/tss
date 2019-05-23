@@ -1162,6 +1162,15 @@ declare namespace $ {
 }
 declare namespace $ {
     class $mpk_tss_card extends $mol_link {
+        attr(): {
+            "mpk_tss_card_shaded": boolean;
+            "href": string;
+            "title": string;
+            "target": string;
+            "download": string;
+            "mol_link_current": boolean;
+        };
+        shaded(): boolean;
         minimal_height(): number;
         sub(): any[];
         Card(): $mol_card;
@@ -1536,6 +1545,10 @@ declare namespace $ {
         status_text(): string;
     }
 }
+declare namespace $ {
+    class $mpk_tss_reports_status_card extends $mpk_tss_card {
+    }
+}
 declare namespace $.$$ {
     class $mpk_tss_reports_status extends $.$mpk_tss_reports_status {
         status_text(): any;
@@ -1547,16 +1560,12 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
-    class $mpk_tss_reports_status_card extends $mpk_tss_card {
-    }
-}
-declare namespace $ {
     class $mpk_tss_reports_domain {
         report(id: string): $mpk_tss_reports_domain_report;
         reports(): $mpk_tss_reports_domain_report[];
     }
     enum $mpk_tss_reports_domain_violation_status {
-        ready = "ready",
+        success = "success",
         warning = "warning"
     }
     enum $mpk_tss_reports_domain_load_type {
@@ -1625,6 +1634,8 @@ declare namespace $ {
         status_click(event?: any, force?: $mol_atom_force): any;
         report_status_click(event?: any, force?: $mol_atom_force): any;
         items(): any[];
+        Id(): $mol_labeler;
+        id_title(): string;
         Name(): $mol_labeler;
         name_title(): string;
         train_number(): string;
@@ -1749,6 +1760,7 @@ declare namespace $ {
         Details_pages(): any;
         Report_link(id: any): $mpk_tss_reports_card;
         report(id: any): any;
+        shaded(id: any): boolean;
         Report_details(id: any): $mpk_tss_reports_details;
     }
 }
@@ -1763,9 +1775,11 @@ declare namespace $ {
 declare namespace $.$$ {
     class $mpk_tss_reports extends $.$mpk_tss_reports {
         domain(): $mpk_tss_reports_domain_mock;
+        main_blended(): boolean;
         report_links(): $.$mpk_tss_reports_card[];
         report(id: string): $mpk_tss_reports_domain_report;
         report_current_id(next?: string): any;
+        shaded(id: string): boolean;
         Details_pages(): any[];
         clear_url(): void;
         destructor(): void;
@@ -1838,6 +1852,10 @@ declare namespace $.$$ {
 }
 declare namespace $ {
     class $mpk_tss extends $mol_view {
+        attr(): {
+            "mol_theme": string;
+        };
+        theme(): string;
         sub(): any[];
         Head(): $mol_view;
         Terminal_link(): $mol_button_minor;

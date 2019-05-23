@@ -4619,6 +4619,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var $;
 (function ($) {
     class $mpk_tss_card extends $.$mol_link {
+        attr() {
+            return (Object.assign({}, super.attr(), { "mpk_tss_card_shaded": this.shaded() }));
+        }
+        shaded() {
+            return false;
+        }
         minimal_height() {
             return 32;
         }
@@ -6245,6 +6251,11 @@ var $;
     }
     $.$mpk_tss_reports_status = $mpk_tss_reports_status;
 })($ || ($ = {}));
+(function ($) {
+    class $mpk_tss_reports_status_card extends $.$mpk_tss_card {
+    }
+    $.$mpk_tss_reports_status_card = $mpk_tss_reports_status_card;
+})($ || ($ = {}));
 //status.view.tree.js.map
 ;
 "use strict";
@@ -6266,15 +6277,6 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //status.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mpk_tss_reports_status_card extends $.$mpk_tss_card {
-    }
-    $.$mpk_tss_reports_status_card = $mpk_tss_reports_status_card;
-})($ || ($ = {}));
-//card.view.tree.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -6303,7 +6305,7 @@ var $;
     $.$mpk_tss_reports_domain = $mpk_tss_reports_domain;
     let $mpk_tss_reports_domain_violation_status;
     (function ($mpk_tss_reports_domain_violation_status) {
-        $mpk_tss_reports_domain_violation_status["ready"] = "ready";
+        $mpk_tss_reports_domain_violation_status["success"] = "success";
         $mpk_tss_reports_domain_violation_status["warning"] = "warning";
     })($mpk_tss_reports_domain_violation_status = $.$mpk_tss_reports_domain_violation_status || ($.$mpk_tss_reports_domain_violation_status = {}));
     let $mpk_tss_reports_domain_load_type;
@@ -6412,7 +6414,17 @@ var $;
             return (event !== void 0) ? event : null;
         }
         items() {
-            return [].concat(this.Name(), this.Measurement_start(), this.Report_status());
+            return [].concat(this.Id(), this.Name(), this.Measurement_start(), this.Report_status());
+        }
+        Id() {
+            return ((obj) => {
+                obj.title = () => this.id_title();
+                obj.content = () => this.report_id();
+                return obj;
+            })(new this.$.$mol_labeler);
+        }
+        id_title() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_card_id_title");
         }
         Name() {
             return ((obj) => {
@@ -6466,6 +6478,9 @@ var $;
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports_card.prototype, "report_status_click", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_card.prototype, "Id", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports_card.prototype, "Name", null);
@@ -6713,7 +6728,7 @@ var $;
         }
         Main() {
             return ((obj) => {
-                obj.minimal_width = () => 1200;
+                obj.minimal_width = () => 300;
                 obj.title = () => this.title();
                 obj.tools = () => [].concat(this.Details_close());
                 obj.body = () => [].concat(this.Carriages());
@@ -6947,7 +6962,7 @@ var $;
                 if (carriage.violation_status() === $.$mpk_tss_reports_domain_violation_status.warning)
                     return $.$mpk_tss_reports_domain_violation_status.warning;
                 return status;
-            }, $.$mpk_tss_reports_domain_violation_status.ready);
+            }, $.$mpk_tss_reports_domain_violation_status.success);
         }
         report_status() {
             return $mpk_tss_reports_domain_mock_stub_report_status();
@@ -6992,7 +7007,7 @@ var $;
     ], $mpk_tss_reports_domain_mock_report.prototype, "carriage", null);
     class $mpk_tss_reports_domain_mock_carriage extends $.$mpk_tss_reports_domain_carriage {
         violation_status() {
-            return $.$mpk_tss_reports_domain_violation_status.ready;
+            return $.$mpk_tss_reports_domain_violation_status.success;
         }
         carriage_number() {
             return '' + $.$mpk_tss_stub_number(1000, 9000) + '-' + $.$mpk_tss_stub_number(1000, 9000);
@@ -7004,7 +7019,7 @@ var $;
             return $.$mpk_tss_stub_number(50, 55);
         }
         violation_type() {
-            if (this.violation_status() == $.$mpk_tss_reports_domain_violation_status.ready)
+            if (this.violation_status() == $.$mpk_tss_reports_domain_violation_status.success)
                 return null;
             return $mpk_tss_reports_domain_mock_stub_violation_type();
         }
@@ -7094,6 +7109,7 @@ var $;
         }
         Reports() {
             return ((obj) => {
+                obj.minimal_width = () => 300;
                 obj.rows = () => this.report_links();
                 return obj;
             })(new this.$.$mol_list);
@@ -7107,11 +7123,15 @@ var $;
         Report_link(id) {
             return ((obj) => {
                 obj.report = () => this.report(id);
+                obj.shaded = () => this.shaded(id);
                 return obj;
             })(new this.$.$mpk_tss_reports_card);
         }
         report(id) {
             return null;
+        }
+        shaded(id) {
+            return false;
         }
         Report_details(id) {
             return ((obj) => {
@@ -7183,6 +7203,9 @@ var $;
             domain() {
                 return new $.$mpk_tss_reports_domain_mock();
             }
+            main_blended() {
+                return !!this.report_current_id();
+            }
             report_links() {
                 return this.domain().reports().map(report => this.Report_link(report.id()));
             }
@@ -7191,6 +7214,11 @@ var $;
             }
             report_current_id(next) {
                 return $.$mol_state_arg.value(this.state_key('report'), next) || '';
+            }
+            shaded(id) {
+                if (!this.report_current_id())
+                    return false;
+                return this.report_current_id() !== id;
             }
             Details_pages() {
                 if (!this.report_current_id())
@@ -7495,6 +7523,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var $;
 (function ($) {
     class $mpk_tss extends $.$mol_view {
+        attr() {
+            return ({
+                "mol_theme": this.theme(),
+            });
+        }
+        theme() {
+            return "$mol_theme_light";
+        }
         sub() {
             return [].concat(this.Head(), this.Body());
         }

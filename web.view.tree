@@ -322,6 +322,9 @@ $mol_card $mol_list
 $mpk_tss_icon_download $mol_icon path \M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3
 
 $mpk_tss_card $mol_link
+	attr *
+		^
+		mpk_tss_card_shaded <= shaded false
 	minimal_height 32
 	sub /
 		<= Card $mol_card
@@ -538,6 +541,9 @@ $mpk_tss_reports_card $mpk_tss_reports_status_card
 	Status_icon $mpk_tss_icon_download
 	status_click?event <=> report_status_click?event null
 	items /
+		<= Id $mol_labeler
+			title <= id_title @ \Id
+			content <= report_id \
 		<= Name $mol_labeler
 			title <= name_title @ \Train
 			content <= train_number \
@@ -577,7 +583,7 @@ $mpk_tss_reports_details $mol_view
 	title_prefix @ \Train
 	pages /
 		<= Main $mol_page
-			minimal_width 1200
+			minimal_width 300
 			title <= title
 			tools /
 				<= Details_close $mol_link
@@ -600,11 +606,13 @@ $mpk_tss_reports $mol_view
 			destructor <= clear_url null
 			body /
 				<= Reports $mol_list
+					minimal_width 300
 					rows <= report_links /
 		<= Details_pages null
 	-
 	Report_link!id $mpk_tss_reports_card
 		report <= report!id null
+		shaded <= shaded!id false
 	-
 	Report_details!id $mpk_tss_reports_details
 		report <= report!id null
@@ -662,6 +670,8 @@ $mpk_tss_enter $mol_list
 				disabled <= submit_blocked false
 
 $mpk_tss $mol_view
+	attr *
+		mol_theme <= theme \$mol_theme_light
 	sub /
 		<= Head $mol_view
 			sub /
