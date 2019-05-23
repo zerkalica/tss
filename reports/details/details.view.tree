@@ -3,7 +3,7 @@ $mpk_tss_reports_details $mol_view
 	title_prefix @ \Train
 	pages /
 		<= Main $mol_page
-			minimal_width 1200
+			minimal_width 300
 			title <= title
 			tools /
 				<= Details_close $mol_link

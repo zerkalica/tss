@@ -14,7 +14,7 @@ namespace $ {
 	}
 
 	export enum $mpk_tss_reports_domain_violation_status {
-		ready = 'ready',
+		success = 'success',
 		warning = 'warning',
 	}
 

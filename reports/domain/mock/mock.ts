@@ -36,7 +36,7 @@ namespace $ {
 				if (carriage.violation_status() === $mpk_tss_reports_domain_violation_status.warning)
 					return $mpk_tss_reports_domain_violation_status.warning
 				return status
-			}, $mpk_tss_reports_domain_violation_status.ready)
+			}, $mpk_tss_reports_domain_violation_status.success)
 		}
 
 		@$mol_mem
@@ -70,7 +70,7 @@ namespace $ {
 	class $mpk_tss_reports_domain_mock_carriage extends $mpk_tss_reports_domain_carriage {
 		@$mol_mem
 		violation_status() {
-			return $mpk_tss_reports_domain_violation_status.ready
+			return $mpk_tss_reports_domain_violation_status.success
 		}
 
 		@$mol_mem
@@ -90,7 +90,7 @@ namespace $ {
 
 		@$mol_mem
 		violation_type() {
-			if (this.violation_status() == $mpk_tss_reports_domain_violation_status.ready) return null
+			if (this.violation_status() == $mpk_tss_reports_domain_violation_status.success) return null
 			return $mpk_tss_reports_domain_mock_stub_violation_type()
 		}
 

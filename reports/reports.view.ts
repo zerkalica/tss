@@ -5,6 +5,10 @@ namespace $.$$ {
 			return new $mpk_tss_reports_domain_mock()
 		}
 
+		main_blended() {
+			return !!this.report_current_id()
+		}
+
 		@$mol_mem
 		report_links() {
 			return this.domain().reports().map(report => this.Report_link(report.id()))
@@ -16,6 +20,12 @@ namespace $.$$ {
 
 		report_current_id( next? : string ) {
 			return $mol_state_arg.value( this.state_key( 'report' ) , next ) || ''
+		}
+
+		shaded(id: string) {
+			if (!this.report_current_id()) return false
+
+			return this.report_current_id() !== id
 		}
 
 		Details_pages() {

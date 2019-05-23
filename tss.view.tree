@@ -1,4 +1,6 @@
 $mpk_tss $mol_view
+	attr *
+		mol_theme <= theme \$mol_theme_light
 	sub /
 		<= Head $mol_view
 			sub /

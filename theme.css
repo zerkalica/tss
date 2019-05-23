@@ -1,0 +1,4 @@
+[mpk_theme="$mpk_theme_base"] , :root {
+	--mpk_theme_warning: hsl(46, 73%, 55%);
+	--mpk_theme_success: hsl(140, 50%, 50%);
+}

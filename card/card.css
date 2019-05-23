@@ -21,3 +21,17 @@
 [mpk_tss_card_status_text] {
 	padding: 0 0.5rem;
 }
+
+[mpk_tss_card] > [mol_card_status_type="success"] {
+	--mol_theme_line: var(--mpk_theme_success);
+	--mol_theme_control: var(--mol_theme_field);
+}
+
+[mpk_tss_card] > [mol_card_status_type="warning"] {
+	--mol_theme_line: var(--mpk_theme_warning);
+	--mol_theme_control: var(--mol_theme_field);
+}
+
+[mpk_tss_card_shaded="true"] > [mol_card] { 
+	--mol_theme_line: lightgray;
+}

@@ -5,3 +5,5 @@ $mpk_tss_reports_status $mol_view
 		ready <= ready @ \Ready
 		warning <= warning @ \Warning
 	sub / <= status_text \
+
+$mpk_tss_reports_status_card $mpk_tss_card

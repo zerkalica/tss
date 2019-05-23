@@ -8,6 +8,9 @@ $mpk_tss_reports_card $mpk_tss_reports_status_card
 	Status_icon $mpk_tss_icon_download
 	status_click?event <=> report_status_click?event null
 	items /
+		<= Id $mol_labeler
+			title <= id_title @ \Id
+			content <= report_id \
 		<= Name $mol_labeler
 			title <= name_title @ \Train
 			content <= train_number \

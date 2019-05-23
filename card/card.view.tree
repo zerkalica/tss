@@ -1,4 +1,7 @@
 $mpk_tss_card $mol_link
+	attr *
+		^
+		mpk_tss_card_shaded <= shaded false
 	minimal_height 32
 	sub /
 		<= Card $mol_card

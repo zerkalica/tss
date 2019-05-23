@@ -9,11 +9,13 @@ $mpk_tss_reports $mol_view
 			destructor <= clear_url null
 			body /
 				<= Reports $mol_list
+					minimal_width 300
 					rows <= report_links /
 		<= Details_pages null
 	-
 	Report_link!id $mpk_tss_reports_card
 		report <= report!id null
+		shaded <= shaded!id false
 	-
 	Report_details!id $mpk_tss_reports_details
 		report <= report!id null
