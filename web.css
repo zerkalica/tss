@@ -636,6 +636,7 @@
 
 [mpk_tss_card] {
 	padding: 0.5rem;
+	display: block;
 }
 
 [mpk_tss_card_group] {
@@ -962,10 +963,6 @@
 	align-self: stretch;
 }
 
-[mpk_tss_pereferial_unit_link] {
-	display: block;
-}
-
 [mpk_tss_reports_status_type="ready"] {
 	color: hsl(141, 51%, 29%);
 }
@@ -974,68 +971,14 @@
 	color: hsl(46, 78%, 33%);
 }
 
-[mpk_tss_reports_card] > [mol_card_status_type="ready"] {
+[mpk_tss_reports_status_card] > [mol_card_status_type="ready"] {
 	--mol_theme_line: hsl(140, 50%, 50%);
 	--mol_theme_control: white;
 }
 
-[mpk_tss_reports_card] > [mol_card_status_type="warning"] {
+[mpk_tss_reports_status_card] > [mol_card_status_type="warning"] {
 	--mol_theme_line: hsl(46, 73%, 55%);
 	--mol_theme_control: white;
-}
-
-[mpk_tss_reports_card] > [mol_card_status_type="error"] {
-	--mol_theme_line: hsl(0, 50%, 50%);
-	--mol_theme_control: white;
-}
-
-[mol_float] {
-	position: sticky;
-	top: 0;
-	left: 0;
-	z-index: 1;
-	opacity: 1;
-	transition: opacity .25s ease-in;
-	display: block;
-}
-
-[mol_float_scrolling] {
-	opacity: 0;
-	transition-duration: 0;
-}
-
-[mpk_tss_table] {
-	border-spacing: 0;
-}
-
-[mpk_tss_table_head_cell] {
-	display: table-cell;
-	background-color: white;
-	padding: 0.3rem 0.5rem;
-	border-right: 1px solid var(--mol_theme_line);
-	border-right: 1px solid var(--mol_theme_line);
-}
-
-[mpk_tss_table_cell] {
-	border-right: 1px solid var(--mol_theme_line);
-	border-right: 1px solid var(--mol_theme_line);
-	padding: 0.3rem 0.5rem;
-	word-wrap: none;
-}
-
-[mpk_tss_table_row] {
-	background-color: var(--mol_theme_field);
-	background-color: var(--mol_theme_field);
-}
-
-[mpk_tss_table_row]:nth-child(2n) {
-	background: var(--mol_theme_back);
-	background: var(--mol_theme_back);
-}
-
-[mpk_tss_table_row]:hover {
-	background: var(--mol_theme_current);
-	background: var(--mol_theme_current);
 }
 
 [mpk_tss_reports_details] {
@@ -1051,6 +994,10 @@
 [mpk_tss_reports_details_carriages] >
 [mpk_tss_reports_details_carriages_row="warning"] {
 	background-color: yellow;
+}
+
+[mpk_tss_reports_details_carriages] {
+	display: block;
 }
 
 [mpk_tss_reports_main] {
@@ -1288,6 +1235,21 @@
 	min-width: 5rem;
 	border-radius: 2px;
 	border-radius: var(--mol_skin_round);
+}
+
+[mol_float] {
+	position: sticky;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	opacity: 1;
+	transition: opacity .25s ease-in;
+	display: block;
+}
+
+[mol_float_scrolling] {
+	opacity: 0;
+	transition-duration: 0;
 }
 
 [mol_check] {

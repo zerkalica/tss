@@ -1556,6 +1556,7 @@ declare namespace $.$$ {
         Unit_current(): $.$mpk_tss_pereferial_details;
         details_event_top(event?: Event): void;
         clean_url(): void;
+        destructor(): void;
     }
 }
 declare namespace $ {
@@ -1590,6 +1591,10 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
+    class $mpk_tss_reports_status_card extends $mpk_tss_card {
+    }
+}
+declare namespace $ {
     class $mpk_tss_reports_domain {
         report(id: string): $mpk_tss_reports_domain_report;
         reports(): $mpk_tss_reports_domain_report[];
@@ -1621,7 +1626,8 @@ declare namespace $ {
     }
     class $mpk_tss_reports_domain_carriage extends $mol_object {
         id(): string;
-        carriage_number(): number;
+        carriage_number(): string;
+        place(): number;
         violation_status(): $mpk_tss_reports_domain_violation_status;
         violation_type(): $mpk_tss_reports_domain_violation_type | null;
         load_type(): $mpk_tss_reports_domain_load_type;
@@ -1650,7 +1656,7 @@ declare namespace $ {
     }
 }
 declare namespace $ {
-    class $mpk_tss_reports_card extends $mpk_tss_card {
+    class $mpk_tss_reports_card extends $mpk_tss_reports_status_card {
         report(): any;
         arg(): {
             "report": string;
@@ -1686,127 +1692,71 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
-    class $mol_float extends $mol_view {
-    }
-}
-declare namespace $ {
-    class $mpk_tss_table extends $mol_view {
-        dom_name(): string;
-        sub(): any[];
-        rows(): any[];
-    }
-}
-declare namespace $ {
-    class $mpk_tss_table_head extends $mol_view {
-        dom_name(): string;
-        sub(): any[];
-        cells(): any[];
-    }
-}
-declare namespace $ {
-    class $mpk_tss_table_head_cell extends $mol_float {
-        dom_name(): string;
-        sub(): any[];
-        content(): any;
-    }
-}
-declare namespace $ {
-    class $mpk_tss_table_row extends $mol_link {
-        dom_name(): string;
-        sub(): any[];
-        cells(): any[];
-    }
-}
-declare namespace $ {
-    class $mpk_tss_table_cell extends $mol_view {
-        dom_name(): string;
-        attr(): {
-            "colspan": number;
-            "rowspan": number;
+    class $mpk_tss_reports_details_card extends $mpk_tss_reports_status_card {
+        carriage(): any;
+        arg(): {
+            "carriage": string;
         };
-        cols(): number;
-        rows(): number;
-        sub(): any[];
-        content(): any;
+        carriage_id(): string;
+        title_prefix(): string;
+        status(): string;
+        violation_status(): string;
+        Status_text(): $mpk_tss_reports_status;
+        violation_status_total(): string;
+        Status_icon(): $mpk_tss_icon_download;
+        status_click(event?: any, force?: $mol_atom_force): any;
+        carriage_status_click(event?: any, force?: $mol_atom_force): any;
+        items(): any[];
+        Place(): $mol_labeler;
+        place_title(): string;
+        place(): string;
+        Carriage_number(): $mol_labeler;
+        carriage_number_title(): string;
+        carriage_number(): string;
+        Load_type(): $mol_labeler;
+        load_type_title(): string;
+        load_type(): string;
+        Measured_speed(): $mol_labeler;
+        measured_speed_title(): string;
+        measured_speed(): string;
+    }
+}
+declare namespace $.$$ {
+    class $mpk_tss_reports_details_card extends $.$mpk_tss_reports_details_card {
+        carriage(): $mpk_tss_reports_domain_carriage;
+        title(): string;
+        carriage_id(): string;
+        place(): string;
+        carriage_number(): string;
+        violation_status(): $mpk_tss_reports_domain_violation_status;
+        load_type(): $mpk_tss_reports_domain_load_type;
+        measured_speed(): string;
+        violation_type(): $mpk_tss_reports_domain_violation_type;
+        violation_status_total(): string;
     }
 }
 declare namespace $ {
-    class $mpk_tss_reports_details extends $mol_page {
+    class $mpk_tss_reports_details extends $mol_view {
         report(): any;
-        minimal_width(): number;
         title_prefix(): string;
-        carriage_in_table(id: any): any;
-        tools(): any[];
+        pages(): any[];
+        Main(): $mol_page;
         Details_close(): $mol_link;
         Details_close_icon(): $mol_icon_cross;
-        body(): any[];
-        Carriages(): $mpk_tss_table;
-        Head_rows(): $mpk_tss_table_head;
-        Content(): $mpk_tss_table_head_cell;
-        carriage_number_title(): string;
-        Violation_status(): $mpk_tss_table_head_cell;
-        violation_status_title(): string;
-        Load_type(): $mpk_tss_table_head_cell;
-        load_type_title(): string;
-        Measured_speed(): $mpk_tss_table_head_cell;
-        measured_speed_title(): string;
-        Violation_type(): $mpk_tss_table_head_cell;
-        violation_type_title(): string;
-        Action(): $mpk_tss_table_head_cell;
-        Action_title(): string;
-        carriage_rows(): any[];
-        Carriage_row(id: any): $mpk_tss_reports_details_carriage_row;
-        carriage_in_row(id: any): any;
-    }
-}
-declare namespace $ {
-    class $mpk_tss_reports_details_carriage_row extends $mpk_tss_table_row {
-        attr(): {
-            "mpk_tss_reports_details_carriages_row": string;
-            "href": string;
-            "title": string;
-            "target": string;
-            "download": string;
-            "mol_link_current": boolean;
-        };
-        violation_status(): string;
-        carriage(): any;
-        event_click(event?: any, force?: $mol_atom_force): any;
-        row_click(event?: any, force?: $mol_atom_force): any;
-        cells(): any[];
-        Content(): $mpk_tss_table_cell;
-        carriage_number(): string;
-        Violation_status(): $mpk_tss_table_cell;
-        Violation_status_text(): $mpk_tss_reports_status;
-        Load_type(): $mpk_tss_table_cell;
-        load_type(): string;
-        Measured_speed(): $mpk_tss_table_cell;
-        measured_speed(): string;
-        Violation_type(): $mpk_tss_table_cell;
-        violation_type(): string;
-        Action(): $mpk_tss_table_cell;
-        Action_button(): $mol_button_minor;
-        download_click(event?: any, force?: $mol_atom_force): any;
-        Action_icon(): $mpk_tss_icon_download;
+        Carriages(): $mol_list;
+        carriage_links(): any[];
+        Carriage_link(id: any): $mpk_tss_reports_details_card;
+        carriage(id: any): any;
     }
 }
 declare namespace $.$$ {
     class $mpk_tss_reports_details extends $.$mpk_tss_reports_details {
         report(): $mpk_tss_reports_domain_report;
         title(): string;
-        carriage_in_row(id: string): $mpk_tss_reports_domain_carriage;
-        carriage_rows(): $.$mpk_tss_reports_details_carriage_row[];
-    }
-    class $mpk_tss_reports_details_carriage_row extends $.$mpk_tss_reports_details_carriage_row {
-        carriage(): $mpk_tss_reports_domain_carriage;
-        carriage_id(): string;
-        carriage_number(): string;
-        violation_status(): $mpk_tss_reports_domain_violation_status;
-        load_type(): $mpk_tss_reports_domain_load_type;
-        measured_speed(): string;
-        violation_type(): $mpk_tss_reports_domain_violation_type;
-        row_click(): void;
-        download_click(event?: Event): void;
+        carriage(id: string): $mpk_tss_reports_domain_carriage;
+        carriage_links(): $.$mpk_tss_reports_details_card[];
+        carriage_current_id(next?: string): string;
+        Carriage_details(): void;
     }
 }
 declare namespace $ {
@@ -1837,16 +1787,13 @@ declare namespace $ {
         event_top(e?: any, force?: $mol_atom_force): any;
         tools(): any[];
         filter_value(val?: any, force?: $mol_atom_force): any;
-        destructor(): any;
+        clear_url(): any;
         Reports(): $mol_list;
         report_links(): any[];
-        Report_current(): any;
-        Carriage_current(): any;
+        Details_pages(): any;
         Report_link(id: any): $mpk_tss_reports_card;
         report(id: any): any;
         Report_details(id: any): $mpk_tss_reports_details;
-        Carriage_details(id: any): $mpk_tss_reports_carriage;
-        carriage(id: any): any;
     }
 }
 declare namespace $ {
@@ -1857,23 +1804,14 @@ declare namespace $ {
         filter_value(val?: any, force?: $mol_atom_force): any;
     }
 }
-declare namespace $ {
-    class $mpk_tss_reports_carriage extends $mol_page {
-        carriage(): any;
-        minimal_width(): number;
-        body(): any[];
-        Content(): $mol_filler;
-    }
-}
 declare namespace $.$$ {
     class $mpk_tss_reports extends $.$mpk_tss_reports {
         domain(): $mpk_tss_reports_domain_mock;
         report_links(): $.$mpk_tss_reports_card[];
         report(id: string): $mpk_tss_reports_domain_report;
         report_current_id(next?: string): string;
-        carriage_current_id(next?: string): string;
-        Report_current(): $.$mpk_tss_reports_details;
-        Carriage_current(): $mpk_tss_reports_carriage;
+        Details_pages(): any[];
+        clear_url(): void;
         destructor(): void;
     }
 }
@@ -2052,6 +1990,10 @@ declare namespace $ {
 declare namespace $.$$ {
     class $mpk_tss_summary_status extends $.$mpk_tss_summary_status {
         title(): string;
+    }
+}
+declare namespace $ {
+    class $mol_float extends $mol_view {
     }
 }
 declare namespace $ {

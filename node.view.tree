@@ -526,7 +526,9 @@ $mpk_tss_reports_status $mol_view
 		warning <= warning @ \Warning
 	sub / <= status_text \
 
-$mpk_tss_reports_card $mpk_tss_card
+$mpk_tss_reports_status_card $mpk_tss_card
+
+$mpk_tss_reports_card $mpk_tss_reports_status_card
 	report null
 	arg * report <= report_id \
 	status <= violation_status
@@ -546,75 +548,46 @@ $mpk_tss_reports_card $mpk_tss_card
 			title <= report_status_title @ \Report
 			content <= report_status \
 
-$mol_float $mol_view
-
-$mpk_tss_table $mol_view
-	dom_name \table
-	sub <= rows /
-
-$mpk_tss_table_head $mol_view
-	dom_name \tr
-	sub <= cells /
-
-$mpk_tss_table_head_cell $mol_float
-	dom_name \th
-	sub / <= content null
-
-$mpk_tss_table_row $mol_link
-	dom_name \tr
-	sub <= cells /
-
-$mpk_tss_table_cell $mol_view
-	dom_name \td
-	attr *
-		^
-		colspan <= cols 1
-		rowspan <= rows 1
-	sub / <= content null
-
-$mpk_tss_reports_details $mol_page
-	report null
-	minimal_width 400
-	title_prefix @ \Train
-	carriage_in_table!id null
-	tools /
-		<= Details_close $mol_link
-			arg * report null
-			sub / <= Details_close_icon $mol_icon_cross
-	body /
-		<= Carriages $mpk_tss_table
-			rows /
-				<= Head_rows $mpk_tss_table_head
-					cells /
-						<= Content $mpk_tss_table_head_cell content <= carriage_number_title \№
-						<= Violation_status $mpk_tss_table_head_cell content <= violation_status_title @ \Status
-						<= Load_type $mpk_tss_table_head_cell content <= load_type_title @ \Load
-						<= Measured_speed $mpk_tss_table_head_cell content <= measured_speed_title @ \Speed, km/h
-						<= Violation_type $mpk_tss_table_head_cell content <= violation_type_title @ \Violation
-						<= Action $mpk_tss_table_head_cell content <= Action_title @ \Action
-				<= carriage_rows /
-	Carriage_row!id $mpk_tss_reports_details_carriage_row
-		carriage <= carriage_in_row!id null
-
-$mpk_tss_reports_details_carriage_row $mpk_tss_table_row
-	attr *
-		^
-		mpk_tss_reports_details_carriages_row <= violation_status \
+$mpk_tss_reports_details_card $mpk_tss_reports_status_card
 	carriage null
-	event_click?event <=> row_click?event null
-	cells /
-		<= Content $mpk_tss_table_cell content <= carriage_number \
-		<= Violation_status $mpk_tss_table_cell
-			content <= Violation_status_text $mpk_tss_reports_status
-				colors false
-				status <= violation_status \
-		<= Load_type $mpk_tss_table_cell content <= load_type \
-		<= Measured_speed $mpk_tss_table_cell content <= measured_speed \
-		<= Violation_type $mpk_tss_table_cell content <= violation_type \
-		<= Action $mpk_tss_table_cell
-			content <= Action_button $mol_button_minor
-				event_click?event <=> download_click?event null
-				sub / <= Action_icon $mpk_tss_icon_download
+	arg * carriage <= carriage_id \
+	title_prefix @ \Carriage
+	status <= violation_status \
+	Status_text $mpk_tss_reports_status
+		colors false
+		status <= violation_status_total \
+	Status_icon $mpk_tss_icon_download
+	status_click?event <=> carriage_status_click?event null
+	items /
+		<= Place $mol_labeler
+			title <= place_title @ \Place
+			content <= place \
+		<= Carriage_number $mol_labeler
+			title <= carriage_number_title @ \Carriage
+			content <= carriage_number \
+		<= Load_type $mol_labeler
+			title <= load_type_title @ \Load
+			content <= load_type \
+		<= Measured_speed $mol_labeler
+			title <= measured_speed_title @ \Speed
+			content <= measured_speed \
+
+$mpk_tss_reports_details $mol_view
+	report null
+	title_prefix @ \Train
+	pages /
+		<= Main $mol_page
+			minimal_width 400
+			title <= title
+			tools /
+				<= Details_close $mol_link
+					arg * report null
+					sub / <= Details_close_icon $mol_icon_cross
+			body /
+				<= Carriages $mol_list
+					rows <= carriage_links /
+	Carriage_link!id $mpk_tss_reports_details_card
+		carriage <= carriage!id null
 
 $mpk_tss_reports $mol_view
 	title @ \Reports
@@ -624,22 +597,17 @@ $mpk_tss_reports $mol_view
 			tools <= tools /
 			title <= title
 			filter_value?val <=> filter_value?val \
-			destructor <= destructor null
+			destructor <= clear_url null
 			body /
 				<= Reports $mol_list
 					rows <= report_links /
-		<= Report_current null
-		<= Carriage_current null
+		<= Details_pages null
 	-
 	Report_link!id $mpk_tss_reports_card
 		report <= report!id null
 	-
 	Report_details!id $mpk_tss_reports_details
 		report <= report!id null
-	-
-	Carriage_details!id $mpk_tss_reports_carriage
-		carriage <= carriage!id null
-		title \Details
 
 $mpk_tss_reports_page $mol_page
 	minimal_width 200
@@ -648,13 +616,6 @@ $mpk_tss_reports_page $mol_page
 		<= Filter_value $mol_search
 			query?val <=> filter_value?val \
 		<= Body
-
-$mpk_tss_reports_carriage $mol_page
-	carriage null
-	minimal_width 700
-	body /
-		<= Content $mol_filler
-
 
 $mpk_tss_icon_signout $mol_icon path \M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z
 
@@ -798,6 +759,8 @@ $mpk_tss_summary_status $mol_view
 	attr *
 		^
 		mpk_tss_summary_status_type <= type \success
+
+$mol_float $mol_view
 
 $mol_check $mol_button_minor
 	attr *

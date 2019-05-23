@@ -6179,6 +6179,9 @@ var $;
             clean_url() {
                 this.unit_current_id(null);
             }
+            destructor() {
+                this.clean_url();
+            }
         }
         __decorate([
             $.$mol_mem
@@ -6260,7 +6263,7 @@ var $;
     (function ($$) {
         class $mpk_tss_reports_status extends $.$mpk_tss_reports_status {
             status_text() {
-                return this.statuses()[this.status()];
+                return this.statuses()[this.status()] || this.status();
             }
             attr() {
                 if (!this.colors())
@@ -6272,6 +6275,15 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //status.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mpk_tss_reports_status_card extends $.$mpk_tss_card {
+    }
+    $.$mpk_tss_reports_status_card = $mpk_tss_reports_status_card;
+})($ || ($ = {}));
+//card.view.tree.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -6328,8 +6340,9 @@ var $;
     }
     $.$mpk_tss_reports_domain_axle = $mpk_tss_reports_domain_axle;
     class $mpk_tss_reports_domain_carriage extends $.$mol_object {
-        id() { return String(this.carriage_number()); }
+        id() { return this.carriage_number(); }
         carriage_number() { throw new t; }
+        place() { throw new t; }
         violation_status() { throw new t; }
         violation_type() { throw new t; }
         load_type() { throw new t; }
@@ -6371,7 +6384,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var $;
 (function ($) {
-    class $mpk_tss_reports_card extends $.$mpk_tss_card {
+    class $mpk_tss_reports_card extends $.$mpk_tss_reports_status_card {
         report() {
             return null;
         }
@@ -6512,96 +6525,181 @@ var $;
 //card.view.js.map
 ;
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 var $;
 (function ($) {
-    class $mol_float extends $.$mol_view {
+    class $mpk_tss_reports_details_card extends $.$mpk_tss_reports_status_card {
+        carriage() {
+            return null;
+        }
+        arg() {
+            return ({
+                "carriage": this.carriage_id(),
+            });
+        }
+        carriage_id() {
+            return "";
+        }
+        title_prefix() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_details_card_title_prefix");
+        }
+        status() {
+            return this.violation_status();
+        }
+        violation_status() {
+            return "";
+        }
+        Status_text() {
+            return ((obj) => {
+                obj.colors = () => false;
+                obj.status = () => this.violation_status_total();
+                return obj;
+            })(new this.$.$mpk_tss_reports_status);
+        }
+        violation_status_total() {
+            return "";
+        }
+        Status_icon() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mpk_tss_icon_download);
+        }
+        status_click(event, force) {
+            return this.carriage_status_click(event);
+        }
+        carriage_status_click(event, force) {
+            return (event !== void 0) ? event : null;
+        }
+        items() {
+            return [].concat(this.Place(), this.Carriage_number(), this.Load_type(), this.Measured_speed());
+        }
+        Place() {
+            return ((obj) => {
+                obj.title = () => this.place_title();
+                obj.content = () => this.place();
+                return obj;
+            })(new this.$.$mol_labeler);
+        }
+        place_title() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_details_card_place_title");
+        }
+        place() {
+            return "";
+        }
+        Carriage_number() {
+            return ((obj) => {
+                obj.title = () => this.carriage_number_title();
+                obj.content = () => this.carriage_number();
+                return obj;
+            })(new this.$.$mol_labeler);
+        }
+        carriage_number_title() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_details_card_carriage_number_title");
+        }
+        carriage_number() {
+            return "";
+        }
+        Load_type() {
+            return ((obj) => {
+                obj.title = () => this.load_type_title();
+                obj.content = () => this.load_type();
+                return obj;
+            })(new this.$.$mol_labeler);
+        }
+        load_type_title() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_details_card_load_type_title");
+        }
+        load_type() {
+            return "";
+        }
+        Measured_speed() {
+            return ((obj) => {
+                obj.title = () => this.measured_speed_title();
+                obj.content = () => this.measured_speed();
+                return obj;
+            })(new this.$.$mol_labeler);
+        }
+        measured_speed_title() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_details_card_measured_speed_title");
+        }
+        measured_speed() {
+            return "";
+        }
     }
-    $.$mol_float = $mol_float;
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_details_card.prototype, "Status_text", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_details_card.prototype, "Status_icon", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_details_card.prototype, "status_click", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_details_card.prototype, "carriage_status_click", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_details_card.prototype, "Place", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_details_card.prototype, "Carriage_number", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_details_card.prototype, "Load_type", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_details_card.prototype, "Measured_speed", null);
+    $.$mpk_tss_reports_details_card = $mpk_tss_reports_details_card;
 })($ || ($ = {}));
-//float.view.tree.js.map
+//card.view.tree.js.map
 ;
 "use strict";
 var $;
 (function ($) {
-    class $mpk_tss_table extends $.$mol_view {
-        dom_name() {
-            return "table";
+    var $$;
+    (function ($$) {
+        class $mpk_tss_reports_details_card extends $.$mpk_tss_reports_details_card {
+            carriage() { throw new $.$mpk_tss_todo; }
+            title() {
+                return this.title_prefix() + ' № ' + this.carriage_number();
+            }
+            carriage_id() {
+                return this.carriage().id();
+            }
+            place() {
+                return '' + this.carriage().place();
+            }
+            carriage_number() {
+                return this.carriage().carriage_number();
+            }
+            violation_status() {
+                return this.carriage().violation_status();
+            }
+            load_type() {
+                return this.carriage().load_type();
+            }
+            measured_speed() {
+                return '' + this.carriage().measured_speed() + ' km/h';
+            }
+            violation_type() {
+                return this.carriage().violation_type();
+            }
+            violation_status_total() {
+                if (!this.violation_type())
+                    return this.violation_status();
+                return `${this.violation_status()} (${this.violation_type()})`;
+            }
         }
-        sub() {
-            return this.rows();
-        }
-        rows() {
-            return [];
-        }
-    }
-    $.$mpk_tss_table = $mpk_tss_table;
+        $$.$mpk_tss_reports_details_card = $mpk_tss_reports_details_card;
+    })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-(function ($) {
-    class $mpk_tss_table_head extends $.$mol_view {
-        dom_name() {
-            return "tr";
-        }
-        sub() {
-            return this.cells();
-        }
-        cells() {
-            return [];
-        }
-    }
-    $.$mpk_tss_table_head = $mpk_tss_table_head;
-})($ || ($ = {}));
-(function ($) {
-    class $mpk_tss_table_head_cell extends $.$mol_float {
-        dom_name() {
-            return "th";
-        }
-        sub() {
-            return [].concat(this.content());
-        }
-        content() {
-            return null;
-        }
-    }
-    $.$mpk_tss_table_head_cell = $mpk_tss_table_head_cell;
-})($ || ($ = {}));
-(function ($) {
-    class $mpk_tss_table_row extends $.$mol_link {
-        dom_name() {
-            return "tr";
-        }
-        sub() {
-            return this.cells();
-        }
-        cells() {
-            return [];
-        }
-    }
-    $.$mpk_tss_table_row = $mpk_tss_table_row;
-})($ || ($ = {}));
-(function ($) {
-    class $mpk_tss_table_cell extends $.$mol_view {
-        dom_name() {
-            return "td";
-        }
-        attr() {
-            return (Object.assign({}, super.attr(), { "colspan": this.cols(), "rowspan": this.rows() }));
-        }
-        cols() {
-            return 1;
-        }
-        rows() {
-            return 1;
-        }
-        sub() {
-            return [].concat(this.content());
-        }
-        content() {
-            return null;
-        }
-    }
-    $.$mpk_tss_table_cell = $mpk_tss_table_cell;
-})($ || ($ = {}));
-//table.view.tree.js.map
+//card.view.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -6612,21 +6710,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var $;
 (function ($) {
-    class $mpk_tss_reports_details extends $.$mol_page {
+    class $mpk_tss_reports_details extends $.$mol_view {
         report() {
             return null;
-        }
-        minimal_width() {
-            return 400;
         }
         title_prefix() {
             return this.$.$mol_locale.text("$mpk_tss_reports_details_title_prefix");
         }
-        carriage_in_table(id) {
-            return null;
+        pages() {
+            return [].concat(this.Main());
         }
-        tools() {
-            return [].concat(this.Details_close());
+        Main() {
+            return ((obj) => {
+                obj.minimal_width = () => 400;
+                obj.title = () => this.title();
+                obj.tools = () => [].concat(this.Details_close());
+                obj.body = () => [].concat(this.Carriages());
+                return obj;
+            })(new this.$.$mol_page);
         }
         Details_close() {
             return ((obj) => {
@@ -6642,88 +6743,28 @@ var $;
                 return obj;
             })(new this.$.$mol_icon_cross);
         }
-        body() {
-            return [].concat(this.Carriages());
-        }
         Carriages() {
             return ((obj) => {
-                obj.rows = () => [].concat(this.Head_rows(), this.carriage_rows());
+                obj.rows = () => this.carriage_links();
                 return obj;
-            })(new this.$.$mpk_tss_table);
+            })(new this.$.$mol_list);
         }
-        Head_rows() {
-            return ((obj) => {
-                obj.cells = () => [].concat(this.Content(), this.Violation_status(), this.Load_type(), this.Measured_speed(), this.Violation_type(), this.Action());
-                return obj;
-            })(new this.$.$mpk_tss_table_head);
-        }
-        Content() {
-            return ((obj) => {
-                obj.content = () => this.carriage_number_title();
-                return obj;
-            })(new this.$.$mpk_tss_table_head_cell);
-        }
-        carriage_number_title() {
-            return "№";
-        }
-        Violation_status() {
-            return ((obj) => {
-                obj.content = () => this.violation_status_title();
-                return obj;
-            })(new this.$.$mpk_tss_table_head_cell);
-        }
-        violation_status_title() {
-            return this.$.$mol_locale.text("$mpk_tss_reports_details_violation_status_title");
-        }
-        Load_type() {
-            return ((obj) => {
-                obj.content = () => this.load_type_title();
-                return obj;
-            })(new this.$.$mpk_tss_table_head_cell);
-        }
-        load_type_title() {
-            return this.$.$mol_locale.text("$mpk_tss_reports_details_load_type_title");
-        }
-        Measured_speed() {
-            return ((obj) => {
-                obj.content = () => this.measured_speed_title();
-                return obj;
-            })(new this.$.$mpk_tss_table_head_cell);
-        }
-        measured_speed_title() {
-            return this.$.$mol_locale.text("$mpk_tss_reports_details_measured_speed_title");
-        }
-        Violation_type() {
-            return ((obj) => {
-                obj.content = () => this.violation_type_title();
-                return obj;
-            })(new this.$.$mpk_tss_table_head_cell);
-        }
-        violation_type_title() {
-            return this.$.$mol_locale.text("$mpk_tss_reports_details_violation_type_title");
-        }
-        Action() {
-            return ((obj) => {
-                obj.content = () => this.Action_title();
-                return obj;
-            })(new this.$.$mpk_tss_table_head_cell);
-        }
-        Action_title() {
-            return this.$.$mol_locale.text("$mpk_tss_reports_details_Action_title");
-        }
-        carriage_rows() {
+        carriage_links() {
             return [];
         }
-        Carriage_row(id) {
+        Carriage_link(id) {
             return ((obj) => {
-                obj.carriage = () => this.carriage_in_row(id);
+                obj.carriage = () => this.carriage(id);
                 return obj;
-            })(new this.$.$mpk_tss_reports_details_carriage_row);
+            })(new this.$.$mpk_tss_reports_details_card);
         }
-        carriage_in_row(id) {
+        carriage(id) {
             return null;
         }
     }
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_details.prototype, "Main", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports_details.prototype, "Details_close", null);
@@ -6734,159 +6775,9 @@ var $;
         $.$mol_mem
     ], $mpk_tss_reports_details.prototype, "Carriages", null);
     __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_details.prototype, "Head_rows", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_details.prototype, "Content", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_details.prototype, "Violation_status", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_details.prototype, "Load_type", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_details.prototype, "Measured_speed", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_details.prototype, "Violation_type", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_details.prototype, "Action", null);
-    __decorate([
         $.$mol_mem_key
-    ], $mpk_tss_reports_details.prototype, "Carriage_row", null);
+    ], $mpk_tss_reports_details.prototype, "Carriage_link", null);
     $.$mpk_tss_reports_details = $mpk_tss_reports_details;
-})($ || ($ = {}));
-(function ($) {
-    class $mpk_tss_reports_details_carriage_row extends $.$mpk_tss_table_row {
-        attr() {
-            return (Object.assign({}, super.attr(), { "mpk_tss_reports_details_carriages_row": this.violation_status() }));
-        }
-        violation_status() {
-            return "";
-        }
-        carriage() {
-            return null;
-        }
-        event_click(event, force) {
-            return this.row_click(event);
-        }
-        row_click(event, force) {
-            return (event !== void 0) ? event : null;
-        }
-        cells() {
-            return [].concat(this.Content(), this.Violation_status(), this.Load_type(), this.Measured_speed(), this.Violation_type(), this.Action());
-        }
-        Content() {
-            return ((obj) => {
-                obj.content = () => this.carriage_number();
-                return obj;
-            })(new this.$.$mpk_tss_table_cell);
-        }
-        carriage_number() {
-            return "";
-        }
-        Violation_status() {
-            return ((obj) => {
-                obj.content = () => this.Violation_status_text();
-                return obj;
-            })(new this.$.$mpk_tss_table_cell);
-        }
-        Violation_status_text() {
-            return ((obj) => {
-                obj.colors = () => false;
-                obj.status = () => this.violation_status();
-                return obj;
-            })(new this.$.$mpk_tss_reports_status);
-        }
-        Load_type() {
-            return ((obj) => {
-                obj.content = () => this.load_type();
-                return obj;
-            })(new this.$.$mpk_tss_table_cell);
-        }
-        load_type() {
-            return "";
-        }
-        Measured_speed() {
-            return ((obj) => {
-                obj.content = () => this.measured_speed();
-                return obj;
-            })(new this.$.$mpk_tss_table_cell);
-        }
-        measured_speed() {
-            return "";
-        }
-        Violation_type() {
-            return ((obj) => {
-                obj.content = () => this.violation_type();
-                return obj;
-            })(new this.$.$mpk_tss_table_cell);
-        }
-        violation_type() {
-            return "";
-        }
-        Action() {
-            return ((obj) => {
-                obj.content = () => this.Action_button();
-                return obj;
-            })(new this.$.$mpk_tss_table_cell);
-        }
-        Action_button() {
-            return ((obj) => {
-                obj.event_click = (event) => this.download_click(event);
-                obj.sub = () => [].concat(this.Action_icon());
-                return obj;
-            })(new this.$.$mol_button_minor);
-        }
-        download_click(event, force) {
-            return (event !== void 0) ? event : null;
-        }
-        Action_icon() {
-            return ((obj) => {
-                return obj;
-            })(new this.$.$mpk_tss_icon_download);
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_details_carriage_row.prototype, "event_click", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_details_carriage_row.prototype, "row_click", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_details_carriage_row.prototype, "Content", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_details_carriage_row.prototype, "Violation_status", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_details_carriage_row.prototype, "Violation_status_text", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_details_carriage_row.prototype, "Load_type", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_details_carriage_row.prototype, "Measured_speed", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_details_carriage_row.prototype, "Violation_type", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_details_carriage_row.prototype, "Action", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_details_carriage_row.prototype, "Action_button", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_details_carriage_row.prototype, "download_click", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_details_carriage_row.prototype, "Action_icon", null);
-    $.$mpk_tss_reports_details_carriage_row = $mpk_tss_reports_details_carriage_row;
 })($ || ($ = {}));
 //details.view.tree.js.map
 ;
@@ -6902,46 +6793,19 @@ var $;
             title() {
                 return this.title_prefix() + ' № ' + this.report().train_number();
             }
-            carriage_in_row(id) {
+            carriage(id) {
                 return this.report().carriage(id);
             }
-            carriage_rows() {
-                return this.report().carriages().map(carriage => this.Carriage_row(carriage.id()));
+            carriage_links() {
+                return this.report().carriages().map(carriage => this.Carriage_link(carriage.id()));
+            }
+            carriage_current_id(next) {
+                return $.$mol_state_arg.value(this.state_key('carriage'), next) || '';
+            }
+            Carriage_details() {
             }
         }
         $$.$mpk_tss_reports_details = $mpk_tss_reports_details;
-        class $mpk_tss_reports_details_carriage_row extends $.$mpk_tss_reports_details_carriage_row {
-            carriage() {
-                throw new $.$mpk_tss_todo;
-            }
-            carriage_id() {
-                return this.carriage().id();
-            }
-            carriage_number() {
-                return '' + this.carriage().carriage_number();
-            }
-            violation_status() {
-                return this.carriage().violation_status();
-            }
-            load_type() {
-                return this.carriage().load_type();
-            }
-            measured_speed() {
-                return '' + this.carriage().measured_speed();
-            }
-            violation_type() {
-                return this.carriage().violation_type();
-            }
-            row_click() {
-                $.$mol_state_arg.value(this.state_key('carriage'), this.carriage().id());
-            }
-            download_click(event) {
-                if (event)
-                    event.preventDefault();
-                alert('Download...	');
-            }
-        }
-        $$.$mpk_tss_reports_details_carriage_row = $mpk_tss_reports_details_carriage_row;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //details.view.js.map
@@ -7082,7 +6946,7 @@ var $;
     $.$mpk_tss_reports_domain_mock = $mpk_tss_reports_domain_mock;
     class $mpk_tss_reports_domain_mock_report extends $.$mpk_tss_reports_domain_report {
         train_number() {
-            return String($.$mpk_tss_stub_number(1000, 9000)) + '-' + String($.$mpk_tss_stub_number(1000, 9000));
+            return '' + $.$mpk_tss_stub_number(1000, 9000) + '-' + $.$mpk_tss_stub_number(1000, 9000);
         }
         send_count() {
             return $.$mpk_tss_stub_number(0, 10);
@@ -7101,12 +6965,12 @@ var $;
             return $.$mol_stub_time(-10);
         }
         carriages() {
-            return $.$mpk_tss_stub_ids(45).map((id, index) => {
+            return $.$mpk_tss_stub_ids($.$mpk_tss_stub_number(30, 45)).map((id, index) => {
                 const carriage = this.carriage(id);
                 if (Math.random() > 0.96) {
                     carriage.violation_status = $.$mol_const($.$mpk_tss_reports_domain_violation_status.warning);
                 }
-                carriage.carriage_number = $.$mol_const(index + 1);
+                carriage.place = $.$mol_const(index + 1);
                 return carriage;
             });
         }
@@ -7139,11 +7003,14 @@ var $;
         violation_status() {
             return $.$mpk_tss_reports_domain_violation_status.ready;
         }
+        carriage_number() {
+            return '' + $.$mpk_tss_stub_number(1000, 9000) + '-' + $.$mpk_tss_stub_number(1000, 9000);
+        }
         load_type() {
             return $mpk_tss_reports_domain_mock_stub_carriage_load();
         }
         measured_speed() {
-            return $.$mpk_tss_stub_number();
+            return $.$mpk_tss_stub_number(50, 55);
         }
         violation_type() {
             if (this.violation_status() == $.$mpk_tss_reports_domain_violation_status.ready)
@@ -7162,6 +7029,9 @@ var $;
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports_domain_mock_carriage.prototype, "violation_status", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_domain_mock_carriage.prototype, "carriage_number", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports_domain_mock_carriage.prototype, "load_type", null);
@@ -7206,7 +7076,7 @@ var $;
             return this.$.$mol_locale.text("$mpk_tss_reports_title");
         }
         pages() {
-            return [].concat(this.Main(), this.Report_current(), this.Carriage_current());
+            return [].concat(this.Main(), this.Details_pages());
         }
         Main() {
             return ((obj) => {
@@ -7214,7 +7084,7 @@ var $;
                 obj.tools = () => this.tools();
                 obj.title = () => this.title();
                 obj.filter_value = (val) => this.filter_value(val);
-                obj.destructor = () => this.destructor();
+                obj.destructor = () => this.clear_url();
                 obj.body = () => [].concat(this.Reports());
                 return obj;
             })(new this.$.$mpk_tss_reports_page);
@@ -7228,7 +7098,7 @@ var $;
         filter_value(val, force) {
             return (val !== void 0) ? val : "";
         }
-        destructor() {
+        clear_url() {
             return null;
         }
         Reports() {
@@ -7240,10 +7110,7 @@ var $;
         report_links() {
             return [];
         }
-        Report_current() {
-            return null;
-        }
-        Carriage_current() {
+        Details_pages() {
             return null;
         }
         Report_link(id) {
@@ -7260,16 +7127,6 @@ var $;
                 obj.report = () => this.report(id);
                 return obj;
             })(new this.$.$mpk_tss_reports_details);
-        }
-        Carriage_details(id) {
-            return ((obj) => {
-                obj.carriage = () => this.carriage(id);
-                obj.title = () => "Details";
-                return obj;
-            })(new this.$.$mpk_tss_reports_carriage);
-        }
-        carriage(id) {
-            return null;
         }
     }
     __decorate([
@@ -7290,9 +7147,6 @@ var $;
     __decorate([
         $.$mol_mem_key
     ], $mpk_tss_reports.prototype, "Report_details", null);
-    __decorate([
-        $.$mol_mem_key
-    ], $mpk_tss_reports.prototype, "Carriage_details", null);
     $.$mpk_tss_reports = $mpk_tss_reports;
 })($ || ($ = {}));
 (function ($) {
@@ -7321,28 +7175,6 @@ var $;
     ], $mpk_tss_reports_page.prototype, "filter_value", null);
     $.$mpk_tss_reports_page = $mpk_tss_reports_page;
 })($ || ($ = {}));
-(function ($) {
-    class $mpk_tss_reports_carriage extends $.$mol_page {
-        carriage() {
-            return null;
-        }
-        minimal_width() {
-            return 700;
-        }
-        body() {
-            return [].concat(this.Content());
-        }
-        Content() {
-            return ((obj) => {
-                return obj;
-            })(new this.$.$mol_filler);
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_carriage.prototype, "Content", null);
-    $.$mpk_tss_reports_carriage = $mpk_tss_reports_carriage;
-})($ || ($ = {}));
 //reports.view.tree.js.map
 ;
 "use strict";
@@ -7369,18 +7201,16 @@ var $;
             report_current_id(next) {
                 return $.$mol_state_arg.value(this.state_key('report'), next) || '';
             }
-            carriage_current_id(next) {
-                return $.$mol_state_arg.value(this.state_key('carriage'), next) || '';
+            Details_pages() {
+                if (!this.report_current_id())
+                    return null;
+                return this.Report_details(this.report_current_id()).pages();
             }
-            Report_current() {
-                return this.report_current_id() && this.Report_details(this.report_current_id());
-            }
-            Carriage_current() {
-                return this.carriage_current_id() && this.Carriage_details(this.report_current_id());
+            clear_url() {
+                this.report_current_id(null);
             }
             destructor() {
-                this.report_current_id(null);
-                this.carriage_current_id(null);
+                this.clear_url();
             }
         }
         __decorate([
@@ -8125,6 +7955,15 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //status.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_float extends $.$mol_view {
+    }
+    $.$mol_float = $mol_float;
+})($ || ($ = {}));
+//float.view.tree.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
