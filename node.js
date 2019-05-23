@@ -3187,18 +3187,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var $;
 (function ($) {
-    class $mpk_tss_wrap extends $.$mol_page {
-        minimal_width() {
-            return 200;
-        }
-        subpages() {
-            return [];
-        }
-        self_title() {
-            return "";
-        }
-        breadcrumbs() {
-            return [];
+    class $mpk_tss_software extends $.$mol_page {
+        title() {
+            return this.$.$mol_locale.text("$mpk_tss_software_title");
         }
         body() {
             return [].concat(this.Content());
@@ -3211,63 +3202,1657 @@ var $;
     }
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_wrap.prototype, "Content", null);
-    $.$mpk_tss_wrap = $mpk_tss_wrap;
+    ], $mpk_tss_software.prototype, "Content", null);
+    $.$mpk_tss_software = $mpk_tss_software;
 })($ || ($ = {}));
+//software.view.tree.js.map
+;
+"use strict";
+var $;
 (function ($) {
-    class $mpk_tss_wrap_header extends $.$mol_view {
-        dom_name() {
-            return "h";
+    class $mol_list extends $.$mol_view {
+        sub() {
+            return this.rows();
         }
-        minimal_height() {
-            return 50;
+        rows() {
+            return [];
+        }
+        Empty() {
+            return null;
+        }
+    }
+    $.$mol_list = $mol_list;
+})($ || ($ = {}));
+//list.view.tree.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_list extends $.$mol_list {
+            sub() {
+                const rows = this.rows();
+                return (rows.length === 0) ? [this.Empty()] : rows;
+            }
+            row_offsets() {
+                var sub = this.sub();
+                if (!sub)
+                    return null;
+                let heightLimit = this.$.$mol_view_visible_height();
+                var offset = 0;
+                var next = [];
+                for (let child of sub) {
+                    next.push(offset);
+                    if (child instanceof $.$mol_view) {
+                        offset += child.minimal_height();
+                    }
+                    if (offset > heightLimit)
+                        break;
+                }
+                return next;
+            }
+            row_context(index) {
+                return this.$.$mol_ambient({
+                    $mol_view_visible_height: () => this.$.$mol_view_visible_height() - this.row_offsets()[index],
+                });
+            }
+            sub_visible() {
+                var sub = this.sub();
+                if (!sub)
+                    return sub;
+                var limit = this.row_offsets().length;
+                var next = [];
+                for (let i = 0; i < limit; ++i) {
+                    const child = sub[i];
+                    if (child == null)
+                        continue;
+                    if (child instanceof $.$mol_view) {
+                        child.$ = this.row_context(i);
+                    }
+                    next.push(child);
+                }
+                return next;
+            }
+            minimal_height() {
+                var height = 0;
+                var sub = this.sub();
+                if (sub)
+                    sub.forEach(child => {
+                        if (child instanceof $.$mol_view) {
+                            height += child.minimal_height();
+                        }
+                    });
+                return height;
+            }
+        }
+        __decorate([
+            $.$mol_mem
+        ], $mol_list.prototype, "row_offsets", null);
+        __decorate([
+            $.$mol_mem_key
+        ], $mol_list.prototype, "row_context", null);
+        __decorate([
+            $.$mol_mem
+        ], $mol_list.prototype, "sub_visible", null);
+        __decorate([
+            $.$mol_mem
+        ], $mol_list.prototype, "minimal_height", null);
+        $$.$mol_list = $mol_list;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//list.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_svg extends $.$mol_view {
+        dom_name() {
+            return "svg";
+        }
+        dom_name_space() {
+            return "http://www.w3.org/2000/svg";
+        }
+    }
+    $.$mol_svg = $mol_svg;
+})($ || ($ = {}));
+//svg.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_svg_root extends $.$mol_svg {
+        dom_name() {
+            return "svg";
         }
         attr() {
-            return (Object.assign({}, super.attr(), { "mpk_tss_wrap_header_level": this.level() }));
+            return (Object.assign({}, super.attr(), { "viewBox": this.view_box(), "preserveAspectRatio": this.aspect() }));
         }
-        level(val, force) {
-            return (val !== void 0) ? val : 0;
+        view_box() {
+            return "0 0 100 100";
+        }
+        aspect() {
+            return "xMidYMid";
+        }
+    }
+    $.$mol_svg_root = $mol_svg_root;
+})($ || ($ = {}));
+//root.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_svg_path extends $.$mol_svg {
+        dom_name() {
+            return "path";
+        }
+        attr() {
+            return (Object.assign({}, super.attr(), { "d": this.geometry() }));
+        }
+        geometry() {
+            return "";
+        }
+    }
+    $.$mol_svg_path = $mol_svg_path;
+})($ || ($ = {}));
+//path.view.tree.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mol_icon extends $.$mol_svg_root {
+        view_box() {
+            return "0 0 24 24";
         }
         sub() {
-            return this.content();
+            return [].concat(this.Path());
         }
-        content() {
-            return [];
+        Path() {
+            return ((obj) => {
+                obj.geometry = () => this.path();
+                return obj;
+            })(new this.$.$mol_svg_path);
+        }
+        path() {
+            return "";
         }
     }
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_wrap_header.prototype, "level", null);
-    $.$mpk_tss_wrap_header = $mpk_tss_wrap_header;
+    ], $mol_icon.prototype, "Path", null);
+    $.$mol_icon = $mol_icon;
 })($ || ($ = {}));
-//wrap.view.tree.js.map
+//icon.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_cross extends $.$mol_icon {
+        path() {
+            return "M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z";
+        }
+    }
+    $.$mol_icon_cross = $mol_icon_cross;
+})($ || ($ = {}));
+//cross.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mpk_tss_parameter_unknown extends $.$mol_view {
+        sub() {
+            return [].concat(this.unknown_title());
+        }
+        unknown_title() {
+            return this.$.$mol_locale.text("$mpk_tss_parameter_unknown_unknown_title");
+        }
+    }
+    $.$mpk_tss_parameter_unknown = $mpk_tss_parameter_unknown;
+})($ || ($ = {}));
+//unknown.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_row extends $.$mol_view {
+    }
+    $.$mol_row = $mol_row;
+})($ || ($ = {}));
+(function ($) {
+    class $mol_row_sub extends $.$mol_view {
+    }
+    $.$mol_row_sub = $mol_row_sub;
+})($ || ($ = {}));
+//row.view.tree.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_row extends $.$mol_row {
+            item_offsets_top() {
+                let next = [];
+                let sub = this.sub();
+                if (!sub)
+                    return next;
+                const context = this.context_sub();
+                const widthLimit = context.$mol_view_visible_width();
+                let allHeight = 0;
+                let rowWidth = 0;
+                let row_height = 0;
+                for (let child of sub) {
+                    next.push(allHeight);
+                    if (!(child instanceof $.$mol_view))
+                        continue;
+                    const width = child.minimal_width();
+                    const height = child.minimal_height();
+                    rowWidth += width;
+                    if (rowWidth > widthLimit) {
+                        allHeight += row_height;
+                        rowWidth = width;
+                        row_height = height;
+                    }
+                    else {
+                        row_height = Math.max(row_height, height);
+                    }
+                }
+                next.push(allHeight + row_height);
+                return next;
+            }
+            sub_visible() {
+                const sub = this.sub();
+                const visible = [];
+                const context = this.context_sub();
+                const heightLimit = context.$mol_view_visible_height();
+                const offsets = this.item_offsets_top();
+                let height = 0;
+                for (let i = 0; i < offsets.length - 1; ++i) {
+                    if (offsets[i] > heightLimit)
+                        break;
+                    const child = sub[i];
+                    if (child instanceof $.$mol_view) {
+                        child.context(context);
+                    }
+                    visible.push(child);
+                }
+                return visible;
+            }
+            minimal_height() {
+                const offsets = this.item_offsets_top();
+                return offsets[offsets.length - 1];
+            }
+        }
+        __decorate([
+            $.$mol_mem
+        ], $mol_row.prototype, "item_offsets_top", null);
+        $$.$mol_row = $mol_row;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//row.view.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mol_labeler extends $.$mol_view {
+        sub() {
+            return [].concat(this.Title(), this.Content());
+        }
+        Title() {
+            return ((obj) => {
+                obj.sub = () => this.label();
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        label() {
+            return [].concat(this.title());
+        }
+        Content() {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.content());
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        content() {
+            return null;
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_labeler.prototype, "Title", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_labeler.prototype, "Content", null);
+    $.$mol_labeler = $mol_labeler;
+})($ || ($ = {}));
+//labeler.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_time_base {
+        static formatter(pattern) {
+            if (this.patterns[pattern])
+                return this.patterns[pattern];
+            var tokens = Object.keys(this.patterns)
+                .sort()
+                .reverse()
+                .map((token) => token.replace(/([-+*.\[\]()\^])/g, '\\$1'));
+            var lexer = RegExp('(.*?)(' + tokens.join('|') + '|$)', 'g');
+            var funcs = [];
+            pattern.replace(lexer, (str, text, token) => {
+                if (text)
+                    funcs.push(() => text);
+                if (token)
+                    funcs.push(this.patterns[token]);
+                return str;
+            });
+            return this.patterns[pattern] = (arg) => {
+                return funcs.reduce((res, func) => res + func(arg), '');
+            };
+        }
+        toString(pattern) {
+            var Base = this.constructor;
+            var formatter = Base.formatter(pattern);
+            return formatter.call(Base, this);
+        }
+    }
+    $mol_time_base.patterns = {};
+    $.$mol_time_base = $mol_time_base;
+})($ || ($ = {}));
+//base.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_time_duration extends $.$mol_time_base {
+        constructor(config = 0) {
+            super();
+            this.year = 0;
+            this.month = 0;
+            this.day = 0;
+            this.hour = 0;
+            this.minute = 0;
+            this.second = 0;
+            if (typeof config === 'number') {
+                this.second = config / 1000;
+                return;
+            }
+            if (typeof config === 'string') {
+                if (config === 'Z') {
+                    this.hour = 0;
+                    this.minute = 0;
+                    return;
+                }
+                duration: {
+                    const parser = /^P(?:([+-]?\d+(?:\.\d+)?)Y)?(?:([+-]?\d+(?:\.\d+)?)M)?(?:([+-]?\d+(?:\.\d+)?)D)?(?:T(?:([+-]?\d+(?:\.\d+)?)h)?(?:([+-]?\d+(?:\.\d+)?)m)?(?:([+-]?\d+(?:\.\d+)?)s)?)?$/i;
+                    const found = parser.exec(config);
+                    if (!found)
+                        break duration;
+                    if (found[1])
+                        this.year = Number(found[1]);
+                    if (found[2])
+                        this.month = Number(found[2]);
+                    if (found[3])
+                        this.day = Number(found[3]);
+                    if (found[4])
+                        this.hour = Number(found[4]);
+                    if (found[5])
+                        this.minute = Number(found[5]);
+                    if (found[6])
+                        this.second = Number(found[6]);
+                    return;
+                }
+                offset: {
+                    var parser = /^[+-](\d\d)(?::?(\d\d))?$/i;
+                    var found = parser.exec(config);
+                    if (!found)
+                        break offset;
+                    if (found[1])
+                        this.hour = Number(found[1]);
+                    if (found[2])
+                        this.minute = Number(found[2]);
+                    return;
+                }
+                throw new Error(`Can not parse time duration (${config})`);
+            }
+            this.year = config.year || 0;
+            this.month = config.month || 0;
+            this.day = config.day || 0;
+            this.hour = config.hour || 0;
+            this.minute = config.minute || 0;
+            this.second = config.second || 0;
+        }
+        summ(config) {
+            const duration = new $mol_time_duration(config);
+            return new $mol_time_duration({
+                year: this.year + duration.year,
+                month: this.month + duration.month,
+                day: this.day + duration.day,
+                hour: this.hour + duration.hour,
+                minute: this.minute + duration.minute,
+                second: this.second + duration.second,
+            });
+        }
+        mult(numb) {
+            return new $mol_time_duration({
+                year: this.year && this.year * numb,
+                month: this.month && this.month * numb,
+                day: this.day && this.day * numb,
+                hour: this.hour && this.hour * numb,
+                minute: this.minute && this.minute * numb,
+                second: this.second && this.second * numb,
+            });
+        }
+        count(config) {
+            const duration = new $mol_time_duration(config);
+            return this.valueOf() / duration.valueOf();
+        }
+        valueOf() {
+            var day = this.year * 365 + this.month * 30.4 + this.day;
+            var second = ((day * 24 + this.hour) * 60 + this.minute) * 60 + this.second;
+            return second * 1000;
+        }
+        toJSON() { return this.toString(); }
+        toString(pattern = 'P#Y#M#DT#h#m#s') {
+            return super.toString(pattern);
+        }
+    }
+    $mol_time_duration.patterns = {
+        '#Y': (duration) => {
+            if (!duration.year)
+                return '';
+            return duration.year + 'Y';
+        },
+        '#M': (duration) => {
+            if (!duration.month)
+                return '';
+            return duration.month + 'M';
+        },
+        '#D': (duration) => {
+            if (!duration.day)
+                return '';
+            return duration.day + 'D';
+        },
+        '#h': (duration) => {
+            if (!duration.hour)
+                return '';
+            return duration.hour + 'H';
+        },
+        '#m': (duration) => {
+            if (!duration.minute)
+                return '';
+            return duration.minute + 'M';
+        },
+        '#s': (duration) => {
+            if (!duration.second)
+                return '';
+            return duration.second + 'S';
+        },
+        '+hh': (duration) => {
+            var hour = duration.hour;
+            var sign = '+';
+            if (hour < 0) {
+                sign = '-';
+                hour = -hour;
+            }
+            return (hour < 10)
+                ? (sign + '0' + hour)
+                : (sign + hour);
+        },
+        'mm': (duration) => {
+            return (duration.minute < 10)
+                ? ('0' + duration.minute)
+                : String(duration.minute);
+        },
+    };
+    $.$mol_time_duration = $mol_time_duration;
+})($ || ($ = {}));
+//duration.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_time_moment extends $.$mol_time_base {
+        constructor(config = new Date) {
+            super();
+            if (typeof config === 'number')
+                config = new Date(config);
+            if (typeof config === 'string') {
+                var parsed = /^(?:(\d\d\d\d)(?:-?(\d\d)(?:-?(\d\d))?)?)?(?:[T ](\d\d)(?::?(\d\d)(?::?(\d\d(?:\.\d\d\d)?))?)?(Z|[\+\-]\d\d(?::?(?:\d\d)?)?)?)?$/.exec(config);
+                if (!parsed)
+                    throw new Error(`Can not parse time moment (${config})`);
+                if (parsed[1])
+                    this.year = Number(parsed[1]);
+                if (parsed[2])
+                    this.month = Number(parsed[2]) - 1;
+                if (parsed[3])
+                    this.day = Number(parsed[3]) - 1;
+                if (parsed[4])
+                    this.hour = Number(parsed[4]);
+                if (parsed[5])
+                    this.minute = Number(parsed[5]);
+                if (parsed[6])
+                    this.second = Number(parsed[6]);
+                if (parsed[7])
+                    this.offset = new $.$mol_time_duration(parsed[7]);
+                return;
+            }
+            if (config instanceof Date) {
+                this.year = config.getFullYear();
+                this.month = config.getMonth();
+                this.day = config.getDate() - 1;
+                this.hour = config.getHours();
+                this.minute = config.getMinutes();
+                this.second = config.getSeconds() + config.getMilliseconds() / 1000;
+                var offset = -config.getTimezoneOffset();
+                this.offset = new $.$mol_time_duration({
+                    hour: (offset < 0) ? Math.ceil(offset / 60) : Math.floor(offset / 60),
+                    minute: offset % 60
+                });
+                return;
+            }
+            this.year = config.year;
+            this.month = config.month;
+            this.day = config.day;
+            this.hour = config.hour;
+            this.minute = config.minute;
+            this.second = config.second;
+            if (config.offset !== undefined)
+                this.offset = config.offset && new $.$mol_time_duration(config.offset);
+        }
+        get weekday() {
+            return (this.native.getDay() + 6) % 7;
+        }
+        get native() {
+            if (this._native)
+                return this._native;
+            var utc = this.toOffset('Z');
+            return this._native = new Date(Date.UTC((utc.year || 0), (utc.month || 0), (utc.day || 0) + 1, (utc.hour || 0), (utc.minute || 0), (utc.second && Math.floor(utc.second) || 0), (utc.second && Math.floor((utc.second - Math.floor(utc.second)) * 1000) || 0)));
+        }
+        get normal() {
+            if (this._normal)
+                return this._normal;
+            const moment = new $mol_time_moment(this.native);
+            return this._normal = new $mol_time_moment({
+                year: (this.year === undefined) ? undefined : moment.year,
+                month: (this.month === undefined) ? undefined : moment.month,
+                day: (this.day === undefined) ? undefined : moment.day,
+                hour: (this.hour === undefined) ? undefined : moment.hour,
+                minute: (this.minute === undefined) ? undefined : moment.minute,
+                second: (this.second === undefined) ? undefined : moment.second,
+                offset: (this.offset === undefined) ? undefined : moment.offset,
+            });
+        }
+        merge(config) {
+            var moment = new $mol_time_moment(config);
+            return new $mol_time_moment({
+                year: (moment.year === undefined) ? this.year : moment.year,
+                month: (moment.month === undefined) ? this.month : moment.month,
+                day: (moment.day === undefined) ? this.day : moment.day,
+                hour: (moment.hour === undefined) ? this.hour : moment.hour,
+                minute: (moment.minute === undefined) ? this.minute : moment.minute,
+                second: (moment.second === undefined) ? this.second : moment.second,
+                offset: (moment.offset === undefined) ? this.offset : moment.offset,
+            });
+        }
+        shift(config) {
+            var duration = new $.$mol_time_duration(config);
+            var moment = new $mol_time_moment().merge(this);
+            var second = (moment.second + (duration.second || 0));
+            var native = new Date(moment.year + (duration.year || 0), moment.month + (duration.month || 0), moment.day + 1 + (duration.day || 0), moment.hour + (duration.hour || 0), moment.minute + (duration.minute || 0), Math.floor(second), (second - Math.floor(second)) * 1000);
+            if (isNaN(native.valueOf()))
+                throw new Error('Wrong time');
+            return new $mol_time_moment({
+                year: (this.year === undefined) ? undefined : native.getFullYear(),
+                month: (this.month === undefined) ? undefined : native.getMonth(),
+                day: (this.day === undefined) ? undefined : native.getDate() - 1,
+                hour: (this.hour === undefined) ? undefined : native.getHours(),
+                minute: (this.minute === undefined) ? undefined : native.getMinutes(),
+                second: (this.second === undefined) ? undefined : native.getSeconds() + native.getMilliseconds() / 1000,
+                offset: this.offset,
+            });
+        }
+        toOffset(config) {
+            const duration = new $.$mol_time_duration(config);
+            const offset = this.offset || new $mol_time_moment().offset;
+            const moment = this.shift(duration.summ(offset.mult(-1)));
+            return moment.merge({ offset: duration });
+        }
+        valueOf() { return this.native.getTime(); }
+        toJSON() { return this.toString(); }
+        toString(pattern = 'YYYY-MM-DDThh:mm:ss.sssZ') {
+            return super.toString(pattern);
+        }
+    }
+    $mol_time_moment.patterns = {
+        'YYYY': (moment) => {
+            if (moment.year == null)
+                return '';
+            return String(moment.year);
+        },
+        'AD': (moment) => {
+            if (moment.year == null)
+                return '';
+            return String(Math.floor(moment.year / 100) + 1);
+        },
+        'YY': (moment) => {
+            if (moment.year == null)
+                return '';
+            return String(moment.year % 100);
+        },
+        'Month': (moment) => {
+            if (moment.month == null)
+                return '';
+            return moment.native.toLocaleString(undefined, { month: 'long' });
+        },
+        'DD Month': (moment) => {
+            return moment.native.toLocaleString(undefined, { day: '2-digit', month: 'long' });
+        },
+        'D Month': (moment) => {
+            return moment.native.toLocaleString(undefined, { day: 'numeric', month: 'long' });
+        },
+        'Mon': (moment) => {
+            if (moment.month == null)
+                return '';
+            return moment.native.toLocaleString(undefined, { month: 'short' });
+        },
+        'DD Mon': (moment) => {
+            return moment.native.toLocaleString(undefined, { day: '2-digit', month: 'short' });
+        },
+        'D Mon': (moment) => {
+            return moment.native.toLocaleString(undefined, { day: 'numeric', month: 'short' });
+        },
+        '-MM': (moment) => {
+            if (moment.month == null)
+                return '';
+            return '-' + $mol_time_moment.patterns['MM'](moment);
+        },
+        'MM': (moment) => {
+            if (moment.month == null)
+                return '';
+            var month = moment.month + 1;
+            return (month < 10)
+                ? ('0' + month)
+                : ('' + month);
+        },
+        'M': (moment) => {
+            if (moment.month == null)
+                return '';
+            return String(moment.month + 1);
+        },
+        'WeekDay': (moment) => {
+            if (moment.weekday == null)
+                return '';
+            return moment.native.toLocaleString(undefined, { weekday: 'long' });
+        },
+        'WD': (moment) => {
+            if (moment.weekday == null)
+                return '';
+            return moment.native.toLocaleString(undefined, { weekday: 'short' });
+        },
+        '-DD': (moment) => {
+            if (moment.day == null)
+                return '';
+            return '-' + $mol_time_moment.patterns['DD'](moment);
+        },
+        'DD': (moment) => {
+            if (moment.day == null)
+                return '';
+            var day = moment.day + 1;
+            return (day < 10)
+                ? ('0' + day)
+                : String(day);
+        },
+        'D': (moment) => {
+            if (moment.day == null)
+                return '';
+            return String(moment.day + 1);
+        },
+        'Thh': (moment) => {
+            if (moment.hour == null)
+                return '';
+            return 'T' + $mol_time_moment.patterns['hh'](moment);
+        },
+        'hh': (moment) => {
+            if (moment.hour == null)
+                return '';
+            return (moment.hour < 10)
+                ? ('0' + moment.hour)
+                : String(moment.hour);
+        },
+        'h': (moment) => {
+            if (moment.hour == null)
+                return '';
+            return String(moment.hour);
+        },
+        ':mm': (moment) => {
+            if (moment.minute == null)
+                return '';
+            return ':' + $mol_time_moment.patterns['mm'](moment);
+        },
+        'mm': (moment) => {
+            if (moment.minute == null)
+                return '';
+            return (moment.minute < 10)
+                ? ('0' + moment.minute)
+                : String(moment.minute);
+        },
+        'm': (moment) => {
+            if (moment.minute == null)
+                return '';
+            return String(moment.minute);
+        },
+        ':ss': (moment) => {
+            if (moment.second == null)
+                return '';
+            return ':' + $mol_time_moment.patterns['ss'](moment);
+        },
+        'ss': (moment) => {
+            if (moment.second == null)
+                return '';
+            var second = Math.floor(moment.second);
+            return (second < 10)
+                ? ('0' + second)
+                : String(second);
+        },
+        's': (moment) => {
+            if (moment.second == null)
+                return '';
+            return String(Math.floor(moment.second));
+        },
+        '.sss': (moment) => {
+            if (moment.second == null)
+                return '';
+            if (moment.second - Math.floor(moment.second) === 0)
+                return '';
+            return '.' + $mol_time_moment.patterns['sss'](moment);
+        },
+        'sss': (moment) => {
+            if (moment.second == null)
+                return '';
+            var millisecond = Math.floor((moment.second - Math.floor(moment.second)) * 1000);
+            return (millisecond < 10)
+                ? ('00' + millisecond)
+                : (millisecond < 100)
+                    ? ('0' + millisecond)
+                    : String(millisecond);
+        },
+        'Z': (moment) => {
+            var offset = moment.offset;
+            if (!offset)
+                return '';
+            return offset.toString('+hh:mm');
+        }
+    };
+    $.$mol_time_moment = $mol_time_moment;
+})($ || ($ = {}));
+//moment.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mpk_tss_todo extends Error {
+        constructor() {
+            super(...arguments);
+            this.name = '$mpk_tss_todo';
+        }
+    }
+    $.$mpk_tss_todo = $mpk_tss_todo;
+    class $mpk_tss_todo_unknown extends Error {
+        constructor() {
+            super(...arguments);
+            this.name = '$mpk_tss_todo_unknown';
+        }
+    }
+    $.$mpk_tss_todo_unknown = $mpk_tss_todo_unknown;
+})($ || ($ = {}));
+//todo.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mpk_tss_parameter_date extends $.$mol_view {
+        date() {
+            return null;
+        }
+        sub() {
+            return [].concat(this.date_formatted());
+        }
+        date_formatted() {
+            return null;
+        }
+        Unknown() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mpk_tss_parameter_unknown);
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_parameter_date.prototype, "Unknown", null);
+    $.$mpk_tss_parameter_date = $mpk_tss_parameter_date;
+})($ || ($ = {}));
+//date.view.tree.js.map
 ;
 "use strict";
 var $;
 (function ($) {
     var $$;
     (function ($$) {
-        class $mpk_tss_wrap extends $.$mpk_tss_wrap {
-            title() {
-                return this.breadcrumbs().concat(this.self_title()).join(' - ');
+        class $mpk_tss_parameter_date extends $.$mpk_tss_parameter_date {
+            date() {
+                throw new $.$mpk_tss_todo;
+            }
+            date_formatted() {
+                if (!this.date())
+                    return this.Unknown();
+                return this.date().native.toLocaleString();
             }
         }
-        $$.$mpk_tss_wrap = $mpk_tss_wrap;
+        $$.$mpk_tss_parameter_date = $mpk_tss_parameter_date;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-//wrap.view.js.map
+//date.view.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mpk_tss_parameter extends $.$mol_row {
+        sub() {
+            return [].concat(this.Name(), this.Value(), this.Updated());
+        }
+        Name() {
+            return ((obj) => {
+                obj.title = () => this.name_title();
+                obj.Content = () => ((obj) => {
+                    obj.sub = () => [].concat(this.name());
+                    return obj;
+                })(new this.$.$mol_view);
+                return obj;
+            })(new this.$.$mol_labeler);
+        }
+        name_title() {
+            return this.$.$mol_locale.text("$mpk_tss_parameter_name_title");
+        }
+        name() {
+            return "";
+        }
+        Value() {
+            return ((obj) => {
+                obj.title = () => this.value_title();
+                obj.Content = () => ((obj) => {
+                    obj.sub = () => [].concat(this.value());
+                    return obj;
+                })(new this.$.$mol_view);
+                return obj;
+            })(new this.$.$mol_labeler);
+        }
+        value_title() {
+            return this.$.$mol_locale.text("$mpk_tss_parameter_value_title");
+        }
+        value() {
+            return null;
+        }
+        Updated() {
+            return ((obj) => {
+                obj.title = () => this.updated_title();
+                obj.Content = () => ((obj) => {
+                    obj.sub = () => [].concat(this.Updated_value());
+                    return obj;
+                })(new this.$.$mol_view);
+                return obj;
+            })(new this.$.$mol_labeler);
+        }
+        updated_title() {
+            return this.$.$mol_locale.text("$mpk_tss_parameter_updated_title");
+        }
+        Updated_value() {
+            return ((obj) => {
+                obj.date = () => this.updated();
+                return obj;
+            })(new this.$.$mpk_tss_parameter_date);
+        }
+        updated() {
+            return null;
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_parameter.prototype, "Name", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_parameter.prototype, "Value", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_parameter.prototype, "Updated", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_parameter.prototype, "Updated_value", null);
+    $.$mpk_tss_parameter = $mpk_tss_parameter;
+})($ || ($ = {}));
+//parameter.view.tree.js.map
 ;
 "use strict";
 var $;
 (function ($) {
-    class $mpk_tss_software extends $.$mpk_tss_wrap {
-        self_title() {
-            return this.$.$mol_locale.text("$mpk_tss_software_self_title");
+    class $mpk_tss_parameter_list extends $.$mol_list {
+    }
+    $.$mpk_tss_parameter_list = $mpk_tss_parameter_list;
+})($ || ($ = {}));
+//list.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mpk_tss_pereferial_status extends $.$mol_view {
+        status() {
+            return null;
+        }
+        colors() {
+            return true;
+        }
+        statuses() {
+            return ({
+                "ready": this.ready(),
+                "error": this.error(),
+                "not_responding": this.not_responding(),
+                "inactive": this.inactive(),
+                "unknown": this.unknown(),
+            });
+        }
+        ready() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferial_status_ready");
+        }
+        error() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferial_status_error");
+        }
+        not_responding() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferial_status_not_responding");
+        }
+        inactive() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferial_status_inactive");
+        }
+        unknown() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferial_status_unknown");
+        }
+        sub() {
+            return [].concat(this.status_text());
+        }
+        status_text() {
+            return this.unknown();
         }
     }
-    $.$mpk_tss_software = $mpk_tss_software;
+    $.$mpk_tss_pereferial_status = $mpk_tss_pereferial_status;
 })($ || ($ = {}));
-//software.view.tree.js.map
+//status.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mpk_tss_pereferial_status extends $.$mpk_tss_pereferial_status {
+            status_text() {
+                if (!this.status())
+                    return this.statuses().unknown;
+                return this.statuses()[this.status()] || this.statuses().unknown;
+            }
+            attr() {
+                if (!this.colors())
+                    return super.attr();
+                return (Object.assign({}, super.attr(), { 'mpk_tss_pereferial_status_type': this.status() }));
+            }
+        }
+        $$.$mpk_tss_pereferial_status = $mpk_tss_pereferial_status;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//status.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mpk_tss_pereferial_domain extends $.$mol_object {
+        unit(id) {
+            throw new $.$mpk_tss_todo;
+        }
+        units() {
+            throw new $.$mpk_tss_todo;
+        }
+    }
+    $.$mpk_tss_pereferial_domain = $mpk_tss_pereferial_domain;
+    let $mpk_tss_pereferial_domain_type;
+    (function ($mpk_tss_pereferial_domain_type) {
+        $mpk_tss_pereferial_domain_type["ups"] = "UPS";
+    })($mpk_tss_pereferial_domain_type = $.$mpk_tss_pereferial_domain_type || ($.$mpk_tss_pereferial_domain_type = {}));
+    let $mpk_tss_pereferial_domain_status;
+    (function ($mpk_tss_pereferial_domain_status) {
+        $mpk_tss_pereferial_domain_status["ready"] = "ready";
+        $mpk_tss_pereferial_domain_status["error"] = "error";
+        $mpk_tss_pereferial_domain_status["not_responding"] = "not_responding";
+        $mpk_tss_pereferial_domain_status["inactive"] = "inactive";
+        $mpk_tss_pereferial_domain_status["unknown"] = "unknown";
+    })($mpk_tss_pereferial_domain_status = $.$mpk_tss_pereferial_domain_status || ($.$mpk_tss_pereferial_domain_status = {}));
+    class $mpk_tss_pereferial_domain_unit extends $.$mol_object {
+        id() { throw new $.$mpk_tss_todo; }
+        type() { throw new $.$mpk_tss_todo; }
+        name() { throw new $.$mpk_tss_todo; }
+        status() { throw new $.$mpk_tss_todo; }
+        updated(next) { throw new $.$mpk_tss_todo; }
+    }
+    $.$mpk_tss_pereferial_domain_unit = $mpk_tss_pereferial_domain_unit;
+    let $mpk_tss_pereferial_domain_ups_power_source;
+    (function ($mpk_tss_pereferial_domain_ups_power_source) {
+        $mpk_tss_pereferial_domain_ups_power_source["line"] = "Line";
+        $mpk_tss_pereferial_domain_ups_power_source["internal"] = "Internal";
+    })($mpk_tss_pereferial_domain_ups_power_source = $.$mpk_tss_pereferial_domain_ups_power_source || ($.$mpk_tss_pereferial_domain_ups_power_source = {}));
+    class $mpk_tss_pereferial_domain_ups extends $mpk_tss_pereferial_domain_unit {
+        type() { return $mpk_tss_pereferial_domain_type.ups; }
+        power_source() { throw new $.$mpk_tss_todo; }
+        voltage() { throw new $.$mpk_tss_todo; }
+        battery_level() { throw new $.$mpk_tss_todo; }
+        battery_time() { throw new $.$mpk_tss_todo; }
+    }
+    $.$mpk_tss_pereferial_domain_ups = $mpk_tss_pereferial_domain_ups;
+})($ || ($ = {}));
+//domain.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mpk_tss_pereferial_details_ups extends $.$mpk_tss_parameter_list {
+        unit() {
+            return null;
+        }
+        Unknown() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mpk_tss_parameter_unknown);
+        }
+        rows() {
+            return [].concat(this.State(), this.Power(), this.Voltage(), this.Bat_level(), this.Bat_time());
+        }
+        State() {
+            return ((obj) => {
+                obj.name = () => this.name_title();
+                obj.value = () => this.Status();
+                obj.updated = () => this.updated();
+                return obj;
+            })(new this.$.$mpk_tss_parameter);
+        }
+        name_title() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferial_details_ups_name_title");
+        }
+        Status() {
+            return ((obj) => {
+                obj.status = () => this.status();
+                return obj;
+            })(new this.$.$mpk_tss_pereferial_status);
+        }
+        status() {
+            return "";
+        }
+        updated() {
+            return null;
+        }
+        Power() {
+            return ((obj) => {
+                obj.name = () => this.power_title();
+                obj.value = () => this.power_source();
+                obj.updated = () => this.updated();
+                return obj;
+            })(new this.$.$mpk_tss_parameter);
+        }
+        power_title() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferial_details_ups_power_title");
+        }
+        power_source() {
+            return null;
+        }
+        Voltage() {
+            return ((obj) => {
+                obj.name = () => this.voltage_title();
+                obj.value = () => this.voltage();
+                obj.updated = () => this.updated();
+                return obj;
+            })(new this.$.$mpk_tss_parameter);
+        }
+        voltage_title() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferial_details_ups_voltage_title");
+        }
+        voltage() {
+            return null;
+        }
+        Bat_level() {
+            return ((obj) => {
+                obj.name = () => this.bat_level_title();
+                obj.value = () => this.battery_level();
+                obj.updated = () => this.updated();
+                return obj;
+            })(new this.$.$mpk_tss_parameter);
+        }
+        bat_level_title() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferial_details_ups_bat_level_title");
+        }
+        battery_level() {
+            return null;
+        }
+        Bat_time() {
+            return ((obj) => {
+                obj.name = () => this.bat_time_title();
+                obj.value = () => this.battery_time();
+                obj.updated = () => this.updated();
+                return obj;
+            })(new this.$.$mpk_tss_parameter);
+        }
+        bat_time_title() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferial_details_ups_bat_time_title");
+        }
+        battery_time() {
+            return null;
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferial_details_ups.prototype, "Unknown", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferial_details_ups.prototype, "State", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferial_details_ups.prototype, "Status", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferial_details_ups.prototype, "Power", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferial_details_ups.prototype, "Voltage", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferial_details_ups.prototype, "Bat_level", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferial_details_ups.prototype, "Bat_time", null);
+    $.$mpk_tss_pereferial_details_ups = $mpk_tss_pereferial_details_ups;
+})($ || ($ = {}));
+//ups.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mpk_tss_pereferial_details_ups extends $.$mpk_tss_pereferial_details_ups {
+            unit() { throw new $.$mpk_tss_todo; }
+            status() { return this.unit().status(); }
+            updated() { return this.unit().updated(); }
+            power_source() {
+                if (!this.unit().power_source())
+                    return this.Unknown();
+                return this.unit().power_source();
+            }
+            voltage() {
+                if (!this.unit().voltage())
+                    return this.Unknown();
+                return this.unit().voltage() + 'V';
+            }
+            battery_level() {
+                if (!this.unit().battery_level())
+                    return this.Unknown();
+                return this.unit().battery_level() + '%';
+            }
+            battery_time() {
+                if (!this.unit().battery_time())
+                    return this.Unknown();
+                return this.unit().battery_time().minute + 'm';
+            }
+        }
+        $$.$mpk_tss_pereferial_details_ups = $mpk_tss_pereferial_details_ups;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//ups.view.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mpk_tss_pereferial_details extends $.$mol_page {
+        unit() {
+            return null;
+        }
+        minimal_width() {
+            return 400;
+        }
+        tools() {
+            return [].concat(this.Details_close());
+        }
+        Details_close() {
+            return ((obj) => {
+                obj.arg = () => ({
+                    "unit": null,
+                });
+                obj.sub = () => [].concat(this.Details_close_icon());
+                return obj;
+            })(new this.$.$mol_link);
+        }
+        Details_close_icon() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mol_icon_cross);
+        }
+        body() {
+            return [].concat(this.unit_details());
+        }
+        unit_details() {
+            return null;
+        }
+        Ups() {
+            return ((obj) => {
+                obj.unit = () => this.unit();
+                return obj;
+            })(new this.$.$mpk_tss_pereferial_details_ups);
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferial_details.prototype, "Details_close", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferial_details.prototype, "Details_close_icon", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferial_details.prototype, "Ups", null);
+    $.$mpk_tss_pereferial_details = $mpk_tss_pereferial_details;
+})($ || ($ = {}));
+//details.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mpk_tss_pereferial_details extends $.$mpk_tss_pereferial_details {
+            unit() {
+                throw new $.$mpk_tss_todo;
+            }
+            title() {
+                return this.type() + ' | ' + this.name();
+            }
+            type() { return this.unit().type(); }
+            name() { return this.unit().name(); }
+            unit_details() {
+                switch (this.unit().type()) {
+                    case $.$mpk_tss_pereferial_domain_type.ups: return this.Ups();
+                }
+                throw new $.$mpk_tss_todo_unknown;
+            }
+        }
+        $$.$mpk_tss_pereferial_details = $mpk_tss_pereferial_details;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//details.view.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mol_card extends $.$mol_list {
+        attr() {
+            return (Object.assign({}, super.attr(), { "mol_card_status_type": this.status() }));
+        }
+        status() {
+            return "";
+        }
+        rows() {
+            return [].concat(this.Content(), this.Status());
+        }
+        Content() {
+            return ((obj) => {
+                obj.sub = () => this.content();
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        content() {
+            return [];
+        }
+        Status() {
+            return ((obj) => {
+                obj.minimal_height = () => 30;
+                obj.sub = () => [].concat(this.status_text());
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        status_text() {
+            return this.status();
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_card.prototype, "Content", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_card.prototype, "Status", null);
+    $.$mol_card = $mol_card;
+})($ || ($ = {}));
+//card.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_card extends $.$mol_card {
+            rows() {
+                return [
+                    this.Content(),
+                    ...this.status_text() ? [this.Status()] : [],
+                ];
+            }
+        }
+        $$.$mol_card = $mol_card;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//card.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mpk_tss_icon_download extends $.$mol_icon {
+        path() {
+            return "M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3";
+        }
+    }
+    $.$mpk_tss_icon_download = $mpk_tss_icon_download;
+})($ || ($ = {}));
+//download.view.tree.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mpk_tss_card extends $.$mol_link {
+        minimal_height() {
+            return 32;
+        }
+        sub() {
+            return [].concat(this.Card());
+        }
+        Card() {
+            return ((obj) => {
+                obj.status = () => this.status();
+                obj.Status = () => this.Footer();
+                obj.Content = () => this.Group();
+                return obj;
+            })(new this.$.$mol_card);
+        }
+        status() {
+            return "";
+        }
+        Footer() {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.Status_text(), this.Status_action());
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        Status_text() {
+            return null;
+        }
+        Status_action() {
+            return ((obj) => {
+                obj.event_click = (event) => this.status_click(event);
+                obj.sub = () => [].concat(this.Status_icon());
+                return obj;
+            })(new this.$.$mol_button_minor);
+        }
+        status_click(event, force) {
+            return (event !== void 0) ? event : null;
+        }
+        Status_icon() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mpk_tss_icon_download);
+        }
+        Group() {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.items());
+                return obj;
+            })(new this.$.$mol_row);
+        }
+        items() {
+            return [];
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_card.prototype, "Card", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_card.prototype, "Footer", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_card.prototype, "Status_action", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_card.prototype, "status_click", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_card.prototype, "Status_icon", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_card.prototype, "Group", null);
+    $.$mpk_tss_card = $mpk_tss_card;
+})($ || ($ = {}));
+//card.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mpk_tss_card extends $.$mpk_tss_card {
+        }
+        $$.$mpk_tss_card = $mpk_tss_card;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//card.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mpk_tss_icon_renew extends $.$mol_icon {
+        path() {
+            return "M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z";
+        }
+    }
+    $.$mpk_tss_icon_renew = $mpk_tss_icon_renew;
+})($ || ($ = {}));
+//renew.view.tree.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mpk_tss_pereferial_card extends $.$mpk_tss_card {
+        unit() {
+            return null;
+        }
+        arg() {
+            return ({
+                "unit": this.unit_id(),
+            });
+        }
+        unit_id() {
+            return "";
+        }
+        status() {
+            return this.unit_status();
+        }
+        unit_status() {
+            return "";
+        }
+        Status_text() {
+            return ((obj) => {
+                obj.colors = () => false;
+                obj.status = () => this.unit_status();
+                return obj;
+            })(new this.$.$mpk_tss_pereferial_status);
+        }
+        Status_icon() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mpk_tss_icon_renew);
+        }
+        status_click(event, force) {
+            return this.unit_status_click(event);
+        }
+        unit_status_click(event, force) {
+            return (event !== void 0) ? event : null;
+        }
+        items() {
+            return [].concat(this.Type_item(), this.Name_item());
+        }
+        Type_item() {
+            return ((obj) => {
+                obj.title = () => this.type_title();
+                obj.content = () => this.type();
+                return obj;
+            })(new this.$.$mol_labeler);
+        }
+        type_title() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferial_card_type_title");
+        }
+        type() {
+            return "";
+        }
+        Name_item() {
+            return ((obj) => {
+                obj.title = () => this.name_title();
+                obj.content = () => this.name();
+                return obj;
+            })(new this.$.$mol_labeler);
+        }
+        name_title() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferial_card_name_title");
+        }
+        name() {
+            return "";
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferial_card.prototype, "Status_text", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferial_card.prototype, "Status_icon", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferial_card.prototype, "status_click", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferial_card.prototype, "unit_status_click", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferial_card.prototype, "Type_item", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferial_card.prototype, "Name_item", null);
+    $.$mpk_tss_pereferial_card = $mpk_tss_pereferial_card;
+})($ || ($ = {}));
+//card.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mpk_tss_pereferial_card extends $.$mpk_tss_pereferial_card {
+            unit() {
+                throw new $.$mpk_tss_todo;
+            }
+            unit_id() {
+                return this.unit().id();
+            }
+            type() {
+                return this.unit().type();
+            }
+            name() {
+                return this.unit().name();
+            }
+            unit_status() {
+                return this.unit().status();
+            }
+            unit_status_click(event) {
+                if (event)
+                    event.preventDefault();
+                this.unit().updated(new $.$mol_time_moment());
+            }
+        }
+        $$.$mpk_tss_pereferial_card = $mpk_tss_pereferial_card;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//card.view.js.map
 ;
 "use strict";
 var $;
@@ -3769,93 +5354,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_svg extends $.$mol_view {
-        dom_name() {
-            return "svg";
-        }
-        dom_name_space() {
-            return "http://www.w3.org/2000/svg";
-        }
-    }
-    $.$mol_svg = $mol_svg;
-})($ || ($ = {}));
-//svg.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_svg_root extends $.$mol_svg {
-        dom_name() {
-            return "svg";
-        }
-        attr() {
-            return (Object.assign({}, super.attr(), { "viewBox": this.view_box(), "preserveAspectRatio": this.aspect() }));
-        }
-        view_box() {
-            return "0 0 100 100";
-        }
-        aspect() {
-            return "xMidYMid";
-        }
-    }
-    $.$mol_svg_root = $mol_svg_root;
-})($ || ($ = {}));
-//root.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_svg_path extends $.$mol_svg {
-        dom_name() {
-            return "path";
-        }
-        attr() {
-            return (Object.assign({}, super.attr(), { "d": this.geometry() }));
-        }
-        geometry() {
-            return "";
-        }
-    }
-    $.$mol_svg_path = $mol_svg_path;
-})($ || ($ = {}));
-//path.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_icon extends $.$mol_svg_root {
-        view_box() {
-            return "0 0 24 24";
-        }
-        sub() {
-            return [].concat(this.Path());
-        }
-        Path() {
-            return ((obj) => {
-                obj.geometry = () => this.path();
-                return obj;
-            })(new this.$.$mol_svg_path);
-        }
-        path() {
-            return "";
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_icon.prototype, "Path", null);
-    $.$mol_icon = $mol_icon;
-})($ || ($ = {}));
-//icon.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
     class $mol_icon_chevron extends $.$mol_icon {
         path() {
             return "M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z";
@@ -3864,108 +5362,6 @@ var $;
     $.$mol_icon_chevron = $mol_icon_chevron;
 })($ || ($ = {}));
 //chevron.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_list extends $.$mol_view {
-        sub() {
-            return this.rows();
-        }
-        rows() {
-            return [];
-        }
-        Empty() {
-            return null;
-        }
-    }
-    $.$mol_list = $mol_list;
-})($ || ($ = {}));
-//list.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_list extends $.$mol_list {
-            sub() {
-                const rows = this.rows();
-                return (rows.length === 0) ? [this.Empty()] : rows;
-            }
-            row_offsets() {
-                var sub = this.sub();
-                if (!sub)
-                    return null;
-                let heightLimit = this.$.$mol_view_visible_height();
-                var offset = 0;
-                var next = [];
-                for (let child of sub) {
-                    next.push(offset);
-                    if (child instanceof $.$mol_view) {
-                        offset += child.minimal_height();
-                    }
-                    if (offset > heightLimit)
-                        break;
-                }
-                return next;
-            }
-            row_context(index) {
-                return this.$.$mol_ambient({
-                    $mol_view_visible_height: () => this.$.$mol_view_visible_height() - this.row_offsets()[index],
-                });
-            }
-            sub_visible() {
-                var sub = this.sub();
-                if (!sub)
-                    return sub;
-                var limit = this.row_offsets().length;
-                var next = [];
-                for (let i = 0; i < limit; ++i) {
-                    const child = sub[i];
-                    if (child == null)
-                        continue;
-                    if (child instanceof $.$mol_view) {
-                        child.$ = this.row_context(i);
-                    }
-                    next.push(child);
-                }
-                return next;
-            }
-            minimal_height() {
-                var height = 0;
-                var sub = this.sub();
-                if (sub)
-                    sub.forEach(child => {
-                        if (child instanceof $.$mol_view) {
-                            height += child.minimal_height();
-                        }
-                    });
-                return height;
-            }
-        }
-        __decorate([
-            $.$mol_mem
-        ], $mol_list.prototype, "row_offsets", null);
-        __decorate([
-            $.$mol_mem_key
-        ], $mol_list.prototype, "row_context", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_list.prototype, "sub_visible", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_list.prototype, "minimal_height", null);
-        $$.$mol_list = $mol_list;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//list.view.js.map
 ;
 "use strict";
 var $;
@@ -4262,18 +5658,6 @@ var $;
 //select.view.js.map
 ;
 "use strict";
-var $;
-(function ($) {
-    class $mol_icon_cross extends $.$mol_icon {
-        path() {
-            return "M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z";
-        }
-    }
-    $.$mol_icon_cross = $mol_icon_cross;
-})($ || ($ = {}));
-//cross.view.tree.js.map
-;
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4386,1452 +5770,6 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //search.view.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_card extends $.$mol_list {
-        attr() {
-            return (Object.assign({}, super.attr(), { "mol_card_status_type": this.status() }));
-        }
-        status() {
-            return "";
-        }
-        rows() {
-            return [].concat(this.Content(), this.Status());
-        }
-        Content() {
-            return ((obj) => {
-                obj.sub = () => this.content();
-                return obj;
-            })(new this.$.$mol_view);
-        }
-        content() {
-            return [];
-        }
-        Status() {
-            return ((obj) => {
-                obj.minimal_height = () => 30;
-                obj.sub = () => [].concat(this.status_text());
-                return obj;
-            })(new this.$.$mol_view);
-        }
-        status_text() {
-            return this.status();
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_card.prototype, "Content", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_card.prototype, "Status", null);
-    $.$mol_card = $mol_card;
-})($ || ($ = {}));
-//card.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_card extends $.$mol_card {
-            rows() {
-                return [
-                    this.Content(),
-                    ...this.status_text() ? [this.Status()] : [],
-                ];
-            }
-        }
-        $$.$mol_card = $mol_card;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//card.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mpk_tss_icon_download extends $.$mol_icon {
-        path() {
-            return "M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3";
-        }
-    }
-    $.$mpk_tss_icon_download = $mpk_tss_icon_download;
-})($ || ($ = {}));
-//download.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_row extends $.$mol_view {
-    }
-    $.$mol_row = $mol_row;
-})($ || ($ = {}));
-(function ($) {
-    class $mol_row_sub extends $.$mol_view {
-    }
-    $.$mol_row_sub = $mol_row_sub;
-})($ || ($ = {}));
-//row.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_row extends $.$mol_row {
-            item_offsets_top() {
-                let next = [];
-                let sub = this.sub();
-                if (!sub)
-                    return next;
-                const context = this.context_sub();
-                const widthLimit = context.$mol_view_visible_width();
-                let allHeight = 0;
-                let rowWidth = 0;
-                let row_height = 0;
-                for (let child of sub) {
-                    next.push(allHeight);
-                    if (!(child instanceof $.$mol_view))
-                        continue;
-                    const width = child.minimal_width();
-                    const height = child.minimal_height();
-                    rowWidth += width;
-                    if (rowWidth > widthLimit) {
-                        allHeight += row_height;
-                        rowWidth = width;
-                        row_height = height;
-                    }
-                    else {
-                        row_height = Math.max(row_height, height);
-                    }
-                }
-                next.push(allHeight + row_height);
-                return next;
-            }
-            sub_visible() {
-                const sub = this.sub();
-                const visible = [];
-                const context = this.context_sub();
-                const heightLimit = context.$mol_view_visible_height();
-                const offsets = this.item_offsets_top();
-                let height = 0;
-                for (let i = 0; i < offsets.length - 1; ++i) {
-                    if (offsets[i] > heightLimit)
-                        break;
-                    const child = sub[i];
-                    if (child instanceof $.$mol_view) {
-                        child.context(context);
-                    }
-                    visible.push(child);
-                }
-                return visible;
-            }
-            minimal_height() {
-                const offsets = this.item_offsets_top();
-                return offsets[offsets.length - 1];
-            }
-        }
-        __decorate([
-            $.$mol_mem
-        ], $mol_row.prototype, "item_offsets_top", null);
-        $$.$mol_row = $mol_row;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//row.view.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mpk_tss_card extends $.$mol_link {
-        minimal_height() {
-            return 32;
-        }
-        sub() {
-            return [].concat(this.Card());
-        }
-        Card() {
-            return ((obj) => {
-                obj.status = () => this.status();
-                obj.Status = () => this.Footer();
-                obj.Content = () => this.Group();
-                return obj;
-            })(new this.$.$mol_card);
-        }
-        status() {
-            return "";
-        }
-        Footer() {
-            return ((obj) => {
-                obj.sub = () => [].concat(this.Status_text(), this.Status_action());
-                return obj;
-            })(new this.$.$mol_view);
-        }
-        Status_text() {
-            return null;
-        }
-        Status_action() {
-            return ((obj) => {
-                obj.event_click = (event) => this.status_click(event);
-                obj.sub = () => [].concat(this.Status_icon());
-                return obj;
-            })(new this.$.$mol_button_minor);
-        }
-        status_click(event, force) {
-            return (event !== void 0) ? event : null;
-        }
-        Status_icon() {
-            return ((obj) => {
-                return obj;
-            })(new this.$.$mpk_tss_icon_download);
-        }
-        Group() {
-            return ((obj) => {
-                obj.sub = () => [].concat(this.items());
-                return obj;
-            })(new this.$.$mol_row);
-        }
-        items() {
-            return [];
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_card.prototype, "Card", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_card.prototype, "Footer", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_card.prototype, "Status_action", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_card.prototype, "status_click", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_card.prototype, "Status_icon", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_card.prototype, "Group", null);
-    $.$mpk_tss_card = $mpk_tss_card;
-})($ || ($ = {}));
-//card.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mpk_tss_card extends $.$mpk_tss_card {
-        }
-        $$.$mpk_tss_card = $mpk_tss_card;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//card.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mpk_tss_pereferial_status extends $.$mol_view {
-        status() {
-            return null;
-        }
-        colors() {
-            return true;
-        }
-        statuses() {
-            return ({
-                "ready": this.ready(),
-                "error": this.error(),
-                "not_responding": this.not_responding(),
-                "inactive": this.inactive(),
-                "unknown": this.unknown(),
-            });
-        }
-        ready() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferial_status_ready");
-        }
-        error() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferial_status_error");
-        }
-        not_responding() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferial_status_not_responding");
-        }
-        inactive() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferial_status_inactive");
-        }
-        unknown() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferial_status_unknown");
-        }
-        sub() {
-            return [].concat(this.status_text());
-        }
-        status_text() {
-            return this.unknown();
-        }
-    }
-    $.$mpk_tss_pereferial_status = $mpk_tss_pereferial_status;
-})($ || ($ = {}));
-//status.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mpk_tss_pereferial_status extends $.$mpk_tss_pereferial_status {
-            status_text() {
-                if (!this.status())
-                    return this.statuses().unknown;
-                return this.statuses()[this.status()] || this.statuses().unknown;
-            }
-            attr() {
-                if (!this.colors())
-                    return super.attr();
-                return (Object.assign({}, super.attr(), { 'mpk_tss_pereferial_status_type': this.status() }));
-            }
-        }
-        $$.$mpk_tss_pereferial_status = $mpk_tss_pereferial_status;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//status.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mpk_tss_icon_renew extends $.$mol_icon {
-        path() {
-            return "M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z";
-        }
-    }
-    $.$mpk_tss_icon_renew = $mpk_tss_icon_renew;
-})($ || ($ = {}));
-//renew.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_labeler extends $.$mol_view {
-        sub() {
-            return [].concat(this.Title(), this.Content());
-        }
-        Title() {
-            return ((obj) => {
-                obj.sub = () => this.label();
-                return obj;
-            })(new this.$.$mol_view);
-        }
-        label() {
-            return [].concat(this.title());
-        }
-        Content() {
-            return ((obj) => {
-                obj.sub = () => [].concat(this.content());
-                return obj;
-            })(new this.$.$mol_view);
-        }
-        content() {
-            return null;
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_labeler.prototype, "Title", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_labeler.prototype, "Content", null);
-    $.$mol_labeler = $mol_labeler;
-})($ || ($ = {}));
-//labeler.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mpk_tss_todo extends Error {
-        constructor() {
-            super(...arguments);
-            this.name = '$mpk_tss_todo';
-        }
-    }
-    $.$mpk_tss_todo = $mpk_tss_todo;
-    class $mpk_tss_todo_unknown extends Error {
-        constructor() {
-            super(...arguments);
-            this.name = '$mpk_tss_todo_unknown';
-        }
-    }
-    $.$mpk_tss_todo_unknown = $mpk_tss_todo_unknown;
-})($ || ($ = {}));
-//todo.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_time_base {
-        static formatter(pattern) {
-            if (this.patterns[pattern])
-                return this.patterns[pattern];
-            var tokens = Object.keys(this.patterns)
-                .sort()
-                .reverse()
-                .map((token) => token.replace(/([-+*.\[\]()\^])/g, '\\$1'));
-            var lexer = RegExp('(.*?)(' + tokens.join('|') + '|$)', 'g');
-            var funcs = [];
-            pattern.replace(lexer, (str, text, token) => {
-                if (text)
-                    funcs.push(() => text);
-                if (token)
-                    funcs.push(this.patterns[token]);
-                return str;
-            });
-            return this.patterns[pattern] = (arg) => {
-                return funcs.reduce((res, func) => res + func(arg), '');
-            };
-        }
-        toString(pattern) {
-            var Base = this.constructor;
-            var formatter = Base.formatter(pattern);
-            return formatter.call(Base, this);
-        }
-    }
-    $mol_time_base.patterns = {};
-    $.$mol_time_base = $mol_time_base;
-})($ || ($ = {}));
-//base.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_time_duration extends $.$mol_time_base {
-        constructor(config = 0) {
-            super();
-            this.year = 0;
-            this.month = 0;
-            this.day = 0;
-            this.hour = 0;
-            this.minute = 0;
-            this.second = 0;
-            if (typeof config === 'number') {
-                this.second = config / 1000;
-                return;
-            }
-            if (typeof config === 'string') {
-                if (config === 'Z') {
-                    this.hour = 0;
-                    this.minute = 0;
-                    return;
-                }
-                duration: {
-                    const parser = /^P(?:([+-]?\d+(?:\.\d+)?)Y)?(?:([+-]?\d+(?:\.\d+)?)M)?(?:([+-]?\d+(?:\.\d+)?)D)?(?:T(?:([+-]?\d+(?:\.\d+)?)h)?(?:([+-]?\d+(?:\.\d+)?)m)?(?:([+-]?\d+(?:\.\d+)?)s)?)?$/i;
-                    const found = parser.exec(config);
-                    if (!found)
-                        break duration;
-                    if (found[1])
-                        this.year = Number(found[1]);
-                    if (found[2])
-                        this.month = Number(found[2]);
-                    if (found[3])
-                        this.day = Number(found[3]);
-                    if (found[4])
-                        this.hour = Number(found[4]);
-                    if (found[5])
-                        this.minute = Number(found[5]);
-                    if (found[6])
-                        this.second = Number(found[6]);
-                    return;
-                }
-                offset: {
-                    var parser = /^[+-](\d\d)(?::?(\d\d))?$/i;
-                    var found = parser.exec(config);
-                    if (!found)
-                        break offset;
-                    if (found[1])
-                        this.hour = Number(found[1]);
-                    if (found[2])
-                        this.minute = Number(found[2]);
-                    return;
-                }
-                throw new Error(`Can not parse time duration (${config})`);
-            }
-            this.year = config.year || 0;
-            this.month = config.month || 0;
-            this.day = config.day || 0;
-            this.hour = config.hour || 0;
-            this.minute = config.minute || 0;
-            this.second = config.second || 0;
-        }
-        summ(config) {
-            const duration = new $mol_time_duration(config);
-            return new $mol_time_duration({
-                year: this.year + duration.year,
-                month: this.month + duration.month,
-                day: this.day + duration.day,
-                hour: this.hour + duration.hour,
-                minute: this.minute + duration.minute,
-                second: this.second + duration.second,
-            });
-        }
-        mult(numb) {
-            return new $mol_time_duration({
-                year: this.year && this.year * numb,
-                month: this.month && this.month * numb,
-                day: this.day && this.day * numb,
-                hour: this.hour && this.hour * numb,
-                minute: this.minute && this.minute * numb,
-                second: this.second && this.second * numb,
-            });
-        }
-        count(config) {
-            const duration = new $mol_time_duration(config);
-            return this.valueOf() / duration.valueOf();
-        }
-        valueOf() {
-            var day = this.year * 365 + this.month * 30.4 + this.day;
-            var second = ((day * 24 + this.hour) * 60 + this.minute) * 60 + this.second;
-            return second * 1000;
-        }
-        toJSON() { return this.toString(); }
-        toString(pattern = 'P#Y#M#DT#h#m#s') {
-            return super.toString(pattern);
-        }
-    }
-    $mol_time_duration.patterns = {
-        '#Y': (duration) => {
-            if (!duration.year)
-                return '';
-            return duration.year + 'Y';
-        },
-        '#M': (duration) => {
-            if (!duration.month)
-                return '';
-            return duration.month + 'M';
-        },
-        '#D': (duration) => {
-            if (!duration.day)
-                return '';
-            return duration.day + 'D';
-        },
-        '#h': (duration) => {
-            if (!duration.hour)
-                return '';
-            return duration.hour + 'H';
-        },
-        '#m': (duration) => {
-            if (!duration.minute)
-                return '';
-            return duration.minute + 'M';
-        },
-        '#s': (duration) => {
-            if (!duration.second)
-                return '';
-            return duration.second + 'S';
-        },
-        '+hh': (duration) => {
-            var hour = duration.hour;
-            var sign = '+';
-            if (hour < 0) {
-                sign = '-';
-                hour = -hour;
-            }
-            return (hour < 10)
-                ? (sign + '0' + hour)
-                : (sign + hour);
-        },
-        'mm': (duration) => {
-            return (duration.minute < 10)
-                ? ('0' + duration.minute)
-                : String(duration.minute);
-        },
-    };
-    $.$mol_time_duration = $mol_time_duration;
-})($ || ($ = {}));
-//duration.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_time_moment extends $.$mol_time_base {
-        constructor(config = new Date) {
-            super();
-            if (typeof config === 'number')
-                config = new Date(config);
-            if (typeof config === 'string') {
-                var parsed = /^(?:(\d\d\d\d)(?:-?(\d\d)(?:-?(\d\d))?)?)?(?:[T ](\d\d)(?::?(\d\d)(?::?(\d\d(?:\.\d\d\d)?))?)?(Z|[\+\-]\d\d(?::?(?:\d\d)?)?)?)?$/.exec(config);
-                if (!parsed)
-                    throw new Error(`Can not parse time moment (${config})`);
-                if (parsed[1])
-                    this.year = Number(parsed[1]);
-                if (parsed[2])
-                    this.month = Number(parsed[2]) - 1;
-                if (parsed[3])
-                    this.day = Number(parsed[3]) - 1;
-                if (parsed[4])
-                    this.hour = Number(parsed[4]);
-                if (parsed[5])
-                    this.minute = Number(parsed[5]);
-                if (parsed[6])
-                    this.second = Number(parsed[6]);
-                if (parsed[7])
-                    this.offset = new $.$mol_time_duration(parsed[7]);
-                return;
-            }
-            if (config instanceof Date) {
-                this.year = config.getFullYear();
-                this.month = config.getMonth();
-                this.day = config.getDate() - 1;
-                this.hour = config.getHours();
-                this.minute = config.getMinutes();
-                this.second = config.getSeconds() + config.getMilliseconds() / 1000;
-                var offset = -config.getTimezoneOffset();
-                this.offset = new $.$mol_time_duration({
-                    hour: (offset < 0) ? Math.ceil(offset / 60) : Math.floor(offset / 60),
-                    minute: offset % 60
-                });
-                return;
-            }
-            this.year = config.year;
-            this.month = config.month;
-            this.day = config.day;
-            this.hour = config.hour;
-            this.minute = config.minute;
-            this.second = config.second;
-            if (config.offset !== undefined)
-                this.offset = config.offset && new $.$mol_time_duration(config.offset);
-        }
-        get weekday() {
-            return (this.native.getDay() + 6) % 7;
-        }
-        get native() {
-            if (this._native)
-                return this._native;
-            var utc = this.toOffset('Z');
-            return this._native = new Date(Date.UTC((utc.year || 0), (utc.month || 0), (utc.day || 0) + 1, (utc.hour || 0), (utc.minute || 0), (utc.second && Math.floor(utc.second) || 0), (utc.second && Math.floor((utc.second - Math.floor(utc.second)) * 1000) || 0)));
-        }
-        get normal() {
-            if (this._normal)
-                return this._normal;
-            const moment = new $mol_time_moment(this.native);
-            return this._normal = new $mol_time_moment({
-                year: (this.year === undefined) ? undefined : moment.year,
-                month: (this.month === undefined) ? undefined : moment.month,
-                day: (this.day === undefined) ? undefined : moment.day,
-                hour: (this.hour === undefined) ? undefined : moment.hour,
-                minute: (this.minute === undefined) ? undefined : moment.minute,
-                second: (this.second === undefined) ? undefined : moment.second,
-                offset: (this.offset === undefined) ? undefined : moment.offset,
-            });
-        }
-        merge(config) {
-            var moment = new $mol_time_moment(config);
-            return new $mol_time_moment({
-                year: (moment.year === undefined) ? this.year : moment.year,
-                month: (moment.month === undefined) ? this.month : moment.month,
-                day: (moment.day === undefined) ? this.day : moment.day,
-                hour: (moment.hour === undefined) ? this.hour : moment.hour,
-                minute: (moment.minute === undefined) ? this.minute : moment.minute,
-                second: (moment.second === undefined) ? this.second : moment.second,
-                offset: (moment.offset === undefined) ? this.offset : moment.offset,
-            });
-        }
-        shift(config) {
-            var duration = new $.$mol_time_duration(config);
-            var moment = new $mol_time_moment().merge(this);
-            var second = (moment.second + (duration.second || 0));
-            var native = new Date(moment.year + (duration.year || 0), moment.month + (duration.month || 0), moment.day + 1 + (duration.day || 0), moment.hour + (duration.hour || 0), moment.minute + (duration.minute || 0), Math.floor(second), (second - Math.floor(second)) * 1000);
-            if (isNaN(native.valueOf()))
-                throw new Error('Wrong time');
-            return new $mol_time_moment({
-                year: (this.year === undefined) ? undefined : native.getFullYear(),
-                month: (this.month === undefined) ? undefined : native.getMonth(),
-                day: (this.day === undefined) ? undefined : native.getDate() - 1,
-                hour: (this.hour === undefined) ? undefined : native.getHours(),
-                minute: (this.minute === undefined) ? undefined : native.getMinutes(),
-                second: (this.second === undefined) ? undefined : native.getSeconds() + native.getMilliseconds() / 1000,
-                offset: this.offset,
-            });
-        }
-        toOffset(config) {
-            const duration = new $.$mol_time_duration(config);
-            const offset = this.offset || new $mol_time_moment().offset;
-            const moment = this.shift(duration.summ(offset.mult(-1)));
-            return moment.merge({ offset: duration });
-        }
-        valueOf() { return this.native.getTime(); }
-        toJSON() { return this.toString(); }
-        toString(pattern = 'YYYY-MM-DDThh:mm:ss.sssZ') {
-            return super.toString(pattern);
-        }
-    }
-    $mol_time_moment.patterns = {
-        'YYYY': (moment) => {
-            if (moment.year == null)
-                return '';
-            return String(moment.year);
-        },
-        'AD': (moment) => {
-            if (moment.year == null)
-                return '';
-            return String(Math.floor(moment.year / 100) + 1);
-        },
-        'YY': (moment) => {
-            if (moment.year == null)
-                return '';
-            return String(moment.year % 100);
-        },
-        'Month': (moment) => {
-            if (moment.month == null)
-                return '';
-            return moment.native.toLocaleString(undefined, { month: 'long' });
-        },
-        'DD Month': (moment) => {
-            return moment.native.toLocaleString(undefined, { day: '2-digit', month: 'long' });
-        },
-        'D Month': (moment) => {
-            return moment.native.toLocaleString(undefined, { day: 'numeric', month: 'long' });
-        },
-        'Mon': (moment) => {
-            if (moment.month == null)
-                return '';
-            return moment.native.toLocaleString(undefined, { month: 'short' });
-        },
-        'DD Mon': (moment) => {
-            return moment.native.toLocaleString(undefined, { day: '2-digit', month: 'short' });
-        },
-        'D Mon': (moment) => {
-            return moment.native.toLocaleString(undefined, { day: 'numeric', month: 'short' });
-        },
-        '-MM': (moment) => {
-            if (moment.month == null)
-                return '';
-            return '-' + $mol_time_moment.patterns['MM'](moment);
-        },
-        'MM': (moment) => {
-            if (moment.month == null)
-                return '';
-            var month = moment.month + 1;
-            return (month < 10)
-                ? ('0' + month)
-                : ('' + month);
-        },
-        'M': (moment) => {
-            if (moment.month == null)
-                return '';
-            return String(moment.month + 1);
-        },
-        'WeekDay': (moment) => {
-            if (moment.weekday == null)
-                return '';
-            return moment.native.toLocaleString(undefined, { weekday: 'long' });
-        },
-        'WD': (moment) => {
-            if (moment.weekday == null)
-                return '';
-            return moment.native.toLocaleString(undefined, { weekday: 'short' });
-        },
-        '-DD': (moment) => {
-            if (moment.day == null)
-                return '';
-            return '-' + $mol_time_moment.patterns['DD'](moment);
-        },
-        'DD': (moment) => {
-            if (moment.day == null)
-                return '';
-            var day = moment.day + 1;
-            return (day < 10)
-                ? ('0' + day)
-                : String(day);
-        },
-        'D': (moment) => {
-            if (moment.day == null)
-                return '';
-            return String(moment.day + 1);
-        },
-        'Thh': (moment) => {
-            if (moment.hour == null)
-                return '';
-            return 'T' + $mol_time_moment.patterns['hh'](moment);
-        },
-        'hh': (moment) => {
-            if (moment.hour == null)
-                return '';
-            return (moment.hour < 10)
-                ? ('0' + moment.hour)
-                : String(moment.hour);
-        },
-        'h': (moment) => {
-            if (moment.hour == null)
-                return '';
-            return String(moment.hour);
-        },
-        ':mm': (moment) => {
-            if (moment.minute == null)
-                return '';
-            return ':' + $mol_time_moment.patterns['mm'](moment);
-        },
-        'mm': (moment) => {
-            if (moment.minute == null)
-                return '';
-            return (moment.minute < 10)
-                ? ('0' + moment.minute)
-                : String(moment.minute);
-        },
-        'm': (moment) => {
-            if (moment.minute == null)
-                return '';
-            return String(moment.minute);
-        },
-        ':ss': (moment) => {
-            if (moment.second == null)
-                return '';
-            return ':' + $mol_time_moment.patterns['ss'](moment);
-        },
-        'ss': (moment) => {
-            if (moment.second == null)
-                return '';
-            var second = Math.floor(moment.second);
-            return (second < 10)
-                ? ('0' + second)
-                : String(second);
-        },
-        's': (moment) => {
-            if (moment.second == null)
-                return '';
-            return String(Math.floor(moment.second));
-        },
-        '.sss': (moment) => {
-            if (moment.second == null)
-                return '';
-            if (moment.second - Math.floor(moment.second) === 0)
-                return '';
-            return '.' + $mol_time_moment.patterns['sss'](moment);
-        },
-        'sss': (moment) => {
-            if (moment.second == null)
-                return '';
-            var millisecond = Math.floor((moment.second - Math.floor(moment.second)) * 1000);
-            return (millisecond < 10)
-                ? ('00' + millisecond)
-                : (millisecond < 100)
-                    ? ('0' + millisecond)
-                    : String(millisecond);
-        },
-        'Z': (moment) => {
-            var offset = moment.offset;
-            if (!offset)
-                return '';
-            return offset.toString('+hh:mm');
-        }
-    };
-    $.$mol_time_moment = $mol_time_moment;
-})($ || ($ = {}));
-//moment.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mpk_tss_pereferial_domain extends $.$mol_object {
-        unit(id) {
-            throw new $.$mpk_tss_todo;
-        }
-        units() {
-            throw new $.$mpk_tss_todo;
-        }
-    }
-    $.$mpk_tss_pereferial_domain = $mpk_tss_pereferial_domain;
-    let $mpk_tss_pereferial_domain_type;
-    (function ($mpk_tss_pereferial_domain_type) {
-        $mpk_tss_pereferial_domain_type["ups"] = "UPS";
-    })($mpk_tss_pereferial_domain_type = $.$mpk_tss_pereferial_domain_type || ($.$mpk_tss_pereferial_domain_type = {}));
-    let $mpk_tss_pereferial_domain_status;
-    (function ($mpk_tss_pereferial_domain_status) {
-        $mpk_tss_pereferial_domain_status["ready"] = "ready";
-        $mpk_tss_pereferial_domain_status["error"] = "error";
-        $mpk_tss_pereferial_domain_status["not_responding"] = "not_responding";
-        $mpk_tss_pereferial_domain_status["inactive"] = "inactive";
-        $mpk_tss_pereferial_domain_status["unknown"] = "unknown";
-    })($mpk_tss_pereferial_domain_status = $.$mpk_tss_pereferial_domain_status || ($.$mpk_tss_pereferial_domain_status = {}));
-    class $mpk_tss_pereferial_domain_unit extends $.$mol_object {
-        id() { throw new $.$mpk_tss_todo; }
-        type() { throw new $.$mpk_tss_todo; }
-        name() { throw new $.$mpk_tss_todo; }
-        status() { throw new $.$mpk_tss_todo; }
-        updated(next) { throw new $.$mpk_tss_todo; }
-    }
-    $.$mpk_tss_pereferial_domain_unit = $mpk_tss_pereferial_domain_unit;
-    let $mpk_tss_pereferial_domain_ups_power_source;
-    (function ($mpk_tss_pereferial_domain_ups_power_source) {
-        $mpk_tss_pereferial_domain_ups_power_source["line"] = "Line";
-        $mpk_tss_pereferial_domain_ups_power_source["internal"] = "Internal";
-    })($mpk_tss_pereferial_domain_ups_power_source = $.$mpk_tss_pereferial_domain_ups_power_source || ($.$mpk_tss_pereferial_domain_ups_power_source = {}));
-    class $mpk_tss_pereferial_domain_ups extends $mpk_tss_pereferial_domain_unit {
-        type() { return $mpk_tss_pereferial_domain_type.ups; }
-        power_source() { throw new $.$mpk_tss_todo; }
-        voltage() { throw new $.$mpk_tss_todo; }
-        battery_level() { throw new $.$mpk_tss_todo; }
-        battery_time() { throw new $.$mpk_tss_todo; }
-    }
-    $.$mpk_tss_pereferial_domain_ups = $mpk_tss_pereferial_domain_ups;
-})($ || ($ = {}));
-//domain.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mpk_tss_pereferial_card extends $.$mpk_tss_card {
-        unit() {
-            return null;
-        }
-        arg() {
-            return ({
-                "unit": this.unit_id(),
-            });
-        }
-        unit_id() {
-            return "";
-        }
-        status() {
-            return this.unit_status();
-        }
-        unit_status() {
-            return "";
-        }
-        Status_text() {
-            return ((obj) => {
-                obj.colors = () => false;
-                obj.status = () => this.unit_status();
-                return obj;
-            })(new this.$.$mpk_tss_pereferial_status);
-        }
-        Status_icon() {
-            return ((obj) => {
-                return obj;
-            })(new this.$.$mpk_tss_icon_renew);
-        }
-        status_click(event, force) {
-            return this.unit_status_click(event);
-        }
-        unit_status_click(event, force) {
-            return (event !== void 0) ? event : null;
-        }
-        items() {
-            return [].concat(this.Type_item(), this.Name_item());
-        }
-        Type_item() {
-            return ((obj) => {
-                obj.title = () => this.type_title();
-                obj.content = () => this.type();
-                return obj;
-            })(new this.$.$mol_labeler);
-        }
-        type_title() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferial_card_type_title");
-        }
-        type() {
-            return "";
-        }
-        Name_item() {
-            return ((obj) => {
-                obj.title = () => this.name_title();
-                obj.content = () => this.name();
-                return obj;
-            })(new this.$.$mol_labeler);
-        }
-        name_title() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferial_card_name_title");
-        }
-        name() {
-            return "";
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferial_card.prototype, "Status_text", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferial_card.prototype, "Status_icon", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferial_card.prototype, "status_click", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferial_card.prototype, "unit_status_click", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferial_card.prototype, "Type_item", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferial_card.prototype, "Name_item", null);
-    $.$mpk_tss_pereferial_card = $mpk_tss_pereferial_card;
-})($ || ($ = {}));
-//card.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mpk_tss_pereferial_card extends $.$mpk_tss_pereferial_card {
-            unit() {
-                throw new $.$mpk_tss_todo;
-            }
-            unit_id() {
-                return this.unit().id();
-            }
-            type() {
-                return this.unit().type();
-            }
-            name() {
-                return this.unit().name();
-            }
-            unit_status() {
-                return this.unit().status();
-            }
-            unit_status_click(event) {
-                if (event)
-                    event.preventDefault();
-                this.unit().updated(new $.$mol_time_moment());
-            }
-        }
-        $$.$mpk_tss_pereferial_card = $mpk_tss_pereferial_card;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//card.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mpk_tss_parameter_unknown extends $.$mol_view {
-        sub() {
-            return [].concat(this.unknown_title());
-        }
-        unknown_title() {
-            return this.$.$mol_locale.text("$mpk_tss_parameter_unknown_unknown_title");
-        }
-    }
-    $.$mpk_tss_parameter_unknown = $mpk_tss_parameter_unknown;
-})($ || ($ = {}));
-//unknown.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mpk_tss_parameter_date extends $.$mol_view {
-        date() {
-            return null;
-        }
-        sub() {
-            return [].concat(this.date_formatted());
-        }
-        date_formatted() {
-            return null;
-        }
-        Unknown() {
-            return ((obj) => {
-                return obj;
-            })(new this.$.$mpk_tss_parameter_unknown);
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_parameter_date.prototype, "Unknown", null);
-    $.$mpk_tss_parameter_date = $mpk_tss_parameter_date;
-})($ || ($ = {}));
-//date.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mpk_tss_parameter_date extends $.$mpk_tss_parameter_date {
-            date() {
-                throw new $.$mpk_tss_todo;
-            }
-            date_formatted() {
-                if (!this.date())
-                    return this.Unknown();
-                return this.date().native.toLocaleString();
-            }
-        }
-        $$.$mpk_tss_parameter_date = $mpk_tss_parameter_date;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//date.view.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mpk_tss_parameter extends $.$mol_row {
-        sub() {
-            return [].concat(this.Name(), this.Value(), this.Updated());
-        }
-        Name() {
-            return ((obj) => {
-                obj.title = () => this.name_title();
-                obj.Content = () => ((obj) => {
-                    obj.sub = () => [].concat(this.name());
-                    return obj;
-                })(new this.$.$mol_view);
-                return obj;
-            })(new this.$.$mol_labeler);
-        }
-        name_title() {
-            return this.$.$mol_locale.text("$mpk_tss_parameter_name_title");
-        }
-        name() {
-            return "";
-        }
-        Value() {
-            return ((obj) => {
-                obj.title = () => this.value_title();
-                obj.Content = () => ((obj) => {
-                    obj.sub = () => [].concat(this.value());
-                    return obj;
-                })(new this.$.$mol_view);
-                return obj;
-            })(new this.$.$mol_labeler);
-        }
-        value_title() {
-            return this.$.$mol_locale.text("$mpk_tss_parameter_value_title");
-        }
-        value() {
-            return null;
-        }
-        Updated() {
-            return ((obj) => {
-                obj.title = () => this.updated_title();
-                obj.Content = () => ((obj) => {
-                    obj.sub = () => [].concat(this.Updated_value());
-                    return obj;
-                })(new this.$.$mol_view);
-                return obj;
-            })(new this.$.$mol_labeler);
-        }
-        updated_title() {
-            return this.$.$mol_locale.text("$mpk_tss_parameter_updated_title");
-        }
-        Updated_value() {
-            return ((obj) => {
-                obj.date = () => this.updated();
-                return obj;
-            })(new this.$.$mpk_tss_parameter_date);
-        }
-        updated() {
-            return null;
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_parameter.prototype, "Name", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_parameter.prototype, "Value", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_parameter.prototype, "Updated", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_parameter.prototype, "Updated_value", null);
-    $.$mpk_tss_parameter = $mpk_tss_parameter;
-})($ || ($ = {}));
-//parameter.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mpk_tss_parameter_list extends $.$mol_list {
-    }
-    $.$mpk_tss_parameter_list = $mpk_tss_parameter_list;
-})($ || ($ = {}));
-//list.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mpk_tss_pereferial_details_ups extends $.$mpk_tss_parameter_list {
-        unit() {
-            return null;
-        }
-        Unknown() {
-            return ((obj) => {
-                return obj;
-            })(new this.$.$mpk_tss_parameter_unknown);
-        }
-        rows() {
-            return [].concat(this.State(), this.Power(), this.Voltage(), this.Bat_level(), this.Bat_time());
-        }
-        State() {
-            return ((obj) => {
-                obj.name = () => this.name_title();
-                obj.value = () => this.Status();
-                obj.updated = () => this.updated();
-                return obj;
-            })(new this.$.$mpk_tss_parameter);
-        }
-        name_title() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferial_details_ups_name_title");
-        }
-        Status() {
-            return ((obj) => {
-                obj.status = () => this.status();
-                return obj;
-            })(new this.$.$mpk_tss_pereferial_status);
-        }
-        status() {
-            return "";
-        }
-        updated() {
-            return null;
-        }
-        Power() {
-            return ((obj) => {
-                obj.name = () => this.power_title();
-                obj.value = () => this.power_source();
-                obj.updated = () => this.updated();
-                return obj;
-            })(new this.$.$mpk_tss_parameter);
-        }
-        power_title() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferial_details_ups_power_title");
-        }
-        power_source() {
-            return null;
-        }
-        Voltage() {
-            return ((obj) => {
-                obj.name = () => this.voltage_title();
-                obj.value = () => this.voltage();
-                obj.updated = () => this.updated();
-                return obj;
-            })(new this.$.$mpk_tss_parameter);
-        }
-        voltage_title() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferial_details_ups_voltage_title");
-        }
-        voltage() {
-            return null;
-        }
-        Bat_level() {
-            return ((obj) => {
-                obj.name = () => this.bat_level_title();
-                obj.value = () => this.battery_level();
-                obj.updated = () => this.updated();
-                return obj;
-            })(new this.$.$mpk_tss_parameter);
-        }
-        bat_level_title() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferial_details_ups_bat_level_title");
-        }
-        battery_level() {
-            return null;
-        }
-        Bat_time() {
-            return ((obj) => {
-                obj.name = () => this.bat_time_title();
-                obj.value = () => this.battery_time();
-                obj.updated = () => this.updated();
-                return obj;
-            })(new this.$.$mpk_tss_parameter);
-        }
-        bat_time_title() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferial_details_ups_bat_time_title");
-        }
-        battery_time() {
-            return null;
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferial_details_ups.prototype, "Unknown", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferial_details_ups.prototype, "State", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferial_details_ups.prototype, "Status", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferial_details_ups.prototype, "Power", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferial_details_ups.prototype, "Voltage", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferial_details_ups.prototype, "Bat_level", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferial_details_ups.prototype, "Bat_time", null);
-    $.$mpk_tss_pereferial_details_ups = $mpk_tss_pereferial_details_ups;
-})($ || ($ = {}));
-//ups.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mpk_tss_pereferial_details_ups extends $.$mpk_tss_pereferial_details_ups {
-            unit() { throw new $.$mpk_tss_todo; }
-            status() { return this.unit().status(); }
-            updated() { return this.unit().updated(); }
-            power_source() {
-                if (!this.unit().power_source())
-                    return this.Unknown();
-                return this.unit().power_source();
-            }
-            voltage() {
-                if (!this.unit().voltage())
-                    return this.Unknown();
-                return this.unit().voltage() + 'V';
-            }
-            battery_level() {
-                if (!this.unit().battery_level())
-                    return this.Unknown();
-                return this.unit().battery_level() + '%';
-            }
-            battery_time() {
-                if (!this.unit().battery_time())
-                    return this.Unknown();
-                return this.unit().battery_time().minute + 'm';
-            }
-        }
-        $$.$mpk_tss_pereferial_details_ups = $mpk_tss_pereferial_details_ups;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//ups.view.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mpk_tss_pereferial_details extends $.$mol_page {
-        unit() {
-            return null;
-        }
-        minimal_width() {
-            return 400;
-        }
-        tools() {
-            return [].concat(this.Details_close());
-        }
-        Details_close() {
-            return ((obj) => {
-                obj.arg = () => ({
-                    "unit": null,
-                });
-                obj.sub = () => [].concat(this.Details_close_icon());
-                return obj;
-            })(new this.$.$mol_link);
-        }
-        Details_close_icon() {
-            return ((obj) => {
-                return obj;
-            })(new this.$.$mol_icon_cross);
-        }
-        body() {
-            return [].concat(this.unit_details());
-        }
-        unit_details() {
-            return null;
-        }
-        Ups() {
-            return ((obj) => {
-                obj.unit = () => this.unit();
-                return obj;
-            })(new this.$.$mpk_tss_pereferial_details_ups);
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferial_details.prototype, "Details_close", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferial_details.prototype, "Details_close_icon", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferial_details.prototype, "Ups", null);
-    $.$mpk_tss_pereferial_details = $mpk_tss_pereferial_details;
-})($ || ($ = {}));
-//details.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mpk_tss_pereferial_details extends $.$mpk_tss_pereferial_details {
-            unit() {
-                throw new $.$mpk_tss_todo;
-            }
-            title() {
-                return this.type() + ' | ' + this.name();
-            }
-            type() { return this.unit().type(); }
-            name() { return this.unit().name(); }
-            unit_details() {
-                switch (this.unit().type()) {
-                    case $.$mpk_tss_pereferial_domain_type.ups: return this.Ups();
-                }
-                throw new $.$mpk_tss_todo_unknown;
-            }
-        }
-        $$.$mpk_tss_pereferial_details = $mpk_tss_pereferial_details;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//details.view.js.map
 ;
 "use strict";
 var $;
@@ -6097,31 +6035,39 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var $;
 (function ($) {
-    class $mpk_tss_pereferial extends $.$mpk_tss_wrap {
-        self_title() {
-            return this.$.$mol_locale.text("$mpk_tss_pereferial_self_title");
+    class $mpk_tss_pereferial extends $.$mol_view {
+        title() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferial_title");
         }
-        minimal_width() {
-            return 200;
+        pages() {
+            return [].concat(this.Main(), this.Unit_current());
         }
-        sub() {
-            return [].concat(this.Head(), this.Filter_title(), this.Body());
-        }
-        Filter_title() {
+        Main() {
             return ((obj) => {
-                obj.query = (val) => this.filter_title(val);
+                obj.minimal_width = () => 200;
+                obj.event_top = (e) => this.event_top(e);
+                obj.tools = () => this.tools();
+                obj.title = () => this.title();
+                obj.filter_value = (val) => this.filter_value(val);
+                obj.destructor = () => this.clean_url();
+                obj.body = () => [].concat(this.List());
                 return obj;
-            })(new this.$.$mol_search);
+            })(new this.$.$mpk_tss_pereferial_page);
         }
-        filter_title(val, force) {
+        event_top(e, force) {
+            return (e !== void 0) ? e : null;
+        }
+        tools() {
+            return [];
+        }
+        filter_value(val, force) {
             return (val !== void 0) ? val : "";
         }
-        body() {
-            return [].concat(this.Units());
+        clean_url() {
+            return null;
         }
-        Units() {
+        List() {
             return ((obj) => {
-                obj.destructor = () => this.destructor();
                 obj.rows = () => this.unit_links();
                 return obj;
             })(new this.$.$mol_list);
@@ -6129,39 +6075,74 @@ var $;
         unit_links() {
             return [];
         }
+        Unit_current() {
+            return null;
+        }
+        Unit_details(id) {
+            return ((obj) => {
+                obj.event_top = (e) => this.details_event_top(e);
+                obj.unit = () => this.unit(id);
+                return obj;
+            })(new this.$.$mpk_tss_pereferial_details);
+        }
+        details_event_top(e, force) {
+            return (e !== void 0) ? e : null;
+        }
+        unit(id) {
+            return null;
+        }
         Unit_link(id) {
             return ((obj) => {
                 obj.unit = () => this.unit(id);
                 return obj;
             })(new this.$.$mpk_tss_pereferial_card);
         }
-        unit(id) {
-            return null;
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferial.prototype, "Main", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferial.prototype, "event_top", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferial.prototype, "filter_value", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferial.prototype, "List", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $mpk_tss_pereferial.prototype, "Unit_details", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferial.prototype, "details_event_top", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $mpk_tss_pereferial.prototype, "Unit_link", null);
+    $.$mpk_tss_pereferial = $mpk_tss_pereferial;
+})($ || ($ = {}));
+(function ($) {
+    class $mpk_tss_pereferial_page extends $.$mol_page {
+        sub() {
+            return [].concat(this.Head(), this.Filter_value(), this.Body());
         }
-        Unit_details(id) {
+        Filter_value() {
             return ((obj) => {
-                obj.minimal_width = () => 200;
-                obj.unit = () => this.unit(id);
+                obj.query = (val) => this.filter_value(val);
                 return obj;
-            })(new this.$.$mpk_tss_pereferial_details);
+            })(new this.$.$mol_search);
+        }
+        filter_value(val, force) {
+            return (val !== void 0) ? val : "";
         }
     }
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_pereferial.prototype, "Filter_title", null);
+    ], $mpk_tss_pereferial_page.prototype, "Filter_value", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_pereferial.prototype, "filter_title", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferial.prototype, "Units", null);
-    __decorate([
-        $.$mol_mem_key
-    ], $mpk_tss_pereferial.prototype, "Unit_link", null);
-    __decorate([
-        $.$mol_mem_key
-    ], $mpk_tss_pereferial.prototype, "Unit_details", null);
-    $.$mpk_tss_pereferial = $mpk_tss_pereferial;
+    ], $mpk_tss_pereferial_page.prototype, "filter_value", null);
+    $.$mpk_tss_pereferial_page = $mpk_tss_pereferial_page;
 })($ || ($ = {}));
 //pereferial.view.tree.js.map
 ;
@@ -6189,12 +6170,13 @@ var $;
             unit_current_id(next) {
                 return $.$mol_state_arg.value(this.state_key('unit'), next) || '';
             }
-            subpages() {
-                return [
-                    this.unit_current_id() && this.Unit_details(this.unit_current_id())
-                ];
+            Unit_current() {
+                return this.unit_current_id() && this.Unit_details(this.unit_current_id());
             }
-            destructor() {
+            details_event_top(event) {
+                this.Main().focused(true);
+            }
+            clean_url() {
                 this.unit_current_id(null);
             }
         }
@@ -6210,13 +6192,30 @@ var $;
 //pereferial.view.js.map
 ;
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 var $;
 (function ($) {
-    class $mpk_tss_sensors extends $.$mpk_tss_wrap {
-        self_title() {
-            return this.$.$mol_locale.text("$mpk_tss_sensors_self_title");
+    class $mpk_tss_sensors extends $.$mol_page {
+        title() {
+            return this.$.$mol_locale.text("$mpk_tss_sensors_title");
+        }
+        body() {
+            return [].concat(this.Content());
+        }
+        Content() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mol_filler);
         }
     }
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_sensors.prototype, "Content", null);
     $.$mpk_tss_sensors = $mpk_tss_sensors;
 })($ || ($ = {}));
 //sensors.view.tree.js.map
@@ -6948,1196 +6947,6 @@ var $;
 //details.view.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_plot_pane extends $.$mol_svg_root {
-        aspect() {
-            return "none";
-        }
-        hue_base(val, force) {
-            return (val !== void 0) ? val : NaN;
-        }
-        hue_shift(val, force) {
-            return (val !== void 0) ? val : 111;
-        }
-        gap() {
-            return 24;
-        }
-        gap_hor() {
-            return this.gap();
-        }
-        gap_vert() {
-            return this.gap();
-        }
-        gap_left() {
-            return this.gap_hor();
-        }
-        gap_right() {
-            return this.gap_hor();
-        }
-        gap_top() {
-            return this.gap_vert();
-        }
-        gap_bottom() {
-            return this.gap_vert();
-        }
-        shift() {
-            return [].concat(0, 0);
-        }
-        scale() {
-            return [].concat(1, 1);
-        }
-        size_real() {
-            return [].concat(1, 1);
-        }
-        sub() {
-            return this.graphs_sorted();
-        }
-        graphs_sorted() {
-            return this.graphs_colored();
-        }
-        graphs_colored() {
-            return this.graphs_positioned();
-        }
-        graphs_positioned() {
-            return this.graphs();
-        }
-        graphs() {
-            return [];
-        }
-        plugins() {
-            return [].concat(this.Meter());
-        }
-        width() {
-            return this.Meter().width();
-        }
-        height() {
-            return this.Meter().height();
-        }
-        Meter() {
-            return ((obj) => {
-                return obj;
-            })(new this.$.$mol_meter);
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_plot_pane.prototype, "hue_base", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_plot_pane.prototype, "hue_shift", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_plot_pane.prototype, "Meter", null);
-    $.$mol_plot_pane = $mol_plot_pane;
-})($ || ($ = {}));
-//pane.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_plot_pane extends $.$mol_plot_pane {
-            dimensions() {
-                const graphs = this.graphs();
-                const next = [
-                    [Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY],
-                    [Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY],
-                ];
-                for (let graph of graphs) {
-                    const dims = graph.dimensions();
-                    if (dims[0][0] < next[0][0])
-                        next[0][0] = dims[0][0];
-                    if (dims[0][1] < next[0][1])
-                        next[0][1] = dims[0][1];
-                    if (dims[1][0] > next[1][0])
-                        next[1][0] = dims[1][0];
-                    if (dims[1][1] > next[1][1])
-                        next[1][1] = dims[1][1];
-                }
-                return next;
-            }
-            size() {
-                const dims = this.dimensions();
-                return [
-                    (dims[1][0] - dims[0][0]) || 1,
-                    (dims[1][1] - dims[0][1]) || 1,
-                ];
-            }
-            dimensions_expanded() {
-                const dims = this.dimensions();
-                const size = this.size();
-                const gap = [0, 0];
-                return [
-                    [dims[0][0] - size[0] * gap[0], dims[0][1] - size[1] * gap[1]],
-                    [dims[1][0] + size[0] * gap[0], dims[1][1] + size[1] * gap[1]],
-                ];
-            }
-            size_expaned() {
-                const dims = this.dimensions_expanded();
-                return [
-                    (dims[1][0] - dims[0][0]) || 1,
-                    (dims[1][1] - dims[0][1]) || 1,
-                ];
-            }
-            graph_hue(index) {
-                return (360 + (this.hue_base() + this.hue_shift() * index) % 360) % 360;
-            }
-            graphs_colored() {
-                const graphs = this.graphs_positioned();
-                graphs.forEach((graph, index) => {
-                    graph.hue = () => this.graph_hue(index);
-                });
-                return graphs;
-            }
-            size_real() {
-                return [this.width(), this.height()];
-            }
-            view_box() {
-                const size = this.size_real();
-                return `0 0 ${size[0]} ${size[1]}`;
-            }
-            scale() {
-                const size = this.size_expaned();
-                const real = this.size_real();
-                return [
-                    +(real[0] - this.gap_left() - this.gap_right()) / size[0],
-                    -(real[1] - this.gap_top() - this.gap_bottom()) / size[1],
-                ];
-            }
-            shift() {
-                const dims = this.dimensions_expanded();
-                const scale = this.scale();
-                return [
-                    Math.round(this.gap_left() - dims[0][0] * scale[0]),
-                    Math.round(this.gap_top() - dims[1][1] * scale[1]),
-                ];
-            }
-            graphs_positioned() {
-                const graphs = this.graphs();
-                graphs.forEach((graph, index) => {
-                    graph.shift = () => this.shift();
-                    graph.scale = () => this.scale();
-                    graph.dimensions_expanded = () => this.dimensions_expanded();
-                    graph.size_real = () => this.size_real();
-                });
-                return graphs;
-            }
-            graphs_sorted() {
-                const graphs = this.graphs_colored();
-                const sorted = [];
-                for (let graph of graphs)
-                    sorted.push(...graph.back());
-                for (let graph of graphs)
-                    sorted.push(...graph.front());
-                return sorted;
-            }
-        }
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_pane.prototype, "dimensions", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_pane.prototype, "size", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_pane.prototype, "dimensions_expanded", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_pane.prototype, "size_expaned", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_pane.prototype, "graphs_colored", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_pane.prototype, "scale", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_pane.prototype, "shift", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_pane.prototype, "graphs_positioned", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_pane.prototype, "graphs_sorted", null);
-        $$.$mol_plot_pane = $mol_plot_pane;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//pane.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_svg_group extends $.$mol_svg {
-        dom_name() {
-            return "g";
-        }
-    }
-    $.$mol_svg_group = $mol_svg_group;
-})($ || ($ = {}));
-//group.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_plot_graph extends $.$mol_svg_group {
-        series() {
-            return ({});
-        }
-        points() {
-            return this.points_scaled();
-        }
-        points_scaled() {
-            return this.points_raw();
-        }
-        points_raw() {
-            return [];
-        }
-        threshold() {
-            return 4;
-        }
-        shift() {
-            return [].concat(0, 0);
-        }
-        scale() {
-            return [].concat(1, 1);
-        }
-        dimensions_expanded() {
-            return this.dimensions();
-        }
-        dimensions() {
-            return [].concat([], []);
-        }
-        size_real() {
-            return [].concat(0, 0);
-        }
-        hue() {
-            return NaN;
-        }
-        attr() {
-            return (Object.assign({}, super.attr(), { "mol_plot_graph_type": this.type() }));
-        }
-        type() {
-            return "solid";
-        }
-        style() {
-            return (Object.assign({}, super.style(), { "color": this.color() }));
-        }
-        color() {
-            return "";
-        }
-        Sample() {
-            return null;
-        }
-        front() {
-            return [];
-        }
-        back() {
-            return [];
-        }
-    }
-    $.$mol_plot_graph = $mol_plot_graph;
-})($ || ($ = {}));
-(function ($) {
-    class $mol_plot_graph_sample extends $.$mol_view {
-        attr() {
-            return (Object.assign({}, super.attr(), { "mol_plot_graph_type": this.type() }));
-        }
-        type() {
-            return "solid";
-        }
-        style() {
-            return (Object.assign({}, super.style(), { "color": this.color() }));
-        }
-        color() {
-            return "black";
-        }
-    }
-    $.$mol_plot_graph_sample = $mol_plot_graph_sample;
-})($ || ($ = {}));
-//graph.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_plot_graph extends $.$mol_plot_graph {
-            points_raw() {
-                const series = this.series();
-                return Object.keys(series).map((key, index) => [
-                    isNaN(Number(key)) ? index : Number(key),
-                    series[key],
-                ]);
-            }
-            points_scaled() {
-                const shift = this.shift();
-                const scale = this.scale();
-                return this.points_raw().map(point => [
-                    Math.round(shift[0] + point[0] * scale[0]),
-                    Math.round(shift[1] + point[1] * scale[1]),
-                ]);
-            }
-            points() {
-                const threshold = this.threshold();
-                if (!threshold)
-                    return this.points_scaled();
-                const res = [];
-                let last = [Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY];
-                this.points_scaled().forEach(point => {
-                    check: {
-                        if (Math.abs(point[0] - last[0]) >= threshold)
-                            break check;
-                        if (Math.abs(point[1] - last[1]) >= threshold)
-                            break check;
-                        return;
-                    }
-                    res.push(last = point);
-                });
-                return res;
-            }
-            dimensions() {
-                const points = this.points_raw();
-                const next = [
-                    [Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY],
-                    [Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY],
-                ];
-                for (let point of points) {
-                    if (point[0] < next[0][0])
-                        next[0][0] = point[0];
-                    if (point[1] < next[0][1])
-                        next[0][1] = point[1];
-                    if (point[0] > next[1][0])
-                        next[1][0] = point[0];
-                    if (point[1] > next[1][1])
-                        next[1][1] = point[1];
-                }
-                return next;
-            }
-            color() {
-                const hue = this.hue();
-                return hue ? `hsl( ${hue} , 100% , 35% )` : '';
-            }
-            front() {
-                return [this];
-            }
-        }
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_graph.prototype, "points_scaled", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_graph.prototype, "points", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_graph.prototype, "dimensions", null);
-        $$.$mol_plot_graph = $mol_plot_graph;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//graph.view.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_plot_group extends $.$mol_plot_graph {
-        sub() {
-            return this.graphs_enriched();
-        }
-        graphs_enriched() {
-            return this.graphs();
-        }
-        graphs() {
-            return [];
-        }
-        Sample() {
-            return ((obj) => {
-                obj.sub = () => this.graph_samples();
-                return obj;
-            })(new this.$.$mol_plot_graph_sample);
-        }
-        graph_samples() {
-            return [];
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_plot_group.prototype, "Sample", null);
-    $.$mol_plot_group = $mol_plot_group;
-})($ || ($ = {}));
-//group.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_plot_group extends $.$mol_plot_group {
-            graphs_enriched() {
-                const graphs = this.graphs();
-                for (let graph of graphs) {
-                    graph.hue = () => this.hue();
-                    graph.points = () => this.points();
-                    graph.shift = () => this.shift();
-                    graph.scale = () => this.scale();
-                    graph.size_real = () => this.size_real();
-                    graph.dimensions_expanded = () => this.dimensions_expanded();
-                }
-                return graphs;
-            }
-            graph_samples() {
-                return this.graphs().map(graph => graph.Sample());
-            }
-            back() {
-                const graphs = this.graphs_enriched();
-                const next = [];
-                for (let graph of graphs)
-                    next.push(...graph.back());
-                return next;
-            }
-            front() {
-                const graphs = this.graphs_enriched();
-                const next = [];
-                for (let graph of graphs)
-                    next.push(...graph.front());
-                return next;
-            }
-        }
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_group.prototype, "graphs_enriched", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_group.prototype, "graph_samples", null);
-        $$.$mol_plot_group = $mol_plot_group;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//group.view.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_plot_fill extends $.$mol_plot_graph {
-        front() {
-            return [];
-        }
-        sub() {
-            return [].concat(this.Curve());
-        }
-        Curve() {
-            return ((obj) => {
-                obj.geometry = () => this.curve();
-                return obj;
-            })(new this.$.$mol_svg_path);
-        }
-        curve() {
-            return "";
-        }
-        Sample() {
-            return ((obj) => {
-                obj.color = () => this.color();
-                return obj;
-            })(new this.$.$mol_plot_graph_sample);
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_plot_fill.prototype, "Curve", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_plot_fill.prototype, "Sample", null);
-    $.$mol_plot_fill = $mol_plot_fill;
-})($ || ($ = {}));
-//fill.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_plot_fill extends $.$mol_plot_fill {
-            curve() {
-                const shift = this.shift();
-                const points = this.points();
-                if (points.length < 1)
-                    return '';
-                const main = points.map(point => 'L ' + point.join(' ')).join(' ');
-                return `M ${points[0].join(' ')} ${main} V ${shift[1]} H ${points[0][0]}`;
-            }
-            back() {
-                return [this];
-            }
-        }
-        $$.$mol_plot_fill = $mol_plot_fill;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//fill.view.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_plot_line extends $.$mol_plot_graph {
-        color_fill() {
-            return "none";
-        }
-        sub() {
-            return [].concat(this.Curve());
-        }
-        Curve() {
-            return ((obj) => {
-                obj.geometry = () => this.curve();
-                return obj;
-            })(new this.$.$mol_svg_path);
-        }
-        curve() {
-            return "";
-        }
-        Sample() {
-            return ((obj) => {
-                obj.color = () => this.color();
-                obj.type = () => this.type();
-                return obj;
-            })(new this.$.$mol_plot_graph_sample);
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_plot_line.prototype, "Curve", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_plot_line.prototype, "Sample", null);
-    $.$mol_plot_line = $mol_plot_line;
-})($ || ($ = {}));
-//line.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_plot_line extends $.$mol_plot_line {
-            curve() {
-                const points = this.points();
-                if (points.length < 1)
-                    return '';
-                return 'M ' + points[0].join(' ') + ' ' + points.map(point => 'L ' + point.join(' ')).join(' ');
-            }
-        }
-        $$.$mol_plot_line = $mol_plot_line;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//line.view.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_plot_dot extends $.$mol_plot_graph {
-        style() {
-            return (Object.assign({}, super.style(), { "stroke-width": this.diameter() }));
-        }
-        diameter() {
-            return 8;
-        }
-        sub() {
-            return [].concat(this.Curve());
-        }
-        Curve() {
-            return ((obj) => {
-                obj.geometry = () => this.curve();
-                return obj;
-            })(new this.$.$mol_svg_path);
-        }
-        curve() {
-            return "";
-        }
-        Sample() {
-            return ((obj) => {
-                obj.color = () => this.color();
-                return obj;
-            })(new this.$.$mol_plot_graph_sample);
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_plot_dot.prototype, "Curve", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_plot_dot.prototype, "Sample", null);
-    $.$mol_plot_dot = $mol_plot_dot;
-})($ || ($ = {}));
-//dot.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_plot_dot extends $.$mol_plot_dot {
-            points_visible() {
-                const size = this.size_real();
-                const radius = this.diameter() / 2;
-                return this.points().filter(point => {
-                    if (point[0] < -radius)
-                        return false;
-                    if (point[1] < -radius)
-                        return false;
-                    if (point[0] > size[0] + radius)
-                        return false;
-                    if (point[1] > size[1] + radius)
-                        return false;
-                    return true;
-                });
-            }
-            curve() {
-                const points = this.points_visible();
-                if (points.length < 1)
-                    return '';
-                return points.map(point => 'M ' + point.join(' ') + ' v 0').join(' ');
-            }
-        }
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_dot.prototype, "points_visible", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_dot.prototype, "curve", null);
-        $$.$mol_plot_dot = $mol_plot_dot;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//dot.view.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_plot_bar extends $.$mol_plot_graph {
-        style() {
-            return (Object.assign({}, super.style(), { "stroke-width": this.stroke_width() }));
-        }
-        stroke_width() {
-            return "1rem";
-        }
-        sub() {
-            return [].concat(this.Curve());
-        }
-        Curve() {
-            return ((obj) => {
-                obj.geometry = () => this.curve();
-                return obj;
-            })(new this.$.$mol_svg_path);
-        }
-        curve() {
-            return "";
-        }
-        Sample() {
-            return ((obj) => {
-                obj.color = () => this.color();
-                return obj;
-            })(new this.$.$mol_plot_graph_sample);
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_plot_bar.prototype, "Curve", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_plot_bar.prototype, "Sample", null);
-    $.$mol_plot_bar = $mol_plot_bar;
-})($ || ($ = {}));
-//bar.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_plot_bar extends $.$mol_plot_bar {
-            curve() {
-                const shift = this.shift();
-                const points = this.points();
-                if (points.length < 1)
-                    return '';
-                return points.map(point => `M ${point[0]} ${shift[1]} V ${point[1]}`).join(' ');
-            }
-            stroke_width() {
-                return (8 / Math.sqrt(this.points().length)).toPrecision(2) + '%';
-            }
-            color() {
-                return `hsl( ${this.hue()} , 70% , 85% )`;
-            }
-            dimensions() {
-                const points = this.points_raw();
-                const next = [
-                    [Number.POSITIVE_INFINITY, 0],
-                    [Number.NEGATIVE_INFINITY, 0],
-                ];
-                for (let point of points) {
-                    if (point[0] < next[0][0])
-                        next[0][0] = point[0];
-                    if (point[1] < next[0][1])
-                        next[0][1] = point[1];
-                    if (point[0] > next[1][0])
-                        next[1][0] = point[0];
-                    if (point[1] > next[1][1])
-                        next[1][1] = point[1];
-                }
-                const gap = (next[1][0] - next[0][0]) / points.length || 0.00000001;
-                next[0][0] -= gap;
-                next[1][0] += gap;
-                return next;
-            }
-        }
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_bar.prototype, "dimensions", null);
-        $$.$mol_plot_bar = $mol_plot_bar;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//bar.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_svg_text extends $.$mol_svg {
-        dom_name() {
-            return "text";
-        }
-        pos() {
-            return [];
-        }
-        attr() {
-            return (Object.assign({}, super.attr(), { "x": this.pos_x(), "y": this.pos_y(), "text-anchor": this.align() }));
-        }
-        pos_x() {
-            return "";
-        }
-        pos_y() {
-            return "";
-        }
-        align() {
-            return "middle";
-        }
-        sub() {
-            return [].concat(this.text());
-        }
-        text() {
-            return "";
-        }
-    }
-    $.$mol_svg_text = $mol_svg_text;
-})($ || ($ = {}));
-//text.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_svg_text extends $.$mol_svg_text {
-            pos_x() {
-                return this.pos()[0];
-            }
-            pos_y() {
-                return this.pos()[1];
-            }
-        }
-        $$.$mol_svg_text = $mol_svg_text;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//text.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    function $mol_math_round_expand(val, gap = 1) {
-        if (val === 0)
-            return 0;
-        const val_abs = Math.abs(val);
-        const val_sign = val ? Math.round(val / val_abs) : 0;
-        const digits = Math.floor(Math.log(val_abs) / Math.log(10));
-        const precission = Math.pow(10, digits - gap);
-        const val_expanded = precission * Math.ceil(val_abs / precission);
-        return val_sign * val_expanded;
-    }
-    $.$mol_math_round_expand = $mol_math_round_expand;
-})($ || ($ = {}));
-//expand.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_plot_ruler_vert extends $.$mol_plot_graph {
-        front() {
-            return [];
-        }
-        color() {
-            return null;
-        }
-        sub() {
-            return [].concat(this.Curve(), this.labels(), this.Title());
-        }
-        Curve() {
-            return ((obj) => {
-                obj.geometry = () => this.curve();
-                return obj;
-            })(new this.$.$mol_svg_path);
-        }
-        curve() {
-            return "";
-        }
-        labels() {
-            return [];
-        }
-        Title() {
-            return ((obj) => {
-                obj.pos = () => this.title_pos();
-                obj.align = () => "end";
-                obj.sub = () => [].concat(this.title());
-                return obj;
-            })(new this.$.$mol_svg_text);
-        }
-        title_pos() {
-            return [].concat(this.title_pos_x(), this.title_pos_y());
-        }
-        title_pos_x() {
-            return "36px";
-        }
-        title_pos_y() {
-            return "14px";
-        }
-        Label(index) {
-            return ((obj) => {
-                obj.pos = () => this.label_pos(index);
-                obj.align = () => "end";
-                obj.text = () => this.label_text(index);
-                return obj;
-            })(new this.$.$mol_svg_text);
-        }
-        label_pos(index) {
-            return [].concat(this.label_pos_x(index), this.label_pos_y(index));
-        }
-        label_pos_x(index) {
-            return this.title_pos_x();
-        }
-        label_pos_y(index) {
-            return "";
-        }
-        label_text(index) {
-            return "";
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_plot_ruler_vert.prototype, "Curve", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_plot_ruler_vert.prototype, "Title", null);
-    __decorate([
-        $.$mol_mem_key
-    ], $mol_plot_ruler_vert.prototype, "Label", null);
-    $.$mol_plot_ruler_vert = $mol_plot_ruler_vert;
-})($ || ($ = {}));
-//vert.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_plot_ruler_vert extends $.$mol_plot_ruler_vert {
-            dimensions() {
-                const series = this.series();
-                const next = [
-                    [Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY],
-                    [Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY],
-                ];
-                for (let key of Object.keys(series)) {
-                    if (series[key] < next[0][1])
-                        next[0][1] = series[key];
-                    if (series[key] > next[1][1])
-                        next[1][1] = series[key];
-                }
-                return next;
-            }
-            step() {
-                const dims = this.dimensions_expanded();
-                const size = $.$mol_math_round_expand((dims[1][1] - dims[0][1]), -1);
-                const count = Math.max(1, Math.pow(10, Math.floor(Math.log(-size * this.scale()[1] / 24) / Math.log(10))));
-                const step = size / count;
-                return step;
-            }
-            points_raw() {
-                const dims = this.dimensions_expanded();
-                const step = this.step();
-                const next = [];
-                const start = Math.round(dims[0][1] / step) * step;
-                const end = Math.round(dims[1][1] / step) * step;
-                for (let val = start; val <= end; val += step) {
-                    next.push([0, Number(val.toFixed(10))]);
-                }
-                return next;
-            }
-            curve() {
-                const shift = this.shift();
-                const points = this.points();
-                if (points.length < 1)
-                    return '';
-                const last = points[points.length - 1];
-                return points.map(point => `M 0 ${point[1]} H 2000 `).join(' ');
-            }
-            labels() {
-                return this.points().map((point, index) => this.Label(index));
-            }
-            label_pos_y(index) {
-                return this.points()[index][1] + 'px';
-            }
-            label_text(index) {
-                const step = this.step();
-                const precision = Math.max(0, Math.min(15, (step - Math.floor(step)).toString().length - 2));
-                return this.points_raw()[index][1].toFixed(precision);
-            }
-            back() {
-                return [this];
-            }
-        }
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_ruler_vert.prototype, "step", null);
-        $$.$mol_plot_ruler_vert = $mol_plot_ruler_vert;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//vert.view.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_plot_ruler_hor extends $.$mol_plot_graph {
-        front() {
-            return [];
-        }
-        color() {
-            return null;
-        }
-        sub() {
-            return [].concat(this.Curve(), this.labels(), this.Title());
-        }
-        Curve() {
-            return ((obj) => {
-                obj.geometry = () => this.curve();
-                return obj;
-            })(new this.$.$mol_svg_path);
-        }
-        curve() {
-            return "";
-        }
-        labels() {
-            return [];
-        }
-        Title() {
-            return ((obj) => {
-                obj.pos = () => this.title_pos();
-                obj.align = () => "start";
-                obj.sub = () => [].concat(this.title());
-                return obj;
-            })(new this.$.$mol_svg_text);
-        }
-        title_pos() {
-            return [].concat(this.title_pos_x(), this.title_pos_y());
-        }
-        title_pos_x() {
-            return "0";
-        }
-        title_pos_y() {
-            return "100%";
-        }
-        Label(index) {
-            return ((obj) => {
-                obj.pos = () => this.label_pos(index);
-                obj.text = () => this.label_text(index);
-                return obj;
-            })(new this.$.$mol_svg_text);
-        }
-        label_pos(index) {
-            return [].concat(this.label_pos_x(index), this.label_pos_y(index));
-        }
-        label_pos_x(index) {
-            return "";
-        }
-        label_pos_y(index) {
-            return this.title_pos_y();
-        }
-        label_text(index) {
-            return "";
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_plot_ruler_hor.prototype, "Curve", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_plot_ruler_hor.prototype, "Title", null);
-    __decorate([
-        $.$mol_mem_key
-    ], $mol_plot_ruler_hor.prototype, "Label", null);
-    $.$mol_plot_ruler_hor = $mol_plot_ruler_hor;
-})($ || ($ = {}));
-//hor.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_plot_ruler_hor extends $.$mol_plot_ruler_hor {
-            count() {
-                return this.points_raw().length * this.scale()[0] / 100;
-            }
-            step() {
-                const count = this.count();
-                let points = this.points_scaled();
-                let step = Math.max(1, Math.ceil(points.length / count));
-                return step;
-            }
-            keys_visible() {
-                const res = [];
-                const keys = Object.keys(this.series());
-                if (keys.length === 0)
-                    return [];
-                let step = this.step();
-                let limit = Math.floor(keys.length - step / 2);
-                for (let i = 0; i < limit; i += step) {
-                    res.push(keys[i]);
-                }
-                res.push(keys[keys.length - 1]);
-                return res;
-            }
-            points() {
-                const points = this.points_scaled();
-                const keys = Object.keys(this.series());
-                return this.keys_visible().map(key => points[keys.indexOf(key)]);
-            }
-            curve() {
-                const shift = this.shift();
-                const points = this.points();
-                if (points.length < 1)
-                    return '';
-                const last = points[points.length - 1];
-                return points.map(point => `M ${point[0]} 1000 V 0`).join(' ');
-            }
-            labels() {
-                return this.keys_visible().map(key => this.Label(key));
-            }
-            label_pos_x(key) {
-                return String(this.points()[this.keys_visible().indexOf(key)][0]);
-            }
-            label_text(key) {
-                return key;
-            }
-            back() {
-                return [this];
-            }
-        }
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_ruler_hor.prototype, "step", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_ruler_hor.prototype, "keys_visible", null);
-        $$.$mol_plot_ruler_hor = $mol_plot_ruler_hor;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//hor.view.js.map
-;
-"use strict";
 var $;
 (function ($) {
     function $mol_range2(item = index => index, size = () => Number.POSITIVE_INFINITY) {
@@ -8392,34 +7201,50 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var $;
 (function ($) {
-    class $mpk_tss_reports extends $.$mpk_tss_wrap {
-        self_title() {
-            return this.$.$mol_locale.text("$mpk_tss_reports_self_title");
+    class $mpk_tss_reports extends $.$mol_view {
+        title() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_title");
         }
-        sub() {
-            return [].concat(this.Head(), this.Filter_title(), this.Body());
+        pages() {
+            return [].concat(this.Main(), this.Report_current(), this.Carriage_current());
         }
-        Filter_title() {
+        Main() {
             return ((obj) => {
-                obj.query = (val) => this.filter_title(val);
+                obj.event_top = (e) => this.event_top(e);
+                obj.tools = () => this.tools();
+                obj.title = () => this.title();
+                obj.filter_value = (val) => this.filter_value(val);
+                obj.destructor = () => this.destructor();
+                obj.body = () => [].concat(this.Reports());
                 return obj;
-            })(new this.$.$mol_search);
+            })(new this.$.$mpk_tss_reports_page);
         }
-        filter_title(val, force) {
+        event_top(e, force) {
+            return (e !== void 0) ? e : null;
+        }
+        tools() {
+            return [];
+        }
+        filter_value(val, force) {
             return (val !== void 0) ? val : "";
         }
-        body() {
-            return [].concat(this.Reports());
+        destructor() {
+            return null;
         }
         Reports() {
             return ((obj) => {
-                obj.destructor = () => this.destructor();
                 obj.rows = () => this.report_links();
                 return obj;
             })(new this.$.$mol_list);
         }
         report_links() {
             return [];
+        }
+        Report_current() {
+            return null;
+        }
+        Carriage_current() {
+            return null;
         }
         Report_link(id) {
             return ((obj) => {
@@ -8432,7 +7257,6 @@ var $;
         }
         Report_details(id) {
             return ((obj) => {
-                obj.minimal_width = () => 400;
                 obj.report = () => this.report(id);
                 return obj;
             })(new this.$.$mpk_tss_reports_details);
@@ -8442,7 +7266,7 @@ var $;
                 obj.carriage = () => this.carriage(id);
                 obj.title = () => "Details";
                 return obj;
-            })(new this.$.$mpk_tss_reports_details_carriage);
+            })(new this.$.$mpk_tss_reports_carriage);
         }
         carriage(id) {
             return null;
@@ -8450,10 +7274,13 @@ var $;
     }
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports.prototype, "Filter_title", null);
+    ], $mpk_tss_reports.prototype, "Main", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports.prototype, "filter_title", null);
+    ], $mpk_tss_reports.prototype, "event_top", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports.prototype, "filter_value", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports.prototype, "Reports", null);
@@ -8469,121 +7296,52 @@ var $;
     $.$mpk_tss_reports = $mpk_tss_reports;
 })($ || ($ = {}));
 (function ($) {
-    class $mpk_tss_reports_details_carriage extends $.$mol_page {
-        carriage() {
-            return null;
+    class $mpk_tss_reports_page extends $.$mol_page {
+        minimal_width() {
+            return 200;
         }
-        body() {
-            return [].concat(this.Plot());
+        sub() {
+            return [].concat(this.Head(), this.Filter_value(), this.Body());
         }
-        Plot() {
+        Filter_value() {
             return ((obj) => {
-                obj.gap = () => 48;
-                obj.graphs = () => [].concat(this.Saturation(), this.Input(), this.Output(), this.Voltage(), this.Time());
+                obj.query = (val) => this.filter_value(val);
                 return obj;
-            })(new this.$.$mol_plot_pane);
+            })(new this.$.$mol_search);
         }
-        Saturation() {
-            return ((obj) => {
-                obj.series = () => this.saturation_series();
-                obj.graphs = () => [].concat(this.Saturation_fill(), this.Saturation_line());
-                return obj;
-            })(new this.$.$mol_plot_group);
-        }
-        saturation_series() {
-            return [];
-        }
-        Saturation_fill() {
-            return ((obj) => {
-                return obj;
-            })(new this.$.$mol_plot_fill);
-        }
-        Saturation_line() {
-            return ((obj) => {
-                obj.type = () => "dashed";
-                return obj;
-            })(new this.$.$mol_plot_line);
-        }
-        Input() {
-            return ((obj) => {
-                obj.series = () => this.input_series();
-                obj.graphs = () => [].concat(this.Input_line(), this.Input_dots());
-                return obj;
-            })(new this.$.$mol_plot_group);
-        }
-        input_series() {
-            return [];
-        }
-        Input_line() {
-            return ((obj) => {
-                return obj;
-            })(new this.$.$mol_plot_line);
-        }
-        Input_dots() {
-            return ((obj) => {
-                return obj;
-            })(new this.$.$mol_plot_dot);
-        }
-        Output() {
-            return ((obj) => {
-                obj.series = () => this.output_series();
-                return obj;
-            })(new this.$.$mol_plot_bar);
-        }
-        output_series() {
-            return [];
-        }
-        Voltage() {
-            return ((obj) => {
-                obj.title = () => this.Voltage_title();
-                return obj;
-            })(new this.$.$mol_plot_ruler_vert);
-        }
-        Voltage_title() {
-            return this.$.$mol_locale.text("$mpk_tss_reports_details_carriage_Voltage_title");
-        }
-        Time() {
-            return ((obj) => {
-                obj.title = () => this.Time_title();
-                obj.series = () => this.output_series();
-                return obj;
-            })(new this.$.$mol_plot_ruler_hor);
-        }
-        Time_title() {
-            return this.$.$mol_locale.text("$mpk_tss_reports_details_carriage_Time_title");
+        filter_value(val, force) {
+            return (val !== void 0) ? val : "";
         }
     }
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_details_carriage.prototype, "Plot", null);
+    ], $mpk_tss_reports_page.prototype, "Filter_value", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_details_carriage.prototype, "Saturation", null);
+    ], $mpk_tss_reports_page.prototype, "filter_value", null);
+    $.$mpk_tss_reports_page = $mpk_tss_reports_page;
+})($ || ($ = {}));
+(function ($) {
+    class $mpk_tss_reports_carriage extends $.$mol_page {
+        carriage() {
+            return null;
+        }
+        minimal_width() {
+            return 700;
+        }
+        body() {
+            return [].concat(this.Content());
+        }
+        Content() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mol_filler);
+        }
+    }
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_details_carriage.prototype, "Saturation_fill", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_details_carriage.prototype, "Saturation_line", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_details_carriage.prototype, "Input", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_details_carriage.prototype, "Input_line", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_details_carriage.prototype, "Input_dots", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_details_carriage.prototype, "Output", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_details_carriage.prototype, "Voltage", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_details_carriage.prototype, "Time", null);
-    $.$mpk_tss_reports_details_carriage = $mpk_tss_reports_details_carriage;
+    ], $mpk_tss_reports_carriage.prototype, "Content", null);
+    $.$mpk_tss_reports_carriage = $mpk_tss_reports_carriage;
 })($ || ($ = {}));
 //reports.view.tree.js.map
 ;
@@ -8614,11 +7372,11 @@ var $;
             carriage_current_id(next) {
                 return $.$mol_state_arg.value(this.state_key('carriage'), next) || '';
             }
-            subpages() {
-                return [
-                    this.report_current_id() && this.Report_details(this.report_current_id()),
-                    this.carriage_current_id() && this.Carriage_details(this.carriage_current_id()),
-                ];
+            Report_current() {
+                return this.report_current_id() && this.Report_details(this.report_current_id());
+            }
+            Carriage_current() {
+                return this.carriage_current_id() && this.Carriage_details(this.report_current_id());
             }
             destructor() {
                 this.report_current_id(null);
@@ -8977,7 +7735,6 @@ var $;
         }
         Software() {
             return ((obj) => {
-                obj.breadcrumbs = () => [].concat(this.breadcrumbs());
                 obj.tools = () => this.common_tools();
                 obj.event_top = (event) => this.event_front_up(event);
                 return obj;
@@ -8985,7 +7742,6 @@ var $;
         }
         Pereferial() {
             return ((obj) => {
-                obj.breadcrumbs = () => [].concat(this.breadcrumbs());
                 obj.tools = () => this.common_tools();
                 obj.event_top = (event) => this.event_front_up(event);
                 return obj;
@@ -8993,7 +7749,6 @@ var $;
         }
         Sensors() {
             return ((obj) => {
-                obj.breadcrumbs = () => [].concat(this.breadcrumbs());
                 obj.tools = () => this.common_tools();
                 obj.event_top = (event) => this.event_front_up(event);
                 return obj;
@@ -9001,14 +7756,10 @@ var $;
         }
         Reports() {
             return ((obj) => {
-                obj.breadcrumbs = () => [].concat(this.breadcrumbs());
                 obj.tools = () => this.common_tools();
                 obj.event_top = (event) => this.event_front_up(event);
                 return obj;
             })(new this.$.$mpk_tss_reports);
-        }
-        breadcrumbs() {
-            return [];
         }
         common_tools() {
             return [].concat(this.User_link(), this.Details_close());
@@ -9113,7 +7864,6 @@ var $;
         Summary() {
             return ((obj) => {
                 obj.tools = () => [].concat(this.User_link());
-                obj.breadcrumbs = () => [].concat(this.breadcrumbs());
                 obj.event_top = (event) => this.event_front_up(event);
                 return obj;
             })(new this.$.$mpk_tss_summary);
@@ -9248,7 +7998,7 @@ var $;
                 return { page: id };
             }
             menu_page_title(id) {
-                return this.menu_pages()[id].self_title();
+                return this.menu_pages()[id].title();
             }
             page_id() {
                 return this.$.$mol_state_arg.value('page');
@@ -9265,13 +8015,11 @@ var $;
                 return [].concat([
                     this.Sidebar(),
                     id ? null : this.Summary(),
-                    id === 'reports' && this.Reports(),
                     id === 'software' && this.Software(),
-                    id === 'pereferial' && this.Pereferial(),
                     id === 'sensors' && this.Sensors(),
                 ])
-                    .concat(this.Pereferial().subpages())
-                    .concat(this.Reports().subpages())
+                    .concat(id === 'pereferial' && this.Pereferial().pages())
+                    .concat(id === 'reports' && this.Reports().pages())
                     .filter(Boolean);
             }
         }
@@ -10598,9 +9346,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var $;
 (function ($) {
-    class $mpk_tss_summary extends $.$mpk_tss_wrap {
-        self_title() {
-            return this.$.$mol_locale.text("$mpk_tss_summary_self_title");
+    class $mpk_tss_summary extends $.$mol_page {
+        title() {
+            return this.$.$mol_locale.text("$mpk_tss_summary_title");
         }
         minimal_width() {
             return 600;

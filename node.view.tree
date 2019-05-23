@@ -178,24 +178,181 @@ $mol_filler $mol_view
 		\Suspendisse lectus leo, consectetur in tempor sit amet, placerat quis neque. Etiam luctus porttitor lorem, sed suscipit est rutrum non. Curabitur lobortis nisl a enim congue semper. Aenean commodo ultrices imperdiet. Vestibulum ut justo vel sapien venenatis tincidunt. Phasellus eget dolor sit amet ipsum dapibus condimentum vitae quis lectus. Aliquam ut massa in turpis dapibus convallis. Praesent elit lacus, vestibulum at malesuada et, ornare et est. Ut augue nunc, sodales ut euismod non, adipiscing vitae orci. Mauris ut placerat justo. Mauris in ultricies enim. Quisque nec est eleifend nulla ultrices egestas quis ut quam. Donec sollicitudin lectus a mauris pulvinar id aliquam urna cursus. Cras quis ligula sem, vel elementum mi. Phasellus non ullamcorper urna.
 		\Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In euismod ultrices facilisis. Vestibulum porta sapien adipiscing augue congue id pretium lectus molestie. Proin quis dictum nisl. Morbi id quam sapien, sed vestibulum sem. Duis elementum rutrum mauris sed convallis. Proin vestibulum magna mi. Aenean tristique hendrerit magna, ac facilisis nulla hendrerit ut. Sed non tortor sodales quam auctor elementum. Donec hendrerit nunc eget elit pharetra pulvinar. Suspendisse id tempus tortor. Aenean luctus, elit commodo laoreet commodo, justo nisi consequat massa, sed vulputate quam urna quis eros. Donec vel.
 
-$mpk_tss_wrap $mol_page
-	minimal_width 200
-	subpages /
-	self_title \
-	breadcrumbs /
+$mpk_tss_software $mol_page
+	title @ \Software
 	body /
 		<= Content $mol_filler
 
-$mpk_tss_wrap_header $mol_view
-	dom_name \h
-	minimal_height 50
+$mol_list $mol_view
+	sub <= rows /
+	Empty null
+
+$mol_svg $mol_view
+	dom_name \svg
+	dom_name_space \http://www.w3.org/2000/svg
+
+
+$mol_svg_root $mol_svg
+	dom_name \svg
 	attr *
 		^
-		mpk_tss_wrap_header_level <= level?val 0
-	sub <= content /
+		viewBox <= view_box \0 0 100 100
+		preserveAspectRatio <= aspect \xMidYMid
 
-$mpk_tss_software $mpk_tss_wrap
-	self_title @ \Software
+$mol_svg_path $mol_svg
+	dom_name \path
+	attr *
+		^
+		d <= geometry \
+
+
+$mol_icon $mol_svg_root
+	view_box \0 0 24 24
+	sub /
+		<= Path $mol_svg_path
+			geometry <= path \
+
+$mol_icon_cross $mol_icon path \M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z
+
+$mpk_tss_parameter_unknown $mol_view
+	sub /
+		<= unknown_title @ \Unknown
+
+$mol_row $mol_view
+
+$mol_row_sub $mol_view
+
+$mol_labeler $mol_view
+	sub /
+		<= Title $mol_view
+			sub <= label /
+				<= title
+		<= Content $mol_view
+			sub /
+				<= content null
+
+$mpk_tss_parameter_date $mol_view
+	date null
+	sub /
+		<= date_formatted null
+	Unknown $mpk_tss_parameter_unknown
+
+$mpk_tss_parameter $mol_row
+	sub /
+		<= Name $mol_labeler
+			title <= name_title @ \Parameter
+			Content $mol_view
+				sub /
+					<= name \
+		<= Value $mol_labeler
+			title <= value_title @ \Value
+			Content $mol_view
+				sub /
+					<= value null
+		<= Updated $mol_labeler
+			title <= updated_title @ \Updated
+			Content $mol_view
+				sub /
+					<= Updated_value $mpk_tss_parameter_date
+						date <= updated null
+
+$mpk_tss_parameter_list $mol_list
+
+$mpk_tss_pereferial_status $mol_view
+	status null
+	colors true
+	statuses *
+		ready <= ready @ \Ready
+		error <= error @ \Error
+		not_responding <= not_responding @ \Not responding
+		inactive <= inactive @ \Inactive
+		unknown <= unknown @ \Unknown
+	sub / <= status_text <= unknown
+
+$mpk_tss_pereferial_details_ups $mpk_tss_parameter_list
+	unit null
+	Unknown $mpk_tss_parameter_unknown
+	rows /
+		<= State $mpk_tss_parameter
+			name <= name_title @ \State
+			value <= Status $mpk_tss_pereferial_status
+				status <= status \
+			updated <= updated null
+		<= Power $mpk_tss_parameter
+			name <= power_title @ \Power source
+			value <= power_source null
+			updated <= updated null
+		<= Voltage $mpk_tss_parameter
+			name <= voltage_title @ \Voltage
+			value <= voltage null
+			updated <= updated null
+		<= Bat_level $mpk_tss_parameter
+			name <= bat_level_title @ \Bat. level
+			value <= battery_level null
+			updated <= updated null
+		<= Bat_time $mpk_tss_parameter
+			name <= bat_time_title @ \Bat. time
+			value <= battery_time null
+			updated <= updated null
+
+$mpk_tss_pereferial_details $mol_page
+	unit null
+	minimal_width 400
+	tools /
+		<= Details_close $mol_link
+			arg * unit null
+			sub / <= Details_close_icon $mol_icon_cross
+	body /
+		<= unit_details null
+	Ups $mpk_tss_pereferial_details_ups
+		unit <= unit null
+
+$mol_card $mol_list
+	attr *
+		^
+		mol_card_status_type <= status \
+	rows /
+		<= Content $mol_view
+			sub <= content /
+		<= Status $mol_view
+			minimal_height 30
+			sub /
+				<= status_text <= status \
+
+$mpk_tss_icon_download $mol_icon path \M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3
+
+$mpk_tss_card $mol_link
+	minimal_height 32
+	sub /
+		<= Card $mol_card
+			status <= status \
+			Status <= Footer $mol_view
+				sub /
+					<= Status_text null
+					<= Status_action $mol_button_minor
+						event_click?event <=> status_click?event null
+						sub / <= Status_icon $mpk_tss_icon_download
+			Content <= Group $mol_row
+				sub / <= items /
+
+$mpk_tss_icon_renew $mol_icon path \M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z
+
+$mpk_tss_pereferial_card $mpk_tss_card
+	unit null
+	arg * unit <= unit_id \
+	status <= unit_status \
+	Status_text $mpk_tss_pereferial_status
+		colors false
+		status <= unit_status
+	Status_icon $mpk_tss_icon_renew
+	status_click?event <=> unit_status_click?event null
+	items /
+		<= Type_item $mol_labeler
+			title <= type_title @ \Type
+			content <= type \
+		<= Name_item $mol_labeler
+			title <= name_title @ \Element
+			content <= name \
 
 $mol_bar $mol_view
 
@@ -273,36 +430,7 @@ $mol_string $mol_view
 		input?event <=> event_change?event null
 		keypress?event <=> event_key_press?event null
 
-$mol_svg $mol_view
-	dom_name \svg
-	dom_name_space \http://www.w3.org/2000/svg
-
-
-$mol_svg_root $mol_svg
-	dom_name \svg
-	attr *
-		^
-		viewBox <= view_box \0 0 100 100
-		preserveAspectRatio <= aspect \xMidYMid
-
-$mol_svg_path $mol_svg
-	dom_name \path
-	attr *
-		^
-		d <= geometry \
-
-
-$mol_icon $mol_svg_root
-	view_box \0 0 24 24
-	sub /
-		<= Path $mol_svg_path
-			geometry <= path \
-
 $mol_icon_chevron $mol_icon path \M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z
-
-$mol_list $mol_view
-	sub <= rows /
-	Empty null
 
 $mol_select $mol_pop
 	dictionary *
@@ -341,8 +469,6 @@ $mol_select $mol_pop
 				<= Filter
 				<= option_rows /
 
-$mol_icon_cross $mol_icon path \M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z
-
 $mol_search $mol_bar
 	query?val \
 	sub /
@@ -360,168 +486,37 @@ $mol_search $mol_bar
 				<= Clear_icon $mol_icon_cross
 			event_click?val <=> event_clear?val null
 
-$mol_card $mol_list
-	attr *
-		^
-		mol_card_status_type <= status \
-	rows /
-		<= Content $mol_view
-			sub <= content /
-		<= Status $mol_view
-			minimal_height 30
-			sub /
-				<= status_text <= status \
-
-$mpk_tss_icon_download $mol_icon path \M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3
-
-$mol_row $mol_view
-
-$mol_row_sub $mol_view
-
-$mpk_tss_card $mol_link
-	minimal_height 32
-	sub /
-		<= Card $mol_card
-			status <= status \
-			Status <= Footer $mol_view
-				sub /
-					<= Status_text null
-					<= Status_action $mol_button_minor
-						event_click?event <=> status_click?event null
-						sub / <= Status_icon $mpk_tss_icon_download
-			Content <= Group $mol_row
-				sub / <= items /
-
-$mpk_tss_pereferial_status $mol_view
-	status null
-	colors true
-	statuses *
-		ready <= ready @ \Ready
-		error <= error @ \Error
-		not_responding <= not_responding @ \Not responding
-		inactive <= inactive @ \Inactive
-		unknown <= unknown @ \Unknown
-	sub / <= status_text <= unknown
-
-$mpk_tss_icon_renew $mol_icon path \M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z
-
-$mol_labeler $mol_view
-	sub /
-		<= Title $mol_view
-			sub <= label /
-				<= title
-		<= Content $mol_view
-			sub /
-				<= content null
-
-$mpk_tss_pereferial_card $mpk_tss_card
-	unit null
-	arg * unit <= unit_id \
-	status <= unit_status \
-	Status_text $mpk_tss_pereferial_status
-		colors false
-		status <= unit_status
-	Status_icon $mpk_tss_icon_renew
-	status_click?event <=> unit_status_click?event null
-	items /
-		<= Type_item $mol_labeler
-			title <= type_title @ \Type
-			content <= type \
-		<= Name_item $mol_labeler
-			title <= name_title @ \Element
-			content <= name \
-
-$mpk_tss_parameter_unknown $mol_view
-	sub /
-		<= unknown_title @ \Unknown
-
-$mpk_tss_parameter_date $mol_view
-	date null
-	sub /
-		<= date_formatted null
-	Unknown $mpk_tss_parameter_unknown
-
-$mpk_tss_parameter $mol_row
-	sub /
-		<= Name $mol_labeler
-			title <= name_title @ \Parameter
-			Content $mol_view
-				sub /
-					<= name \
-		<= Value $mol_labeler
-			title <= value_title @ \Value
-			Content $mol_view
-				sub /
-					<= value null
-		<= Updated $mol_labeler
-			title <= updated_title @ \Updated
-			Content $mol_view
-				sub /
-					<= Updated_value $mpk_tss_parameter_date
-						date <= updated null
-
-$mpk_tss_parameter_list $mol_list
-
-$mpk_tss_pereferial_details_ups $mpk_tss_parameter_list
-	unit null
-	Unknown $mpk_tss_parameter_unknown
-	rows /
-		<= State $mpk_tss_parameter
-			name <= name_title @ \State
-			value <= Status $mpk_tss_pereferial_status
-				status <= status \
-			updated <= updated null
-		<= Power $mpk_tss_parameter
-			name <= power_title @ \Power source
-			value <= power_source null
-			updated <= updated null
-		<= Voltage $mpk_tss_parameter
-			name <= voltage_title @ \Voltage
-			value <= voltage null
-			updated <= updated null
-		<= Bat_level $mpk_tss_parameter
-			name <= bat_level_title @ \Bat. level
-			value <= battery_level null
-			updated <= updated null
-		<= Bat_time $mpk_tss_parameter
-			name <= bat_time_title @ \Bat. time
-			value <= battery_time null
-			updated <= updated null
-
-$mpk_tss_pereferial_details $mol_page
-	unit null
-	minimal_width 400
-	tools /
-		<= Details_close $mol_link
-			arg * unit null
-			sub / <= Details_close_icon $mol_icon_cross
-	body /
-		<= unit_details null
-	Ups $mpk_tss_pereferial_details_ups
-		unit <= unit null
-
-$mpk_tss_pereferial $mpk_tss_wrap
-	self_title @ \Pereferials
-	minimal_width 200
-	sub /
-		<= Head
-		<= Filter_title $mol_search
-			query?val <=> filter_title?val \
-		<= Body
-	body /
-		<= Units $mol_list
-			destructor <= destructor
-			rows <= unit_links /
-	-
+$mpk_tss_pereferial $mol_view
+	title @ \Pereferials
+	pages /
+		<= Main $mpk_tss_pereferial_page
+			minimal_width 200
+			event_top?e <=> event_top?e null
+			tools <= tools /
+			title <= title
+			filter_value?val <=> filter_value?val \
+			destructor <= clean_url null
+			body /
+				<= List $mol_list
+					rows <= unit_links /
+		<= Unit_current null
+	Unit_details!id $mpk_tss_pereferial_details
+		event_top?e <=> details_event_top?e null
+		unit <= unit!id null
 	Unit_link!id $mpk_tss_pereferial_card
 		unit <= unit!id null
-	-
-	Unit_details!id $mpk_tss_pereferial_details
-		minimal_width 200
-		unit <= unit!id null
-	
-$mpk_tss_sensors $mpk_tss_wrap
-	self_title @ \Sensors
+
+$mpk_tss_pereferial_page $mol_page
+	sub /
+		<= Head
+		<= Filter_value $mol_search
+			query?val <=> filter_value?val \
+		<= Body
+
+$mpk_tss_sensors $mol_page
+	title @ \Sensors
+	body /
+		<= Content $mol_filler
 
 $mpk_tss_reports_status $mol_view
 	status null
@@ -621,221 +616,44 @@ $mpk_tss_reports_details_carriage_row $mpk_tss_table_row
 				event_click?event <=> download_click?event null
 				sub / <= Action_icon $mpk_tss_icon_download
 
-$mol_plot_pane $mol_svg_root
-	aspect \none
-	-
-	hue_base?val NaN
-	hue_shift?val 111
-	-
-	gap 24
-	gap_hor <= gap
-	gap_vert <= gap
-	gap_left <= gap_hor
-	gap_right <= gap_hor
-	gap_top <= gap_vert
-	gap_bottom <= gap_vert
-	-
-	shift /
-		0
-		0
-	scale /
-		1
-		1
-	size_real /
-		1
-		1
-	-
-	sub <= graphs_sorted <= graphs_colored <= graphs_positioned <= graphs /
-	-
-	plugins /
-		<= Meter $mol_meter
-			width => width
-			height => height
-
-$mol_svg_group $mol_svg
-	dom_name \g
-
-$mol_plot_graph $mol_svg_group
-	series *
-	points <= points_scaled <= points_raw /
-	threshold 4
-	shift /
-		0
-		0
-	scale /
-		1
-		1
-	dimensions_expanded <= dimensions /
-		/
-		/
-	size_real /
-		0
-		0
-	hue NaN
-	-
-	attr *
-		^
-		mol_plot_graph_type <= type \solid
-	-
-	style *
-		^
-		color <= color \
-	-
-	Sample null
-	-
-	front /
-	back /
-
-$mol_plot_graph_sample $mol_view
-	attr *
-		^
-		mol_plot_graph_type <= type \solid
-	style *
-		^
-		color <= color \black
-
-$mol_plot_group $mol_plot_graph
-	sub <= graphs_enriched <= graphs /
-	Sample $mol_plot_graph_sample
-		sub <= graph_samples /
-
-$mol_plot_fill $mol_plot_graph
-	front /
-	sub /
-		<= Curve $mol_svg_path
-			geometry <= curve \
-	Sample $mol_plot_graph_sample
-		color <= color
-
-$mol_plot_line $mol_plot_graph
-	color_fill \none
-	sub /
-		<= Curve $mol_svg_path
-			geometry <= curve \
-	-
-	Sample $mol_plot_graph_sample
-		color <= color
-		type <= type
-
-$mol_plot_dot $mol_plot_graph
-	style *
-		^
-		stroke-width <= diameter 8
-	sub /
-		<= Curve $mol_svg_path
-			geometry <= curve \
-	-
-	Sample $mol_plot_graph_sample
-		color <= color
-
-$mol_plot_bar $mol_plot_graph
-	style *
-		^
-		stroke-width <= stroke_width \1rem
-	sub /
-		<= Curve $mol_svg_path
-			geometry <= curve \
-	Sample $mol_plot_graph_sample
-		color <= color
-
-$mol_svg_text $mol_svg
-	dom_name \text
-	pos /
-	attr *
-		^
-		x <= pos_x \
-		y <= pos_y \
-		text-anchor <= align \middle
-	sub /
-		<= text \
-
-$mol_plot_ruler_vert $mol_plot_graph
-	front /
-	color null
-	sub /
-		<= Curve $mol_svg_path
-			geometry <= curve \
-		<= labels /
-		<= Title $mol_svg_text
-			pos <= title_pos /
-				<= title_pos_x \36px
-				<= title_pos_y \14px
-			align \end
-			sub /
-				<= title
-	Label!index $mol_svg_text
-		pos <= label_pos!index /
-			<= label_pos_x!index <= title_pos_x
-			<= label_pos_y!index \
-		align \end
-		text <= label_text!index \
-
-$mol_plot_ruler_hor $mol_plot_graph
-	front /
-	color null
-	sub /
-		<= Curve $mol_svg_path
-			geometry <= curve \
-		<= labels /
-		<= Title $mol_svg_text
-			pos <= title_pos /
-				<= title_pos_x \0
-				<= title_pos_y \100%
-			align \start
-			sub /
-				<= title
-	Label!index $mol_svg_text
-		pos <= label_pos!index /
-			<= label_pos_x!index \
-			<= label_pos_y!index <= title_pos_y
-		text <= label_text!index \
-
-$mpk_tss_reports $mpk_tss_wrap
-	self_title @ \Reports
-	sub /
-		<= Head
-		<= Filter_title $mol_search
-			query?val <=> filter_title?val \
-		<= Body
-	body /
-		<= Reports $mol_list
-			destructor <= destructor
-			rows <= report_links /
+$mpk_tss_reports $mol_view
+	title @ \Reports
+	pages /
+		<= Main $mpk_tss_reports_page
+			event_top?e <=> event_top?e null
+			tools <= tools /
+			title <= title
+			filter_value?val <=> filter_value?val \
+			destructor <= destructor null
+			body /
+				<= Reports $mol_list
+					rows <= report_links /
+		<= Report_current null
+		<= Carriage_current null
 	-
 	Report_link!id $mpk_tss_reports_card
 		report <= report!id null
 	-
 	Report_details!id $mpk_tss_reports_details
-		minimal_width 400
 		report <= report!id null
-	Carriage_details!id $mpk_tss_reports_details_carriage
+	-
+	Carriage_details!id $mpk_tss_reports_carriage
 		carriage <= carriage!id null
 		title \Details
 
-$mpk_tss_reports_details_carriage $mol_page
+$mpk_tss_reports_page $mol_page
+	minimal_width 200
+	sub /
+		<= Head
+		<= Filter_value $mol_search
+			query?val <=> filter_value?val \
+		<= Body
+
+$mpk_tss_reports_carriage $mol_page
 	carriage null
+	minimal_width 700
 	body /
-		<= Plot $mol_plot_pane
-			gap 48
-			graphs /
-				<= Saturation $mol_plot_group
-					series <= saturation_series /
-					graphs /
-						<= Saturation_fill $mol_plot_fill
-						<= Saturation_line $mol_plot_line
-							type \dashed
-				<= Input $mol_plot_group
-					series <= input_series /
-					graphs /
-						<= Input_line $mol_plot_line
-						<= Input_dots $mol_plot_dot
-				<= Output $mol_plot_bar
-					series <= output_series /
-				<= Voltage $mol_plot_ruler_vert
-					title <= Voltage_title @ \V
-				<= Time $mol_plot_ruler_hor
-					title <= Time_title @ \ms
-					series <= output_series /
+		<= Content $mol_filler
 
 
 $mpk_tss_icon_signout $mol_icon path \M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z
@@ -898,22 +716,17 @@ $mpk_tss_main $mol_book
 		title <= menu_page_title!id \
 	menu_pages *
 		software <= Software $mpk_tss_software
-			breadcrumbs / <= breadcrumbs
 			tools <= common_tools
 			event_top?event <=> event_front_up?event
 		pereferial <= Pereferial $mpk_tss_pereferial
-			breadcrumbs / <= breadcrumbs
 			tools <= common_tools
 			event_top?event <=> event_front_up?event
 		sensors <= Sensors $mpk_tss_sensors
-			breadcrumbs / <= breadcrumbs
 			tools <= common_tools
 			event_top?event <=> event_front_up?event
 		reports <= Reports $mpk_tss_reports
-			breadcrumbs / <= breadcrumbs
 			tools <= common_tools
 			event_top?event <=> event_front_up?event
-	breadcrumbs /
 	common_tools /
 		<= User_link
 		<= Details_close $mol_link
@@ -950,7 +763,6 @@ $mpk_tss_main $mol_book
 		<= Summary $mpk_tss_summary
 			tools /
 				<= User_link
-			breadcrumbs / <= breadcrumbs
 			event_top?event <=> event_front_up?event
 		<= menu_pages
 		<= details null
@@ -1157,8 +969,8 @@ $mol_expander $mol_list
 		<= Content $mol_view
 			sub <= content /
 
-$mpk_tss_summary $mpk_tss_wrap
-	self_title @ \Summary
+$mpk_tss_summary $mol_page
+	title @ \Summary
 	minimal_width 600
 	body /
 		<= Statuses $mpk_tss_summary_section
