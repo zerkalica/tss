@@ -991,12 +991,20 @@
 	color: color(var(--mol_theme_warning) blackness(+50%));
 }
 
+[mol_section_head] {
+	font-size: 1.5rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	flex-wrap: wrap;
+}
+
 [mpk_tss_reports_details_main] {
-	flex: 1 0 20rem;
+	flex: 1 0 14rem;
 }
 
 [mpk_tss_reports_main] {
-	flex: 1 0 27rem;
+	flex: 1 0 30rem;
 }
 
 [mpk_tss_reports_page_body] {
@@ -1191,14 +1199,6 @@
 [mpk_tss_placeholder_links] {
 	flex: 0 0 auto;
 	display: flex;
-	flex-wrap: wrap;
-}
-
-[mol_section_head] {
-	font-size: 1.5rem;
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-end;
 	flex-wrap: wrap;
 }
 

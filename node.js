@@ -6368,6 +6368,7 @@ var $;
         train_number() { throw new t; }
         send_count() { throw new t; }
         report_status() { throw new t; }
+        average_speed() { throw new t; }
         violation_status() { throw new t; }
         measurement_start() { throw new t; }
         carriages() { throw new t; }
@@ -6423,7 +6424,7 @@ var $;
             return (event !== void 0) ? event : null;
         }
         items() {
-            return [].concat(this.Id(), this.Name(), this.Measurement_start(), this.Report_status());
+            return [].concat(this.Id(), this.Name(), this.Measurement_start(), this.Report_status(), this.Speed());
         }
         Id() {
             return ((obj) => {
@@ -6474,6 +6475,19 @@ var $;
         report_status() {
             return "";
         }
+        Speed() {
+            return ((obj) => {
+                obj.title = () => this.average_speed_title();
+                obj.content = () => this.average_speed();
+                return obj;
+            })(new this.$.$mol_labeler);
+        }
+        average_speed_title() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_card_average_speed_title");
+        }
+        average_speed() {
+            return "";
+        }
     }
     __decorate([
         $.$mol_mem
@@ -6499,6 +6513,9 @@ var $;
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports_card.prototype, "Report_status", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_card.prototype, "Speed", null);
     $.$mpk_tss_reports_card = $mpk_tss_reports_card;
 })($ || ($ = {}));
 //card.view.tree.js.map
@@ -6525,6 +6542,9 @@ var $;
                 const start = this.report().measurement_start();
                 return start ? start.native.toLocaleDateString() : null;
             }
+            average_speed() {
+                return '' + this.report().average_speed() + ' km/h';
+            }
             report_status() {
                 return this.report().report_status();
             }
@@ -6538,6 +6558,39 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //card.view.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mol_section extends $.$mol_list {
+        rows() {
+            return [].concat(this.Head(), this.Content());
+        }
+        Head() {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.head());
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        head() {
+            return null;
+        }
+        Content() {
+            return null;
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_section.prototype, "Head", null);
+    $.$mol_section = $mol_section;
+})($ || ($ = {}));
+//section.view.tree.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -6591,7 +6644,7 @@ var $;
             return (event !== void 0) ? event : null;
         }
         items() {
-            return [].concat(this.Place(), this.Carriage_number(), this.Load_type(), this.Measured_speed());
+            return [].concat(this.Place(), this.Carriage_number(), this.Load_type());
         }
         Place() {
             return ((obj) => {
@@ -6632,19 +6685,6 @@ var $;
         load_type() {
             return "";
         }
-        Measured_speed() {
-            return ((obj) => {
-                obj.title = () => this.measured_speed_title();
-                obj.content = () => this.measured_speed();
-                return obj;
-            })(new this.$.$mol_labeler);
-        }
-        measured_speed_title() {
-            return this.$.$mol_locale.text("$mpk_tss_reports_details_card_measured_speed_title");
-        }
-        measured_speed() {
-            return "";
-        }
     }
     __decorate([
         $.$mol_mem
@@ -6667,9 +6707,6 @@ var $;
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports_details_card.prototype, "Load_type", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_details_card.prototype, "Measured_speed", null);
     $.$mpk_tss_reports_details_card = $mpk_tss_reports_details_card;
 })($ || ($ = {}));
 //card.view.tree.js.map
@@ -6698,9 +6735,6 @@ var $;
             }
             load_type() {
                 return this.carriage().load_type();
-            }
-            measured_speed() {
-                return '' + this.carriage().measured_speed() + ' km/h';
             }
             violation_type() {
                 return this.carriage().violation_type();
@@ -6739,10 +6773,14 @@ var $;
             return ((obj) => {
                 obj.minimal_width = () => 300;
                 obj.title = () => this.title();
+                obj.event_top = (e) => this.event_top(e);
                 obj.tools = () => [].concat(this.Details_close());
-                obj.body = () => [].concat(this.Carriages());
+                obj.body = () => [].concat(this.Detail(), this.Carriages());
                 return obj;
             })(new this.$.$mol_page);
+        }
+        event_top(e, force) {
+            return (e !== void 0) ? e : null;
         }
         Details_close() {
             return ((obj) => {
@@ -6757,6 +6795,16 @@ var $;
             return ((obj) => {
                 return obj;
             })(new this.$.$mol_icon_cross);
+        }
+        Detail() {
+            return ((obj) => {
+                obj.head = () => "Details";
+                obj.Content = () => ((obj) => {
+                    obj.sub = () => [];
+                    return obj;
+                })(new this.$.$mol_row);
+                return obj;
+            })(new this.$.$mol_section);
         }
         Carriages() {
             return ((obj) => {
@@ -6782,10 +6830,16 @@ var $;
     ], $mpk_tss_reports_details.prototype, "Main", null);
     __decorate([
         $.$mol_mem
+    ], $mpk_tss_reports_details.prototype, "event_top", null);
+    __decorate([
+        $.$mol_mem
     ], $mpk_tss_reports_details.prototype, "Details_close", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports_details.prototype, "Details_close_icon", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_details.prototype, "Detail", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports_details.prototype, "Carriages", null);
@@ -6816,8 +6870,6 @@ var $;
             }
             carriage_current_id(next) {
                 return $.$mol_state_arg.value(this.state_key('carriage'), next) || '';
-            }
-            Carriage_details() {
             }
         }
         $$.$mpk_tss_reports_details = $mpk_tss_reports_details;
@@ -6976,6 +7028,9 @@ var $;
         report_status() {
             return $mpk_tss_reports_domain_mock_stub_report_status();
         }
+        average_speed() {
+            return $.$mpk_tss_stub_number(50, 55);
+        }
         measurement_start() {
             return $.$mol_stub_time(-10);
         }
@@ -7005,6 +7060,9 @@ var $;
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports_domain_mock_report.prototype, "report_status", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_domain_mock_report.prototype, "average_speed", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports_domain_mock_report.prototype, "measurement_start", null);
@@ -7145,8 +7203,12 @@ var $;
         Report_details(id) {
             return ((obj) => {
                 obj.report = () => this.report(id);
+                obj.event_top = (e) => this.focus_main(e);
                 return obj;
             })(new this.$.$mpk_tss_reports_details);
+        }
+        focus_main(e, force) {
+            return (e !== void 0) ? e : null;
         }
     }
     __decorate([
@@ -7167,6 +7229,9 @@ var $;
     __decorate([
         $.$mol_mem_key
     ], $mpk_tss_reports.prototype, "Report_details", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports.prototype, "focus_main", null);
     $.$mpk_tss_reports = $mpk_tss_reports;
 })($ || ($ = {}));
 (function ($) {
@@ -7233,6 +7298,9 @@ var $;
                 if (!this.report_current_id())
                     return null;
                 return this.Report_details(this.report_current_id()).pages();
+            }
+            focus_main() {
+                this.Main().focused(true);
             }
             clear_url() {
                 this.report_current_id(null);
@@ -7893,39 +7961,6 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //tss.view.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_section extends $.$mol_list {
-        rows() {
-            return [].concat(this.Head(), this.Content());
-        }
-        Head() {
-            return ((obj) => {
-                obj.sub = () => [].concat(this.head());
-                return obj;
-            })(new this.$.$mol_view);
-        }
-        head() {
-            return null;
-        }
-        Content() {
-            return null;
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_section.prototype, "Head", null);
-    $.$mol_section = $mol_section;
-})($ || ($ = {}));
-//section.view.tree.js.map
 ;
 "use strict";
 var $;
