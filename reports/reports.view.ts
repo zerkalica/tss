@@ -33,6 +33,10 @@ namespace $.$$ {
 			return this.Report_details(this.report_current_id()).pages()
 		}
 
+		focus_main() {
+			this.Main().focused(true)
+		}
+
 		clear_url() {
 			this.report_current_id(null)
 		}

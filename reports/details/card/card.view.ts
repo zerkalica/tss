@@ -24,9 +24,6 @@ namespace $.$$ {
 		load_type() {
 			return this.carriage().load_type()
 		}
-		measured_speed() {
-			return '' + this.carriage().measured_speed() + ' km/h'
-		}
 		violation_type() {
 			return this.carriage().violation_type()
 		}

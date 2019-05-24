@@ -18,6 +18,3 @@ $mpk_tss_reports_details_card $mpk_tss_reports_status_card
 		<= Load_type $mol_labeler
 			title <= load_type_title @ \Load
 			content <= load_type \
-		<= Measured_speed $mol_labeler
-			title <= measured_speed_title @ \Speed
-			content <= measured_speed \

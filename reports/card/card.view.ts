@@ -22,6 +22,10 @@ namespace $.$$ {
 			return start ? start.native.toLocaleDateString() : null
 		}
 
+		average_speed() {
+			return '' + this.report().average_speed() + ' km/h'
+		}
+
 		report_status() {
 			return this.report().report_status()
 		}

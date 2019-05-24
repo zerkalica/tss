@@ -19,6 +19,7 @@ $mpk_tss_reports $mol_view
 	-
 	Report_details!id $mpk_tss_reports_details
 		report <= report!id null
+		event_top?e <=> focus_main?e null
 
 $mpk_tss_reports_page $mol_page
 	minimal_width 200

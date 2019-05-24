@@ -20,3 +20,6 @@ $mpk_tss_reports_card $mpk_tss_reports_status_card
 		<= Report_status $mol_labeler
 			title <= report_status_title @ \Report
 			content <= report_status \
+		<= Speed $mol_labeler
+			title <= average_speed_title @ \Speed
+			content <= average_speed \

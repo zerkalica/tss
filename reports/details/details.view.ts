@@ -19,9 +19,5 @@ namespace $.$$ {
 		carriage_current_id( next? : string ) {
 			return $mol_state_arg.value( this.state_key( 'carriage' ) , next ) || ''
 		}
-
-		Carriage_details() {
-			// return this.carriage_current_id() && this.Carriage_details_card(this.carriage_current_id())
-		}
 	}
 }

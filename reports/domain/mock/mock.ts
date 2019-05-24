@@ -45,6 +45,11 @@ namespace $ {
 		}
 
 		@$mol_mem
+		average_speed() {
+			return $mpk_tss_stub_number(50, 55)
+		}
+
+		@$mol_mem
 		measurement_start() {
 			return $mol_stub_time(-10)
 		}
