@@ -13,3 +13,13 @@
 [mpk_tss_reports_delivery_type="sent"] {
 	color: green;
 }
+
+[mpk_tss_reports_delivery] {
+	/* display: inline-flex; */
+}
+
+[mpk_tss_reports_delivery_text] {
+	margin-left: 0.1rem;
+	white-space: nowrap;
+	display: inline-block;
+}

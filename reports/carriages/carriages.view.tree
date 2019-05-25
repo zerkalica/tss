@@ -1,4 +1,4 @@
-$mpk_tss_reports_details $mol_view
+$mpk_tss_reports_carriages $mol_view
 	report null
 	title_prefix @ \Train
 	pages /
@@ -13,5 +13,5 @@ $mpk_tss_reports_details $mol_view
 			body /
 				<= Carriages $mol_list
 					rows <= carriage_links /
-	Carriage_link!id $mpk_tss_reports_details_card
+	Carriage_link!id $mpk_tss_reports_carriage
 		carriage <= carriage!id null

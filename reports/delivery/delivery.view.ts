@@ -5,5 +5,10 @@ namespace $.$$ {
 		status_text() {
 			return this.statuses()[this.status()] || this.status()
 		}
+
+		Icon() {
+			return this.icons()[this.status()] || this.icons().error
+		}
 	}
+
 }

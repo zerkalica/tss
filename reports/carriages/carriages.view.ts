@@ -1,5 +1,5 @@
 namespace $.$$ {
-	export class $mpk_tss_reports_details extends $.$mpk_tss_reports_details {
+	export class $mpk_tss_reports_carriages extends $.$mpk_tss_reports_carriages {
 		report(): $mpk_tss_reports_domain_report {
 			throw new $mpk_tss_todo
 		}

@@ -13,16 +13,16 @@ $mpk_tss_reports $mol_view
 					rows <= report_links /
 		<= Details_pages null
 	-
-	Report_link!id $mpk_tss_reports_card
+	Report_link!id $mpk_tss_reports_train
 		report <= report!id null
 		shaded <= shaded!id false
 	-
-	Report_details!id $mpk_tss_reports_details
+	Report_details!id $mpk_tss_reports_carriages
 		report <= report!id null
 		event_top?e <=> focus_main?e null
 
 $mpk_tss_reports_page $mol_page
-	minimal_width 200
+	minimal_width 400
 	sub /
 		<= Head
 		<= Filter_value $mol_search

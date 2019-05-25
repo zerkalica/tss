@@ -7,4 +7,11 @@ $mpk_tss_reports_delivery $mol_view
 		sending <= sending @ \Sending
 		sent <= sent @ \Sent
 		error <= error @ \Error
-	sub / <= status_text \
+	icons *
+		preparing <= Preparing $mpk_tss_icon_sync
+		sending <= Sending $mpk_tss_icon_sync
+		sent <= Sent $mpk_tss_icon_done
+		error <= Error $mpk_tss_icon_clear
+	sub /
+		<= Icon null
+		<= Text $mol_view sub / <= status_text \

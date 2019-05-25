@@ -5,7 +5,7 @@ $mpk_tss_pereferial_card $mpk_tss_card
 	Status_text $mpk_tss_pereferial_status
 		colors false
 		status <= unit_status
-	Status_icon $mpk_tss_icon_renew
+	Status_icon $mpk_tss_icon_autorenew
 	status_click?event <=> unit_status_click?event null
 	items /
 		<= Type_item $mol_labeler

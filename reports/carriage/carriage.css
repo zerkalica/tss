@@ -1,0 +1,19 @@
+[mpk_tss_reports_carriage_violation] {
+	padding-left: 0.3rem;
+}
+
+[mpk_tss_reports_carriage_place] {
+	flex: 1 1 2rem;
+}
+
+[mpk_tss_reports_carriage_carriage] {
+	flex: 1 1 5rem;
+}
+
+[mpk_tss_reports_carriage_load] {
+	flex: 1 1 5rem;
+}
+
+[mpk_tss_reports_carriage_speed] {
+	flex: 1 1 4rem;
+}

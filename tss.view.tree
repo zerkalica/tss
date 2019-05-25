@@ -38,7 +38,7 @@ $mpk_tss_main $mol_book
 			<= User_email $mol_view
 				sub /
 					<= logged_email
-			<= User_signout $mpk_tss_icon_signout
+			<= User_signout $mpk_tss_icon_exit_to_app
 	pages /
 		<= Sidebar $mol_page
 			head /

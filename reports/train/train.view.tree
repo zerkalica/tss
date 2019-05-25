@@ -1,4 +1,4 @@
-$mpk_tss_reports_card $mpk_tss_card
+$mpk_tss_reports_train $mpk_tss_card
 	report null
 	arg * report <= report_id \
 	status <= resolution
