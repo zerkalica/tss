@@ -67,7 +67,7 @@
 	--mol_skin_button: var(--mol_theme_back);
 	--mol_skin_button: var(--mol_skin_card);
 	--mol_skin_hover: rgba( 0 , 0 , 0 , .05 );
-	--mol_skin_round: 2px;
+	--mol_skin_round: 0px;
 	--mol_skin_focus_line: rgba( 0 , 0 , 0 , .2 );
 	--mol_skin_focus_outline: 0 0 0 1px rgba( 0 , 0 , 0 , .2 );
 	--mol_skin_focus_outline: 0 0 0 1px var(--mol_skin_focus_line);
@@ -199,7 +199,7 @@
 	vertical-align: middle;
 	text-align: center;
 	padding: .5rem 1rem;
-	border-radius: 2px;
+	border-radius: 0px;
 	border-radius: var(--mol_skin_round);
 }
 
@@ -437,7 +437,7 @@
 	color: var(--mol_theme_control);
 	stroke: currentColor;
 	cursor: pointer;
-	border-radius: 2px;
+	border-radius: 0px;
 	border-radius: var(--mol_skin_round);
 	padding: .5rem;
 	box-sizing: border-box;
@@ -602,7 +602,7 @@
 	background: var(--mol_theme_back);
 	color: var(--mol_theme_text);
 	color: var(--mol_theme_text);
-	border-radius: 2px;
+	border-radius: 0px;
 	border-radius: var(--mol_skin_round);
 	display: flex;
 	flex: 0 1 auto;
@@ -611,7 +611,7 @@
 
 [mol_card_content] {
 	flex: 1 1 auto;
-	border-radius: 2px;
+	border-radius: 0px;
 	border-radius: var(--mol_skin_round);
 	margin: 0;
 }
@@ -637,18 +637,18 @@
 [mpk_tss_card] {
 	padding: 0.5rem;
 	display: block;
+	flex: 0 1 auto;
+	position: relative;
 }
 
-[mpk_tss_card_group] {
-	flex-wrap: nowrap;
+[mpk_tss_card_content] {
 	padding: 0;
 }
 
-[mpk_tss_card_footer] {
+[mpk_tss_card_status] {
 	background: var(--mol_theme_line);
 	background: var(--mol_theme_line);
-	text-transform: capitalize;
-	padding: 0 0rem;
+	padding: 0;
 	line-height: 2;
 	margin: 0;
 	display: flex;
@@ -702,7 +702,7 @@
 	display: flex;
 	box-shadow: 0 0 0 1px var(--mol_theme_line);
 	box-shadow: 0 0 0 1px var(--mol_theme_line);
-	border-radius: 2px;
+	border-radius: 0px;
 	border-radius: var(--mol_skin_round);
 }
 
@@ -711,9 +711,9 @@
 }
 
 [mol_bar] > *:first-child {
-	border-top-left-radius: 2px;
+	border-top-left-radius: 0px;
 	border-top-left-radius: var(--mol_skin_round);
-	border-bottom-left-radius: 2px;
+	border-bottom-left-radius: 0px;
 	border-bottom-left-radius: var(--mol_skin_round);
 }
 
@@ -722,9 +722,9 @@
 }
 
 [mol_bar] > *:last-child {
-	border-top-right-radius: 2px;
+	border-top-right-radius: 0px;
 	border-top-right-radius: var(--mol_skin_round);
-	border-bottom-right-radius: 2px;
+	border-bottom-right-radius: 0px;
 	border-bottom-right-radius: var(--mol_skin_round);
 }
 
@@ -740,7 +740,7 @@
 [mol_pop_bubble] {
 	box-shadow: 0 0 0 1px var(--mol_theme_line);
 	box-shadow: 0 0 0 1px var(--mol_theme_line);
-	border-radius: 2px;
+	border-radius: 0px;
 	border-radius: var(--mol_skin_round);
 	position: absolute;
 	z-index: 3;
@@ -844,7 +844,7 @@
 	box-sizing: border-box;
 	outline-offset: 0;
 	border: none;
-	border-radius: 2px;
+	border-radius: 0px;
 	border-radius: var(--mol_skin_round);
 	white-space: nowrap;
 	overflow: hidden;
@@ -919,7 +919,7 @@
 	text-align: left;
 	box-shadow: 0 0 0 1px var(--mol_theme_line);
 	box-shadow: var(--mol_skin_light_outline);
-	border-radius: 2px;
+	border-radius: 0px;
 	border-radius: var(--mol_skin_round);
 	flex: 1 0 auto;
 }
@@ -981,30 +981,79 @@
 	align-self: stretch;
 }
 
-[mpk_tss_reports_status_type="success"] {
-	color: color(var(--mol_theme_success) blackness(+50%));
-	color: color(var(--mol_theme_success) blackness(+50%));
+[mpk_tss_reports_carriage_violation] {
+	padding-left: 0.3rem;
 }
 
-[mpk_tss_reports_status_type="warning"] {
-	color: color(var(--mol_theme_warning) blackness(+50%));
-	color: color(var(--mol_theme_warning) blackness(+50%));
+[mpk_tss_reports_carriage_place] {
+	flex: 1 1 2rem;
 }
 
-[mol_section_head] {
-	font-size: 1.5rem;
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-end;
-	flex-wrap: wrap;
+[mpk_tss_reports_carriage_carriage] {
+	flex: 1 1 5rem;
 }
 
-[mpk_tss_reports_details_main] {
-	flex: 1 0 14rem;
+[mpk_tss_reports_carriage_load] {
+	flex: 1 1 5rem;
+}
+
+[mpk_tss_reports_carriage_speed] {
+	flex: 1 1 4rem;
+}
+
+[mpk_tss_reports_delivery_type="preparing"] {
+	color: rgb(141, 141, 33);
+}
+
+[mpk_tss_reports_delivery_type="error"] {
+	color: red;
+}
+
+[mpk_tss_reports_delivery_type="sending"] {
+	color: rgb(73, 118, 168);
+}
+
+[mpk_tss_reports_delivery_type="sent"] {
+	color: green;
+}
+
+[mpk_tss_reports_delivery] {
+
+	/* display: inline-flex; */
+}
+
+[mpk_tss_reports_delivery_text] {
+	margin-left: 0.1rem;
+	white-space: nowrap;
+	display: inline-block;
+}
+
+[mpk_tss_reports_train_id] {
+	flex: 1 1 5rem;
+}
+
+[mpk_tss_reports_train_train_number] {
+	flex: 1 1 7rem;
+}
+
+[mpk_tss_reports_train_started] {
+	flex: 1 1 5rem;
+}
+
+[mpk_tss_reports_train_average_speed] {
+	flex: 1 1 4rem;
+}
+
+[mpk_tss_reports_train_report] {
+	flex: 1 1 5rem;
+}
+
+[mpk_tss_reports_carriages_main] {
+	flex: 1 1 22rem;
 }
 
 [mpk_tss_reports_main] {
-	flex: 1 0 30rem;
+	flex: 1 1 32rem;
 }
 
 [mpk_tss_reports_page_body] {
@@ -1026,7 +1075,7 @@
 [mol_image] {
 	box-shadow: 0 0 0 1px var(--mol_theme_line);
 	box-shadow: 0 0 0 1px var(--mol_theme_line);
-	border-radius: 2px;
+	border-radius: 0px;
 	border-radius: var(--mol_skin_round);
 	overflow: hidden;
 	flex: 0 1 auto;
@@ -1202,6 +1251,14 @@
 	flex-wrap: wrap;
 }
 
+[mol_section_head] {
+	font-size: 1.5rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	flex-wrap: wrap;
+}
+
 [mpk_tss_summary_section] {
 	margin-bottom: 1.5rem;
 }
@@ -1233,7 +1290,7 @@
 	padding: .1rem .5rem;
 	color: white;
 	min-width: 5rem;
-	border-radius: 2px;
+	border-radius: 0px;
 	border-radius: var(--mol_skin_round);
 }
 
@@ -1268,7 +1325,7 @@
 
 [mol_check_box_icon] {
 	margin: .25rem;
-	border-radius: 2px;
+	border-radius: 0px;
 	border-radius: var(--mol_skin_round);
 	box-shadow: 0 0 0 1px var(--mol_theme_line);
 	box-shadow: 0 0 0 1px var(--mol_theme_line);
@@ -1384,7 +1441,7 @@
 	box-shadow: 0 0 0 1px var(--mol_theme_line);
 	box-shadow: 0 0 0 1px var(--mol_theme_line);
 	padding: .5rem;
-	border-radius: 2px;
+	border-radius: 0px;
 	border-radius: var(--mol_skin_round);
 	white-space: pre-line;
 	display: flex;
@@ -1452,7 +1509,7 @@
 	font-family: "Lucida Console", Monaco, monospace;
 	font-family: var(--mol_skin_font_monospace);
 	white-space: pre-wrap;
-	border-radius: 2px;
+	border-radius: 0px;
 	border-radius: var(--mol_skin_round);
 }
 
@@ -1545,7 +1602,6 @@
 
 [mol_expander_trigger] {
 	flex: auto;
-	align-items: baseline;
 }
 
 [mpk_tss_summary_body] {
@@ -1557,7 +1613,7 @@
 	background: white;
 	box-shadow: 0 0 0 1px var(--mol_theme_line);
 	box-shadow: var(--mol_skin_light_outline);
-	border-radius: 2px;
+	border-radius: 0px;
 	border-radius: var(--mol_skin_round);
 	margin-bottom: 0.5rem;
 	display: flex;

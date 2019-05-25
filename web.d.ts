@@ -1200,7 +1200,57 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
-    class $mpk_tss_icon_download extends $mol_icon {
+    class $mpk_tss_icon_train extends $mol_icon {
+        path(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_icon_exit_to_app extends $mol_icon {
+        path(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_icon_autorenew extends $mol_icon {
+        path(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_icon_cloud_download extends $mol_icon {
+        path(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_icon_done extends $mol_icon {
+        path(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_icon_schedule extends $mol_icon {
+        path(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_icon_error extends $mol_icon {
+        path(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_icon_warning extends $mol_icon {
+        path(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_icon_sync extends $mol_icon {
+        path(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_icon_clear extends $mol_icon {
+        path(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_icon_block extends $mol_icon {
         path(): string;
     }
 }
@@ -1219,22 +1269,15 @@ declare namespace $ {
         sub(): any[];
         Card(): $mol_card;
         status(): string;
-        Footer(): $mol_view;
+        Status(): $mol_view;
         Status_text(): any;
+        Tools(): $mol_view;
+        tools(): any[];
         Status_action(): $mol_button_minor;
         status_click(event?: any, force?: $mol_atom_force): any;
-        Status_icon(): $mpk_tss_icon_download;
-        Group(): $mol_row;
+        Status_icon(): $mpk_tss_icon_cloud_download;
+        Content(): $mol_row;
         items(): any[];
-    }
-}
-declare namespace $.$$ {
-    class $mpk_tss_card extends $.$mpk_tss_card {
-    }
-}
-declare namespace $ {
-    class $mpk_tss_icon_renew extends $mol_icon {
-        path(): string;
     }
 }
 declare namespace $ {
@@ -1247,7 +1290,7 @@ declare namespace $ {
         status(): string;
         unit_status(): string;
         Status_text(): $mpk_tss_pereferial_status;
-        Status_icon(): $mpk_tss_icon_renew;
+        Status_icon(): $mpk_tss_icon_autorenew;
         status_click(event?: any, force?: $mol_atom_force): any;
         unit_status_click(event?: any, force?: $mol_atom_force): any;
         items(): any[];
@@ -1576,31 +1619,57 @@ declare namespace $ {
     }
 }
 declare namespace $ {
-    class $mpk_tss_reports_status extends $mol_view {
+    class $mpk_tss_reports_resolution extends $mol_view {
         status(): any;
-        colors(): boolean;
         statuses(): {
-            "ready": string;
+            "success": string;
             "warning": string;
         };
-        ready(): string;
+        success(): string;
         warning(): string;
         sub(): any[];
         status_text(): string;
     }
 }
+declare namespace $.$$ {
+    class $mpk_tss_reports_resolution extends $.$mpk_tss_reports_resolution {
+        status_text(): any;
+    }
+}
 declare namespace $ {
-    class $mpk_tss_reports_status_card extends $mpk_tss_card {
+    class $mpk_tss_reports_load extends $mol_view {
+        status(): any;
+        statuses(): {
+            "free": string;
+            "full": string;
+        };
+        free(): string;
+        full(): string;
+        sub(): any[];
+        status_text(): string;
     }
 }
 declare namespace $.$$ {
-    class $mpk_tss_reports_status extends $.$mpk_tss_reports_status {
+    class $mpk_tss_reports_load extends $.$mpk_tss_reports_load {
         status_text(): any;
-        attr(): {
-            [key: string]: string | number | boolean;
-        } | {
-            'mpk_tss_reports_status_type': any;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_reports_violation extends $mol_view {
+        status(): any;
+        statuses(): {
+            "slider": string;
         };
+        slider(): string;
+        group(): any[];
+        status_text(): string;
+        sub(): any[];
+    }
+}
+declare namespace $.$$ {
+    class $mpk_tss_reports_violation extends $.$mpk_tss_reports_violation {
+        status_text(): any;
+        sub(): any[];
     }
 }
 declare namespace $ {
@@ -1608,20 +1677,20 @@ declare namespace $ {
         report(id: string): $mpk_tss_reports_domain_report;
         reports(): $mpk_tss_reports_domain_report[];
     }
-    enum $mpk_tss_reports_domain_violation_status {
+    enum $mpk_tss_reports_domain_resolution {
         success = "success",
         warning = "warning"
     }
-    enum $mpk_tss_reports_domain_load_type {
+    enum $mpk_tss_reports_domain_load {
         free = "free",
         full = "full"
     }
-    enum $mpk_tss_reports_domain_violation_type {
+    enum $mpk_tss_reports_domain_violation {
         slider = "slider"
     }
     class $mpk_tss_reports_domain_wheel extends $mol_object {
         id(): string;
-        violation_status(): $mpk_tss_reports_domain_violation_status;
+        resolution(): $mpk_tss_reports_domain_resolution;
         force_vertical(): number;
         force_horizontal(): number;
     }
@@ -1637,86 +1706,35 @@ declare namespace $ {
         id(): string;
         carriage_number(): string;
         place(): number;
-        violation_status(): $mpk_tss_reports_domain_violation_status;
-        violation_type(): $mpk_tss_reports_domain_violation_type | null;
-        load_type(): $mpk_tss_reports_domain_load_type;
+        resolution(): $mpk_tss_reports_domain_resolution;
+        violation(): $mpk_tss_reports_domain_violation | null;
+        load(): $mpk_tss_reports_domain_load;
         measured_speed(): number;
         cargo_weight(): number;
         total_weight(): number;
         carriage_length(): number;
         axis(): $mpk_tss_reports_domain_axle[];
     }
-    enum $mpk_tss_reports_domain_report_status {
+    enum $mpk_tss_reports_domain_delivery {
         preparing = "preparing",
         sending = "sending",
         sent = "sent",
-        error_try = "error_try",
-        error_no_send = "error_no_send"
+        error = "error"
     }
     class $mpk_tss_reports_domain_report extends $mol_object {
         id(): string;
         train_number(): string;
         send_count(): number;
-        report_status(): $mpk_tss_reports_domain_report_status;
+        delivery(): $mpk_tss_reports_domain_delivery;
         average_speed(): number;
-        violation_status(): $mpk_tss_reports_domain_violation_status;
-        measurement_start(): $mol_time_moment | null;
+        resolution(): $mpk_tss_reports_domain_resolution;
+        started(): $mol_time_moment | null;
         carriages(): $mpk_tss_reports_domain_carriage[];
         carriage(id: string): $mpk_tss_reports_domain_carriage;
     }
 }
 declare namespace $ {
-    class $mpk_tss_reports_card extends $mpk_tss_reports_status_card {
-        report(): any;
-        arg(): {
-            "report": string;
-        };
-        report_id(): string;
-        status(): string;
-        Status_text(): $mpk_tss_reports_status;
-        violation_status(): string;
-        Status_icon(): $mpk_tss_icon_download;
-        status_click(event?: any, force?: $mol_atom_force): any;
-        report_status_click(event?: any, force?: $mol_atom_force): any;
-        items(): any[];
-        Id(): $mol_labeler;
-        id_title(): string;
-        Name(): $mol_labeler;
-        name_title(): string;
-        train_number(): string;
-        Measurement_start(): $mol_labeler;
-        measurement_start_title(): string;
-        measurement_start(): string;
-        Report_status(): $mol_labeler;
-        report_status_title(): string;
-        report_status(): string;
-        Speed(): $mol_labeler;
-        average_speed_title(): string;
-        average_speed(): string;
-    }
-}
-declare namespace $.$$ {
-    class $mpk_tss_reports_card extends $.$mpk_tss_reports_card {
-        report(): $mpk_tss_reports_domain_report;
-        report_id(): string;
-        train_number(): string;
-        violation_status(): $mpk_tss_reports_domain_violation_status;
-        measurement_start(): string;
-        average_speed(): string;
-        report_status(): $mpk_tss_reports_domain_report_status;
-        report_status_click(even?: Event): void;
-    }
-}
-declare namespace $ {
-    class $mol_section extends $mol_list {
-        rows(): any[];
-        Head(): $mol_view;
-        head(): any;
-        Content(): any;
-    }
-}
-declare namespace $ {
-    class $mpk_tss_reports_details_card extends $mpk_tss_reports_status_card {
+    class $mpk_tss_reports_carriage extends $mpk_tss_card {
         carriage(): any;
         arg(): {
             "carriage": string;
@@ -1724,10 +1742,12 @@ declare namespace $ {
         carriage_id(): string;
         title_prefix(): string;
         status(): string;
-        violation_status(): string;
-        Status_text(): $mpk_tss_reports_status;
-        violation_status_total(): string;
-        Status_icon(): $mpk_tss_icon_download;
+        resolution(): string;
+        Status_text(): $mol_view;
+        Status_main(): $mpk_tss_reports_resolution;
+        Violation(): $mpk_tss_reports_carriage_violation;
+        violation(): string;
+        Status_icon(): $mpk_tss_icon_cloud_download;
         status_click(event?: any, force?: $mol_atom_force): any;
         carriage_status_click(event?: any, force?: $mol_atom_force): any;
         items(): any[];
@@ -1737,26 +1757,118 @@ declare namespace $ {
         Carriage_number(): $mol_labeler;
         carriage_number_title(): string;
         carriage_number(): string;
-        Load_type(): $mol_labeler;
-        load_type_title(): string;
-        load_type(): string;
+        Load(): $mol_labeler;
+        load_title(): string;
+        Load_text(): $mpk_tss_reports_load;
+        load(): string;
+        Speed(): $mol_labeler;
+        speed_title(): string;
+        speed(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_reports_carriage_violation extends $mpk_tss_reports_violation {
+        group(): any[];
+        before(): string;
+        after(): string;
     }
 }
 declare namespace $.$$ {
-    class $mpk_tss_reports_details_card extends $.$mpk_tss_reports_details_card {
+    class $mpk_tss_reports_carriage extends $.$mpk_tss_reports_carriage {
         carriage(): $mpk_tss_reports_domain_carriage;
         title(): string;
         carriage_id(): string;
         place(): string;
         carriage_number(): string;
-        violation_status(): $mpk_tss_reports_domain_violation_status;
-        load_type(): $mpk_tss_reports_domain_load_type;
-        violation_type(): $mpk_tss_reports_domain_violation_type;
-        violation_status_total(): string;
+        resolution(): $mpk_tss_reports_domain_resolution;
+        load(): $mpk_tss_reports_domain_load;
+        violation(): $mpk_tss_reports_domain_violation;
+        speed(): string;
     }
 }
 declare namespace $ {
-    class $mpk_tss_reports_details extends $mol_view {
+    class $mpk_tss_reports_delivery extends $mol_view {
+        attr(): {
+            "mpk_tss_reports_delivery_type": string;
+        };
+        status(): string;
+        statuses(): {
+            "preparing": string;
+            "sending": string;
+            "sent": string;
+            "error": string;
+        };
+        preparing(): string;
+        sending(): string;
+        sent(): string;
+        error(): string;
+        icons(): {
+            "preparing": $mpk_tss_icon_sync;
+            "sending": $mpk_tss_icon_sync;
+            "sent": $mpk_tss_icon_done;
+            "error": $mpk_tss_icon_clear;
+        };
+        Preparing(): $mpk_tss_icon_sync;
+        Sending(): $mpk_tss_icon_sync;
+        Sent(): $mpk_tss_icon_done;
+        Error(): $mpk_tss_icon_clear;
+        sub(): any[];
+        Icon(): any;
+        Text(): $mol_view;
+        status_text(): string;
+    }
+}
+declare namespace $.$$ {
+    class $mpk_tss_reports_delivery extends $.$mpk_tss_reports_delivery {
+        status(): $mpk_tss_reports_domain_delivery;
+        status_text(): string;
+        Icon(): $mpk_tss_icon_done | $mpk_tss_icon_sync | $mpk_tss_icon_clear;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_reports_train extends $mpk_tss_card {
+        report(): any;
+        arg(): {
+            "report": string;
+        };
+        report_id(): string;
+        status(): string;
+        Status_text(): $mpk_tss_reports_resolution;
+        resolution(): string;
+        status_click(event?: any, force?: $mol_atom_force): any;
+        report_status_click(event?: any, force?: $mol_atom_force): any;
+        items(): any[];
+        Id(): $mol_labeler;
+        id_title(): string;
+        Started(): $mol_labeler;
+        started_title(): string;
+        started(): string;
+        Average_speed(): $mol_labeler;
+        average_speed_title(): string;
+        average_speed(): string;
+        Report(): $mol_labeler;
+        report_status_title(): string;
+        Report_status(): $mpk_tss_reports_delivery;
+        report_status(): string;
+        Train_number(): $mol_labeler;
+        name_title(): string;
+        train_number(): string;
+    }
+}
+declare namespace $.$$ {
+    class $mpk_tss_reports_train extends $.$mpk_tss_reports_train {
+        report(): $mpk_tss_reports_domain_report;
+        report_id(): string;
+        train_number(): string;
+        resolution(): $mpk_tss_reports_domain_resolution;
+        started(): string;
+        average_speed(): string;
+        report_status(): $mpk_tss_reports_domain_delivery;
+        report_status_click(even?: Event): void;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_reports_carriages extends $mol_view {
         report(): any;
         title_prefix(): string;
         pages(): any[];
@@ -1764,19 +1876,19 @@ declare namespace $ {
         event_top(e?: any, force?: $mol_atom_force): any;
         Details_close(): $mol_link;
         Details_close_icon(): $mol_icon_cross;
-        Detail(): $mol_section;
         Carriages(): $mol_list;
         carriage_links(): any[];
-        Carriage_link(id: any): $mpk_tss_reports_details_card;
+        Carriage_link(id: any): $mpk_tss_reports_carriage;
         carriage(id: any): any;
     }
 }
 declare namespace $.$$ {
-    class $mpk_tss_reports_details extends $.$mpk_tss_reports_details {
+    class $mpk_tss_reports_carriages extends $.$mpk_tss_reports_carriages {
         report(): $mpk_tss_reports_domain_report;
         title(): string;
         carriage(id: string): $mpk_tss_reports_domain_carriage;
-        carriage_links(): $.$mpk_tss_reports_details_card[];
+        carriage_links(): $.$mpk_tss_reports_carriage[];
+        average_speed(): string;
         carriage_current_id(next?: string): string;
     }
 }
@@ -1812,10 +1924,10 @@ declare namespace $ {
         Reports(): $mol_list;
         report_links(): any[];
         Details_pages(): any;
-        Report_link(id: any): $mpk_tss_reports_card;
+        Report_link(id: any): $mpk_tss_reports_train;
         report(id: any): any;
         shaded(id: any): boolean;
-        Report_details(id: any): $mpk_tss_reports_details;
+        Report_details(id: any): $mpk_tss_reports_carriages;
         focus_main(e?: any, force?: $mol_atom_force): any;
     }
 }
@@ -1831,7 +1943,7 @@ declare namespace $.$$ {
     class $mpk_tss_reports extends $.$mpk_tss_reports {
         domain(): $mpk_tss_reports_domain_mock;
         main_blended(): boolean;
-        report_links(): $.$mpk_tss_reports_card[];
+        report_links(): $.$mpk_tss_reports_train[];
         report(id: string): $mpk_tss_reports_domain_report;
         report_current_id(next?: string): string;
         shaded(id: string): boolean;
@@ -1839,11 +1951,6 @@ declare namespace $.$$ {
         focus_main(): void;
         clear_url(): void;
         destructor(): void;
-    }
-}
-declare namespace $ {
-    class $mpk_tss_icon_signout extends $mol_icon {
-        path(): string;
     }
 }
 declare namespace $ {
@@ -1940,7 +2047,7 @@ declare namespace $ {
         User_link(): $mol_button_minor;
         logout_click(event?: any, force?: $mol_atom_force): any;
         User_email(): $mol_view;
-        User_signout(): $mpk_tss_icon_signout;
+        User_signout(): $mpk_tss_icon_exit_to_app;
         pages(): any[];
         Sidebar(): $mol_page;
         Logo(): $mol_image;
@@ -1983,6 +2090,14 @@ declare namespace $.$$ {
         page_id(): string;
         sidebar_items(): $.$mol_list[];
         pages(): any[];
+    }
+}
+declare namespace $ {
+    class $mol_section extends $mol_list {
+        rows(): any[];
+        Head(): $mol_view;
+        head(): any;
+        Content(): any;
     }
 }
 declare namespace $ {

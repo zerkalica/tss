@@ -4790,14 +4790,94 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mpk_tss_icon_download extends $.$mol_icon {
+    class $mpk_tss_icon_train extends $.$mol_icon {
+        path() {
+            return "M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h2.23l2-2H14l2 2h2v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-3.58-4-8-4zM7.5 17c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm3.5-7H6V6h5v4zm2 0V6h5v4h-5zm3.5 7c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z";
+        }
+    }
+    $.$mpk_tss_icon_train = $mpk_tss_icon_train;
+})($ || ($ = {}));
+(function ($) {
+    class $mpk_tss_icon_exit_to_app extends $.$mol_icon {
+        path() {
+            return "M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z";
+        }
+    }
+    $.$mpk_tss_icon_exit_to_app = $mpk_tss_icon_exit_to_app;
+})($ || ($ = {}));
+(function ($) {
+    class $mpk_tss_icon_autorenew extends $.$mol_icon {
+        path() {
+            return "M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z";
+        }
+    }
+    $.$mpk_tss_icon_autorenew = $mpk_tss_icon_autorenew;
+})($ || ($ = {}));
+(function ($) {
+    class $mpk_tss_icon_cloud_download extends $.$mol_icon {
         path() {
             return "M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3";
         }
     }
-    $.$mpk_tss_icon_download = $mpk_tss_icon_download;
+    $.$mpk_tss_icon_cloud_download = $mpk_tss_icon_cloud_download;
 })($ || ($ = {}));
-//download.view.tree.js.map
+(function ($) {
+    class $mpk_tss_icon_done extends $.$mol_icon {
+        path() {
+            return "M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z";
+        }
+    }
+    $.$mpk_tss_icon_done = $mpk_tss_icon_done;
+})($ || ($ = {}));
+(function ($) {
+    class $mpk_tss_icon_schedule extends $.$mol_icon {
+        path() {
+            return "M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z";
+        }
+    }
+    $.$mpk_tss_icon_schedule = $mpk_tss_icon_schedule;
+})($ || ($ = {}));
+(function ($) {
+    class $mpk_tss_icon_error extends $.$mol_icon {
+        path() {
+            return "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z";
+        }
+    }
+    $.$mpk_tss_icon_error = $mpk_tss_icon_error;
+})($ || ($ = {}));
+(function ($) {
+    class $mpk_tss_icon_warning extends $.$mol_icon {
+        path() {
+            return "M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z";
+        }
+    }
+    $.$mpk_tss_icon_warning = $mpk_tss_icon_warning;
+})($ || ($ = {}));
+(function ($) {
+    class $mpk_tss_icon_sync extends $.$mol_icon {
+        path() {
+            return "M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z";
+        }
+    }
+    $.$mpk_tss_icon_sync = $mpk_tss_icon_sync;
+})($ || ($ = {}));
+(function ($) {
+    class $mpk_tss_icon_clear extends $.$mol_icon {
+        path() {
+            return "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z";
+        }
+    }
+    $.$mpk_tss_icon_clear = $mpk_tss_icon_clear;
+})($ || ($ = {}));
+(function ($) {
+    class $mpk_tss_icon_block extends $.$mol_icon {
+        path() {
+            return "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z";
+        }
+    }
+    $.$mpk_tss_icon_block = $mpk_tss_icon_block;
+})($ || ($ = {}));
+//icon.view.tree.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -4824,22 +4904,31 @@ var $;
         Card() {
             return ((obj) => {
                 obj.status = () => this.status();
-                obj.Status = () => this.Footer();
-                obj.Content = () => this.Group();
+                obj.Status = () => this.Status();
+                obj.Content = () => this.Content();
                 return obj;
             })(new this.$.$mol_card);
         }
         status() {
             return "";
         }
-        Footer() {
+        Status() {
             return ((obj) => {
-                obj.sub = () => [].concat(this.Status_text(), this.Status_action());
+                obj.sub = () => [].concat(this.Status_text(), this.Tools());
                 return obj;
             })(new this.$.$mol_view);
         }
         Status_text() {
             return null;
+        }
+        Tools() {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.tools(), this.Status_action());
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        tools() {
+            return [];
         }
         Status_action() {
             return ((obj) => {
@@ -4854,9 +4943,9 @@ var $;
         Status_icon() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mpk_tss_icon_download);
+            })(new this.$.$mpk_tss_icon_cloud_download);
         }
-        Group() {
+        Content() {
             return ((obj) => {
                 obj.sub = () => [].concat(this.items());
                 return obj;
@@ -4871,7 +4960,10 @@ var $;
     ], $mpk_tss_card.prototype, "Card", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_card.prototype, "Footer", null);
+    ], $mpk_tss_card.prototype, "Status", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_card.prototype, "Tools", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_card.prototype, "Status_action", null);
@@ -4883,34 +4975,10 @@ var $;
     ], $mpk_tss_card.prototype, "Status_icon", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_card.prototype, "Group", null);
+    ], $mpk_tss_card.prototype, "Content", null);
     $.$mpk_tss_card = $mpk_tss_card;
 })($ || ($ = {}));
 //card.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mpk_tss_card extends $.$mpk_tss_card {
-        }
-        $$.$mpk_tss_card = $mpk_tss_card;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//card.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mpk_tss_icon_renew extends $.$mol_icon {
-        path() {
-            return "M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z";
-        }
-    }
-    $.$mpk_tss_icon_renew = $mpk_tss_icon_renew;
-})($ || ($ = {}));
-//renew.view.tree.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -4949,7 +5017,7 @@ var $;
         Status_icon() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mpk_tss_icon_renew);
+            })(new this.$.$mpk_tss_icon_autorenew);
         }
         status_click(event, force) {
             return this.unit_status_click(event);
@@ -6413,24 +6481,21 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mpk_tss_reports_status extends $.$mol_view {
+    class $mpk_tss_reports_resolution extends $.$mol_view {
         status() {
             return null;
         }
-        colors() {
-            return true;
-        }
         statuses() {
             return ({
-                "ready": this.ready(),
+                "success": this.success(),
                 "warning": this.warning(),
             });
         }
-        ready() {
-            return this.$.$mol_locale.text("$mpk_tss_reports_status_ready");
+        success() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_resolution_success");
         }
         warning() {
-            return this.$.$mol_locale.text("$mpk_tss_reports_status_warning");
+            return this.$.$mol_locale.text("$mpk_tss_reports_resolution_warning");
         }
         sub() {
             return [].concat(this.status_text());
@@ -6439,34 +6504,118 @@ var $;
             return "";
         }
     }
-    $.$mpk_tss_reports_status = $mpk_tss_reports_status;
+    $.$mpk_tss_reports_resolution = $mpk_tss_reports_resolution;
 })($ || ($ = {}));
-(function ($) {
-    class $mpk_tss_reports_status_card extends $.$mpk_tss_card {
-    }
-    $.$mpk_tss_reports_status_card = $mpk_tss_reports_status_card;
-})($ || ($ = {}));
-//status.view.tree.js.map
+//resolution.view.tree.js.map
 ;
 "use strict";
 var $;
 (function ($) {
     var $$;
     (function ($$) {
-        class $mpk_tss_reports_status extends $.$mpk_tss_reports_status {
+        class $mpk_tss_reports_resolution extends $.$mpk_tss_reports_resolution {
             status_text() {
                 return this.statuses()[this.status()] || this.status();
             }
-            attr() {
-                if (!this.colors())
-                    return super.attr();
-                return (Object.assign({}, super.attr(), { 'mpk_tss_reports_status_type': this.status() }));
-            }
         }
-        $$.$mpk_tss_reports_status = $mpk_tss_reports_status;
+        $$.$mpk_tss_reports_resolution = $mpk_tss_reports_resolution;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-//status.view.js.map
+//resolution.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mpk_tss_reports_load extends $.$mol_view {
+        status() {
+            return null;
+        }
+        statuses() {
+            return ({
+                "free": this.free(),
+                "full": this.full(),
+            });
+        }
+        free() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_load_free");
+        }
+        full() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_load_full");
+        }
+        sub() {
+            return [].concat(this.status_text());
+        }
+        status_text() {
+            return "";
+        }
+    }
+    $.$mpk_tss_reports_load = $mpk_tss_reports_load;
+})($ || ($ = {}));
+//load.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mpk_tss_reports_load extends $.$mpk_tss_reports_load {
+            status_text() {
+                return this.statuses()[this.status()] || this.status();
+            }
+        }
+        $$.$mpk_tss_reports_load = $mpk_tss_reports_load;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//load.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mpk_tss_reports_violation extends $.$mol_view {
+        status() {
+            return null;
+        }
+        statuses() {
+            return ({
+                "slider": this.slider(),
+            });
+        }
+        slider() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_violation_slider");
+        }
+        group() {
+            return [].concat(this.status_text());
+        }
+        status_text() {
+            return "";
+        }
+        sub() {
+            return this.group();
+        }
+    }
+    $.$mpk_tss_reports_violation = $mpk_tss_reports_violation;
+})($ || ($ = {}));
+//violation.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mpk_tss_reports_violation extends $.$mpk_tss_reports_violation {
+            status_text() {
+                return this.statuses()[this.status()] || this.status();
+            }
+            sub() {
+                if (!this.status())
+                    return [null];
+                return super.sub();
+            }
+        }
+        $$.$mpk_tss_reports_violation = $mpk_tss_reports_violation;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//violation.view.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -6493,23 +6642,23 @@ var $;
         $.$mol_mem
     ], $mpk_tss_reports_domain.prototype, "reports", null);
     $.$mpk_tss_reports_domain = $mpk_tss_reports_domain;
-    let $mpk_tss_reports_domain_violation_status;
-    (function ($mpk_tss_reports_domain_violation_status) {
-        $mpk_tss_reports_domain_violation_status["success"] = "success";
-        $mpk_tss_reports_domain_violation_status["warning"] = "warning";
-    })($mpk_tss_reports_domain_violation_status = $.$mpk_tss_reports_domain_violation_status || ($.$mpk_tss_reports_domain_violation_status = {}));
-    let $mpk_tss_reports_domain_load_type;
-    (function ($mpk_tss_reports_domain_load_type) {
-        $mpk_tss_reports_domain_load_type["free"] = "free";
-        $mpk_tss_reports_domain_load_type["full"] = "full";
-    })($mpk_tss_reports_domain_load_type = $.$mpk_tss_reports_domain_load_type || ($.$mpk_tss_reports_domain_load_type = {}));
-    let $mpk_tss_reports_domain_violation_type;
-    (function ($mpk_tss_reports_domain_violation_type) {
-        $mpk_tss_reports_domain_violation_type["slider"] = "slider";
-    })($mpk_tss_reports_domain_violation_type = $.$mpk_tss_reports_domain_violation_type || ($.$mpk_tss_reports_domain_violation_type = {}));
+    let $mpk_tss_reports_domain_resolution;
+    (function ($mpk_tss_reports_domain_resolution) {
+        $mpk_tss_reports_domain_resolution["success"] = "success";
+        $mpk_tss_reports_domain_resolution["warning"] = "warning";
+    })($mpk_tss_reports_domain_resolution = $.$mpk_tss_reports_domain_resolution || ($.$mpk_tss_reports_domain_resolution = {}));
+    let $mpk_tss_reports_domain_load;
+    (function ($mpk_tss_reports_domain_load) {
+        $mpk_tss_reports_domain_load["free"] = "free";
+        $mpk_tss_reports_domain_load["full"] = "full";
+    })($mpk_tss_reports_domain_load = $.$mpk_tss_reports_domain_load || ($.$mpk_tss_reports_domain_load = {}));
+    let $mpk_tss_reports_domain_violation;
+    (function ($mpk_tss_reports_domain_violation) {
+        $mpk_tss_reports_domain_violation["slider"] = "slider";
+    })($mpk_tss_reports_domain_violation = $.$mpk_tss_reports_domain_violation || ($.$mpk_tss_reports_domain_violation = {}));
     class $mpk_tss_reports_domain_wheel extends $.$mol_object {
         id() { throw new t; }
-        violation_status() { throw new t; }
+        resolution() { throw new t; }
         force_vertical() { throw new t; }
         force_horizontal() { throw new t; }
     }
@@ -6526,9 +6675,9 @@ var $;
         id() { return this.carriage_number(); }
         carriage_number() { throw new t; }
         place() { throw new t; }
-        violation_status() { throw new t; }
-        violation_type() { throw new t; }
-        load_type() { throw new t; }
+        resolution() { throw new t; }
+        violation() { throw new t; }
+        load() { throw new t; }
         measured_speed() { throw new t; }
         cargo_weight() { throw new t; }
         total_weight() { throw new t; }
@@ -6536,22 +6685,21 @@ var $;
         axis() { throw new t; }
     }
     $.$mpk_tss_reports_domain_carriage = $mpk_tss_reports_domain_carriage;
-    let $mpk_tss_reports_domain_report_status;
-    (function ($mpk_tss_reports_domain_report_status) {
-        $mpk_tss_reports_domain_report_status["preparing"] = "preparing";
-        $mpk_tss_reports_domain_report_status["sending"] = "sending";
-        $mpk_tss_reports_domain_report_status["sent"] = "sent";
-        $mpk_tss_reports_domain_report_status["error_try"] = "error_try";
-        $mpk_tss_reports_domain_report_status["error_no_send"] = "error_no_send";
-    })($mpk_tss_reports_domain_report_status = $.$mpk_tss_reports_domain_report_status || ($.$mpk_tss_reports_domain_report_status = {}));
+    let $mpk_tss_reports_domain_delivery;
+    (function ($mpk_tss_reports_domain_delivery) {
+        $mpk_tss_reports_domain_delivery["preparing"] = "preparing";
+        $mpk_tss_reports_domain_delivery["sending"] = "sending";
+        $mpk_tss_reports_domain_delivery["sent"] = "sent";
+        $mpk_tss_reports_domain_delivery["error"] = "error";
+    })($mpk_tss_reports_domain_delivery = $.$mpk_tss_reports_domain_delivery || ($.$mpk_tss_reports_domain_delivery = {}));
     class $mpk_tss_reports_domain_report extends $.$mol_object {
         id() { throw new t; }
         train_number() { throw new t; }
         send_count() { throw new t; }
-        report_status() { throw new t; }
+        delivery() { throw new t; }
         average_speed() { throw new t; }
-        violation_status() { throw new t; }
-        measurement_start() { throw new t; }
+        resolution() { throw new t; }
+        started() { throw new t; }
         carriages() { throw new t; }
         carriage(id) { throw new t; }
     }
@@ -6568,221 +6716,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var $;
 (function ($) {
-    class $mpk_tss_reports_card extends $.$mpk_tss_reports_status_card {
-        report() {
-            return null;
-        }
-        arg() {
-            return ({
-                "report": this.report_id(),
-            });
-        }
-        report_id() {
-            return "";
-        }
-        status() {
-            return this.violation_status();
-        }
-        Status_text() {
-            return ((obj) => {
-                obj.colors = () => false;
-                obj.status = () => this.violation_status();
-                return obj;
-            })(new this.$.$mpk_tss_reports_status);
-        }
-        violation_status() {
-            return "";
-        }
-        Status_icon() {
-            return ((obj) => {
-                return obj;
-            })(new this.$.$mpk_tss_icon_download);
-        }
-        status_click(event, force) {
-            return this.report_status_click(event);
-        }
-        report_status_click(event, force) {
-            return (event !== void 0) ? event : null;
-        }
-        items() {
-            return [].concat(this.Id(), this.Name(), this.Measurement_start(), this.Report_status(), this.Speed());
-        }
-        Id() {
-            return ((obj) => {
-                obj.title = () => this.id_title();
-                obj.content = () => this.report_id();
-                return obj;
-            })(new this.$.$mol_labeler);
-        }
-        id_title() {
-            return this.$.$mol_locale.text("$mpk_tss_reports_card_id_title");
-        }
-        Name() {
-            return ((obj) => {
-                obj.title = () => this.name_title();
-                obj.content = () => this.train_number();
-                return obj;
-            })(new this.$.$mol_labeler);
-        }
-        name_title() {
-            return this.$.$mol_locale.text("$mpk_tss_reports_card_name_title");
-        }
-        train_number() {
-            return "";
-        }
-        Measurement_start() {
-            return ((obj) => {
-                obj.title = () => this.measurement_start_title();
-                obj.content = () => this.measurement_start();
-                return obj;
-            })(new this.$.$mol_labeler);
-        }
-        measurement_start_title() {
-            return this.$.$mol_locale.text("$mpk_tss_reports_card_measurement_start_title");
-        }
-        measurement_start() {
-            return "";
-        }
-        Report_status() {
-            return ((obj) => {
-                obj.title = () => this.report_status_title();
-                obj.content = () => this.report_status();
-                return obj;
-            })(new this.$.$mol_labeler);
-        }
-        report_status_title() {
-            return this.$.$mol_locale.text("$mpk_tss_reports_card_report_status_title");
-        }
-        report_status() {
-            return "";
-        }
-        Speed() {
-            return ((obj) => {
-                obj.title = () => this.average_speed_title();
-                obj.content = () => this.average_speed();
-                return obj;
-            })(new this.$.$mol_labeler);
-        }
-        average_speed_title() {
-            return this.$.$mol_locale.text("$mpk_tss_reports_card_average_speed_title");
-        }
-        average_speed() {
-            return "";
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_card.prototype, "Status_text", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_card.prototype, "Status_icon", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_card.prototype, "status_click", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_card.prototype, "report_status_click", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_card.prototype, "Id", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_card.prototype, "Name", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_card.prototype, "Measurement_start", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_card.prototype, "Report_status", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_card.prototype, "Speed", null);
-    $.$mpk_tss_reports_card = $mpk_tss_reports_card;
-})($ || ($ = {}));
-//card.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mpk_tss_reports_card extends $.$mpk_tss_reports_card {
-            report() {
-                throw new $.$mpk_tss_todo;
-            }
-            report_id() {
-                return this.report().id();
-            }
-            train_number() {
-                return this.report().train_number();
-            }
-            violation_status() {
-                return this.report().violation_status();
-            }
-            measurement_start() {
-                const start = this.report().measurement_start();
-                return start ? start.native.toLocaleDateString() : null;
-            }
-            average_speed() {
-                return '' + this.report().average_speed() + ' km/h';
-            }
-            report_status() {
-                return this.report().report_status();
-            }
-            report_status_click(even) {
-                if (event)
-                    event.preventDefault();
-                alert('Report...');
-            }
-        }
-        $$.$mpk_tss_reports_card = $mpk_tss_reports_card;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//card.view.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_section extends $.$mol_list {
-        rows() {
-            return [].concat(this.Head(), this.Content());
-        }
-        Head() {
-            return ((obj) => {
-                obj.sub = () => [].concat(this.head());
-                return obj;
-            })(new this.$.$mol_view);
-        }
-        head() {
-            return null;
-        }
-        Content() {
-            return null;
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_section.prototype, "Head", null);
-    $.$mol_section = $mol_section;
-})($ || ($ = {}));
-//section.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mpk_tss_reports_details_card extends $.$mpk_tss_reports_status_card {
+    class $mpk_tss_reports_carriage extends $.$mpk_tss_card {
         carriage() {
             return null;
         }
@@ -6795,28 +6729,39 @@ var $;
             return "";
         }
         title_prefix() {
-            return this.$.$mol_locale.text("$mpk_tss_reports_details_card_title_prefix");
+            return this.$.$mol_locale.text("$mpk_tss_reports_carriage_title_prefix");
         }
         status() {
-            return this.violation_status();
+            return this.resolution();
         }
-        violation_status() {
+        resolution() {
             return "";
         }
         Status_text() {
             return ((obj) => {
-                obj.colors = () => false;
-                obj.status = () => this.violation_status_total();
+                obj.sub = () => [].concat(this.Status_main(), this.Violation());
                 return obj;
-            })(new this.$.$mpk_tss_reports_status);
+            })(new this.$.$mol_view);
         }
-        violation_status_total() {
+        Status_main() {
+            return ((obj) => {
+                obj.status = () => this.resolution();
+                return obj;
+            })(new this.$.$mpk_tss_reports_resolution);
+        }
+        Violation() {
+            return ((obj) => {
+                obj.status = () => this.violation();
+                return obj;
+            })(new this.$.$mpk_tss_reports_carriage_violation);
+        }
+        violation() {
             return "";
         }
         Status_icon() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mpk_tss_icon_download);
+            })(new this.$.$mpk_tss_icon_cloud_download);
         }
         status_click(event, force) {
             return this.carriage_status_click(event);
@@ -6825,7 +6770,7 @@ var $;
             return (event !== void 0) ? event : null;
         }
         items() {
-            return [].concat(this.Place(), this.Carriage_number(), this.Load_type());
+            return [].concat(this.Place(), this.Carriage_number(), this.Load(), this.Speed());
         }
         Place() {
             return ((obj) => {
@@ -6835,7 +6780,7 @@ var $;
             })(new this.$.$mol_labeler);
         }
         place_title() {
-            return this.$.$mol_locale.text("$mpk_tss_reports_details_card_place_title");
+            return this.$.$mol_locale.text("$mpk_tss_reports_carriage_place_title");
         }
         place() {
             return "";
@@ -6848,56 +6793,101 @@ var $;
             })(new this.$.$mol_labeler);
         }
         carriage_number_title() {
-            return this.$.$mol_locale.text("$mpk_tss_reports_details_card_carriage_number_title");
+            return this.$.$mol_locale.text("$mpk_tss_reports_carriage_carriage_number_title");
         }
         carriage_number() {
             return "";
         }
-        Load_type() {
+        Load() {
             return ((obj) => {
-                obj.title = () => this.load_type_title();
-                obj.content = () => this.load_type();
+                obj.title = () => this.load_title();
+                obj.content = () => this.Load_text();
                 return obj;
             })(new this.$.$mol_labeler);
         }
-        load_type_title() {
-            return this.$.$mol_locale.text("$mpk_tss_reports_details_card_load_type_title");
+        load_title() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_carriage_load_title");
         }
-        load_type() {
+        Load_text() {
+            return ((obj) => {
+                obj.status = () => this.load();
+                return obj;
+            })(new this.$.$mpk_tss_reports_load);
+        }
+        load() {
+            return "";
+        }
+        Speed() {
+            return ((obj) => {
+                obj.title = () => this.speed_title();
+                obj.content = () => this.speed();
+                return obj;
+            })(new this.$.$mol_labeler);
+        }
+        speed_title() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_carriage_speed_title");
+        }
+        speed() {
             return "";
         }
     }
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_details_card.prototype, "Status_text", null);
+    ], $mpk_tss_reports_carriage.prototype, "Status_text", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_details_card.prototype, "Status_icon", null);
+    ], $mpk_tss_reports_carriage.prototype, "Status_main", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_details_card.prototype, "status_click", null);
+    ], $mpk_tss_reports_carriage.prototype, "Violation", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_details_card.prototype, "carriage_status_click", null);
+    ], $mpk_tss_reports_carriage.prototype, "Status_icon", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_details_card.prototype, "Place", null);
+    ], $mpk_tss_reports_carriage.prototype, "status_click", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_details_card.prototype, "Carriage_number", null);
+    ], $mpk_tss_reports_carriage.prototype, "carriage_status_click", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_details_card.prototype, "Load_type", null);
-    $.$mpk_tss_reports_details_card = $mpk_tss_reports_details_card;
+    ], $mpk_tss_reports_carriage.prototype, "Place", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_carriage.prototype, "Carriage_number", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_carriage.prototype, "Load", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_carriage.prototype, "Load_text", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_carriage.prototype, "Speed", null);
+    $.$mpk_tss_reports_carriage = $mpk_tss_reports_carriage;
 })($ || ($ = {}));
-//card.view.tree.js.map
+(function ($) {
+    class $mpk_tss_reports_carriage_violation extends $.$mpk_tss_reports_violation {
+        group() {
+            return [].concat(this.before(), this.status_text(), this.after());
+        }
+        before() {
+            return "(";
+        }
+        after() {
+            return ")";
+        }
+    }
+    $.$mpk_tss_reports_carriage_violation = $mpk_tss_reports_carriage_violation;
+})($ || ($ = {}));
+//carriage.view.tree.js.map
 ;
 "use strict";
 var $;
 (function ($) {
     var $$;
     (function ($$) {
-        class $mpk_tss_reports_details_card extends $.$mpk_tss_reports_details_card {
+        class $mpk_tss_reports_carriage extends $.$mpk_tss_reports_carriage {
             carriage() { throw new $.$mpk_tss_todo; }
             title() {
                 return this.title_prefix() + ' № ' + this.carriage_number();
@@ -6911,25 +6901,23 @@ var $;
             carriage_number() {
                 return this.carriage().carriage_number();
             }
-            violation_status() {
-                return this.carriage().violation_status();
+            resolution() {
+                return this.carriage().resolution();
             }
-            load_type() {
-                return this.carriage().load_type();
+            load() {
+                return this.carriage().load();
             }
-            violation_type() {
-                return this.carriage().violation_type();
+            violation() {
+                return this.carriage().violation();
             }
-            violation_status_total() {
-                if (!this.violation_type())
-                    return this.violation_status();
-                return `${this.violation_status()} (${this.violation_type()})`;
+            speed() {
+                return this.carriage().measured_speed() + ' km/h';
             }
         }
-        $$.$mpk_tss_reports_details_card = $mpk_tss_reports_details_card;
+        $$.$mpk_tss_reports_carriage = $mpk_tss_reports_carriage;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-//card.view.js.map
+//carriage.view.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -6940,12 +6928,311 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var $;
 (function ($) {
-    class $mpk_tss_reports_details extends $.$mol_view {
+    class $mpk_tss_reports_delivery extends $.$mol_view {
+        attr() {
+            return (Object.assign({}, super.attr(), { "mpk_tss_reports_delivery_type": this.status() }));
+        }
+        status() {
+            return "";
+        }
+        statuses() {
+            return ({
+                "preparing": this.preparing(),
+                "sending": this.sending(),
+                "sent": this.sent(),
+                "error": this.error(),
+            });
+        }
+        preparing() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_delivery_preparing");
+        }
+        sending() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_delivery_sending");
+        }
+        sent() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_delivery_sent");
+        }
+        error() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_delivery_error");
+        }
+        icons() {
+            return ({
+                "preparing": this.Preparing(),
+                "sending": this.Sending(),
+                "sent": this.Sent(),
+                "error": this.Error(),
+            });
+        }
+        Preparing() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mpk_tss_icon_sync);
+        }
+        Sending() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mpk_tss_icon_sync);
+        }
+        Sent() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mpk_tss_icon_done);
+        }
+        Error() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mpk_tss_icon_clear);
+        }
+        sub() {
+            return [].concat(this.Icon(), this.Text());
+        }
+        Icon() {
+            return null;
+        }
+        Text() {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.status_text());
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        status_text() {
+            return "";
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_delivery.prototype, "Preparing", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_delivery.prototype, "Sending", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_delivery.prototype, "Sent", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_delivery.prototype, "Error", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_delivery.prototype, "Text", null);
+    $.$mpk_tss_reports_delivery = $mpk_tss_reports_delivery;
+})($ || ($ = {}));
+//delivery.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mpk_tss_reports_delivery extends $.$mpk_tss_reports_delivery {
+            status() { throw new $.$mpk_tss_todo; }
+            status_text() {
+                return this.statuses()[this.status()] || this.status();
+            }
+            Icon() {
+                return this.icons()[this.status()] || this.icons().error;
+            }
+        }
+        $$.$mpk_tss_reports_delivery = $mpk_tss_reports_delivery;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//delivery.view.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mpk_tss_reports_train extends $.$mpk_tss_card {
+        report() {
+            return null;
+        }
+        arg() {
+            return ({
+                "report": this.report_id(),
+            });
+        }
+        report_id() {
+            return "";
+        }
+        status() {
+            return this.resolution();
+        }
+        Status_text() {
+            return ((obj) => {
+                obj.status = () => this.resolution();
+                return obj;
+            })(new this.$.$mpk_tss_reports_resolution);
+        }
+        resolution() {
+            return "";
+        }
+        status_click(event, force) {
+            return this.report_status_click(event);
+        }
+        report_status_click(event, force) {
+            return (event !== void 0) ? event : null;
+        }
+        items() {
+            return [].concat(this.Id(), this.Started(), this.Average_speed(), this.Report(), this.Train_number());
+        }
+        Id() {
+            return ((obj) => {
+                obj.title = () => this.id_title();
+                obj.content = () => this.report_id();
+                return obj;
+            })(new this.$.$mol_labeler);
+        }
+        id_title() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_train_id_title");
+        }
+        Started() {
+            return ((obj) => {
+                obj.title = () => this.started_title();
+                obj.content = () => this.started();
+                return obj;
+            })(new this.$.$mol_labeler);
+        }
+        started_title() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_train_started_title");
+        }
+        started() {
+            return "";
+        }
+        Average_speed() {
+            return ((obj) => {
+                obj.title = () => this.average_speed_title();
+                obj.content = () => this.average_speed();
+                return obj;
+            })(new this.$.$mol_labeler);
+        }
+        average_speed_title() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_train_average_speed_title");
+        }
+        average_speed() {
+            return "";
+        }
+        Report() {
+            return ((obj) => {
+                obj.title = () => this.report_status_title();
+                obj.Content = () => this.Report_status();
+                return obj;
+            })(new this.$.$mol_labeler);
+        }
+        report_status_title() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_train_report_status_title");
+        }
+        Report_status() {
+            return ((obj) => {
+                obj.status = () => this.report_status();
+                return obj;
+            })(new this.$.$mpk_tss_reports_delivery);
+        }
+        report_status() {
+            return "";
+        }
+        Train_number() {
+            return ((obj) => {
+                obj.title = () => this.name_title();
+                obj.content = () => this.train_number();
+                return obj;
+            })(new this.$.$mol_labeler);
+        }
+        name_title() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_train_name_title");
+        }
+        train_number() {
+            return "";
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_train.prototype, "Status_text", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_train.prototype, "status_click", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_train.prototype, "report_status_click", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_train.prototype, "Id", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_train.prototype, "Started", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_train.prototype, "Average_speed", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_train.prototype, "Report", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_train.prototype, "Report_status", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_train.prototype, "Train_number", null);
+    $.$mpk_tss_reports_train = $mpk_tss_reports_train;
+})($ || ($ = {}));
+//train.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mpk_tss_reports_train extends $.$mpk_tss_reports_train {
+            report() {
+                throw new $.$mpk_tss_todo;
+            }
+            report_id() {
+                return this.report().id();
+            }
+            train_number() {
+                return this.report().train_number();
+            }
+            resolution() {
+                return this.report().resolution();
+            }
+            started() {
+                const start = this.report().started();
+                return start ? start.native.toLocaleDateString() : null;
+            }
+            average_speed() {
+                return '' + this.report().average_speed() + ' km/h';
+            }
+            report_status() {
+                return this.report().delivery();
+            }
+            report_status_click(even) {
+                if (event)
+                    event.preventDefault();
+                alert('Report...');
+            }
+        }
+        $$.$mpk_tss_reports_train = $mpk_tss_reports_train;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//train.view.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mpk_tss_reports_carriages extends $.$mol_view {
         report() {
             return null;
         }
         title_prefix() {
-            return this.$.$mol_locale.text("$mpk_tss_reports_details_title_prefix");
+            return this.$.$mol_locale.text("$mpk_tss_reports_carriages_title_prefix");
         }
         pages() {
             return [].concat(this.Main());
@@ -6956,7 +7243,7 @@ var $;
                 obj.title = () => this.title();
                 obj.event_top = (e) => this.event_top(e);
                 obj.tools = () => [].concat(this.Details_close());
-                obj.body = () => [].concat(this.Detail(), this.Carriages());
+                obj.body = () => [].concat(this.Carriages());
                 return obj;
             })(new this.$.$mol_page);
         }
@@ -6977,16 +7264,6 @@ var $;
                 return obj;
             })(new this.$.$mol_icon_cross);
         }
-        Detail() {
-            return ((obj) => {
-                obj.head = () => "Details";
-                obj.Content = () => ((obj) => {
-                    obj.sub = () => [];
-                    return obj;
-                })(new this.$.$mol_row);
-                return obj;
-            })(new this.$.$mol_section);
-        }
         Carriages() {
             return ((obj) => {
                 obj.rows = () => this.carriage_links();
@@ -7000,7 +7277,7 @@ var $;
             return ((obj) => {
                 obj.carriage = () => this.carriage(id);
                 return obj;
-            })(new this.$.$mpk_tss_reports_details_card);
+            })(new this.$.$mpk_tss_reports_carriage);
         }
         carriage(id) {
             return null;
@@ -7008,35 +7285,32 @@ var $;
     }
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_details.prototype, "Main", null);
+    ], $mpk_tss_reports_carriages.prototype, "Main", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_details.prototype, "event_top", null);
+    ], $mpk_tss_reports_carriages.prototype, "event_top", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_details.prototype, "Details_close", null);
+    ], $mpk_tss_reports_carriages.prototype, "Details_close", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_details.prototype, "Details_close_icon", null);
+    ], $mpk_tss_reports_carriages.prototype, "Details_close_icon", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_details.prototype, "Detail", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_details.prototype, "Carriages", null);
+    ], $mpk_tss_reports_carriages.prototype, "Carriages", null);
     __decorate([
         $.$mol_mem_key
-    ], $mpk_tss_reports_details.prototype, "Carriage_link", null);
-    $.$mpk_tss_reports_details = $mpk_tss_reports_details;
+    ], $mpk_tss_reports_carriages.prototype, "Carriage_link", null);
+    $.$mpk_tss_reports_carriages = $mpk_tss_reports_carriages;
 })($ || ($ = {}));
-//details.view.tree.js.map
+//carriages.view.tree.js.map
 ;
 "use strict";
 var $;
 (function ($) {
     var $$;
     (function ($$) {
-        class $mpk_tss_reports_details extends $.$mpk_tss_reports_details {
+        class $mpk_tss_reports_carriages extends $.$mpk_tss_reports_carriages {
             report() {
                 throw new $.$mpk_tss_todo;
             }
@@ -7049,14 +7323,17 @@ var $;
             carriage_links() {
                 return this.report().carriages().map(carriage => this.Carriage_link(carriage.id()));
             }
+            average_speed() {
+                return this.report().average_speed() + ' km/h';
+            }
             carriage_current_id(next) {
                 return $.$mol_state_arg.value(this.state_key('carriage'), next) || '';
             }
         }
-        $$.$mpk_tss_reports_details = $mpk_tss_reports_details;
+        $$.$mpk_tss_reports_carriages = $mpk_tss_reports_carriages;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-//details.view.js.map
+//carriages.view.js.map
 ;
 "use strict";
 var $;
@@ -7177,9 +7454,9 @@ var $;
             return $.$mpk_tss_stub_ids(this.max_reports())
                 .map(id => this.report(id))
                 .sort((r1, r2) => {
-                if (r1.measurement_start() > r2.measurement_start())
+                if (r1.started() > r2.started())
                     return -1;
-                if (r1.measurement_start() < r2.measurement_start())
+                if (r1.started() < r2.started())
                     return 1;
                 return 0;
             });
@@ -7199,27 +7476,27 @@ var $;
         send_count() {
             return $.$mpk_tss_stub_number(0, 10);
         }
-        violation_status() {
+        resolution() {
             return this.carriages().reduce((status, carriage) => {
-                if (carriage.violation_status() === $.$mpk_tss_reports_domain_violation_status.warning)
-                    return $.$mpk_tss_reports_domain_violation_status.warning;
+                if (carriage.resolution() === $.$mpk_tss_reports_domain_resolution.warning)
+                    return $.$mpk_tss_reports_domain_resolution.warning;
                 return status;
-            }, $.$mpk_tss_reports_domain_violation_status.success);
+            }, $.$mpk_tss_reports_domain_resolution.success);
         }
-        report_status() {
+        delivery() {
             return $mpk_tss_reports_domain_mock_stub_report_status();
         }
         average_speed() {
             return $.$mpk_tss_stub_number(50, 55);
         }
-        measurement_start() {
+        started() {
             return $.$mol_stub_time(-10);
         }
         carriages() {
             return $.$mpk_tss_stub_ids($.$mpk_tss_stub_number(30, 45)).map((id, index) => {
                 const carriage = this.carriage(id);
                 if (Math.random() > 0.96) {
-                    carriage.violation_status = $.$mol_const($.$mpk_tss_reports_domain_violation_status.warning);
+                    carriage.resolution = $.$mol_const($.$mpk_tss_reports_domain_resolution.warning);
                 }
                 carriage.place = $.$mol_const(index + 1);
                 return carriage;
@@ -7237,16 +7514,16 @@ var $;
     ], $mpk_tss_reports_domain_mock_report.prototype, "send_count", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_domain_mock_report.prototype, "violation_status", null);
+    ], $mpk_tss_reports_domain_mock_report.prototype, "resolution", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_domain_mock_report.prototype, "report_status", null);
+    ], $mpk_tss_reports_domain_mock_report.prototype, "delivery", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports_domain_mock_report.prototype, "average_speed", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_domain_mock_report.prototype, "measurement_start", null);
+    ], $mpk_tss_reports_domain_mock_report.prototype, "started", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports_domain_mock_report.prototype, "carriages", null);
@@ -7254,22 +7531,22 @@ var $;
         $.$mol_mem_key
     ], $mpk_tss_reports_domain_mock_report.prototype, "carriage", null);
     class $mpk_tss_reports_domain_mock_carriage extends $.$mpk_tss_reports_domain_carriage {
-        violation_status() {
-            return $.$mpk_tss_reports_domain_violation_status.success;
+        resolution() {
+            return $.$mpk_tss_reports_domain_resolution.success;
         }
         carriage_number() {
             return '' + $.$mpk_tss_stub_number(1000, 9000) + '-' + $.$mpk_tss_stub_number(1000, 9000);
         }
-        load_type() {
+        load() {
             return $mpk_tss_reports_domain_mock_stub_carriage_load();
         }
         measured_speed() {
             return $.$mpk_tss_stub_number(50, 55);
         }
-        violation_type() {
-            if (this.violation_status() == $.$mpk_tss_reports_domain_violation_status.success)
+        violation() {
+            if (this.resolution() == $.$mpk_tss_reports_domain_resolution.success)
                 return null;
-            return $mpk_tss_reports_domain_mock_stub_violation_type();
+            return $mpk_tss_reports_domain_mock_stub_violation();
         }
         axis() {
             return $.$mol_range2().slice(1, 4).map(index => {
@@ -7282,30 +7559,30 @@ var $;
     }
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_domain_mock_carriage.prototype, "violation_status", null);
+    ], $mpk_tss_reports_domain_mock_carriage.prototype, "resolution", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports_domain_mock_carriage.prototype, "carriage_number", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_domain_mock_carriage.prototype, "load_type", null);
+    ], $mpk_tss_reports_domain_mock_carriage.prototype, "load", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports_domain_mock_carriage.prototype, "measured_speed", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_domain_mock_carriage.prototype, "violation_type", null);
+    ], $mpk_tss_reports_domain_mock_carriage.prototype, "violation", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports_domain_mock_carriage.prototype, "axis", null);
-    function $mpk_tss_reports_domain_mock_stub_violation_type() {
+    function $mpk_tss_reports_domain_mock_stub_violation() {
         return $.$mol_stub_select_random([
             'slider'
         ]);
     }
     function $mpk_tss_reports_domain_mock_stub_report_status() {
         return $.$mol_stub_select_random([
-            'preparing', 'sending', 'sended', 'error_try', 'error_no_send',
+            'preparing', 'sending', 'sent', 'error',
         ]);
     }
     function $mpk_tss_reports_domain_mock_stub_carriage_load() {
@@ -7373,7 +7650,7 @@ var $;
                 obj.report = () => this.report(id);
                 obj.shaded = () => this.shaded(id);
                 return obj;
-            })(new this.$.$mpk_tss_reports_card);
+            })(new this.$.$mpk_tss_reports_train);
         }
         report(id) {
             return null;
@@ -7386,7 +7663,7 @@ var $;
                 obj.report = () => this.report(id);
                 obj.event_top = (e) => this.focus_main(e);
                 return obj;
-            })(new this.$.$mpk_tss_reports_details);
+            })(new this.$.$mpk_tss_reports_carriages);
         }
         focus_main(e, force) {
             return (e !== void 0) ? e : null;
@@ -7418,7 +7695,7 @@ var $;
 (function ($) {
     class $mpk_tss_reports_page extends $.$mol_page {
         minimal_width() {
-            return 200;
+            return 400;
         }
         sub() {
             return [].concat(this.Head(), this.Filter_value(), this.Body());
@@ -7500,18 +7777,6 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //reports.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mpk_tss_icon_signout extends $.$mol_icon {
-        path() {
-            return "M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z";
-        }
-    }
-    $.$mpk_tss_icon_signout = $mpk_tss_icon_signout;
-})($ || ($ = {}));
-//signout.view.tree.js.map
 ;
 "use strict";
 var $;
@@ -7912,7 +8177,7 @@ var $;
         User_signout() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mpk_tss_icon_signout);
+            })(new this.$.$mpk_tss_icon_exit_to_app);
         }
         pages() {
             return [].concat(this.Sidebar(), this.Summary(), this.menu_pages(), this.details());
@@ -8142,6 +8407,39 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //tss.view.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mol_section extends $.$mol_list {
+        rows() {
+            return [].concat(this.Head(), this.Content());
+        }
+        Head() {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.head());
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        head() {
+            return null;
+        }
+        Content() {
+            return null;
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_section.prototype, "Head", null);
+    $.$mol_section = $mol_section;
+})($ || ($ = {}));
+//section.view.tree.js.map
 ;
 "use strict";
 var $;
