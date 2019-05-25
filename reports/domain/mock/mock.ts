@@ -112,19 +112,23 @@ namespace $ {
 
 	function $mpk_tss_reports_domain_mock_stub_violation() {
 		return $mol_stub_select_random( [
-			'slider'
+			$mpk_tss_reports_domain_violation.slider
 		] as ($mpk_tss_reports_domain_violation)[])
 	}
 
 	function $mpk_tss_reports_domain_mock_stub_report_status() {
 		return $mol_stub_select_random( [
-			'preparing', 'sending', 'sent', 'error',
+			$mpk_tss_reports_domain_delivery.preparing,
+			$mpk_tss_reports_domain_delivery.sending,
+			$mpk_tss_reports_domain_delivery.sent,
+			$mpk_tss_reports_domain_delivery.error,
 		] as $mpk_tss_reports_domain_delivery[])
 	}
 
 	function $mpk_tss_reports_domain_mock_stub_carriage_load() {
 		return $mol_stub_select_random( [
-			'free', 'full'
+			$mpk_tss_reports_domain_load.free,
+			$mpk_tss_reports_domain_load.full,
 		] as $mpk_tss_reports_domain_load[])
 	}
 }

@@ -2,9 +2,9 @@ $mpk_tss_reports_carriages $mol_view
 	report null
 	title_prefix @ \Train
 	pages /
-		<= Main $mol_page
-			minimal_width 300
+		<= Main $mpk_tss_reports_carriages_page
 			title <= title
+			resolution?val <=> resolution?val \
 			event_top?e <=> event_top?e null
 			tools /
 				<= Details_close $mol_link
@@ -15,3 +15,15 @@ $mpk_tss_reports_carriages $mol_view
 					rows <= carriage_links /
 	Carriage_link!id $mpk_tss_reports_carriage
 		carriage <= carriage!id null
+
+$mpk_tss_reports_carriages_page $mol_page
+	minimal_width 300
+	sub /
+		<= Head
+		<= Resolution_filter $mol_switch
+			value?val <=> resolution?val \warning
+			options *
+				warning <= option_warning @ \Warning
+				success <= option_success @ \Success
+				any <= option_any @ \Any
+		<= Body
