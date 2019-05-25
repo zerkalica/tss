@@ -1,0 +1,15 @@
+[mpk_tss_reports_delivery_type="preparing"] {
+	color: rgb(141, 141, 33);
+}
+
+[mpk_tss_reports_delivery_type="error"] {
+	color: red;
+}
+
+[mpk_tss_reports_delivery_type="sending"] {
+	color: rgb(73, 118, 168);
+}
+
+[mpk_tss_reports_delivery_type="sent"] {
+	color: green;
+}

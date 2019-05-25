@@ -1,11 +1,12 @@
-$mpk_tss_reports_details_card $mpk_tss_reports_status_card
+$mpk_tss_reports_details_card $mpk_tss_card
 	carriage null
 	arg * carriage <= carriage_id \
 	title_prefix @ \Carriage
-	status <= violation_status \
-	Status_text $mpk_tss_reports_status
-		colors false
-		status <= violation_status_total \
+	status <= resolution \
+	Status_text $mol_view
+		sub /
+			<= Status_main $mpk_tss_reports_resolution status <= resolution \
+			<= Violation $mpk_tss_reports_details_card_violation status <= violation \
 	Status_icon $mpk_tss_icon_download
 	status_click?event <=> carriage_status_click?event null
 	items /
@@ -15,6 +16,16 @@ $mpk_tss_reports_details_card $mpk_tss_reports_status_card
 		<= Carriage_number $mol_labeler
 			title <= carriage_number_title @ \Carriage
 			content <= carriage_number \
-		<= Load_type $mol_labeler
-			title <= load_type_title @ \Load
-			content <= load_type \
+		<= Load $mol_labeler
+			title <= load_title @ \Load
+			content <= Load_text $mpk_tss_reports_load
+				status <= load \
+		<= Speed $mol_labeler
+			title <= speed_title @ \Speed
+			content <= speed \
+
+$mpk_tss_reports_details_card_violation $mpk_tss_reports_violation
+	group /
+		<= before \(
+		<= status_text
+		<= after \)

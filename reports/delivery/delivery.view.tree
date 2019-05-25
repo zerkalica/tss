@@ -1,0 +1,10 @@
+$mpk_tss_reports_delivery $mol_view
+	attr *
+		^
+		mpk_tss_reports_delivery_type <= status \
+	statuses *
+		preparing <= preparing @ \Preparing
+		sending <= sending @ \Sending
+		sent <= sent @ \Sent
+		error <= error @ \Error
+	sub / <= status_text \

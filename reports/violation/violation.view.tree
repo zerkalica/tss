@@ -1,0 +1,7 @@
+$mpk_tss_reports_violation $mol_view
+	status null
+	statuses *
+		slider <= slider @ \Slider
+	group /
+		<= status_text \
+	sub <= group

@@ -1,0 +1,6 @@
+$mpk_tss_reports_resolution $mol_view
+	status null
+	statuses *
+		success <= success @ \Success
+		warning <= warning @ \Warning
+	sub / <= status_text \

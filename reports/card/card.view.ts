@@ -12,12 +12,12 @@ namespace $.$$ {
 			return this.report().train_number()
 		}
 
-		violation_status() {
-			return this.report().violation_status()
+		resolution() {
+			return this.report().resolution()
 		}
 
-		measurement_start() {
-			const start = this.report().measurement_start()
+		started() {
+			const start = this.report().started()
 
 			return start ? start.native.toLocaleDateString() : null
 		}
@@ -27,7 +27,7 @@ namespace $.$$ {
 		}
 
 		report_status() {
-			return this.report().report_status()
+			return this.report().delivery()
 		}
 
 		report_status_click(even?: Event) {

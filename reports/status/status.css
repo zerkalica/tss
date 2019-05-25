@@ -1,7 +1,0 @@
-[mpk_tss_reports_status_type="success"] {
-	color: color(var(--mol_theme_success) blackness(+50%));
-}
-
-[mpk_tss_reports_status_type="warning"] {
-	color: color(var(--mol_theme_warning) blackness(+50%));
-}

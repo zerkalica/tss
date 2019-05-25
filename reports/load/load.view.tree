@@ -1,0 +1,6 @@
+$mpk_tss_reports_load $mol_view
+	status null
+	statuses *
+		free <= free @ \Free
+		full <= full @ \Full
+	sub / <= status_text \

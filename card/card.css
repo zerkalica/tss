@@ -1,17 +1,17 @@
 [mpk_tss_card] {
 	padding: 0.5rem;
 	display: block;
+	flex: 0 1 auto;
+	position: relative;
 }
 
-[mpk_tss_card_group] {
-	flex-wrap: nowrap;
+[mpk_tss_card_content] {
 	padding: 0;
 }
 
-[mpk_tss_card_footer] {
+[mpk_tss_card_status] {
 	background: var(--mol_theme_line);
-	text-transform: capitalize;
-	padding: 0 0rem;
+	padding: 0;
 	line-height: 2;
 	margin: 0;
 	display: flex;

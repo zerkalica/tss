@@ -18,19 +18,18 @@ namespace $.$$ {
 			return this.carriage().carriage_number()
 		}
 	
-		violation_status() {
-			return this.carriage().violation_status()
+		resolution() {
+			return this.carriage().resolution()
 		}
-		load_type() {
-			return this.carriage().load_type()
+		load() {
+			return this.carriage().load()
 		}
-		violation_type() {
-			return this.carriage().violation_type()
+		violation() {
+			return this.carriage().violation()
 		}
 
-		violation_status_total() {
-			if (!this.violation_type()) return this.violation_status()
-			return `${this.violation_status()} (${this.violation_type()})`
+		speed() {
+			return this.carriage().measured_speed() + ' km/h'
 		}
 	}
 }
