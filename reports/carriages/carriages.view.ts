@@ -18,9 +18,11 @@ namespace $.$$ {
 		}
 
 		carriage_links() {
-			return this.report().carriages()
-				.filter(carriage => carriage.resolution() === this.resolution())
-				.map(carriage => this.Carriage_link(carriage.id()))
+			const warnings = this.warnings()
+			let carriages = this.report().carriages()
+			if (warnings) carriages = carriages.filter(carriage => carriage.resolution() === $mpk_tss_reports_domain_resolution.warning)
+
+			return carriages.map(carriage => this.Carriage_link(carriage.id()))
 		}
 
 		average_speed() {
@@ -30,10 +32,11 @@ namespace $.$$ {
 		carriage_current_id( next? : string ) {
 			return $mol_state_arg.value( this.state_key( 'carriage' ) , next ) || ''
 		}
+
 		@$mol_mem
-		resolution(next?: $mpk_tss_reports_carriages_resolution) {
-			if (next) return next
-			return $mpk_tss_reports_domain_resolution.warning
+		warnings(next?: boolean) {
+			if (next !== undefined) return next
+			return true
 		}
 	}
 }
