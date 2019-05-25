@@ -28,6 +28,7 @@
 	"$mpk_tss_reports_carriage_place_title": "Place",
 	"$mpk_tss_reports_carriage_speed_title": "Speed",
 	"$mpk_tss_reports_carriage_title_prefix": "Carriage",
+	"$mpk_tss_reports_carriages_page_warnings_filter_title": "Only warnings",
 	"$mpk_tss_reports_carriages_title_prefix": "Train",
 	"$mpk_tss_reports_delivery_error": "Error",
 	"$mpk_tss_reports_delivery_preparing": "Preparing",

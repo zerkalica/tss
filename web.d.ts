@@ -1718,7 +1718,7 @@ declare namespace $ {
     enum $mpk_tss_reports_domain_delivery {
         preparing = "preparing",
         sending = "sending",
-        sent = "sent",
+        sent = "sending",
         error = "error"
     }
     class $mpk_tss_reports_domain_report extends $mol_object {
@@ -1822,7 +1822,7 @@ declare namespace $.$$ {
     class $mpk_tss_reports_delivery extends $.$mpk_tss_reports_delivery {
         status(): $mpk_tss_reports_domain_delivery;
         status_text(): string;
-        Icon(): $mpk_tss_icon_done | $mpk_tss_icon_sync | $mpk_tss_icon_clear;
+        Icon(): $mpk_tss_icon_sync | $mpk_tss_icon_clear;
     }
 }
 declare namespace $ {
@@ -1868,11 +1868,45 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
+    class $mol_check extends $mol_button_minor {
+        attr(): {
+            "mol_check_checked": any;
+            "aria-checked": any;
+            "role": string;
+            "disabled": boolean;
+            "tabindex": number;
+            "title": string;
+        };
+        checked(val?: any, force?: $mol_atom_force): any;
+        sub(): any[];
+        Icon(): any;
+        label(): any[];
+        Title(): $mol_view;
+        title(): string;
+    }
+}
+declare namespace $.$$ {
+    class $mol_check extends $.$mol_check {
+        event_click(next?: Event): void;
+    }
+}
+declare namespace $ {
+    class $mol_icon_tick extends $mol_icon {
+        path(): string;
+    }
+}
+declare namespace $ {
+    class $mol_check_box extends $mol_check {
+        Icon(): $mol_icon_tick;
+    }
+}
+declare namespace $ {
     class $mpk_tss_reports_carriages extends $mol_view {
         report(): any;
         title_prefix(): string;
         pages(): any[];
-        Main(): $mol_page;
+        Main(): $mpk_tss_reports_carriages_page;
+        warnings(val?: any, force?: $mol_atom_force): any;
         event_top(e?: any, force?: $mol_atom_force): any;
         Details_close(): $mol_link;
         Details_close_icon(): $mol_icon_cross;
@@ -1882,7 +1916,20 @@ declare namespace $ {
         carriage(id: any): any;
     }
 }
+declare namespace $ {
+    class $mpk_tss_reports_carriages_page extends $mol_page {
+        minimal_width(): number;
+        sub(): any[];
+        Warnings_filter(): $mol_check_box;
+        warnings(val?: any, force?: $mol_atom_force): any;
+        warnings_filter_title(): string;
+    }
+}
 declare namespace $.$$ {
+    enum $mpk_tss_reports_carriages_resolution_any {
+        any = 0
+    }
+    type $mpk_tss_reports_carriages_resolution = $mpk_tss_reports_domain_resolution | $mpk_tss_reports_carriages_resolution_any;
     class $mpk_tss_reports_carriages extends $.$mpk_tss_reports_carriages {
         report(): $mpk_tss_reports_domain_report;
         title(): string;
@@ -1890,6 +1937,7 @@ declare namespace $.$$ {
         carriage_links(): $.$mpk_tss_reports_carriage[];
         average_speed(): string;
         carriage_current_id(next?: string): string;
+        warnings(next?: boolean): boolean;
     }
 }
 declare namespace $ {
@@ -2131,39 +2179,6 @@ declare namespace $.$$ {
 }
 declare namespace $ {
     class $mol_float extends $mol_view {
-    }
-}
-declare namespace $ {
-    class $mol_check extends $mol_button_minor {
-        attr(): {
-            "mol_check_checked": any;
-            "aria-checked": any;
-            "role": string;
-            "disabled": boolean;
-            "tabindex": number;
-            "title": string;
-        };
-        checked(val?: any, force?: $mol_atom_force): any;
-        sub(): any[];
-        Icon(): any;
-        label(): any[];
-        Title(): $mol_view;
-        title(): string;
-    }
-}
-declare namespace $.$$ {
-    class $mol_check extends $.$mol_check {
-        event_click(next?: Event): void;
-    }
-}
-declare namespace $ {
-    class $mol_icon_tick extends $mol_icon {
-        path(): string;
-    }
-}
-declare namespace $ {
-    class $mol_check_box extends $mol_check {
-        Icon(): $mol_icon_tick;
     }
 }
 declare namespace $ {

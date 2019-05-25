@@ -6689,7 +6689,7 @@ var $;
     (function ($mpk_tss_reports_domain_delivery) {
         $mpk_tss_reports_domain_delivery["preparing"] = "preparing";
         $mpk_tss_reports_domain_delivery["sending"] = "sending";
-        $mpk_tss_reports_domain_delivery["sent"] = "sent";
+        $mpk_tss_reports_domain_delivery["sent"] = "sending";
         $mpk_tss_reports_domain_delivery["error"] = "error";
     })($mpk_tss_reports_domain_delivery = $.$mpk_tss_reports_domain_delivery || ($.$mpk_tss_reports_domain_delivery = {}));
     class $mpk_tss_reports_domain_report extends $.$mol_object {
@@ -7227,6 +7227,103 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var $;
 (function ($) {
+    class $mol_check extends $.$mol_button_minor {
+        attr() {
+            return (Object.assign({}, super.attr(), { "mol_check_checked": this.checked(), "aria-checked": this.checked(), "role": "checkbox" }));
+        }
+        checked(val, force) {
+            return (val !== void 0) ? val : false;
+        }
+        sub() {
+            return [].concat(this.Icon(), this.label());
+        }
+        Icon() {
+            return null;
+        }
+        label() {
+            return [].concat(this.Title());
+        }
+        Title() {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.title());
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        title() {
+            return "";
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_check.prototype, "checked", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_check.prototype, "Title", null);
+    $.$mol_check = $mol_check;
+})($ || ($ = {}));
+//check.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_check extends $.$mol_check {
+            event_click(next) {
+                this.checked(!this.checked());
+                if (next)
+                    next.preventDefault();
+            }
+        }
+        $$.$mol_check = $mol_check;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//check.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_tick extends $.$mol_icon {
+        path() {
+            return "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z";
+        }
+    }
+    $.$mol_icon_tick = $mol_icon_tick;
+})($ || ($ = {}));
+//tick.view.tree.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mol_check_box extends $.$mol_check {
+        Icon() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mol_icon_tick);
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_check_box.prototype, "Icon", null);
+    $.$mol_check_box = $mol_check_box;
+})($ || ($ = {}));
+//box.view.tree.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
     class $mpk_tss_reports_carriages extends $.$mol_view {
         report() {
             return null;
@@ -7239,13 +7336,16 @@ var $;
         }
         Main() {
             return ((obj) => {
-                obj.minimal_width = () => 300;
                 obj.title = () => this.title();
+                obj.warnings = (val) => this.warnings(val);
                 obj.event_top = (e) => this.event_top(e);
                 obj.tools = () => [].concat(this.Details_close());
                 obj.body = () => [].concat(this.Carriages());
                 return obj;
-            })(new this.$.$mol_page);
+            })(new this.$.$mpk_tss_reports_carriages_page);
+        }
+        warnings(val, force) {
+            return (val !== void 0) ? val : false;
         }
         event_top(e, force) {
             return (e !== void 0) ? e : null;
@@ -7288,6 +7388,9 @@ var $;
     ], $mpk_tss_reports_carriages.prototype, "Main", null);
     __decorate([
         $.$mol_mem
+    ], $mpk_tss_reports_carriages.prototype, "warnings", null);
+    __decorate([
+        $.$mol_mem
     ], $mpk_tss_reports_carriages.prototype, "event_top", null);
     __decorate([
         $.$mol_mem
@@ -7303,13 +7406,53 @@ var $;
     ], $mpk_tss_reports_carriages.prototype, "Carriage_link", null);
     $.$mpk_tss_reports_carriages = $mpk_tss_reports_carriages;
 })($ || ($ = {}));
+(function ($) {
+    class $mpk_tss_reports_carriages_page extends $.$mol_page {
+        minimal_width() {
+            return 300;
+        }
+        sub() {
+            return [].concat(this.Head(), this.Warnings_filter(), this.Body());
+        }
+        Warnings_filter() {
+            return ((obj) => {
+                obj.checked = (val) => this.warnings(val);
+                obj.title = () => this.warnings_filter_title();
+                return obj;
+            })(new this.$.$mol_check_box);
+        }
+        warnings(val, force) {
+            return (val !== void 0) ? val : true;
+        }
+        warnings_filter_title() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_carriages_page_warnings_filter_title");
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_carriages_page.prototype, "Warnings_filter", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_carriages_page.prototype, "warnings", null);
+    $.$mpk_tss_reports_carriages_page = $mpk_tss_reports_carriages_page;
+})($ || ($ = {}));
 //carriages.view.tree.js.map
 ;
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 var $;
 (function ($) {
     var $$;
     (function ($$) {
+        let $mpk_tss_reports_carriages_resolution_any;
+        (function ($mpk_tss_reports_carriages_resolution_any) {
+            $mpk_tss_reports_carriages_resolution_any[$mpk_tss_reports_carriages_resolution_any["any"] = 0] = "any";
+        })($mpk_tss_reports_carriages_resolution_any = $$.$mpk_tss_reports_carriages_resolution_any || ($$.$mpk_tss_reports_carriages_resolution_any = {}));
         class $mpk_tss_reports_carriages extends $.$mpk_tss_reports_carriages {
             report() {
                 throw new $.$mpk_tss_todo;
@@ -7321,7 +7464,11 @@ var $;
                 return this.report().carriage(id);
             }
             carriage_links() {
-                return this.report().carriages().map(carriage => this.Carriage_link(carriage.id()));
+                const warnings = this.warnings();
+                let carriages = this.report().carriages();
+                if (warnings)
+                    carriages = carriages.filter(carriage => carriage.resolution() === $.$mpk_tss_reports_domain_resolution.warning);
+                return carriages.map(carriage => this.Carriage_link(carriage.id()));
             }
             average_speed() {
                 return this.report().average_speed() + ' km/h';
@@ -7329,7 +7476,15 @@ var $;
             carriage_current_id(next) {
                 return $.$mol_state_arg.value(this.state_key('carriage'), next) || '';
             }
+            warnings(next) {
+                if (next !== undefined)
+                    return next;
+                return true;
+            }
         }
+        __decorate([
+            $.$mol_mem
+        ], $mpk_tss_reports_carriages.prototype, "warnings", null);
         $$.$mpk_tss_reports_carriages = $mpk_tss_reports_carriages;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -7577,17 +7732,21 @@ var $;
     ], $mpk_tss_reports_domain_mock_carriage.prototype, "axis", null);
     function $mpk_tss_reports_domain_mock_stub_violation() {
         return $.$mol_stub_select_random([
-            'slider'
+            $.$mpk_tss_reports_domain_violation.slider
         ]);
     }
     function $mpk_tss_reports_domain_mock_stub_report_status() {
         return $.$mol_stub_select_random([
-            'preparing', 'sending', 'sent', 'error',
+            $.$mpk_tss_reports_domain_delivery.preparing,
+            $.$mpk_tss_reports_domain_delivery.sending,
+            $.$mpk_tss_reports_domain_delivery.sent,
+            $.$mpk_tss_reports_domain_delivery.error,
         ]);
     }
     function $mpk_tss_reports_domain_mock_stub_carriage_load() {
         return $.$mol_stub_select_random([
-            'free', 'full'
+            $.$mpk_tss_reports_domain_load.free,
+            $.$mpk_tss_reports_domain_load.full,
         ]);
     }
 })($ || ($ = {}));
@@ -8514,103 +8673,6 @@ var $;
     $.$mol_float = $mol_float;
 })($ || ($ = {}));
 //float.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_check extends $.$mol_button_minor {
-        attr() {
-            return (Object.assign({}, super.attr(), { "mol_check_checked": this.checked(), "aria-checked": this.checked(), "role": "checkbox" }));
-        }
-        checked(val, force) {
-            return (val !== void 0) ? val : false;
-        }
-        sub() {
-            return [].concat(this.Icon(), this.label());
-        }
-        Icon() {
-            return null;
-        }
-        label() {
-            return [].concat(this.Title());
-        }
-        Title() {
-            return ((obj) => {
-                obj.sub = () => [].concat(this.title());
-                return obj;
-            })(new this.$.$mol_view);
-        }
-        title() {
-            return "";
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_check.prototype, "checked", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_check.prototype, "Title", null);
-    $.$mol_check = $mol_check;
-})($ || ($ = {}));
-//check.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_check extends $.$mol_check {
-            event_click(next) {
-                this.checked(!this.checked());
-                if (next)
-                    next.preventDefault();
-            }
-        }
-        $$.$mol_check = $mol_check;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//check.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_icon_tick extends $.$mol_icon {
-        path() {
-            return "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z";
-        }
-    }
-    $.$mol_icon_tick = $mol_icon_tick;
-})($ || ($ = {}));
-//tick.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_check_box extends $.$mol_check {
-        Icon() {
-            return ((obj) => {
-                return obj;
-            })(new this.$.$mol_icon_tick);
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_check_box.prototype, "Icon", null);
-    $.$mol_check_box = $mol_check_box;
-})($ || ($ = {}));
-//box.view.tree.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {

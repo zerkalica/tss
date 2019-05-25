@@ -628,13 +628,31 @@ $mpk_tss_reports_train $mpk_tss_card
 			title <= name_title @ \Train
 			content <= train_number \
 
+$mol_check $mol_button_minor
+	attr *
+		^
+		mol_check_checked <= checked?val false
+		aria-checked <= checked?val false
+		role \checkbox
+	sub /
+		<= Icon null
+		<= label /
+			<= Title $mol_view
+				sub /
+					<= title \
+
+$mol_icon_tick $mol_icon path \M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z
+
+$mol_check_box $mol_check
+	Icon $mol_icon_tick
+
 $mpk_tss_reports_carriages $mol_view
 	report null
 	title_prefix @ \Train
 	pages /
-		<= Main $mol_page
-			minimal_width 300
+		<= Main $mpk_tss_reports_carriages_page
 			title <= title
+			warnings?val <=> warnings?val false
 			event_top?e <=> event_top?e null
 			tools /
 				<= Details_close $mol_link
@@ -645,6 +663,15 @@ $mpk_tss_reports_carriages $mol_view
 					rows <= carriage_links /
 	Carriage_link!id $mpk_tss_reports_carriage
 		carriage <= carriage!id null
+
+$mpk_tss_reports_carriages_page $mol_page
+	minimal_width 300
+	sub /
+		<= Head
+		<= Warnings_filter $mol_check_box
+			checked?val <=> warnings?val true
+			title <= warnings_filter_title @ \Only warnings
+		<= Body
 
 $mpk_tss_reports $mol_view
 	title @ \Reports
@@ -821,24 +848,6 @@ $mpk_tss_summary_status $mol_view
 		mpk_tss_summary_status_type <= type \success
 
 $mol_float $mol_view
-
-$mol_check $mol_button_minor
-	attr *
-		^
-		mol_check_checked <= checked?val false
-		aria-checked <= checked?val false
-		role \checkbox
-	sub /
-		<= Icon null
-		<= label /
-			<= Title $mol_view
-				sub /
-					<= title \
-
-$mol_icon_tick $mol_icon path \M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z
-
-$mol_check_box $mol_check
-	Icon $mol_icon_tick
 
 $mol_check_expand $mol_check
 	minimal_height 32
