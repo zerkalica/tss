@@ -1,4 +1,5 @@
 namespace $ {
+	
 	export class $mpk_tss_pereferial_domain_mock extends $mpk_tss_pereferial_domain {
 		max_units() { return 4 }
 
@@ -9,17 +10,28 @@ namespace $ {
 
 		@ $mol_mem
 		units() {
-			return $mpk_tss_stub_ids(this.max_units()).map(id => this.unit(id))
+			return $mpk_tss_stub_ids(this.max_units())
+				.map(id => this.unit(id))
+				.sort((unitA, unitB) => {
+					const a = unitA.status()
+					const b = unitB.status()
+					const aw = $mpk_tss_pereferial_domain_status_weights[a]
+					const bw = $mpk_tss_pereferial_domain_status_weights[b]
+
+					if (aw === bw) return 0
+					if (aw > bw) return 1
+					if (aw < bw) return -1
+				})
 		}
 	}
 
 	class $mpk_tss_pereferial_domain_mock_ups extends $mpk_tss_pereferial_domain_ups {
-		@$mol_mem
+		@$mpk_tss_stub_mem
 		status() {
 			return $mpk_tss_pereferial_domain_mock_stub_status()
 		}
 
-		@$mol_mem
+		@$mpk_tss_stub_mem
 		name() {
 			const firm = $mol_stub_select_random( [
 				'Shtil 1103L',
@@ -30,30 +42,30 @@ namespace $ {
 			return `${firm} ${number}`
 		}
 
-		@$mol_mem
+		@$mpk_tss_stub_mem
 		updated(next?: $mol_time_moment) {
 			if (this.status() === $mpk_tss_pereferial_domain_status.unknown) return null
 			return $mol_stub_time(-60)
 		}
 
-		@$mol_mem
+		@$mpk_tss_stub_mem
 		power_source() {
 			if (this.status() === $mpk_tss_pereferial_domain_status.unknown) return null
 			return $mol_stub_select_random(['Line', 'Internal'] as $mpk_tss_pereferial_domain_ups_power_source[])
 		}
 
-		@$mol_mem
+		@$mpk_tss_stub_mem
 		voltage(): number {
 			if (this.status() === $mpk_tss_pereferial_domain_status.unknown) return null
 			return $mpk_tss_stub_number(0, 250)
 		}
 
-		@$mol_mem
+		@$mpk_tss_stub_mem
 		battery_level(): number {
 			if (this.status() === $mpk_tss_pereferial_domain_status.unknown) return null
 			return $mpk_tss_stub_number(0, 100)
 		}
-		@$mol_mem
+		@$mpk_tss_stub_mem
 		battery_time(): $mol_time_duration {
 			if (this.status() === $mpk_tss_pereferial_domain_status.unknown) return null
 			return new $mol_time_duration({minute: $mpk_tss_stub_number(0, 300)})

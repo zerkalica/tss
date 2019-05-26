@@ -2,8 +2,11 @@ namespace $.$$ {
 	export class $mpk_tss_reports extends $.$mpk_tss_reports {
 		@$mol_mem
 		domain() {
-			return new $mpk_tss_reports_domain_mock()
+			return $mpk_tss_reports_domain_mock.make({
+				filter_ids: (next?: string ) => this.filter_value()
+			})
 		}
+		
 
 		main_blended() {
 			return !!this.report_current_id()
@@ -16,6 +19,10 @@ namespace $.$$ {
 
 		report(id: string) {
 			return this.domain().report(id)
+		}
+
+		filter_value( next? : string ) {
+			return $mol_state_arg.value( this.state_key( 'trains' ) , next === '' ? null : next) || ''
 		}
 
 		report_current_id( next? : string ) {
@@ -36,13 +43,12 @@ namespace $.$$ {
 		focus_main() {
 			this.Main().focused(true)
 		}
+	}
 
-		clear_url() {
-			this.report_current_id(null)
-		}
-
+	export class $mpk_tss_reports_page extends $.$mpk_tss_reports_page {
 		destructor() {
-			this.clear_url()
+			this.report_current_id(null)
+			this.filter_value(null)
 		}
 	}
 }

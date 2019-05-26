@@ -1,9 +1,14 @@
 namespace $ {
 	const t = $mpk_tss_todo
 
-	export class $mpk_tss_reports_domain {
+	export class $mpk_tss_reports_domain extends $mol_object {
 		@$mol_mem_key
 		report(id: string): $mpk_tss_reports_domain_report {
+			throw new t
+		}
+
+		@$mol_mem
+		filter_ids(next?: string | null): string | null {
 			throw new t
 		}
 
@@ -66,6 +71,24 @@ namespace $ {
 		error = 'error',
 	}
 
+	export class $mpk_tss_reports_domain_carriages extends $mol_object {
+		@$mol_mem_key
+		carriage(id: string): $mpk_tss_reports_domain_carriage { throw new t }
+
+		@$mol_mem
+		filter_number(next?: string | null): string | null {
+			throw new t
+		}
+
+		@$mol_mem
+		filter_resolution(next?: $mpk_tss_reports_domain_resolution | null): $mpk_tss_reports_domain_resolution | null {
+			throw new t
+		}
+
+		@$mol_mem
+		carriages(): $mpk_tss_reports_domain_carriage[] { throw new t }
+	}
+
 	export class $mpk_tss_reports_domain_report extends $mol_object {
 		id(): string { throw new t }
 		train_number(): string { throw new t }
@@ -75,7 +98,6 @@ namespace $ {
 		average_speed(): number { throw new t }
 		resolution(): $mpk_tss_reports_domain_resolution { throw new t }
 		started(): $mol_time_moment | null { throw new t }
-		carriages(): $mpk_tss_reports_domain_carriage[] { throw new t }
-		carriage(id: string): $mpk_tss_reports_domain_carriage { throw new t }
+		carriages(config?: Partial<$mpk_tss_reports_domain_carriages>): $mpk_tss_reports_domain_carriages { throw new t }
 	}
 }

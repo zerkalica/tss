@@ -4,7 +4,8 @@ $mpk_tss_reports_carriages $mol_view
 	pages /
 		<= Main $mpk_tss_reports_carriages_page
 			title <= title
-			warnings?val <=> warnings?val false
+			filter_warnings?val <=> filter_warnings?val false
+			filter_number?val <=> filter_number?val \
 			event_top?e <=> event_top?e null
 			tools /
 				<= Details_close $mol_link
@@ -20,7 +21,12 @@ $mpk_tss_reports_carriages_page $mol_page
 	minimal_width 300
 	sub /
 		<= Head
-		<= Warnings_filter $mol_check_box
-			checked?val <=> warnings?val true
-			title <= warnings_filter_title @ \Only warnings
+		<= Search $mol_view
+			sub /
+				<= Filter_number $mol_search
+					hint <= hint @ \Carriage number
+					query?val <=> filter_number?val \
+				<= Filter_warnings $mol_check_box
+					checked?val <=> filter_warnings?val true
+					title <= filter_warnings_title @ \Only warnings
 		<= Body

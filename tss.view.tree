@@ -1,16 +1,27 @@
 $mpk_tss $mol_view
 	attr *
 		mol_theme <= theme \$mol_theme_light
+	terminal_text @ \Terminal № %terminal_number
 	sub /
 		<= Head $mol_view
 			sub /
 				<= Terminal_link $mol_button_minor
 					enabled false
 					sub /
-						<= terminal_label @ \Terminal № 123
+						<= terminal_formatted_label \
+				<= Logged_user null
 		<= Body $mpk_tss_main
+			Logged_user => Logged_user
 
 $mpk_tss_main $mol_book
+	Logged_user null
+	User_link $mol_button_minor
+		event_click?event <=> logout_click?event null
+		sub /
+			<= User_email $mol_view
+				sub /
+					<= logged_email
+			<= User_signout $mpk_tss_icon_exit_to_app
 	Menu_item!id $mol_link
 		arg <= menu_page_arg!id *
 		title <= menu_page_title!id \
@@ -28,17 +39,9 @@ $mpk_tss_main $mol_book
 			tools <= common_tools
 			event_top?event <=> event_front_up?event
 	common_tools /
-		<= User_link
 		<= Details_close $mol_link
 			arg * page null
 			sub / <= Details_close_icon $mol_icon_cross
-	User_link $mol_button_minor
-		event_click?event <=> logout_click?event null
-		sub /
-			<= User_email $mol_view
-				sub /
-					<= logged_email
-			<= User_signout $mpk_tss_icon_exit_to_app
 	pages /
 		<= Sidebar $mol_page
 			head /
@@ -61,8 +64,6 @@ $mpk_tss_main $mol_book
 							sub /
 								\© 2019 MPK Software, Russia
 		<= Summary $mpk_tss_summary
-			tools /
-				<= User_link
 			event_top?event <=> event_front_up?event
 		<= menu_pages
 		<= details null

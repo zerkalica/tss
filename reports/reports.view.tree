@@ -5,8 +5,8 @@ $mpk_tss_reports $mol_view
 			event_top?e <=> event_top?e null
 			tools <= tools /
 			title <= title
+			report_current_id?id <=> report_current_id?id \
 			filter_value?val <=> filter_value?val \
-			destructor <= clear_url null
 			body /
 				<= Reports $mol_list
 					minimal_width 300
@@ -23,8 +23,10 @@ $mpk_tss_reports $mol_view
 
 $mpk_tss_reports_page $mol_page
 	minimal_width 400
+	report_current_id?uri \
 	sub /
 		<= Head
 		<= Filter_value $mol_search
+			hint <= hint @ \Train number or report id
 			query?val <=> filter_value?val \
 		<= Body

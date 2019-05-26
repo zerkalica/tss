@@ -20,6 +20,19 @@ namespace $ {
 		unknown = 'unknown',
 	}
 
+	type Values<T> = {
+		[P in keyof T]: T[P];
+	}
+	type t = Values<$mpk_tss_pereferial_domain_status>
+
+	export const $mpk_tss_pereferial_domain_status_weights: Record<string, number> = {
+		ready: 20,
+		error: 0,
+		not_responding: 5,
+		inactive: 6,
+		unknown: 7,
+	}
+
 	export class $mpk_tss_pereferial_domain_unit extends $mol_object {
 		id() : string { throw new $mpk_tss_todo }
 		type(): $mpk_tss_pereferial_domain_type { throw new $mpk_tss_todo }
