@@ -1648,7 +1648,7 @@ declare namespace $ {
     enum $mpk_tss_reports_domain_delivery {
         preparing = "preparing",
         sending = "sending",
-        sent = "sending",
+        sent = "sent",
         error = "error"
     }
     class $mpk_tss_reports_domain_carriages extends $mol_object {
@@ -1704,7 +1704,7 @@ declare namespace $.$$ {
     class $mpk_tss_reports_delivery extends $.$mpk_tss_reports_delivery {
         status(): $mpk_tss_reports_domain_delivery;
         status_text(): string;
-        Icon(): $mpk_tss_icon_sync | $mpk_tss_icon_clear;
+        Icon(): $mpk_tss_icon_done | $mpk_tss_icon_sync | $mpk_tss_icon_clear;
     }
 }
 declare namespace $ {

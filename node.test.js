@@ -6212,7 +6212,7 @@ var $;
     (function ($mpk_tss_reports_domain_delivery) {
         $mpk_tss_reports_domain_delivery["preparing"] = "preparing";
         $mpk_tss_reports_domain_delivery["sending"] = "sending";
-        $mpk_tss_reports_domain_delivery["sent"] = "sending";
+        $mpk_tss_reports_domain_delivery["sent"] = "sent";
         $mpk_tss_reports_domain_delivery["error"] = "error";
     })($mpk_tss_reports_domain_delivery = $.$mpk_tss_reports_domain_delivery || ($.$mpk_tss_reports_domain_delivery = {}));
     class $mpk_tss_reports_domain_carriages extends $.$mol_object {
