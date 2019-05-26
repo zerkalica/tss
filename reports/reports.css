@@ -1,5 +1,5 @@
 [mpk_tss_reports_main] {
-	flex: 1 1 33rem;
+	flex: 1 1 34rem;
 }
 
 [mpk_tss_reports_page_body] {
@@ -8,12 +8,4 @@
 
 [mpk_tss_reports_page_filter_value] {
 	align-self: stretch;
-}
-
-[mpk_tss_reports_report_link] {
-	display: block;
-}
-
-[mpk_tss_reports_carriage] {
-	flex: 1000 0 600px;
 }

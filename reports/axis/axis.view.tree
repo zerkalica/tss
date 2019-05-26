@@ -1,7 +1,7 @@
 $mpk_tss_reports_axis $mol_page
 	carriage null
 	title @ \Axis of carriage № %carriage_number
-	minimal_width 800
+	minimal_width 900
 	tools /
 		<= Close $mol_link
 			arg * carriage null
