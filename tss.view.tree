@@ -1,4 +1,5 @@
 $mpk_tss $mol_view
+	title \Terminal № %terminal_number | Traffic security system
 	attr *
 		mol_theme <= theme \$mol_theme_light
 	terminal_text @ \Terminal № %terminal_number
@@ -26,6 +27,8 @@ $mpk_tss_main $mol_book
 		arg <= menu_page_arg!id *
 		title <= menu_page_title!id \
 	menu_pages *
+		summary <= Summary $mpk_tss_summary
+			event_top?event <=> event_front_up?event
 		software <= Software $mpk_tss_software
 			tools <= common_tools
 			event_top?event <=> event_front_up?event
@@ -48,10 +51,10 @@ $mpk_tss_main $mol_book
 				<= Logo $mol_image
 					uri \mpk/tss/tss_logo.svg
 					event * click?val <=> event_top?val null
-			title @ \Logo and username
+			title @ \Menu
 			minimal_width 200
 			body / <= sidebar_items /
-				<= Enter $mpk_tss_enter
+				<= Login $mpk_tss_login
 					entered?val <=> entered?val false
 					login?v <=> logged_email?v \
 				<= Menu $mol_list
@@ -62,9 +65,8 @@ $mpk_tss_main $mol_book
 					sub /
 						<= Foot_text $mol_view
 							sub /
-								\© 2019 MPK Software, Russia
-		<= Summary $mpk_tss_summary
-			event_top?event <=> event_front_up?event
+								<= copyright \© %year MPK Software, Russia
+		<= Summary
 		<= menu_pages
 		<= details null
 	Placeholder $mpk_tss_placeholder

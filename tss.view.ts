@@ -1,5 +1,9 @@
 namespace $.$$ {
 	export class $mpk_tss extends $.$mpk_tss {
+		title() {
+			return super.title().replace('%terminal_number', this.terminal_number())
+		}
+
 		terminal_number() {
 			return '123'
 		}
@@ -7,6 +11,7 @@ namespace $.$$ {
 		terminal_formatted_label() {
 			return this.terminal_text().replace('%terminal_number', this.terminal_number())
 		}
+
 		context_sub() {
 			return this.$.$mol_ambient({
 				$mpk_tss_pereferial_domain: $mpk_tss_pereferial_domain_mock,
@@ -18,18 +23,23 @@ namespace $.$$ {
 	export class $mpk_tss_main extends $.$mpk_tss_main {
 		Pereferial() {
 			const Pereferial = super.Pereferial()
+			// see https://github.com/eigenmethod/mol/issues/324
 			Pereferial.$ = this.$
 			return Pereferial
 		}
 
 		Reports() {
 			const Reports = super.Reports()
+			// see https://github.com/eigenmethod/mol/issues/324
 			Reports.$ = this.$
 			return Reports
 		}
 
+		copyright() {
+			return super.copyright().replace('%year', '' + new Date().getFullYear())
+		}
+
 		entered( next? : boolean ) {
-			if( this.$.$mol_state_arg.value( `entered` ) != null ) return true
 			return this.$.$mol_state_session.value( `${ this }.entered()` , next ) || false
 		}
 
@@ -54,19 +64,19 @@ namespace $.$$ {
 
 		@$mol_mem
 		logged_email(next?: string) {
-			return this.$.$mol_state_arg.value( this.state_key( 'user' ) , next ) || ''
+			return this.$.$mol_state_session.value( this.state_key( 'user' ) , next ) || ''
 		}
 
 		menu_page_title(id: string) {
 			return this.menu_pages()[id].title()
 		}
 
-		page_id() {
-			return this.$.$mol_state_arg.value( 'page' )
+		page_id(next?: string) {
+			return this.$.$mol_state_arg.value( this.state_key( 'page' ) , next ) || ''
 		}
 
 		sidebar_items() {
-			if( !this.entered() ) return [ this.Enter() ]
+			if( !this.entered() ) return [ this.Login() ]
 
 			return [this.Menu()]
 		}
@@ -74,17 +84,14 @@ namespace $.$$ {
 		pages() {
 			if( !this.entered() ) return [ this.Sidebar() ]
 
-			const id = this.page_id()
+			const id = this.page_id() || 'summary'
+			const page = this.menu_pages()[id]
+			const pages = page && page.pages ? page.pages() : [page]
 
-			return [].concat([
+			return [
 				this.Sidebar(),
-				id ? null : this.Summary(),
-				id === 'software' && this.Software(),
-				id === 'sensors' && this.Sensors(),
-			])
-				.concat(id === 'pereferial' && this.Pereferial().pages())
-				.concat(id === 'reports' && this.Reports().pages())
-				.filter(Boolean)
+				...pages,
+			]
 		}
 	}
 }

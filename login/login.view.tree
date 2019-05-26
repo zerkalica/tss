@@ -1,0 +1,18 @@
+$mpk_tss_login $mol_list
+	entered?val false
+	sub / <= Form $mol_form
+		form_fields /
+			<= Login_field $mol_form_field
+				name <= login_label @ \User name
+				control <= Login $mol_string
+					value?val <=> login?val \
+			<= Password_field $mol_form_field
+				name <= password_label @ \Password
+				control <= Password $mol_string
+					value?val <=> password?val \
+					type \password
+		buttons /
+			<= Submit $mol_button_major
+				sub / <= submit_label @ \Log In
+				event_click?val <=> event_submit?val null
+				disabled <= submit_blocked false

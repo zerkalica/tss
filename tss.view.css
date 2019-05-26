@@ -1,14 +1,6 @@
-[mpk_tss_main] > [mol_page] {
-	/* box-shadow: none; */
-}
-
 [mpk_tss_main] * [mol_string] {
 	margin-top: 1px;
 	padding: 0.45rem 1rem;
-}
-
-[mpk_tss_main] > [mol_page_body] {
-	box-shadow: 0 0 0 1px var(--mol_theme_line);
 }
 
 [mpk_tss] {
@@ -16,22 +8,14 @@
 	display: flex;
 }
 
-[mpk_tss_terminal_link],
-[mpk_tss_user_link] {
-	padding: 0.3rem 1rem;
-}
-
 [mpk_tss_head] {
-	max-width: 1024px;
 	display: flex;
-	/* justify-content: space-between; */
-	align-items: center;
-	flex-wrap: wrap;
-	padding: 0 0rem;
+	padding: 0;
+	line-height: 2;
 }
 
-[mpk_tss_user_signout] {
-	padding-left: 0.5rem;
+[mpk_tss_head] > [mol_button] {
+	padding: 0 .5rem;
 }
 
 [mpk_tss_body] {
@@ -51,6 +35,7 @@
 [mpk_tss_main_foot_content] {
 	justify-content: space-between;
 }
+
 [mpk_tss_main_foot_text] {
 	max-width: 20rem;
 }

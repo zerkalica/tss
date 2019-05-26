@@ -32,7 +32,9 @@ namespace $.$$ {
 		details_event_top(event?: Event) {
 			this.Main().focused(true)
 		}
+	}
 
+	export class $mpk_tss_pereferial_page extends $.$mpk_tss_pereferial_page {
 		destructor() {
 			this.unit_current_id(null)
 			this.filter_value(null)

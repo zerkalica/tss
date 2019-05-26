@@ -1,5 +1,5 @@
 namespace $.$$ {
-	export class $mpk_tss_enter extends $.$mpk_tss_enter {
+	export class $mpk_tss_login extends $.$mpk_tss_login {
 		
 		event_submit() {
 			this.entered( true )
