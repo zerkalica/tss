@@ -1113,6 +1113,7 @@ declare namespace $.$$ {
 declare namespace $ {
     class $mpk_tss_pereferial_domain extends $mol_object {
         unit(id: string): $mpk_tss_pereferial_domain_unit;
+        filter_name(next?: string): string;
         units(): $mpk_tss_pereferial_domain_unit[];
     }
     enum $mpk_tss_pereferial_domain_type {
@@ -1491,56 +1492,6 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
-    class $mol_unit extends $mol_object {
-        'valueOf()': number;
-        constructor(value?: number);
-        prefix(): string;
-        postfix(): string;
-        valueOf(): number;
-        delimiter(): string;
-        value_view(): string;
-        toString(): string;
-        static summ(a: $mol_unit, b: $mol_unit): any;
-        mult(m: number): this;
-    }
-}
-declare namespace $ {
-    class $mol_unit_money extends $mol_unit {
-    }
-    class $mol_unit_money_usd extends $mol_unit_money {
-        prefix(): string;
-    }
-    class $mol_unit_money_rur extends $mol_unit_money {
-        postfix(): string;
-    }
-}
-declare namespace $ {
-    function $mol_stub_select_random<Value>(list: Value[]): Value;
-    function $mol_stub_strings(prefix?: string, count?: number, length?: number): any[];
-    function $mol_stub_code(length?: number): string;
-    function $mol_stub_price(max?: number): $mol_unit_money_usd;
-    function $mol_stub_product_name(): string;
-    function $mol_stub_company_name_big(): string;
-    function $mol_stub_company_name_small(): string;
-    function $mol_stub_company_name(): string;
-    function $mol_stub_person_name(): string;
-    function $mol_stub_city(): string;
-    function $mol_stub_time(maxShift?: number): $mol_time_moment;
-}
-declare namespace $ {
-    function $mpk_tss_stub_id(): string;
-    function $mpk_tss_stub_ids(max?: number): string[];
-    function $mpk_tss_stub_number(min?: number, max?: number): number;
-    function $mpk_tss_stub_mem<Host, Value>(obj: Host, name: string, descr: TypedPropertyDescriptor<(id?: string | Object) => Value>): void;
-}
-declare namespace $ {
-    class $mpk_tss_pereferial_domain_mock extends $mpk_tss_pereferial_domain {
-        max_units(): number;
-        unit(id: string): $mpk_tss_pereferial_domain_unit;
-        units(): $mpk_tss_pereferial_domain_unit[];
-    }
-}
-declare namespace $ {
     class $mpk_tss_pereferial extends $mol_view {
         title(): string;
         pages(): any[];
@@ -1562,18 +1513,19 @@ declare namespace $ {
     class $mpk_tss_pereferial_page extends $mol_page {
         sub(): any[];
         Filter_value(): $mol_search;
+        filter_hint(): string;
         filter_value(val?: any, force?: $mol_atom_force): any;
     }
 }
 declare namespace $.$$ {
     class $mpk_tss_pereferial extends $.$mpk_tss_pereferial {
-        domain(): $mpk_tss_pereferial_domain_mock;
+        domain(): $mpk_tss_pereferial_domain;
         unit_links(): $.$mpk_tss_pereferial_card[];
         unit(id: string): $mpk_tss_pereferial_domain_unit;
+        filter_value(next?: string): any;
         unit_current_id(next?: string): any;
         Unit_current(): $.$mpk_tss_pereferial_details;
         details_event_top(event?: Event): void;
-        clean_url(): void;
         destructor(): void;
     }
 }
@@ -1818,12 +1770,12 @@ declare namespace $ {
         Average_speed(): $mol_labeler;
         average_speed_title(): string;
         average_speed(): string;
-        Report(): $mol_labeler;
-        report_status_title(): string;
-        Report_status(): $mpk_tss_reports_delivery;
-        report_status(): string;
+        Delivery(): $mol_labeler;
+        delivery_title(): string;
+        Delivery_value(): $mpk_tss_reports_delivery;
+        delivery(): string;
         Train_number(): $mol_labeler;
-        name_title(): string;
+        train_number_title(): string;
         train_number(): string;
     }
 }
@@ -1835,7 +1787,7 @@ declare namespace $.$$ {
         resolution(): $mpk_tss_reports_domain_resolution;
         started(): string;
         average_speed(): string;
-        report_status(): $mpk_tss_reports_domain_delivery;
+        delivery(): $mpk_tss_reports_domain_delivery;
         report_status_click(even?: Event): void;
     }
 }
@@ -1915,6 +1867,49 @@ declare namespace $.$$ {
         filter_number(next?: string): any;
         destructor(): void;
     }
+}
+declare namespace $ {
+    class $mol_unit extends $mol_object {
+        'valueOf()': number;
+        constructor(value?: number);
+        prefix(): string;
+        postfix(): string;
+        valueOf(): number;
+        delimiter(): string;
+        value_view(): string;
+        toString(): string;
+        static summ(a: $mol_unit, b: $mol_unit): any;
+        mult(m: number): this;
+    }
+}
+declare namespace $ {
+    class $mol_unit_money extends $mol_unit {
+    }
+    class $mol_unit_money_usd extends $mol_unit_money {
+        prefix(): string;
+    }
+    class $mol_unit_money_rur extends $mol_unit_money {
+        postfix(): string;
+    }
+}
+declare namespace $ {
+    function $mol_stub_select_random<Value>(list: Value[]): Value;
+    function $mol_stub_strings(prefix?: string, count?: number, length?: number): any[];
+    function $mol_stub_code(length?: number): string;
+    function $mol_stub_price(max?: number): $mol_unit_money_usd;
+    function $mol_stub_product_name(): string;
+    function $mol_stub_company_name_big(): string;
+    function $mol_stub_company_name_small(): string;
+    function $mol_stub_company_name(): string;
+    function $mol_stub_person_name(): string;
+    function $mol_stub_city(): string;
+    function $mol_stub_time(maxShift?: number): $mol_time_moment;
+}
+declare namespace $ {
+    function $mpk_tss_stub_id(): string;
+    function $mpk_tss_stub_ids(max?: number): string[];
+    function $mpk_tss_stub_number(min?: number, max?: number): number;
+    function $mpk_tss_stub_mem<Host, Value>(obj: Host, name: string, descr: TypedPropertyDescriptor<(id?: string | Object) => Value>): void;
 }
 declare namespace $ {
     function $mol_range2<Item = number>(item?: (index: number) => Item, size?: () => number): Item[];
@@ -2043,6 +2038,14 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
+    class $mpk_tss_pereferial_domain_mock extends $mpk_tss_pereferial_domain {
+        max_units(): number;
+        unit(id: string): $mpk_tss_pereferial_domain_unit;
+        protected units_all(): $mpk_tss_pereferial_domain_unit[];
+        units(): $mpk_tss_pereferial_domain_unit[];
+    }
+}
+declare namespace $ {
     class $mpk_tss extends $mol_view {
         attr(): {
             "mol_theme": string;
@@ -2112,6 +2115,7 @@ declare namespace $.$$ {
     class $mpk_tss extends $.$mpk_tss {
         terminal_number(): string;
         terminal_formatted_label(): string;
+        context_sub(): $mol_ambient_context;
     }
     class $mpk_tss_main extends $.$mpk_tss_main {
         entered(next?: boolean): boolean;

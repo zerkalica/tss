@@ -4549,6 +4549,9 @@ var $;
         unit(id) {
             throw new $.$mpk_tss_todo;
         }
+        filter_name(next) {
+            return next || '';
+        }
         units() {
             throw new $.$mpk_tss_todo;
         }
@@ -6058,294 +6061,6 @@ var $;
 //search.view.js.map
 ;
 "use strict";
-var $;
-(function ($) {
-    class $mol_unit extends $.$mol_object {
-        constructor(value) {
-            super();
-            this['valueOf()'] = value;
-        }
-        prefix() {
-            return '';
-        }
-        postfix() {
-            return '';
-        }
-        valueOf() {
-            return this['valueOf()'];
-        }
-        delimiter() {
-            return ' ';
-        }
-        value_view() {
-            return this.valueOf().toLocaleString();
-        }
-        toString() {
-            return this.prefix() + this.value_view() + this.postfix();
-        }
-        static summ(a, b) {
-            var Class = a.constructor;
-            if (Class !== b.constructor)
-                throw new Error(`Not same measure: ${Class} , ${b.constructor}`);
-            return new Class(a.valueOf() + b.valueOf());
-        }
-        mult(m) {
-            var Class = this.constructor;
-            return new Class(this.valueOf() * m);
-        }
-    }
-    $.$mol_unit = $mol_unit;
-})($ || ($ = {}));
-//unit.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_unit_money extends $.$mol_unit {
-    }
-    $.$mol_unit_money = $mol_unit_money;
-    class $mol_unit_money_usd extends $mol_unit_money {
-        prefix() {
-            return '$';
-        }
-    }
-    $.$mol_unit_money_usd = $mol_unit_money_usd;
-    class $mol_unit_money_rur extends $mol_unit_money {
-        postfix() {
-            return ' ₽';
-        }
-    }
-    $.$mol_unit_money_rur = $mol_unit_money_rur;
-})($ || ($ = {}));
-//money.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    function $mol_stub_select_random(list) {
-        return list[Math.floor(Math.random() * list.length)];
-    }
-    $.$mol_stub_select_random = $mol_stub_select_random;
-    function $mol_stub_strings(prefix = '', count = 10, length = 10) {
-        if (prefix.length >= length)
-            return [];
-        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".split('');
-        let strings = [];
-        for (let i = 0; i < count; i++) {
-            let text = prefix;
-            for (let j = prefix.length; j < length; j++) {
-                text += $mol_stub_select_random(possible);
-            }
-            strings.push(text);
-        }
-        return strings;
-    }
-    $.$mol_stub_strings = $mol_stub_strings;
-    function $mol_stub_code(length = 8) {
-        var max = Math.pow(16, length);
-        var min = Math.pow(16, length - 1);
-        var value = min + Math.floor(Math.random() * (max - min));
-        return value.toString(16).toUpperCase();
-    }
-    $.$mol_stub_code = $mol_stub_code;
-    function $mol_stub_price(max = 1000) {
-        var min = Math.floor(max / 16 / 16);
-        var value = min + Math.floor(Math.random() * (max - min));
-        return new $.$mol_unit_money_usd(value);
-    }
-    $.$mol_stub_price = $mol_stub_price;
-    function $mol_stub_product_name() {
-        var name = $mol_stub_select_random([
-            'Monitor 15"',
-            'Monitor 17"',
-            'Monitor 19"',
-            'Graphics card',
-            'Frame grabber card'
-        ]);
-        var port = $mol_stub_select_random(['D-SUB', 'DVI', 'HDMI']);
-        var resolution = $mol_stub_select_random(['VGA', 'Full HD', '4K']);
-        return [name, port, resolution].join(', ');
-    }
-    $.$mol_stub_product_name = $mol_stub_product_name;
-    function $mol_stub_company_name_big() {
-        var product = $mol_stub_select_random(['Everything', 'Something', 'Anything', 'Nothing']);
-        var type = $mol_stub_select_random(['Company', 'Corporation', 'Holding']);
-        return `A ${type} that makes ${product}`;
-    }
-    $.$mol_stub_company_name_big = $mol_stub_company_name_big;
-    function $mol_stub_company_name_small() {
-        return $mol_stub_select_random(['ACME inc.', 'Dream Company', 'Just Company']);
-    }
-    $.$mol_stub_company_name_small = $mol_stub_company_name_small;
-    function $mol_stub_company_name() {
-        return $mol_stub_select_random([$mol_stub_company_name_small, $mol_stub_company_name_big])();
-    }
-    $.$mol_stub_company_name = $mol_stub_company_name;
-    function $mol_stub_person_name() {
-        var first = $mol_stub_select_random(['Ivan', 'Petr', 'Sidor']);
-        var last = $mol_stub_select_random(['Ivanov', 'Petrov', 'Sidorov']);
-        return `${first} ${last}`;
-    }
-    $.$mol_stub_person_name = $mol_stub_person_name;
-    function $mol_stub_city() {
-        return $mol_stub_select_random(['Moscow', 'London', 'Washington', 'Buenos Aires']);
-    }
-    $.$mol_stub_city = $mol_stub_city;
-    function $mol_stub_time(maxShift = 60 * 24 * 365) {
-        return new $.$mol_time_moment().shift({ minute: Math.round(Math.random() * maxShift) });
-    }
-    $.$mol_stub_time = $mol_stub_time;
-})($ || ($ = {}));
-//stub.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    function $mpk_tss_stub_id() {
-        return $.$mol_stub_code();
-    }
-    $.$mpk_tss_stub_id = $mpk_tss_stub_id;
-    function $mpk_tss_stub_ids(max = 10) {
-        const ids = [];
-        for (let i = 0; i < max; i++) {
-            ids.push($mpk_tss_stub_id());
-        }
-        return ids;
-    }
-    $.$mpk_tss_stub_ids = $mpk_tss_stub_ids;
-    function $mpk_tss_stub_number(min = 20, max = 80) {
-        return min + Math.floor(Math.random() * (max - min));
-    }
-    $.$mpk_tss_stub_number = $mpk_tss_stub_number;
-    function $mpk_tss_stub_mem(obj, name, descr) {
-        const value = descr.value;
-        const store = new WeakMap();
-        descr.value = function $mpk_tss_stub_mem_value(id) {
-            let map = store.get(this);
-            if (!map) {
-                map = new Map();
-                store.set(this, map);
-            }
-            const key = JSON.stringify(id);
-            let result = map.get(key);
-            if (result === undefined) {
-                result = value.call(this, id);
-                map.set(key, result);
-            }
-            return result;
-        };
-        descr.value['value'] = value;
-    }
-    $.$mpk_tss_stub_mem = $mpk_tss_stub_mem;
-})($ || ($ = {}));
-//stub.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mpk_tss_pereferial_domain_mock extends $.$mpk_tss_pereferial_domain {
-        max_units() { return 4; }
-        unit(id) {
-            return $mpk_tss_pereferial_domain_mock_ups.make({ id: $.$mol_const(id) });
-        }
-        units() {
-            return $.$mpk_tss_stub_ids(this.max_units())
-                .map(id => this.unit(id))
-                .sort((unitA, unitB) => {
-                const a = unitA.status();
-                const b = unitB.status();
-                const aw = $.$mpk_tss_pereferial_domain_status_weights[a];
-                const bw = $.$mpk_tss_pereferial_domain_status_weights[b];
-                if (aw === bw)
-                    return 0;
-                if (aw > bw)
-                    return 1;
-                if (aw < bw)
-                    return -1;
-            });
-        }
-    }
-    __decorate([
-        $.$mol_mem_key
-    ], $mpk_tss_pereferial_domain_mock.prototype, "unit", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferial_domain_mock.prototype, "units", null);
-    $.$mpk_tss_pereferial_domain_mock = $mpk_tss_pereferial_domain_mock;
-    class $mpk_tss_pereferial_domain_mock_ups extends $.$mpk_tss_pereferial_domain_ups {
-        status() {
-            return $mpk_tss_pereferial_domain_mock_stub_status();
-        }
-        name() {
-            const firm = $.$mol_stub_select_random([
-                'Shtil 1103L',
-                'Shtil 1104M',
-            ]);
-            const number = $.$mol_stub_select_random(['N1', 'N2', 'N3', 'N4']);
-            return `${firm} ${number}`;
-        }
-        updated(next) {
-            if (this.status() === $.$mpk_tss_pereferial_domain_status.unknown)
-                return null;
-            return $.$mol_stub_time(-60);
-        }
-        power_source() {
-            if (this.status() === $.$mpk_tss_pereferial_domain_status.unknown)
-                return null;
-            return $.$mol_stub_select_random(['Line', 'Internal']);
-        }
-        voltage() {
-            if (this.status() === $.$mpk_tss_pereferial_domain_status.unknown)
-                return null;
-            return $.$mpk_tss_stub_number(0, 250);
-        }
-        battery_level() {
-            if (this.status() === $.$mpk_tss_pereferial_domain_status.unknown)
-                return null;
-            return $.$mpk_tss_stub_number(0, 100);
-        }
-        battery_time() {
-            if (this.status() === $.$mpk_tss_pereferial_domain_status.unknown)
-                return null;
-            return new $.$mol_time_duration({ minute: $.$mpk_tss_stub_number(0, 300) });
-        }
-    }
-    __decorate([
-        $.$mpk_tss_stub_mem
-    ], $mpk_tss_pereferial_domain_mock_ups.prototype, "status", null);
-    __decorate([
-        $.$mpk_tss_stub_mem
-    ], $mpk_tss_pereferial_domain_mock_ups.prototype, "name", null);
-    __decorate([
-        $.$mpk_tss_stub_mem
-    ], $mpk_tss_pereferial_domain_mock_ups.prototype, "updated", null);
-    __decorate([
-        $.$mpk_tss_stub_mem
-    ], $mpk_tss_pereferial_domain_mock_ups.prototype, "power_source", null);
-    __decorate([
-        $.$mpk_tss_stub_mem
-    ], $mpk_tss_pereferial_domain_mock_ups.prototype, "voltage", null);
-    __decorate([
-        $.$mpk_tss_stub_mem
-    ], $mpk_tss_pereferial_domain_mock_ups.prototype, "battery_level", null);
-    __decorate([
-        $.$mpk_tss_stub_mem
-    ], $mpk_tss_pereferial_domain_mock_ups.prototype, "battery_time", null);
-    function $mpk_tss_pereferial_domain_mock_stub_status() {
-        return $.$mol_stub_select_random([
-            'ready', 'error', 'not_responding', 'inactive', 'unknown'
-        ]);
-    }
-})($ || ($ = {}));
-//mock.js.map
-;
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6447,9 +6162,13 @@ var $;
         }
         Filter_value() {
             return ((obj) => {
+                obj.hint = () => this.filter_hint();
                 obj.query = (val) => this.filter_value(val);
                 return obj;
             })(new this.$.$mol_search);
+        }
+        filter_hint() {
+            return this.$.$mol_locale.text("$mpk_tss_pereferial_page_filter_hint");
         }
         filter_value(val, force) {
             return (val !== void 0) ? val : "";
@@ -6478,13 +6197,18 @@ var $;
     (function ($$) {
         class $mpk_tss_pereferial extends $.$mpk_tss_pereferial {
             domain() {
-                return new $.$mpk_tss_pereferial_domain_mock();
+                return this.$.$mpk_tss_pereferial_domain.make({
+                    filter_name: () => this.filter_value()
+                });
             }
             unit_links() {
                 return this.domain().units().map(unit => this.Unit_link(unit.id()));
             }
             unit(id) {
                 return this.domain().unit(id);
+            }
+            filter_value(next) {
+                return $.$mol_state_arg.value(this.state_key('units'), next ? next : null) || '';
             }
             unit_current_id(next) {
                 return $.$mol_state_arg.value(this.state_key('unit'), next) || '';
@@ -6495,11 +6219,9 @@ var $;
             details_event_top(event) {
                 this.Main().focused(true);
             }
-            clean_url() {
-                this.unit_current_id(null);
-            }
             destructor() {
-                this.clean_url();
+                this.unit_current_id(null);
+                this.filter_value(null);
             }
         }
         __decorate([
@@ -6508,6 +6230,9 @@ var $;
         __decorate([
             $.$mol_mem
         ], $mpk_tss_pereferial.prototype, "unit_links", null);
+        __decorate([
+            $.$mol_mem
+        ], $mpk_tss_pereferial.prototype, "filter_value", null);
         $$.$mpk_tss_pereferial = $mpk_tss_pereferial;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -7169,7 +6894,7 @@ var $;
             return (event !== void 0) ? event : null;
         }
         items() {
-            return [].concat(this.Id(), this.Started(), this.Average_speed(), this.Report(), this.Train_number());
+            return [].concat(this.Id(), this.Started(), this.Average_speed(), this.Delivery(), this.Train_number());
         }
         Id() {
             return ((obj) => {
@@ -7207,34 +6932,34 @@ var $;
         average_speed() {
             return "";
         }
-        Report() {
+        Delivery() {
             return ((obj) => {
-                obj.title = () => this.report_status_title();
-                obj.Content = () => this.Report_status();
+                obj.title = () => this.delivery_title();
+                obj.Content = () => this.Delivery_value();
                 return obj;
             })(new this.$.$mol_labeler);
         }
-        report_status_title() {
-            return this.$.$mol_locale.text("$mpk_tss_reports_train_report_status_title");
+        delivery_title() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_train_delivery_title");
         }
-        Report_status() {
+        Delivery_value() {
             return ((obj) => {
-                obj.status = () => this.report_status();
+                obj.status = () => this.delivery();
                 return obj;
             })(new this.$.$mpk_tss_reports_delivery);
         }
-        report_status() {
+        delivery() {
             return "";
         }
         Train_number() {
             return ((obj) => {
-                obj.title = () => this.name_title();
+                obj.title = () => this.train_number_title();
                 obj.content = () => this.train_number();
                 return obj;
             })(new this.$.$mol_labeler);
         }
-        name_title() {
-            return this.$.$mol_locale.text("$mpk_tss_reports_train_name_title");
+        train_number_title() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_train_train_number_title");
         }
         train_number() {
             return "";
@@ -7260,10 +6985,10 @@ var $;
     ], $mpk_tss_reports_train.prototype, "Average_speed", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_train.prototype, "Report", null);
+    ], $mpk_tss_reports_train.prototype, "Delivery", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_train.prototype, "Report_status", null);
+    ], $mpk_tss_reports_train.prototype, "Delivery_value", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports_train.prototype, "Train_number", null);
@@ -7296,7 +7021,7 @@ var $;
             average_speed() {
                 return '' + this.report().average_speed() + ' km/h';
             }
-            report_status() {
+            delivery() {
                 return this.report().delivery();
             }
             report_status_click(even) {
@@ -7633,6 +7358,189 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //carriages.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_unit extends $.$mol_object {
+        constructor(value) {
+            super();
+            this['valueOf()'] = value;
+        }
+        prefix() {
+            return '';
+        }
+        postfix() {
+            return '';
+        }
+        valueOf() {
+            return this['valueOf()'];
+        }
+        delimiter() {
+            return ' ';
+        }
+        value_view() {
+            return this.valueOf().toLocaleString();
+        }
+        toString() {
+            return this.prefix() + this.value_view() + this.postfix();
+        }
+        static summ(a, b) {
+            var Class = a.constructor;
+            if (Class !== b.constructor)
+                throw new Error(`Not same measure: ${Class} , ${b.constructor}`);
+            return new Class(a.valueOf() + b.valueOf());
+        }
+        mult(m) {
+            var Class = this.constructor;
+            return new Class(this.valueOf() * m);
+        }
+    }
+    $.$mol_unit = $mol_unit;
+})($ || ($ = {}));
+//unit.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_unit_money extends $.$mol_unit {
+    }
+    $.$mol_unit_money = $mol_unit_money;
+    class $mol_unit_money_usd extends $mol_unit_money {
+        prefix() {
+            return '$';
+        }
+    }
+    $.$mol_unit_money_usd = $mol_unit_money_usd;
+    class $mol_unit_money_rur extends $mol_unit_money {
+        postfix() {
+            return ' ₽';
+        }
+    }
+    $.$mol_unit_money_rur = $mol_unit_money_rur;
+})($ || ($ = {}));
+//money.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_stub_select_random(list) {
+        return list[Math.floor(Math.random() * list.length)];
+    }
+    $.$mol_stub_select_random = $mol_stub_select_random;
+    function $mol_stub_strings(prefix = '', count = 10, length = 10) {
+        if (prefix.length >= length)
+            return [];
+        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".split('');
+        let strings = [];
+        for (let i = 0; i < count; i++) {
+            let text = prefix;
+            for (let j = prefix.length; j < length; j++) {
+                text += $mol_stub_select_random(possible);
+            }
+            strings.push(text);
+        }
+        return strings;
+    }
+    $.$mol_stub_strings = $mol_stub_strings;
+    function $mol_stub_code(length = 8) {
+        var max = Math.pow(16, length);
+        var min = Math.pow(16, length - 1);
+        var value = min + Math.floor(Math.random() * (max - min));
+        return value.toString(16).toUpperCase();
+    }
+    $.$mol_stub_code = $mol_stub_code;
+    function $mol_stub_price(max = 1000) {
+        var min = Math.floor(max / 16 / 16);
+        var value = min + Math.floor(Math.random() * (max - min));
+        return new $.$mol_unit_money_usd(value);
+    }
+    $.$mol_stub_price = $mol_stub_price;
+    function $mol_stub_product_name() {
+        var name = $mol_stub_select_random([
+            'Monitor 15"',
+            'Monitor 17"',
+            'Monitor 19"',
+            'Graphics card',
+            'Frame grabber card'
+        ]);
+        var port = $mol_stub_select_random(['D-SUB', 'DVI', 'HDMI']);
+        var resolution = $mol_stub_select_random(['VGA', 'Full HD', '4K']);
+        return [name, port, resolution].join(', ');
+    }
+    $.$mol_stub_product_name = $mol_stub_product_name;
+    function $mol_stub_company_name_big() {
+        var product = $mol_stub_select_random(['Everything', 'Something', 'Anything', 'Nothing']);
+        var type = $mol_stub_select_random(['Company', 'Corporation', 'Holding']);
+        return `A ${type} that makes ${product}`;
+    }
+    $.$mol_stub_company_name_big = $mol_stub_company_name_big;
+    function $mol_stub_company_name_small() {
+        return $mol_stub_select_random(['ACME inc.', 'Dream Company', 'Just Company']);
+    }
+    $.$mol_stub_company_name_small = $mol_stub_company_name_small;
+    function $mol_stub_company_name() {
+        return $mol_stub_select_random([$mol_stub_company_name_small, $mol_stub_company_name_big])();
+    }
+    $.$mol_stub_company_name = $mol_stub_company_name;
+    function $mol_stub_person_name() {
+        var first = $mol_stub_select_random(['Ivan', 'Petr', 'Sidor']);
+        var last = $mol_stub_select_random(['Ivanov', 'Petrov', 'Sidorov']);
+        return `${first} ${last}`;
+    }
+    $.$mol_stub_person_name = $mol_stub_person_name;
+    function $mol_stub_city() {
+        return $mol_stub_select_random(['Moscow', 'London', 'Washington', 'Buenos Aires']);
+    }
+    $.$mol_stub_city = $mol_stub_city;
+    function $mol_stub_time(maxShift = 60 * 24 * 365) {
+        return new $.$mol_time_moment().shift({ minute: Math.round(Math.random() * maxShift) });
+    }
+    $.$mol_stub_time = $mol_stub_time;
+})($ || ($ = {}));
+//stub.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mpk_tss_stub_id() {
+        return $.$mol_stub_code();
+    }
+    $.$mpk_tss_stub_id = $mpk_tss_stub_id;
+    function $mpk_tss_stub_ids(max = 10) {
+        const ids = [];
+        for (let i = 0; i < max; i++) {
+            ids.push($mpk_tss_stub_id());
+        }
+        return ids;
+    }
+    $.$mpk_tss_stub_ids = $mpk_tss_stub_ids;
+    function $mpk_tss_stub_number(min = 20, max = 80) {
+        return min + Math.floor(Math.random() * (max - min));
+    }
+    $.$mpk_tss_stub_number = $mpk_tss_stub_number;
+    function $mpk_tss_stub_mem(obj, name, descr) {
+        const value = descr.value;
+        const store = new WeakMap();
+        descr.value = function $mpk_tss_stub_mem_value(id) {
+            let map = store.get(this);
+            if (!map) {
+                map = new Map();
+                store.set(this, map);
+            }
+            const key = JSON.stringify(id);
+            let result = map.get(key);
+            if (result === undefined) {
+                result = value.call(this, id);
+                map.set(key, result);
+            }
+            return result;
+        };
+        descr.value['value'] = value;
+    }
+    $.$mpk_tss_stub_mem = $mpk_tss_stub_mem;
+})($ || ($ = {}));
+//stub.js.map
 ;
 "use strict";
 var $;
@@ -8108,7 +8016,7 @@ var $;
     (function ($$) {
         class $mpk_tss_reports extends $.$mpk_tss_reports {
             domain() {
-                return $.$mpk_tss_reports_domain_mock.make({
+                return this.$.$mpk_tss_reports_domain_mock.make({
                     filter_ids: (next) => this.filter_value()
                 });
             }
@@ -8416,6 +8324,120 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //enter.view.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mpk_tss_pereferial_domain_mock extends $.$mpk_tss_pereferial_domain {
+        max_units() { return 4; }
+        unit(id) {
+            return $mpk_tss_pereferial_domain_mock_ups.make({ id: $.$mol_const(id) });
+        }
+        units_all() {
+            return $.$mpk_tss_stub_ids(this.max_units())
+                .map(id => this.unit(id))
+                .sort((unitA, unitB) => {
+                const a = unitA.status();
+                const b = unitB.status();
+                const aw = $.$mpk_tss_pereferial_domain_status_weights[a];
+                const bw = $.$mpk_tss_pereferial_domain_status_weights[b];
+                if (aw === bw)
+                    return 0;
+                if (aw > bw)
+                    return 1;
+                if (aw < bw)
+                    return -1;
+            });
+        }
+        units() {
+            const filter = this.filter_name().toUpperCase();
+            return this.units_all()
+                .filter(unit => unit.name().toUpperCase().indexOf(filter) !== -1
+                || (filter.length >= 3 && unit.type().toUpperCase().indexOf(filter) !== -1));
+        }
+    }
+    __decorate([
+        $.$mol_mem_key
+    ], $mpk_tss_pereferial_domain_mock.prototype, "unit", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferial_domain_mock.prototype, "units_all", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferial_domain_mock.prototype, "units", null);
+    $.$mpk_tss_pereferial_domain_mock = $mpk_tss_pereferial_domain_mock;
+    class $mpk_tss_pereferial_domain_mock_ups extends $.$mpk_tss_pereferial_domain_ups {
+        status() {
+            return $mpk_tss_pereferial_domain_mock_stub_status();
+        }
+        name() {
+            const firm = $.$mol_stub_select_random([
+                'Shtil 1103L',
+                'Shtil 1104M',
+            ]);
+            const number = $.$mol_stub_select_random(['N1', 'N2', 'N3', 'N4']);
+            return `${firm} ${number}`;
+        }
+        updated(next) {
+            if (this.status() === $.$mpk_tss_pereferial_domain_status.unknown)
+                return null;
+            return $.$mol_stub_time(-60);
+        }
+        power_source() {
+            if (this.status() === $.$mpk_tss_pereferial_domain_status.unknown)
+                return null;
+            return $.$mol_stub_select_random(['Line', 'Internal']);
+        }
+        voltage() {
+            if (this.status() === $.$mpk_tss_pereferial_domain_status.unknown)
+                return null;
+            return $.$mpk_tss_stub_number(0, 250);
+        }
+        battery_level() {
+            if (this.status() === $.$mpk_tss_pereferial_domain_status.unknown)
+                return null;
+            return $.$mpk_tss_stub_number(0, 100);
+        }
+        battery_time() {
+            if (this.status() === $.$mpk_tss_pereferial_domain_status.unknown)
+                return null;
+            return new $.$mol_time_duration({ minute: $.$mpk_tss_stub_number(0, 300) });
+        }
+    }
+    __decorate([
+        $.$mpk_tss_stub_mem
+    ], $mpk_tss_pereferial_domain_mock_ups.prototype, "status", null);
+    __decorate([
+        $.$mpk_tss_stub_mem
+    ], $mpk_tss_pereferial_domain_mock_ups.prototype, "name", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_pereferial_domain_mock_ups.prototype, "updated", null);
+    __decorate([
+        $.$mpk_tss_stub_mem
+    ], $mpk_tss_pereferial_domain_mock_ups.prototype, "power_source", null);
+    __decorate([
+        $.$mpk_tss_stub_mem
+    ], $mpk_tss_pereferial_domain_mock_ups.prototype, "voltage", null);
+    __decorate([
+        $.$mpk_tss_stub_mem
+    ], $mpk_tss_pereferial_domain_mock_ups.prototype, "battery_level", null);
+    __decorate([
+        $.$mpk_tss_stub_mem
+    ], $mpk_tss_pereferial_domain_mock_ups.prototype, "battery_time", null);
+    function $mpk_tss_pereferial_domain_mock_stub_status() {
+        return $.$mol_stub_select_random([
+            'ready', 'error', 'not_responding', 'inactive', 'unknown'
+        ]);
+    }
+})($ || ($ = {}));
+//mock.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -8760,6 +8782,12 @@ var $;
             }
             terminal_formatted_label() {
                 return this.terminal_text().replace('%terminal_number', this.terminal_number());
+            }
+            context_sub() {
+                return this.$.$mol_ambient({
+                    $mpk_tss_pereferial_domain: $.$mpk_tss_pereferial_domain_mock,
+                    $mpk_tss_reports_domain: $.$mpk_tss_reports_domain_mock,
+                });
             }
         }
         $$.$mpk_tss = $mpk_tss;
