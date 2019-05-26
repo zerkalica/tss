@@ -15,10 +15,10 @@ $mpk_tss_reports_train $mpk_tss_card
 		<= Average_speed $mol_labeler
 			title <= average_speed_title @ \Speed
 			content <= average_speed \
-		<= Report $mol_labeler
-			title <= report_status_title @ \Report
-			Content <= Report_status $mpk_tss_reports_delivery
-				status <= report_status \
+		<= Delivery $mol_labeler
+			title <= delivery_title @ \Report
+			Content <= Delivery_value $mpk_tss_reports_delivery
+				status <= delivery \
 		<= Train_number $mol_labeler
-			title <= name_title @ \Train
+			title <= train_number_title @ \Train
 			content <= train_number \

@@ -22,5 +22,6 @@ $mpk_tss_pereferial_page $mol_page
 	sub /
 		<= Head
 		<= Filter_value $mol_search
+			hint <= filter_hint @ \Unit name or type
 			query?val <=> filter_value?val \
 		<= Body

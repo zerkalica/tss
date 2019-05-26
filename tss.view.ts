@@ -7,10 +7,16 @@ namespace $.$$ {
 		terminal_formatted_label() {
 			return this.terminal_text().replace('%terminal_number', this.terminal_number())
 		}
+
+		context_sub() {
+			return this.$.$mol_ambient({
+				$mpk_tss_pereferial_domain: $mpk_tss_pereferial_domain_mock,
+				$mpk_tss_reports_domain: $mpk_tss_reports_domain_mock,
+			})
+		}
 	}
 
 	export class $mpk_tss_main extends $.$mpk_tss_main {
-
 		entered( next? : boolean ) {
 			if( this.$.$mol_state_arg.value( `entered` ) != null ) return true
 			return this.$.$mol_state_session.value( `${ this }.entered()` , next ) || false

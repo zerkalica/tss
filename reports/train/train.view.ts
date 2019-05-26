@@ -26,7 +26,7 @@ namespace $.$$ {
 			return '' + this.report().average_speed() + ' km/h'
 		}
 
-		report_status() {
+		delivery() {
 			return this.report().delivery()
 		}
 

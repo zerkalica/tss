@@ -3,6 +3,9 @@ namespace $ {
 		unit(id: string): $mpk_tss_pereferial_domain_unit {
 			throw new $mpk_tss_todo
 		}
+		filter_name(next?: string) {
+			return next || ''
+		}
 		units(): $mpk_tss_pereferial_domain_unit[] {
 			throw new $mpk_tss_todo
 		}

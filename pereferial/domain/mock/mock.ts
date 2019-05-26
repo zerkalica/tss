@@ -9,7 +9,7 @@ namespace $ {
 		}
 
 		@ $mol_mem
-		units() {
+		protected units_all() {
 			return $mpk_tss_stub_ids(this.max_units())
 				.map(id => this.unit(id))
 				.sort((unitA, unitB) => {
@@ -22,6 +22,16 @@ namespace $ {
 					if (aw > bw) return 1
 					if (aw < bw) return -1
 				})
+		}
+
+		@$mol_mem
+		units() {
+			const filter = this.filter_name().toUpperCase()
+			return this.units_all()
+				.filter(unit => 
+					unit.name().toUpperCase().indexOf(filter) !== -1
+					|| (filter.length >=3 && unit.type().toUpperCase().indexOf(filter) !== -1)
+				)
 		}
 	}
 
@@ -42,7 +52,7 @@ namespace $ {
 			return `${firm} ${number}`
 		}
 
-		@$mpk_tss_stub_mem
+		@$mol_mem
 		updated(next?: $mol_time_moment) {
 			if (this.status() === $mpk_tss_pereferial_domain_status.unknown) return null
 			return $mol_stub_time(-60)

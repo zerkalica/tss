@@ -2,7 +2,9 @@ namespace $.$$ {
 	export class $mpk_tss_pereferial extends $.$mpk_tss_pereferial {
 		@$mol_mem
 		domain() {
-			return new $mpk_tss_pereferial_domain_mock()
+			return this.$.$mpk_tss_pereferial_domain_mock.make({
+				filter_name: () => this.filter_value()
+			})
 		}
 
 		@$mol_mem
@@ -12,6 +14,11 @@ namespace $.$$ {
 
 		unit(id: string) {
 			return this.domain().unit(id)
+		}
+
+		@$mol_mem
+		filter_value(next?: string) {
+			return $mol_state_arg.value( this.state_key( 'units' ) , next ? next : null) || ''
 		}
 
 		unit_current_id( next? : string ) {
@@ -26,12 +33,9 @@ namespace $.$$ {
 			this.Main().focused(true)
 		}
 
-		clean_url() {
-			this.unit_current_id(null)
-		}
-
 		destructor() {
-			this.clean_url()
+			this.unit_current_id(null)
+			this.filter_value(null)
 		}
 	}
 }
