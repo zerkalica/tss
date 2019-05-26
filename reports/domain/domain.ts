@@ -67,7 +67,7 @@ namespace $ {
 	export enum $mpk_tss_reports_domain_delivery {
 		preparing = 'preparing',
 		sending = 'sending',
-		sent = 'sending',
+		sent = 'sent',
 		error = 'error',
 	}
 
