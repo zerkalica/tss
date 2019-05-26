@@ -497,6 +497,15 @@ var $;
 //atom.test.js.map
 ;
 "use strict";
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
+            t[p[i]] = s[p[i]];
+    return t;
+};
 var $;
 (function ($) {
     $.$mol_test({
@@ -504,13 +513,21 @@ var $;
             $.$mol_assert_equal(($.$mol_dom_jsx("div", null)).outerHTML, '<div></div>');
         },
         'Define native field'() {
-            const dom = $.$mol_dom_jsx("input", { value: 123 });
-            $.$mol_assert_equal(dom.outerHTML, '<input>');
+            const dom = $.$mol_dom_jsx("input", { value: '123' });
+            $.$mol_assert_equal(dom.outerHTML, '<input value="123">');
             $.$mol_assert_equal(dom.value, '123');
         },
+        'Define styles'() {
+            const dom = $.$mol_dom_jsx("div", { style: { color: 'red' } });
+            $.$mol_assert_equal(dom.outerHTML, '<div style="color: red;"></div>');
+        },
+        'Define dataset'() {
+            const dom = $.$mol_dom_jsx("div", { dataset: { foo: 'bar' } });
+            $.$mol_assert_equal(dom.outerHTML, '<div data-foo="bar"></div>');
+        },
         'Define attributes'() {
-            const dom = $.$mol_dom_jsx("div", { foo: true, bar: "123" });
-            $.$mol_assert_equal(dom.outerHTML, '<div foo="true" bar="123"></div>');
+            const dom = $.$mol_dom_jsx("div", { hidden: true, lang: "ru" });
+            $.$mol_assert_equal(dom.outerHTML, '<div hidden="" lang="ru"></div>');
         },
         'Define child nodes'() {
             const dom = $.$mol_dom_jsx("div", null,
@@ -520,16 +537,16 @@ var $;
             $.$mol_assert_equal(dom.outerHTML, '<div>hello<strong>world</strong>!</div>');
         },
         'Function as component'() {
-            function Button(props, action, target) {
-                return $.$mol_dom_jsx("button", Object.assign({}, props),
+            function Button(_a, action, target) {
+                var { id } = _a, props = __rest(_a, ["id"]);
+                return $.$mol_dom_jsx("button", Object.assign({ id: "root" }, props),
                     action,
-                    " ",
-                    target);
+                    target());
             }
-            const dom = $.$mol_dom_jsx(Button, { id: "123" },
-                "click",
-                'me');
-            $.$mol_assert_equal(dom.outerHTML, '<button id="123">click me</button>');
+            const dom = $.$mol_dom_jsx(Button, { id: "foo" },
+                "click ",
+                () => 'me');
+            $.$mol_assert_equal(dom.outerHTML, '<button id="foo.root">click me</button>');
         },
     });
 })($ || ($ = {}));
@@ -538,31 +555,39 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    $.$mol_dom_jsx_context = {
+        prefix: ''
+    };
     function $mol_dom_jsx(Elem, props, ...children) {
-        if (typeof Elem !== 'string')
-            return Elem(props, ...children);
-        const document = $.$mol_dom_context.document;
-        const node = document.createElement(Elem);
-        for (let child of [].concat.call([], ...children)) {
-            if (typeof child === 'string')
-                child = document.createTextNode(child);
-            node.appendChild(child);
+        const prefix = $.$mol_dom_jsx_context.prefix;
+        const id = prefix
+            ? (props && (props.id !== undefined) && (prefix + '.' + props.id) || prefix || '')
+            : (props && (props.id !== undefined) && props.id || '');
+        if (typeof Elem !== 'string') {
+            let context = $.$mol_dom_jsx_context;
+            try {
+                if (id)
+                    $.$mol_dom_jsx_context = { prefix: id };
+                return Elem(props, ...children);
+            }
+            finally {
+                $.$mol_dom_jsx_context = context;
+            }
         }
+        const document = $.$mol_dom_context.document;
+        const node = id && document.getElementById(id) || document.createElement(Elem);
+        $.$mol_dom_render_children(node, [].concat(...children));
+        if (id)
+            props.id = id;
         for (const key in props) {
-            let descr;
-            let proto = node;
-            while (true) {
-                proto = Object.getPrototypeOf(proto);
-                if (!proto) {
-                    node.setAttribute(key, String(props[key]));
-                    break;
-                }
-                descr = Object.getOwnPropertyDescriptor(proto, key);
-                if (!descr)
+            if (typeof props[key] === 'string') {
+                node.setAttribute(key, props[key]);
+            }
+            else if (props[key] && props[key].constructor === Object) {
+                if (typeof node[key] === 'object') {
+                    Object.assign(node[key], props[key]);
                     continue;
-                if (descr.set)
-                    Object.defineProperty(node, key, descr);
-                break;
+                }
             }
             node[key] = props[key];
         }

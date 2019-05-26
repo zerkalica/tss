@@ -203,23 +203,31 @@ declare namespace $ {
 declare namespace $ {
 }
 declare namespace $ {
-    function $mol_dom_render_fields(el: Element, fields: {
-        [key: string]: any;
-    }): void;
-    function $mol_dom_render_children(el: Element, childNodes: NodeList | Array<Node | string | number | boolean | {
-        dom_tree: () => Node;
-    }>): void;
     function $mol_dom_render_attributes(el: Element, attrs: {
         [key: string]: string | number | boolean;
     }): void;
-    function $mol_dom_render_styles(el: Element, styles: {
-        [key: string]: string | number;
-    }): void;
+}
+declare namespace $ {
     function $mol_dom_render_events(el: Element, events: {
         [key: string]: (event: Event) => any;
     }): void;
     function $mol_dom_render_events_async(el: Element, events: {
         [key: string]: (event: Event) => any;
+    }): void;
+}
+declare namespace $ {
+    function $mol_dom_render_children(el: Element, childNodes: NodeList | Array<Node | string | number | boolean | {
+        dom_tree: () => Node;
+    }>): void;
+}
+declare namespace $ {
+    function $mol_dom_render_styles(el: Element, styles: {
+        [key: string]: string | number;
+    }): void;
+}
+declare namespace $ {
+    function $mol_dom_render_fields(el: Element, fields: {
+        [key: string]: any;
     }): void;
 }
 declare namespace $ {
@@ -754,6 +762,95 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
+    class $mol_svg extends $mol_view {
+        dom_name(): string;
+        dom_name_space(): string;
+    }
+}
+declare namespace $ {
+    class $mol_svg_root extends $mol_svg {
+        dom_name(): string;
+        attr(): {
+            "viewBox": string;
+            "preserveAspectRatio": string;
+        };
+        view_box(): string;
+        aspect(): string;
+    }
+}
+declare namespace $ {
+    class $mol_svg_path extends $mol_svg {
+        dom_name(): string;
+        attr(): {
+            "d": string;
+        };
+        geometry(): string;
+    }
+}
+declare namespace $ {
+    class $mol_icon extends $mol_svg_root {
+        view_box(): string;
+        sub(): any[];
+        Path(): $mol_svg_path;
+        path(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_icon_train extends $mol_icon {
+        path(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_icon_exit_to_app extends $mol_icon {
+        path(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_icon_autorenew extends $mol_icon {
+        path(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_icon_cloud_download extends $mol_icon {
+        path(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_icon_done extends $mol_icon {
+        path(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_icon_schedule extends $mol_icon {
+        path(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_icon_error extends $mol_icon {
+        path(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_icon_warning extends $mol_icon {
+        path(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_icon_sync extends $mol_icon {
+        path(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_icon_clear extends $mol_icon {
+        path(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_icon_block extends $mol_icon {
+        path(): string;
+    }
+}
+declare namespace $ {
     function $mol_merge_dict<Target, Source>(target: Target, source: Source): Target & Source;
 }
 declare namespace $ {
@@ -844,40 +941,6 @@ declare namespace $.$$ {
         row_context(index: number): $mol_ambient_context;
         sub_visible(): any[];
         minimal_height(): number;
-    }
-}
-declare namespace $ {
-    class $mol_svg extends $mol_view {
-        dom_name(): string;
-        dom_name_space(): string;
-    }
-}
-declare namespace $ {
-    class $mol_svg_root extends $mol_svg {
-        dom_name(): string;
-        attr(): {
-            "viewBox": string;
-            "preserveAspectRatio": string;
-        };
-        view_box(): string;
-        aspect(): string;
-    }
-}
-declare namespace $ {
-    class $mol_svg_path extends $mol_svg {
-        dom_name(): string;
-        attr(): {
-            "d": string;
-        };
-        geometry(): string;
-    }
-}
-declare namespace $ {
-    class $mol_icon extends $mol_svg_root {
-        view_box(): string;
-        sub(): any[];
-        Path(): $mol_svg_path;
-        path(): string;
     }
 }
 declare namespace $ {
@@ -1106,6 +1169,7 @@ declare namespace $ {
         inactive = "inactive",
         unknown = "unknown"
     }
+    const $mpk_tss_pereferial_domain_status_weights: Record<string, number>;
     class $mpk_tss_pereferial_domain_unit extends $mol_object {
         id(): string;
         type(): $mpk_tss_pereferial_domain_type;
@@ -1197,61 +1261,6 @@ declare namespace $ {
 declare namespace $.$$ {
     class $mol_card extends $.$mol_card {
         rows(): $mol_view[];
-    }
-}
-declare namespace $ {
-    class $mpk_tss_icon_train extends $mol_icon {
-        path(): string;
-    }
-}
-declare namespace $ {
-    class $mpk_tss_icon_exit_to_app extends $mol_icon {
-        path(): string;
-    }
-}
-declare namespace $ {
-    class $mpk_tss_icon_autorenew extends $mol_icon {
-        path(): string;
-    }
-}
-declare namespace $ {
-    class $mpk_tss_icon_cloud_download extends $mol_icon {
-        path(): string;
-    }
-}
-declare namespace $ {
-    class $mpk_tss_icon_done extends $mol_icon {
-        path(): string;
-    }
-}
-declare namespace $ {
-    class $mpk_tss_icon_schedule extends $mol_icon {
-        path(): string;
-    }
-}
-declare namespace $ {
-    class $mpk_tss_icon_error extends $mol_icon {
-        path(): string;
-    }
-}
-declare namespace $ {
-    class $mpk_tss_icon_warning extends $mol_icon {
-        path(): string;
-    }
-}
-declare namespace $ {
-    class $mpk_tss_icon_sync extends $mol_icon {
-        path(): string;
-    }
-}
-declare namespace $ {
-    class $mpk_tss_icon_clear extends $mol_icon {
-        path(): string;
-    }
-}
-declare namespace $ {
-    class $mpk_tss_icon_block extends $mol_icon {
-        path(): string;
     }
 }
 declare namespace $ {
@@ -1566,6 +1575,7 @@ declare namespace $ {
     function $mpk_tss_stub_id(): string;
     function $mpk_tss_stub_ids(max?: number): string[];
     function $mpk_tss_stub_number(min?: number, max?: number): number;
+    function $mpk_tss_stub_mem<Host, Value>(obj: Host, name: string, descr: TypedPropertyDescriptor<(id?: string | Object) => Value>): void;
 }
 declare namespace $ {
     class $mpk_tss_pereferial_domain_mock extends $mpk_tss_pereferial_domain {
@@ -1673,8 +1683,9 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
-    class $mpk_tss_reports_domain {
+    class $mpk_tss_reports_domain extends $mol_object {
         report(id: string): $mpk_tss_reports_domain_report;
+        filter_ids(next?: string | null): string | null;
         reports(): $mpk_tss_reports_domain_report[];
     }
     enum $mpk_tss_reports_domain_resolution {
@@ -1721,6 +1732,12 @@ declare namespace $ {
         sent = "sending",
         error = "error"
     }
+    class $mpk_tss_reports_domain_carriages extends $mol_object {
+        carriage(id: string): $mpk_tss_reports_domain_carriage;
+        filter_number(next?: string | null): string | null;
+        filter_resolution(next?: $mpk_tss_reports_domain_resolution | null): $mpk_tss_reports_domain_resolution | null;
+        carriages(): $mpk_tss_reports_domain_carriage[];
+    }
     class $mpk_tss_reports_domain_report extends $mol_object {
         id(): string;
         train_number(): string;
@@ -1729,8 +1746,7 @@ declare namespace $ {
         average_speed(): number;
         resolution(): $mpk_tss_reports_domain_resolution;
         started(): $mol_time_moment | null;
-        carriages(): $mpk_tss_reports_domain_carriage[];
-        carriage(id: string): $mpk_tss_reports_domain_carriage;
+        carriages(config?: Partial<$mpk_tss_reports_domain_carriages>): $mpk_tss_reports_domain_carriages;
     }
 }
 declare namespace $ {
@@ -1906,7 +1922,8 @@ declare namespace $ {
         title_prefix(): string;
         pages(): any[];
         Main(): $mpk_tss_reports_carriages_page;
-        warnings(val?: any, force?: $mol_atom_force): any;
+        filter_warnings(val?: any, force?: $mol_atom_force): any;
+        filter_number(val?: any, force?: $mol_atom_force): any;
         event_top(e?: any, force?: $mol_atom_force): any;
         Details_close(): $mol_link;
         Details_close_icon(): $mol_icon_cross;
@@ -1920,24 +1937,27 @@ declare namespace $ {
     class $mpk_tss_reports_carriages_page extends $mol_page {
         minimal_width(): number;
         sub(): any[];
-        Warnings_filter(): $mol_check_box;
-        warnings(val?: any, force?: $mol_atom_force): any;
-        warnings_filter_title(): string;
+        Search(): $mol_view;
+        Filter_number(): $mol_search;
+        hint(): string;
+        filter_number(val?: any, force?: $mol_atom_force): any;
+        Filter_warnings(): $mol_check_box;
+        filter_warnings(val?: any, force?: $mol_atom_force): any;
+        filter_warnings_title(): string;
     }
 }
 declare namespace $.$$ {
-    enum $mpk_tss_reports_carriages_resolution_any {
-        any = 0
-    }
-    type $mpk_tss_reports_carriages_resolution = $mpk_tss_reports_domain_resolution | $mpk_tss_reports_carriages_resolution_any;
     class $mpk_tss_reports_carriages extends $.$mpk_tss_reports_carriages {
         report(): $mpk_tss_reports_domain_report;
+        carriages(): $mpk_tss_reports_domain_carriages;
         title(): string;
         carriage(id: string): $mpk_tss_reports_domain_carriage;
         carriage_links(): $.$mpk_tss_reports_carriage[];
         average_speed(): string;
         carriage_current_id(next?: string): string;
-        warnings(next?: boolean): boolean;
+        filter_warnings(next?: boolean): boolean;
+        filter_number(next?: string): string;
+        destructor(): void;
     }
 }
 declare namespace $ {
@@ -1957,6 +1977,7 @@ declare namespace $ {
     class $mpk_tss_reports_domain_mock extends $mpk_tss_reports_domain {
         max_reports(): number;
         report(id: string): $mpk_tss_reports_domain_report;
+        reports_all(): $mpk_tss_reports_domain_report[];
         reports(): $mpk_tss_reports_domain_report[];
     }
 }
@@ -1967,8 +1988,8 @@ declare namespace $ {
         Main(): $mpk_tss_reports_page;
         event_top(e?: any, force?: $mol_atom_force): any;
         tools(): any[];
+        report_current_id(id?: any, force?: $mol_atom_force): any;
         filter_value(val?: any, force?: $mol_atom_force): any;
-        clear_url(): any;
         Reports(): $mol_list;
         report_links(): any[];
         Details_pages(): any;
@@ -1982,8 +2003,10 @@ declare namespace $ {
 declare namespace $ {
     class $mpk_tss_reports_page extends $mol_page {
         minimal_width(): number;
+        report_current_id(uri?: any, force?: $mol_atom_force): any;
         sub(): any[];
         Filter_value(): $mol_search;
+        hint(): string;
         filter_value(val?: any, force?: $mol_atom_force): any;
     }
 }
@@ -1993,11 +2016,13 @@ declare namespace $.$$ {
         main_blended(): boolean;
         report_links(): $.$mpk_tss_reports_train[];
         report(id: string): $mpk_tss_reports_domain_report;
+        filter_value(next?: string): string;
         report_current_id(next?: string): string;
         shaded(id: string): boolean;
         Details_pages(): any[];
         focus_main(): void;
-        clear_url(): void;
+    }
+    class $mpk_tss_reports_page extends $.$mpk_tss_reports_page {
         destructor(): void;
     }
 }
@@ -2067,15 +2092,22 @@ declare namespace $ {
             "mol_theme": string;
         };
         theme(): string;
+        terminal_text(): string;
         sub(): any[];
         Head(): $mol_view;
         Terminal_link(): $mol_button_minor;
-        terminal_label(): string;
+        terminal_formatted_label(): string;
+        Logged_user(): any;
         Body(): $mpk_tss_main;
     }
 }
 declare namespace $ {
     class $mpk_tss_main extends $mol_book {
+        Logged_user(): any;
+        User_link(): $mol_button_minor;
+        logout_click(event?: any, force?: $mol_atom_force): any;
+        User_email(): $mol_view;
+        User_signout(): $mpk_tss_icon_exit_to_app;
         Menu_item(id: any): $mol_link;
         menu_page_arg(id: any): {};
         menu_page_title(id: any): string;
@@ -2092,10 +2124,6 @@ declare namespace $ {
         common_tools(): any[];
         Details_close(): $mol_link;
         Details_close_icon(): $mol_icon_cross;
-        User_link(): $mol_button_minor;
-        logout_click(event?: any, force?: $mol_atom_force): any;
-        User_email(): $mol_view;
-        User_signout(): $mpk_tss_icon_exit_to_app;
         pages(): any[];
         Sidebar(): $mol_page;
         Logo(): $mol_image;
@@ -2126,14 +2154,18 @@ declare namespace $ {
 }
 declare namespace $.$$ {
     class $mpk_tss extends $.$mpk_tss {
+        terminal_number(): string;
+        terminal_formatted_label(): string;
     }
     class $mpk_tss_main extends $.$mpk_tss_main {
         entered(next?: boolean): boolean;
+        Logged_user(): $mol_button_minor;
         logout_click(): void;
         menu_items(): $.$mol_link[];
         menu_page_arg(id: string): {
             page: string;
         };
+        logged_email(next?: string): string;
         menu_page_title(id: string): any;
         page_id(): string;
         sidebar_items(): $.$mol_list[];

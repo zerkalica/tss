@@ -150,6 +150,43 @@ $mol_book_page $mol_ghost
 		mol_book_page_focused <= focused
 		mol_book_page_visible <= visible true
 
+$mol_svg $mol_view
+	dom_name \svg
+	dom_name_space \http://www.w3.org/2000/svg
+
+
+$mol_svg_root $mol_svg
+	dom_name \svg
+	attr *
+		^
+		viewBox <= view_box \0 0 100 100
+		preserveAspectRatio <= aspect \xMidYMid
+
+$mol_svg_path $mol_svg
+	dom_name \path
+	attr *
+		^
+		d <= geometry \
+
+
+$mol_icon $mol_svg_root
+	view_box \0 0 24 24
+	sub /
+		<= Path $mol_svg_path
+			geometry <= path \
+
+$mpk_tss_icon_train $mol_icon path \M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h2.23l2-2H14l2 2h2v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-3.58-4-8-4zM7.5 17c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm3.5-7H6V6h5v4zm2 0V6h5v4h-5zm3.5 7c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z
+$mpk_tss_icon_exit_to_app $mol_icon path \M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z
+$mpk_tss_icon_autorenew $mol_icon path \M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z
+$mpk_tss_icon_cloud_download $mol_icon path \M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3
+$mpk_tss_icon_done $mol_icon path \M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z
+$mpk_tss_icon_schedule $mol_icon path \M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z
+$mpk_tss_icon_error $mol_icon path \M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z
+$mpk_tss_icon_warning $mol_icon path \M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z
+$mpk_tss_icon_sync $mol_icon path \M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z
+$mpk_tss_icon_clear $mol_icon path \M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z
+$mpk_tss_icon_block $mol_icon path \M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z
+
 $mol_link $mol_view
 	minimal_height 40
 	dom_name \a
@@ -186,31 +223,6 @@ $mpk_tss_software $mol_page
 $mol_list $mol_view
 	sub <= rows /
 	Empty null
-
-$mol_svg $mol_view
-	dom_name \svg
-	dom_name_space \http://www.w3.org/2000/svg
-
-
-$mol_svg_root $mol_svg
-	dom_name \svg
-	attr *
-		^
-		viewBox <= view_box \0 0 100 100
-		preserveAspectRatio <= aspect \xMidYMid
-
-$mol_svg_path $mol_svg
-	dom_name \path
-	attr *
-		^
-		d <= geometry \
-
-
-$mol_icon $mol_svg_root
-	view_box \0 0 24 24
-	sub /
-		<= Path $mol_svg_path
-			geometry <= path \
 
 $mol_icon_cross $mol_icon path \M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z
 
@@ -318,18 +330,6 @@ $mol_card $mol_list
 			minimal_height 30
 			sub /
 				<= status_text <= status \
-
-$mpk_tss_icon_train $mol_icon path \M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h2.23l2-2H14l2 2h2v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-3.58-4-8-4zM7.5 17c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm3.5-7H6V6h5v4zm2 0V6h5v4h-5zm3.5 7c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z
-$mpk_tss_icon_exit_to_app $mol_icon path \M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z
-$mpk_tss_icon_autorenew $mol_icon path \M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z
-$mpk_tss_icon_cloud_download $mol_icon path \M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3
-$mpk_tss_icon_done $mol_icon path \M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z
-$mpk_tss_icon_schedule $mol_icon path \M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z
-$mpk_tss_icon_error $mol_icon path \M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z
-$mpk_tss_icon_warning $mol_icon path \M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z
-$mpk_tss_icon_sync $mol_icon path \M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z
-$mpk_tss_icon_clear $mol_icon path \M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z
-$mpk_tss_icon_block $mol_icon path \M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z
 
 $mpk_tss_card $mol_link
 	attr *
@@ -652,7 +652,8 @@ $mpk_tss_reports_carriages $mol_view
 	pages /
 		<= Main $mpk_tss_reports_carriages_page
 			title <= title
-			warnings?val <=> warnings?val false
+			filter_warnings?val <=> filter_warnings?val false
+			filter_number?val <=> filter_number?val \
 			event_top?e <=> event_top?e null
 			tools /
 				<= Details_close $mol_link
@@ -668,9 +669,14 @@ $mpk_tss_reports_carriages_page $mol_page
 	minimal_width 300
 	sub /
 		<= Head
-		<= Warnings_filter $mol_check_box
-			checked?val <=> warnings?val true
-			title <= warnings_filter_title @ \Only warnings
+		<= Search $mol_view
+			sub /
+				<= Filter_number $mol_search
+					hint <= hint @ \Carriage number
+					query?val <=> filter_number?val \
+				<= Filter_warnings $mol_check_box
+					checked?val <=> filter_warnings?val true
+					title <= filter_warnings_title @ \Only warnings
 		<= Body
 
 $mpk_tss_reports $mol_view
@@ -680,8 +686,8 @@ $mpk_tss_reports $mol_view
 			event_top?e <=> event_top?e null
 			tools <= tools /
 			title <= title
+			report_current_id?id <=> report_current_id?id \
 			filter_value?val <=> filter_value?val \
-			destructor <= clear_url null
 			body /
 				<= Reports $mol_list
 					minimal_width 300
@@ -698,9 +704,11 @@ $mpk_tss_reports $mol_view
 
 $mpk_tss_reports_page $mol_page
 	minimal_width 400
+	report_current_id?uri \
 	sub /
 		<= Head
 		<= Filter_value $mol_search
+			hint <= hint @ \Train number or report id
 			query?val <=> filter_value?val \
 		<= Body
 
@@ -749,16 +757,27 @@ $mpk_tss_enter $mol_list
 $mpk_tss $mol_view
 	attr *
 		mol_theme <= theme \$mol_theme_light
+	terminal_text @ \Terminal № %terminal_number
 	sub /
 		<= Head $mol_view
 			sub /
 				<= Terminal_link $mol_button_minor
 					enabled false
 					sub /
-						<= terminal_label @ \Terminal № 123
+						<= terminal_formatted_label \
+				<= Logged_user null
 		<= Body $mpk_tss_main
+			Logged_user => Logged_user
 
 $mpk_tss_main $mol_book
+	Logged_user null
+	User_link $mol_button_minor
+		event_click?event <=> logout_click?event null
+		sub /
+			<= User_email $mol_view
+				sub /
+					<= logged_email
+			<= User_signout $mpk_tss_icon_exit_to_app
 	Menu_item!id $mol_link
 		arg <= menu_page_arg!id *
 		title <= menu_page_title!id \
@@ -776,17 +795,9 @@ $mpk_tss_main $mol_book
 			tools <= common_tools
 			event_top?event <=> event_front_up?event
 	common_tools /
-		<= User_link
 		<= Details_close $mol_link
 			arg * page null
 			sub / <= Details_close_icon $mol_icon_cross
-	User_link $mol_button_minor
-		event_click?event <=> logout_click?event null
-		sub /
-			<= User_email $mol_view
-				sub /
-					<= logged_email
-			<= User_signout $mpk_tss_icon_exit_to_app
 	pages /
 		<= Sidebar $mol_page
 			head /
@@ -809,8 +820,6 @@ $mpk_tss_main $mol_book
 							sub /
 								\© 2019 MPK Software, Russia
 		<= Summary $mpk_tss_summary
-			tools /
-				<= User_link
 			event_top?event <=> event_front_up?event
 		<= menu_pages
 		<= details null

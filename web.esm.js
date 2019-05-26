@@ -1100,15 +1100,40 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    function $mol_dom_render_fields(el, fields) {
-        for (let key in fields) {
-            const val = fields[key];
-            if (val === undefined)
-                continue;
-            el[key] = val;
+    function $mol_dom_render_attributes(el, attrs) {
+        for (let name in attrs) {
+            let val = attrs[name];
+            if (val === null || val === false)
+                el.removeAttribute(name);
+            else
+                el.setAttribute(name, String(val));
         }
     }
-    $.$mol_dom_render_fields = $mol_dom_render_fields;
+    $.$mol_dom_render_attributes = $mol_dom_render_attributes;
+})($ || ($ = {}));
+//attributes.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_dom_render_events(el, events) {
+        for (let name in events) {
+            el.addEventListener(name, $.$mol_log_group(el.id + ' ' + name, events[name]), { passive: false });
+        }
+    }
+    $.$mol_dom_render_events = $mol_dom_render_events;
+    function $mol_dom_render_events_async(el, events) {
+        for (let name in events) {
+            el.addEventListener(name, $.$mol_log_group(el.id + ' ' + name, events[name]), { passive: true });
+        }
+    }
+    $.$mol_dom_render_events_async = $mol_dom_render_events_async;
+})($ || ($ = {}));
+//events.js.map
+;
+"use strict";
+var $;
+(function ($) {
     function $mol_dom_render_children(el, childNodes) {
         const node_list = [];
         const node_set = new Set();
@@ -1172,16 +1197,12 @@ var $;
         }
     }
     $.$mol_dom_render_children = $mol_dom_render_children;
-    function $mol_dom_render_attributes(el, attrs) {
-        for (let name in attrs) {
-            let val = attrs[name];
-            if (val === null || val === false)
-                el.removeAttribute(name);
-            else
-                el.setAttribute(name, String(val));
-        }
-    }
-    $.$mol_dom_render_attributes = $mol_dom_render_attributes;
+})($ || ($ = {}));
+//children.js.map
+;
+"use strict";
+var $;
+(function ($) {
     function $mol_dom_render_styles(el, styles) {
         for (let name in styles) {
             let val = styles[name];
@@ -1197,20 +1218,23 @@ var $;
         }
     }
     $.$mol_dom_render_styles = $mol_dom_render_styles;
-    function $mol_dom_render_events(el, events) {
-        for (let name in events) {
-            el.addEventListener(name, $.$mol_log_group(el.id + ' ' + name, events[name]), { passive: false });
-        }
-    }
-    $.$mol_dom_render_events = $mol_dom_render_events;
-    function $mol_dom_render_events_async(el, events) {
-        for (let name in events) {
-            el.addEventListener(name, $.$mol_log_group(el.id + ' ' + name, events[name]), { passive: true });
-        }
-    }
-    $.$mol_dom_render_events_async = $mol_dom_render_events_async;
 })($ || ($ = {}));
-//render.js.map
+//styles.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_dom_render_fields(el, fields) {
+        for (let key in fields) {
+            const val = fields[key];
+            if (val === undefined)
+                continue;
+            el[key] = val;
+        }
+    }
+    $.$mol_dom_render_fields = $mol_dom_render_fields;
+})($ || ($ = {}));
+//fields.js.map
 ;
 "use strict";
 var $;
@@ -3131,6 +3155,185 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_svg extends $.$mol_view {
+        dom_name() {
+            return "svg";
+        }
+        dom_name_space() {
+            return "http://www.w3.org/2000/svg";
+        }
+    }
+    $.$mol_svg = $mol_svg;
+})($ || ($ = {}));
+//svg.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_svg_root extends $.$mol_svg {
+        dom_name() {
+            return "svg";
+        }
+        attr() {
+            return (Object.assign({}, super.attr(), { "viewBox": this.view_box(), "preserveAspectRatio": this.aspect() }));
+        }
+        view_box() {
+            return "0 0 100 100";
+        }
+        aspect() {
+            return "xMidYMid";
+        }
+    }
+    $.$mol_svg_root = $mol_svg_root;
+})($ || ($ = {}));
+//root.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_svg_path extends $.$mol_svg {
+        dom_name() {
+            return "path";
+        }
+        attr() {
+            return (Object.assign({}, super.attr(), { "d": this.geometry() }));
+        }
+        geometry() {
+            return "";
+        }
+    }
+    $.$mol_svg_path = $mol_svg_path;
+})($ || ($ = {}));
+//path.view.tree.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mol_icon extends $.$mol_svg_root {
+        view_box() {
+            return "0 0 24 24";
+        }
+        sub() {
+            return [].concat(this.Path());
+        }
+        Path() {
+            return ((obj) => {
+                obj.geometry = () => this.path();
+                return obj;
+            })(new this.$.$mol_svg_path);
+        }
+        path() {
+            return "";
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_icon.prototype, "Path", null);
+    $.$mol_icon = $mol_icon;
+})($ || ($ = {}));
+//icon.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mpk_tss_icon_train extends $.$mol_icon {
+        path() {
+            return "M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h2.23l2-2H14l2 2h2v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-3.58-4-8-4zM7.5 17c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm3.5-7H6V6h5v4zm2 0V6h5v4h-5zm3.5 7c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z";
+        }
+    }
+    $.$mpk_tss_icon_train = $mpk_tss_icon_train;
+})($ || ($ = {}));
+(function ($) {
+    class $mpk_tss_icon_exit_to_app extends $.$mol_icon {
+        path() {
+            return "M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z";
+        }
+    }
+    $.$mpk_tss_icon_exit_to_app = $mpk_tss_icon_exit_to_app;
+})($ || ($ = {}));
+(function ($) {
+    class $mpk_tss_icon_autorenew extends $.$mol_icon {
+        path() {
+            return "M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z";
+        }
+    }
+    $.$mpk_tss_icon_autorenew = $mpk_tss_icon_autorenew;
+})($ || ($ = {}));
+(function ($) {
+    class $mpk_tss_icon_cloud_download extends $.$mol_icon {
+        path() {
+            return "M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3";
+        }
+    }
+    $.$mpk_tss_icon_cloud_download = $mpk_tss_icon_cloud_download;
+})($ || ($ = {}));
+(function ($) {
+    class $mpk_tss_icon_done extends $.$mol_icon {
+        path() {
+            return "M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z";
+        }
+    }
+    $.$mpk_tss_icon_done = $mpk_tss_icon_done;
+})($ || ($ = {}));
+(function ($) {
+    class $mpk_tss_icon_schedule extends $.$mol_icon {
+        path() {
+            return "M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z";
+        }
+    }
+    $.$mpk_tss_icon_schedule = $mpk_tss_icon_schedule;
+})($ || ($ = {}));
+(function ($) {
+    class $mpk_tss_icon_error extends $.$mol_icon {
+        path() {
+            return "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z";
+        }
+    }
+    $.$mpk_tss_icon_error = $mpk_tss_icon_error;
+})($ || ($ = {}));
+(function ($) {
+    class $mpk_tss_icon_warning extends $.$mol_icon {
+        path() {
+            return "M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z";
+        }
+    }
+    $.$mpk_tss_icon_warning = $mpk_tss_icon_warning;
+})($ || ($ = {}));
+(function ($) {
+    class $mpk_tss_icon_sync extends $.$mol_icon {
+        path() {
+            return "M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z";
+        }
+    }
+    $.$mpk_tss_icon_sync = $mpk_tss_icon_sync;
+})($ || ($ = {}));
+(function ($) {
+    class $mpk_tss_icon_clear extends $.$mol_icon {
+        path() {
+            return "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z";
+        }
+    }
+    $.$mpk_tss_icon_clear = $mpk_tss_icon_clear;
+})($ || ($ = {}));
+(function ($) {
+    class $mpk_tss_icon_block extends $.$mol_icon {
+        path() {
+            return "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z";
+        }
+    }
+    $.$mpk_tss_icon_block = $mpk_tss_icon_block;
+})($ || ($ = {}));
+//icon.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
     function $mol_merge_dict(target, source) {
         let result = {};
         for (let key in target)
@@ -3489,93 +3692,6 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //list.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_svg extends $.$mol_view {
-        dom_name() {
-            return "svg";
-        }
-        dom_name_space() {
-            return "http://www.w3.org/2000/svg";
-        }
-    }
-    $.$mol_svg = $mol_svg;
-})($ || ($ = {}));
-//svg.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_svg_root extends $.$mol_svg {
-        dom_name() {
-            return "svg";
-        }
-        attr() {
-            return (Object.assign({}, super.attr(), { "viewBox": this.view_box(), "preserveAspectRatio": this.aspect() }));
-        }
-        view_box() {
-            return "0 0 100 100";
-        }
-        aspect() {
-            return "xMidYMid";
-        }
-    }
-    $.$mol_svg_root = $mol_svg_root;
-})($ || ($ = {}));
-//root.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_svg_path extends $.$mol_svg {
-        dom_name() {
-            return "path";
-        }
-        attr() {
-            return (Object.assign({}, super.attr(), { "d": this.geometry() }));
-        }
-        geometry() {
-            return "";
-        }
-    }
-    $.$mol_svg_path = $mol_svg_path;
-})($ || ($ = {}));
-//path.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_icon extends $.$mol_svg_root {
-        view_box() {
-            return "0 0 24 24";
-        }
-        sub() {
-            return [].concat(this.Path());
-        }
-        Path() {
-            return ((obj) => {
-                obj.geometry = () => this.path();
-                return obj;
-            })(new this.$.$mol_svg_path);
-        }
-        path() {
-            return "";
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_icon.prototype, "Path", null);
-    $.$mol_icon = $mol_icon;
-})($ || ($ = {}));
-//icon.view.tree.js.map
 ;
 "use strict";
 var $;
@@ -4450,6 +4566,13 @@ var $;
         $mpk_tss_pereferial_domain_status["inactive"] = "inactive";
         $mpk_tss_pereferial_domain_status["unknown"] = "unknown";
     })($mpk_tss_pereferial_domain_status = $.$mpk_tss_pereferial_domain_status || ($.$mpk_tss_pereferial_domain_status = {}));
+    $.$mpk_tss_pereferial_domain_status_weights = {
+        ready: 20,
+        error: 0,
+        not_responding: 5,
+        inactive: 6,
+        unknown: 7,
+    };
     class $mpk_tss_pereferial_domain_unit extends $.$mol_object {
         id() { throw new $.$mpk_tss_todo; }
         type() { throw new $.$mpk_tss_todo; }
@@ -4786,98 +4909,6 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //card.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mpk_tss_icon_train extends $.$mol_icon {
-        path() {
-            return "M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h2.23l2-2H14l2 2h2v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-3.58-4-8-4zM7.5 17c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm3.5-7H6V6h5v4zm2 0V6h5v4h-5zm3.5 7c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z";
-        }
-    }
-    $.$mpk_tss_icon_train = $mpk_tss_icon_train;
-})($ || ($ = {}));
-(function ($) {
-    class $mpk_tss_icon_exit_to_app extends $.$mol_icon {
-        path() {
-            return "M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z";
-        }
-    }
-    $.$mpk_tss_icon_exit_to_app = $mpk_tss_icon_exit_to_app;
-})($ || ($ = {}));
-(function ($) {
-    class $mpk_tss_icon_autorenew extends $.$mol_icon {
-        path() {
-            return "M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z";
-        }
-    }
-    $.$mpk_tss_icon_autorenew = $mpk_tss_icon_autorenew;
-})($ || ($ = {}));
-(function ($) {
-    class $mpk_tss_icon_cloud_download extends $.$mol_icon {
-        path() {
-            return "M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3";
-        }
-    }
-    $.$mpk_tss_icon_cloud_download = $mpk_tss_icon_cloud_download;
-})($ || ($ = {}));
-(function ($) {
-    class $mpk_tss_icon_done extends $.$mol_icon {
-        path() {
-            return "M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z";
-        }
-    }
-    $.$mpk_tss_icon_done = $mpk_tss_icon_done;
-})($ || ($ = {}));
-(function ($) {
-    class $mpk_tss_icon_schedule extends $.$mol_icon {
-        path() {
-            return "M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z";
-        }
-    }
-    $.$mpk_tss_icon_schedule = $mpk_tss_icon_schedule;
-})($ || ($ = {}));
-(function ($) {
-    class $mpk_tss_icon_error extends $.$mol_icon {
-        path() {
-            return "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z";
-        }
-    }
-    $.$mpk_tss_icon_error = $mpk_tss_icon_error;
-})($ || ($ = {}));
-(function ($) {
-    class $mpk_tss_icon_warning extends $.$mol_icon {
-        path() {
-            return "M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z";
-        }
-    }
-    $.$mpk_tss_icon_warning = $mpk_tss_icon_warning;
-})($ || ($ = {}));
-(function ($) {
-    class $mpk_tss_icon_sync extends $.$mol_icon {
-        path() {
-            return "M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z";
-        }
-    }
-    $.$mpk_tss_icon_sync = $mpk_tss_icon_sync;
-})($ || ($ = {}));
-(function ($) {
-    class $mpk_tss_icon_clear extends $.$mol_icon {
-        path() {
-            return "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z";
-        }
-    }
-    $.$mpk_tss_icon_clear = $mpk_tss_icon_clear;
-})($ || ($ = {}));
-(function ($) {
-    class $mpk_tss_icon_block extends $.$mol_icon {
-        path() {
-            return "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z";
-        }
-    }
-    $.$mpk_tss_icon_block = $mpk_tss_icon_block;
-})($ || ($ = {}));
-//icon.view.tree.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -6186,6 +6217,26 @@ var $;
         return min + Math.floor(Math.random() * (max - min));
     }
     $.$mpk_tss_stub_number = $mpk_tss_stub_number;
+    function $mpk_tss_stub_mem(obj, name, descr) {
+        const value = descr.value;
+        const store = new WeakMap();
+        descr.value = function $mpk_tss_stub_mem_value(id) {
+            let map = store.get(this);
+            if (!map) {
+                map = new Map();
+                store.set(this, map);
+            }
+            const key = JSON.stringify(id);
+            let result = map.get(key);
+            if (result === undefined) {
+                result = value.call(this, id);
+                map.set(key, result);
+            }
+            return result;
+        };
+        descr.value['value'] = value;
+    }
+    $.$mpk_tss_stub_mem = $mpk_tss_stub_mem;
 })($ || ($ = {}));
 //stub.js.map
 ;
@@ -6204,7 +6255,20 @@ var $;
             return $mpk_tss_pereferial_domain_mock_ups.make({ id: $.$mol_const(id) });
         }
         units() {
-            return $.$mpk_tss_stub_ids(this.max_units()).map(id => this.unit(id));
+            return $.$mpk_tss_stub_ids(this.max_units())
+                .map(id => this.unit(id))
+                .sort((unitA, unitB) => {
+                const a = unitA.status();
+                const b = unitB.status();
+                const aw = $.$mpk_tss_pereferial_domain_status_weights[a];
+                const bw = $.$mpk_tss_pereferial_domain_status_weights[b];
+                if (aw === bw)
+                    return 0;
+                if (aw > bw)
+                    return 1;
+                if (aw < bw)
+                    return -1;
+            });
         }
     }
     __decorate([
@@ -6253,25 +6317,25 @@ var $;
         }
     }
     __decorate([
-        $.$mol_mem
+        $.$mpk_tss_stub_mem
     ], $mpk_tss_pereferial_domain_mock_ups.prototype, "status", null);
     __decorate([
-        $.$mol_mem
+        $.$mpk_tss_stub_mem
     ], $mpk_tss_pereferial_domain_mock_ups.prototype, "name", null);
     __decorate([
-        $.$mol_mem
+        $.$mpk_tss_stub_mem
     ], $mpk_tss_pereferial_domain_mock_ups.prototype, "updated", null);
     __decorate([
-        $.$mol_mem
+        $.$mpk_tss_stub_mem
     ], $mpk_tss_pereferial_domain_mock_ups.prototype, "power_source", null);
     __decorate([
-        $.$mol_mem
+        $.$mpk_tss_stub_mem
     ], $mpk_tss_pereferial_domain_mock_ups.prototype, "voltage", null);
     __decorate([
-        $.$mol_mem
+        $.$mpk_tss_stub_mem
     ], $mpk_tss_pereferial_domain_mock_ups.prototype, "battery_level", null);
     __decorate([
-        $.$mol_mem
+        $.$mpk_tss_stub_mem
     ], $mpk_tss_pereferial_domain_mock_ups.prototype, "battery_time", null);
     function $mpk_tss_pereferial_domain_mock_stub_status() {
         return $.$mol_stub_select_random([
@@ -6627,8 +6691,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var $;
 (function ($) {
     const t = $.$mpk_tss_todo;
-    class $mpk_tss_reports_domain {
+    class $mpk_tss_reports_domain extends $.$mol_object {
         report(id) {
+            throw new t;
+        }
+        filter_ids(next) {
             throw new t;
         }
         reports() {
@@ -6638,6 +6705,9 @@ var $;
     __decorate([
         $.$mol_mem_key
     ], $mpk_tss_reports_domain.prototype, "report", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_domain.prototype, "filter_ids", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports_domain.prototype, "reports", null);
@@ -6692,6 +6762,29 @@ var $;
         $mpk_tss_reports_domain_delivery["sent"] = "sending";
         $mpk_tss_reports_domain_delivery["error"] = "error";
     })($mpk_tss_reports_domain_delivery = $.$mpk_tss_reports_domain_delivery || ($.$mpk_tss_reports_domain_delivery = {}));
+    class $mpk_tss_reports_domain_carriages extends $.$mol_object {
+        carriage(id) { throw new t; }
+        filter_number(next) {
+            throw new t;
+        }
+        filter_resolution(next) {
+            throw new t;
+        }
+        carriages() { throw new t; }
+    }
+    __decorate([
+        $.$mol_mem_key
+    ], $mpk_tss_reports_domain_carriages.prototype, "carriage", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_domain_carriages.prototype, "filter_number", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_domain_carriages.prototype, "filter_resolution", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_domain_carriages.prototype, "carriages", null);
+    $.$mpk_tss_reports_domain_carriages = $mpk_tss_reports_domain_carriages;
     class $mpk_tss_reports_domain_report extends $.$mol_object {
         id() { throw new t; }
         train_number() { throw new t; }
@@ -6700,8 +6793,7 @@ var $;
         average_speed() { throw new t; }
         resolution() { throw new t; }
         started() { throw new t; }
-        carriages() { throw new t; }
-        carriage(id) { throw new t; }
+        carriages(config) { throw new t; }
     }
     $.$mpk_tss_reports_domain_report = $mpk_tss_reports_domain_report;
 })($ || ($ = {}));
@@ -7337,15 +7429,19 @@ var $;
         Main() {
             return ((obj) => {
                 obj.title = () => this.title();
-                obj.warnings = (val) => this.warnings(val);
+                obj.filter_warnings = (val) => this.filter_warnings(val);
+                obj.filter_number = (val) => this.filter_number(val);
                 obj.event_top = (e) => this.event_top(e);
                 obj.tools = () => [].concat(this.Details_close());
                 obj.body = () => [].concat(this.Carriages());
                 return obj;
             })(new this.$.$mpk_tss_reports_carriages_page);
         }
-        warnings(val, force) {
+        filter_warnings(val, force) {
             return (val !== void 0) ? val : false;
+        }
+        filter_number(val, force) {
+            return (val !== void 0) ? val : "";
         }
         event_top(e, force) {
             return (e !== void 0) ? e : null;
@@ -7388,7 +7484,10 @@ var $;
     ], $mpk_tss_reports_carriages.prototype, "Main", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_carriages.prototype, "warnings", null);
+    ], $mpk_tss_reports_carriages.prototype, "filter_warnings", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_carriages.prototype, "filter_number", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports_carriages.prototype, "event_top", null);
@@ -7412,28 +7511,56 @@ var $;
             return 300;
         }
         sub() {
-            return [].concat(this.Head(), this.Warnings_filter(), this.Body());
+            return [].concat(this.Head(), this.Search(), this.Body());
         }
-        Warnings_filter() {
+        Search() {
             return ((obj) => {
-                obj.checked = (val) => this.warnings(val);
-                obj.title = () => this.warnings_filter_title();
+                obj.sub = () => [].concat(this.Filter_number(), this.Filter_warnings());
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        Filter_number() {
+            return ((obj) => {
+                obj.hint = () => this.hint();
+                obj.query = (val) => this.filter_number(val);
+                return obj;
+            })(new this.$.$mol_search);
+        }
+        hint() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_carriages_page_hint");
+        }
+        filter_number(val, force) {
+            return (val !== void 0) ? val : "";
+        }
+        Filter_warnings() {
+            return ((obj) => {
+                obj.checked = (val) => this.filter_warnings(val);
+                obj.title = () => this.filter_warnings_title();
                 return obj;
             })(new this.$.$mol_check_box);
         }
-        warnings(val, force) {
+        filter_warnings(val, force) {
             return (val !== void 0) ? val : true;
         }
-        warnings_filter_title() {
-            return this.$.$mol_locale.text("$mpk_tss_reports_carriages_page_warnings_filter_title");
+        filter_warnings_title() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_carriages_page_filter_warnings_title");
         }
     }
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_carriages_page.prototype, "Warnings_filter", null);
+    ], $mpk_tss_reports_carriages_page.prototype, "Search", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_carriages_page.prototype, "warnings", null);
+    ], $mpk_tss_reports_carriages_page.prototype, "Filter_number", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_carriages_page.prototype, "filter_number", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_carriages_page.prototype, "Filter_warnings", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_carriages_page.prototype, "filter_warnings", null);
     $.$mpk_tss_reports_carriages_page = $mpk_tss_reports_carriages_page;
 })($ || ($ = {}));
 //carriages.view.tree.js.map
@@ -7449,26 +7576,29 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        let $mpk_tss_reports_carriages_resolution_any;
-        (function ($mpk_tss_reports_carriages_resolution_any) {
-            $mpk_tss_reports_carriages_resolution_any[$mpk_tss_reports_carriages_resolution_any["any"] = 0] = "any";
-        })($mpk_tss_reports_carriages_resolution_any = $$.$mpk_tss_reports_carriages_resolution_any || ($$.$mpk_tss_reports_carriages_resolution_any = {}));
         class $mpk_tss_reports_carriages extends $.$mpk_tss_reports_carriages {
             report() {
                 throw new $.$mpk_tss_todo;
+            }
+            carriages() {
+                return this.report().carriages({
+                    filter_number: (next) => this.filter_number(),
+                    filter_resolution: () => {
+                        return this.filter_warnings()
+                            ? $.$mpk_tss_reports_domain_resolution.warning
+                            : null;
+                    },
+                });
             }
             title() {
                 return this.title_prefix() + ' № ' + this.report().train_number();
             }
             carriage(id) {
-                return this.report().carriage(id);
+                return this.carriages().carriage(id);
             }
             carriage_links() {
-                const warnings = this.warnings();
-                let carriages = this.report().carriages();
-                if (warnings)
-                    carriages = carriages.filter(carriage => carriage.resolution() === $.$mpk_tss_reports_domain_resolution.warning);
-                return carriages.map(carriage => this.Carriage_link(carriage.id()));
+                return this.carriages().carriages()
+                    .map(carriage => this.Carriage_link(carriage.id()));
             }
             average_speed() {
                 return this.report().average_speed() + ' km/h';
@@ -7476,15 +7606,29 @@ var $;
             carriage_current_id(next) {
                 return $.$mol_state_arg.value(this.state_key('carriage'), next) || '';
             }
-            warnings(next) {
-                if (next !== undefined)
-                    return next;
-                return true;
+            filter_warnings(next) {
+                const param = $.$mol_state_arg.value(this.state_key('only_warnings'), next === undefined ? undefined : (next ? '1' : '0'));
+                return param === '1'
+                    ? true
+                    : (param === '0' ? false : true);
+            }
+            filter_number(next) {
+                return $.$mol_state_arg.value(this.state_key('carriages'), next === '' ? null : next) || '';
+            }
+            destructor() {
+                this.filter_number(null);
+                this.carriage_current_id(null);
             }
         }
         __decorate([
             $.$mol_mem
-        ], $mpk_tss_reports_carriages.prototype, "warnings", null);
+        ], $mpk_tss_reports_carriages.prototype, "carriages", null);
+        __decorate([
+            $.$mol_mem
+        ], $mpk_tss_reports_carriages.prototype, "filter_warnings", null);
+        __decorate([
+            $.$mol_mem
+        ], $mpk_tss_reports_carriages.prototype, "filter_number", null);
         $$.$mpk_tss_reports_carriages = $mpk_tss_reports_carriages;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -7605,7 +7749,7 @@ var $;
         report(id) {
             return $mpk_tss_reports_domain_mock_report.make({ id: $.$mol_const(id) });
         }
-        reports() {
+        reports_all() {
             return $.$mpk_tss_stub_ids(this.max_reports())
                 .map(id => this.report(id))
                 .sort((r1, r2) => {
@@ -7616,10 +7760,26 @@ var $;
                 return 0;
             });
         }
+        reports() {
+            const filter = this.filter_ids();
+            return this.reports_all()
+                .filter(report => {
+                if (!filter)
+                    return true;
+                if (report.train_number().indexOf(filter) !== -1)
+                    return true;
+                if (report.id().indexOf(filter) !== -1)
+                    return true;
+                return false;
+            });
+        }
     }
     __decorate([
-        $.$mol_mem_key
+        $.$mpk_tss_stub_mem
     ], $mpk_tss_reports_domain_mock.prototype, "report", null);
+    __decorate([
+        $.$mpk_tss_stub_mem
+    ], $mpk_tss_reports_domain_mock.prototype, "reports_all", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports_domain_mock.prototype, "reports", null);
@@ -7632,7 +7792,7 @@ var $;
             return $.$mpk_tss_stub_number(0, 10);
         }
         resolution() {
-            return this.carriages().reduce((status, carriage) => {
+            return this.carriages_store().carriages_all().reduce((status, carriage) => {
                 if (carriage.resolution() === $.$mpk_tss_reports_domain_resolution.warning)
                     return $.$mpk_tss_reports_domain_resolution.warning;
                 return status;
@@ -7647,7 +7807,39 @@ var $;
         started() {
             return $.$mol_stub_time(-10);
         }
-        carriages() {
+        carriages_store() {
+            return new $mpk_tss_reports_domain_mock_carriages();
+        }
+        carriages(config) {
+            return $mpk_tss_reports_domain_mock_carriages.make(Object.assign({}, config, { carriages_all: () => this.carriages_store().carriages_all(), carriage: (id) => this.carriages_store().carriage(id) }));
+        }
+    }
+    __decorate([
+        $.$mpk_tss_stub_mem
+    ], $mpk_tss_reports_domain_mock_report.prototype, "train_number", null);
+    __decorate([
+        $.$mpk_tss_stub_mem
+    ], $mpk_tss_reports_domain_mock_report.prototype, "send_count", null);
+    __decorate([
+        $.$mpk_tss_stub_mem
+    ], $mpk_tss_reports_domain_mock_report.prototype, "resolution", null);
+    __decorate([
+        $.$mpk_tss_stub_mem
+    ], $mpk_tss_reports_domain_mock_report.prototype, "delivery", null);
+    __decorate([
+        $.$mpk_tss_stub_mem
+    ], $mpk_tss_reports_domain_mock_report.prototype, "average_speed", null);
+    __decorate([
+        $.$mpk_tss_stub_mem
+    ], $mpk_tss_reports_domain_mock_report.prototype, "started", null);
+    __decorate([
+        $.$mpk_tss_stub_mem
+    ], $mpk_tss_reports_domain_mock_report.prototype, "carriages_store", null);
+    __decorate([
+        $.$mpk_tss_stub_mem
+    ], $mpk_tss_reports_domain_mock_report.prototype, "carriages", null);
+    class $mpk_tss_reports_domain_mock_carriages extends $.$mpk_tss_reports_domain_carriages {
+        carriages_all() {
             return $.$mpk_tss_stub_ids($.$mpk_tss_stub_number(30, 45)).map((id, index) => {
                 const carriage = this.carriage(id);
                 if (Math.random() > 0.96) {
@@ -7657,34 +7849,45 @@ var $;
                 return carriage;
             });
         }
+        filter_number(next) {
+            return next || null;
+        }
+        filter_resolution(next) {
+            return next || null;
+        }
+        carriages() {
+            const filter_number = this.filter_number();
+            const filter_resolution = this.filter_resolution();
+            return this.carriages_all()
+                .filter(carriage => {
+                if (filter_number && carriage.carriage_number().indexOf(filter_number) === -1) {
+                    return false;
+                }
+                if (filter_resolution && carriage.resolution() !== filter_resolution) {
+                    return false;
+                }
+                return true;
+            });
+        }
         carriage(id) {
             return $mpk_tss_reports_domain_mock_carriage.make({ id: $.$mol_const(id) });
         }
     }
     __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_domain_mock_report.prototype, "train_number", null);
+        $.$mpk_tss_stub_mem
+    ], $mpk_tss_reports_domain_mock_carriages.prototype, "carriages_all", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_domain_mock_report.prototype, "send_count", null);
+    ], $mpk_tss_reports_domain_mock_carriages.prototype, "filter_number", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_domain_mock_report.prototype, "resolution", null);
+    ], $mpk_tss_reports_domain_mock_carriages.prototype, "filter_resolution", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_domain_mock_report.prototype, "delivery", null);
+    ], $mpk_tss_reports_domain_mock_carriages.prototype, "carriages", null);
     __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_domain_mock_report.prototype, "average_speed", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_domain_mock_report.prototype, "started", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_domain_mock_report.prototype, "carriages", null);
-    __decorate([
-        $.$mol_mem_key
-    ], $mpk_tss_reports_domain_mock_report.prototype, "carriage", null);
+        $.$mpk_tss_stub_mem
+    ], $mpk_tss_reports_domain_mock_carriages.prototype, "carriage", null);
     class $mpk_tss_reports_domain_mock_carriage extends $.$mpk_tss_reports_domain_carriage {
         resolution() {
             return $.$mpk_tss_reports_domain_resolution.success;
@@ -7713,22 +7916,22 @@ var $;
         }
     }
     __decorate([
-        $.$mol_mem
+        $.$mpk_tss_stub_mem
     ], $mpk_tss_reports_domain_mock_carriage.prototype, "resolution", null);
     __decorate([
-        $.$mol_mem
+        $.$mpk_tss_stub_mem
     ], $mpk_tss_reports_domain_mock_carriage.prototype, "carriage_number", null);
     __decorate([
-        $.$mol_mem
+        $.$mpk_tss_stub_mem
     ], $mpk_tss_reports_domain_mock_carriage.prototype, "load", null);
     __decorate([
-        $.$mol_mem
+        $.$mpk_tss_stub_mem
     ], $mpk_tss_reports_domain_mock_carriage.prototype, "measured_speed", null);
     __decorate([
-        $.$mol_mem
+        $.$mpk_tss_stub_mem
     ], $mpk_tss_reports_domain_mock_carriage.prototype, "violation", null);
     __decorate([
-        $.$mol_mem
+        $.$mpk_tss_stub_mem
     ], $mpk_tss_reports_domain_mock_carriage.prototype, "axis", null);
     function $mpk_tss_reports_domain_mock_stub_violation() {
         return $.$mol_stub_select_random([
@@ -7773,8 +7976,8 @@ var $;
                 obj.event_top = (e) => this.event_top(e);
                 obj.tools = () => this.tools();
                 obj.title = () => this.title();
+                obj.report_current_id = (id) => this.report_current_id(id);
                 obj.filter_value = (val) => this.filter_value(val);
-                obj.destructor = () => this.clear_url();
                 obj.body = () => [].concat(this.Reports());
                 return obj;
             })(new this.$.$mpk_tss_reports_page);
@@ -7785,11 +7988,11 @@ var $;
         tools() {
             return [];
         }
+        report_current_id(id, force) {
+            return (id !== void 0) ? id : "";
+        }
         filter_value(val, force) {
             return (val !== void 0) ? val : "";
-        }
-        clear_url() {
-            return null;
         }
         Reports() {
             return ((obj) => {
@@ -7836,6 +8039,9 @@ var $;
     ], $mpk_tss_reports.prototype, "event_top", null);
     __decorate([
         $.$mol_mem
+    ], $mpk_tss_reports.prototype, "report_current_id", null);
+    __decorate([
+        $.$mol_mem
     ], $mpk_tss_reports.prototype, "filter_value", null);
     __decorate([
         $.$mol_mem
@@ -7856,19 +8062,29 @@ var $;
         minimal_width() {
             return 400;
         }
+        report_current_id(uri, force) {
+            return (uri !== void 0) ? uri : "";
+        }
         sub() {
             return [].concat(this.Head(), this.Filter_value(), this.Body());
         }
         Filter_value() {
             return ((obj) => {
+                obj.hint = () => this.hint();
                 obj.query = (val) => this.filter_value(val);
                 return obj;
             })(new this.$.$mol_search);
+        }
+        hint() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_page_hint");
         }
         filter_value(val, force) {
             return (val !== void 0) ? val : "";
         }
     }
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_page.prototype, "report_current_id", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports_page.prototype, "Filter_value", null);
@@ -7892,7 +8108,9 @@ var $;
     (function ($$) {
         class $mpk_tss_reports extends $.$mpk_tss_reports {
             domain() {
-                return new $.$mpk_tss_reports_domain_mock();
+                return $.$mpk_tss_reports_domain_mock.make({
+                    filter_ids: (next) => this.filter_value()
+                });
             }
             main_blended() {
                 return !!this.report_current_id();
@@ -7902,6 +8120,9 @@ var $;
             }
             report(id) {
                 return this.domain().report(id);
+            }
+            filter_value(next) {
+                return $.$mol_state_arg.value(this.state_key('trains'), next === '' ? null : next) || '';
             }
             report_current_id(next) {
                 return $.$mol_state_arg.value(this.state_key('report'), next) || '';
@@ -7919,12 +8140,6 @@ var $;
             focus_main() {
                 this.Main().focused(true);
             }
-            clear_url() {
-                this.report_current_id(null);
-            }
-            destructor() {
-                this.clear_url();
-            }
         }
         __decorate([
             $.$mol_mem
@@ -7933,6 +8148,13 @@ var $;
             $.$mol_mem
         ], $mpk_tss_reports.prototype, "report_links", null);
         $$.$mpk_tss_reports = $mpk_tss_reports;
+        class $mpk_tss_reports_page extends $.$mpk_tss_reports_page {
+            destructor() {
+                this.report_current_id(null);
+                this.filter_value(null);
+            }
+        }
+        $$.$mpk_tss_reports_page = $mpk_tss_reports_page;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //reports.view.js.map
@@ -8213,24 +8435,30 @@ var $;
         theme() {
             return "$mol_theme_light";
         }
+        terminal_text() {
+            return this.$.$mol_locale.text("$mpk_tss_terminal_text");
+        }
         sub() {
             return [].concat(this.Head(), this.Body());
         }
         Head() {
             return ((obj) => {
-                obj.sub = () => [].concat(this.Terminal_link());
+                obj.sub = () => [].concat(this.Terminal_link(), this.Logged_user());
                 return obj;
             })(new this.$.$mol_view);
         }
         Terminal_link() {
             return ((obj) => {
                 obj.enabled = () => false;
-                obj.sub = () => [].concat(this.terminal_label());
+                obj.sub = () => [].concat(this.terminal_formatted_label());
                 return obj;
             })(new this.$.$mol_button_minor);
         }
-        terminal_label() {
-            return this.$.$mol_locale.text("$mpk_tss_terminal_label");
+        terminal_formatted_label() {
+            return "";
+        }
+        Logged_user() {
+            return this.Body().Logged_user();
         }
         Body() {
             return ((obj) => {
@@ -8251,6 +8479,30 @@ var $;
 })($ || ($ = {}));
 (function ($) {
     class $mpk_tss_main extends $.$mol_book {
+        Logged_user() {
+            return null;
+        }
+        User_link() {
+            return ((obj) => {
+                obj.event_click = (event) => this.logout_click(event);
+                obj.sub = () => [].concat(this.User_email(), this.User_signout());
+                return obj;
+            })(new this.$.$mol_button_minor);
+        }
+        logout_click(event, force) {
+            return (event !== void 0) ? event : null;
+        }
+        User_email() {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.logged_email());
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        User_signout() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mpk_tss_icon_exit_to_app);
+        }
         Menu_item(id) {
             return ((obj) => {
                 obj.arg = () => this.menu_page_arg(id);
@@ -8301,7 +8553,7 @@ var $;
             })(new this.$.$mpk_tss_reports);
         }
         common_tools() {
-            return [].concat(this.User_link(), this.Details_close());
+            return [].concat(this.Details_close());
         }
         Details_close() {
             return ((obj) => {
@@ -8316,27 +8568,6 @@ var $;
             return ((obj) => {
                 return obj;
             })(new this.$.$mol_icon_cross);
-        }
-        User_link() {
-            return ((obj) => {
-                obj.event_click = (event) => this.logout_click(event);
-                obj.sub = () => [].concat(this.User_email(), this.User_signout());
-                return obj;
-            })(new this.$.$mol_button_minor);
-        }
-        logout_click(event, force) {
-            return (event !== void 0) ? event : null;
-        }
-        User_email() {
-            return ((obj) => {
-                obj.sub = () => [].concat(this.logged_email());
-                return obj;
-            })(new this.$.$mol_view);
-        }
-        User_signout() {
-            return ((obj) => {
-                return obj;
-            })(new this.$.$mpk_tss_icon_exit_to_app);
         }
         pages() {
             return [].concat(this.Sidebar(), this.Summary(), this.menu_pages(), this.details());
@@ -8402,7 +8633,6 @@ var $;
         }
         Summary() {
             return ((obj) => {
-                obj.tools = () => [].concat(this.User_link());
                 obj.event_top = (event) => this.event_front_up(event);
                 return obj;
             })(new this.$.$mpk_tss_summary);
@@ -8417,6 +8647,18 @@ var $;
             })(new this.$.$mpk_tss_placeholder);
         }
     }
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "User_link", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "logout_click", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "User_email", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_main.prototype, "User_signout", null);
     __decorate([
         $.$mol_mem_key
     ], $mpk_tss_main.prototype, "Menu_item", null);
@@ -8438,18 +8680,6 @@ var $;
     __decorate([
         $.$mol_mem
     ], $mpk_tss_main.prototype, "Details_close_icon", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_main.prototype, "User_link", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_main.prototype, "logout_click", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_main.prototype, "User_email", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_main.prototype, "User_signout", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_main.prototype, "Sidebar", null);
@@ -8514,20 +8744,38 @@ var $;
 //tss.view.tree.js.map
 ;
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 var $;
 (function ($) {
     var $$;
     (function ($$) {
         class $mpk_tss extends $.$mpk_tss {
+            terminal_number() {
+                return '123';
+            }
+            terminal_formatted_label() {
+                return this.terminal_text().replace('%terminal_number', this.terminal_number());
+            }
         }
         $$.$mpk_tss = $mpk_tss;
         class $mpk_tss_main extends $.$mpk_tss_main {
             entered(next) {
-                if ($.$mol_state_arg.value(`entered`) != null)
+                if (this.$.$mol_state_arg.value(`entered`) != null)
                     return true;
-                return $.$mol_state_session.value(`${this}.entered()`, next) || false;
+                return this.$.$mol_state_session.value(`${this}.entered()`, next) || false;
+            }
+            Logged_user() {
+                if (!this.entered())
+                    return null;
+                return this.User_link();
             }
             logout_click() {
+                this.logged_email(null);
                 this.entered(false);
             }
             menu_items() {
@@ -8535,6 +8783,9 @@ var $;
             }
             menu_page_arg(id) {
                 return { page: id };
+            }
+            logged_email(next) {
+                return this.$.$mol_state_arg.value(this.state_key('user'), next) || '';
             }
             menu_page_title(id) {
                 return this.menu_pages()[id].title();
@@ -8562,6 +8813,9 @@ var $;
                     .filter(Boolean);
             }
         }
+        __decorate([
+            $.$mol_mem
+        ], $mpk_tss_main.prototype, "logged_email", null);
         $$.$mpk_tss_main = $mpk_tss_main;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
