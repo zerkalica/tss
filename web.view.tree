@@ -1,3 +1,23 @@
+$mol_string $mol_view
+	dom_name \input
+	enabled true
+	debounce 200
+	minimal_height 40
+	field *
+		^
+		disabled <= disabled false
+		value <= value_changed?val <=> value?val \
+		placeholder <= hint \
+		type <= type?val \text
+		spellcheck <= spellcheck false
+	attr *
+		^
+		maxlength <= length_max Infinity
+	event *
+		^
+		input?event <=> event_change?event null
+		keypress?event <=> event_key_press?event null
+
 $mol_button $mol_view
 	enabled true
 	minimal_height 40
@@ -24,62 +44,6 @@ $mol_button_major $mol_button_typed
 		mol_theme \$mol_theme_accent
 
 $mol_button_minor $mol_button_typed
-
-$mol_scroll $mol_view
-	minimal_height 0
-	moving_hor?val false
-	moving_vert?val false
-	field *
-		^
-		scrollTop <= scroll_top?val 0
-		scrollLeft <= scroll_left?val 0
-		scrollBottom <= scroll_bottom?val 0
-		scrollRight <= scroll_right?val 0
-	event_async *
-		^
-		scroll?event <=> event_scroll?event null
-		- DOMSubtreeModified?event <=> event_repos?event null
-	Strut $mol_view
-		style *
-			transform <= strut_transform \
-
-$mol_page $mol_view
-	sub /
-		<= Head $mol_view
-			attr * mol_theme \$mol_theme_base
-			sub <= head /
-				<= Title $mol_button
-					sub /
-						<= title
-					event_click?val <=> event_top?val null
-				<= Tools $mol_view
-					sub <= tools /
-		<= Body $mol_scroll
-			scroll_top?val <=> body_scroll_top?val 0
-			sub <= body /
-		<= Foot $mol_view
-			attr * mol_theme \$mol_theme_base
-			sub <= foot /
-
-$mol_string $mol_view
-	dom_name \input
-	enabled true
-	debounce 200
-	minimal_height 40
-	field *
-		^
-		disabled <= disabled false
-		value <= value_changed?val <=> value?val \
-		placeholder <= hint \
-		type <= type?val \text
-		spellcheck <= spellcheck false
-	attr *
-		^
-		maxlength <= length_max Infinity
-	event *
-		^
-		input?event <=> event_change?event null
-		keypress?event <=> event_key_press?event null
 
 $mol_plugin $mol_object
 	dom_node null
@@ -222,6 +186,42 @@ $mol_link $mol_view
 	event *
 		^
 		click?event <=> click?event <=> event_click?event null
+
+$mol_scroll $mol_view
+	minimal_height 0
+	moving_hor?val false
+	moving_vert?val false
+	field *
+		^
+		scrollTop <= scroll_top?val 0
+		scrollLeft <= scroll_left?val 0
+		scrollBottom <= scroll_bottom?val 0
+		scrollRight <= scroll_right?val 0
+	event_async *
+		^
+		scroll?event <=> event_scroll?event null
+		- DOMSubtreeModified?event <=> event_repos?event null
+	Strut $mol_view
+		style *
+			transform <= strut_transform \
+
+$mol_page $mol_view
+	sub /
+		<= Head $mol_view
+			attr * mol_theme \$mol_theme_base
+			sub <= head /
+				<= Title $mol_button
+					sub /
+						<= title
+					event_click?val <=> event_top?val null
+				<= Tools $mol_view
+					sub <= tools /
+		<= Body $mol_scroll
+			scroll_top?val <=> body_scroll_top?val 0
+			sub <= body /
+		<= Foot $mol_view
+			attr * mol_theme \$mol_theme_base
+			sub <= foot /
 
 $mol_filler $mol_view
 	minimal_height 500
@@ -507,8 +507,8 @@ $mpk_tss_pereferial $mol_view
 			event_top?e <=> event_top?e null
 			tools <= tools /
 			title <= title
+			unit_current_id?v <=> unit_current_id?v \
 			filter_value?val <=> filter_value?val \
-			destructor <= clean_url null
 			body /
 				<= List $mol_list
 					rows <= unit_links /
@@ -520,6 +520,7 @@ $mpk_tss_pereferial $mol_view
 		unit <= unit!id null
 
 $mpk_tss_pereferial_page $mol_page
+	unit_current_id?v \
 	sub /
 		<= Head
 		<= Filter_value $mol_search
@@ -750,27 +751,27 @@ $mol_form_field $mol_labeler
 			sub / <= bid \
 	Content <= control null
 
-$mpk_tss_enter $mol_list
+$mpk_tss_login $mol_list
 	entered?val false
-	minimal_width 200
 	sub / <= Form $mol_form
 		form_fields /
-			<= loginField $mol_form_field
-				name <= loginLabel @ \User name
-				control <= loginControl $mol_string
+			<= Login_field $mol_form_field
+				name <= login_label @ \User name
+				control <= Login $mol_string
 					value?val <=> login?val \
-			<= passwordField $mol_form_field
-				name <= passwordLabel @ \Password
-				control <= passControl $mol_string
+			<= Password_field $mol_form_field
+				name <= password_label @ \Password
+				control <= Password $mol_string
 					value?val <=> password?val \
 					type \password
 		buttons /
-			<= submit $mol_button_major
-				sub / <= submitLabel @ \Log In
+			<= Submit $mol_button_major
+				sub / <= submit_label @ \Log In
 				event_click?val <=> event_submit?val null
 				disabled <= submit_blocked false
 
 $mpk_tss $mol_view
+	title \Terminal № %terminal_number | Traffic security system
 	attr *
 		mol_theme <= theme \$mol_theme_light
 	terminal_text @ \Terminal № %terminal_number
@@ -798,6 +799,8 @@ $mpk_tss_main $mol_book
 		arg <= menu_page_arg!id *
 		title <= menu_page_title!id \
 	menu_pages *
+		summary <= Summary $mpk_tss_summary
+			event_top?event <=> event_front_up?event
 		software <= Software $mpk_tss_software
 			tools <= common_tools
 			event_top?event <=> event_front_up?event
@@ -820,10 +823,10 @@ $mpk_tss_main $mol_book
 				<= Logo $mol_image
 					uri \mpk/tss/tss_logo.svg
 					event * click?val <=> event_top?val null
-			title @ \Logo and username
+			title @ \Menu
 			minimal_width 200
 			body / <= sidebar_items /
-				<= Enter $mpk_tss_enter
+				<= Login $mpk_tss_login
 					entered?val <=> entered?val false
 					login?v <=> logged_email?v \
 				<= Menu $mol_list
@@ -834,9 +837,8 @@ $mpk_tss_main $mol_book
 					sub /
 						<= Foot_text $mol_view
 							sub /
-								\© 2019 MPK Software, Russia
-		<= Summary $mpk_tss_summary
-			event_top?event <=> event_front_up?event
+								<= copyright \© %year MPK Software, Russia
+		<= Summary
 		<= menu_pages
 		<= details null
 	Placeholder $mpk_tss_placeholder
