@@ -18,7 +18,7 @@ namespace $.$$ {
 		}
 
 		title() {
-			return this.title_prefix() + ' № ' + this.report().train_number()
+			return super.title().replace('%train_number', this.report().train_number())
 		}
 
 		carriage(id: string) {
@@ -34,13 +34,23 @@ namespace $.$$ {
 			return this.report().average_speed() + ' km/h'
 		}
 
-		carriage_current_id( next? : string ) {
-			return $mol_state_arg.value( this.state_key( 'carriage' ) , next ) || ''
+		carriage_id( next? : string ) {
+			return this.$.$mol_state_arg.value( this.state_key( 'carriage' ) , next ) || ''
+		}
+
+		Axis() {
+			if (!this.carriage_id()) return null
+
+			return this.Axis_details(this.carriage_id())
+		}
+
+		focus_main() {
+			this.Main().focused(true)
 		}
 
 		@$mol_mem
 		filter_warnings(next?: boolean) {
-			const param = $mol_state_arg.value( this.state_key( 'only_warnings' ) , next === undefined ? undefined : (next ? '1' : '0') )
+			const param = this.$.$mol_state_arg.value( this.state_key( 'only_warnings' ) , next === undefined ? undefined : (next ? '1' : '0') )
 			return param === '1'
 				? true
 				: (param === '0' ? false : true)
@@ -48,12 +58,12 @@ namespace $.$$ {
 
 		@$mol_mem
 		filter_number(next?: string) {
-			return $mol_state_arg.value( this.state_key( 'carriages' ) , next === '' ? null : next) || ''
+			return this.$.$mol_state_arg.value( this.state_key( 'carriages' ) , next === '' ? null : next) || ''
 		}
 
 		destructor() {
 			this.filter_number(null)
-			this.carriage_current_id(null)
+			this.carriage_id(null)
 		}
 	}
 }

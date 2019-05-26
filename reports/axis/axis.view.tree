@@ -1,0 +1,10 @@
+$mpk_tss_reports_axis $mol_page
+	carriage null
+	title @ \Axis of carriage № %carriage_number
+	minimal_width 800
+	tools /
+		<= Close $mol_link
+			arg * carriage null
+			sub / <= Close_icon $mol_icon_cross
+	body /
+		<= Main $mol_filler

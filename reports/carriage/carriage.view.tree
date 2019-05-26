@@ -1,7 +1,7 @@
 $mpk_tss_reports_carriage $mpk_tss_card
 	carriage null
 	arg * carriage <= carriage_id \
-	title_prefix @ \Carriage
+	title @ \Carriage № %carriage_number
 	status <= resolution \
 	Status_text $mol_view
 		sub /

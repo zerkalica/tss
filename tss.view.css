@@ -2,6 +2,11 @@
 	/* box-shadow: none; */
 }
 
+[mpk_tss_main] * [mol_string] {
+	margin-top: 1px;
+	padding: 0.45rem 1rem;
+}
+
 [mpk_tss_main] > [mol_page_body] {
 	box-shadow: 0 0 0 1px var(--mol_theme_line);
 }
