@@ -353,6 +353,45 @@
 	overflow: hidden;
 }
 
+[mol_string] {
+	box-sizing: border-box;
+	outline-offset: 0;
+	border: none;
+	border-radius: 0px;
+	border-radius: var(--mol_skin_round);
+	white-space: nowrap;
+	overflow: hidden;
+	padding: .5rem 1rem;
+	text-align: left;
+	position: relative;
+	z-index: 0;
+	font: inherit;
+	flex: 0 1 auto;
+	width: 100%;
+	background: var(--mol_theme_field);
+	background: var(--mol_theme_field);
+	color: var(--mol_theme_text);
+	color: var(--mol_theme_text);
+	box-shadow: 0 0 0 1px var(--mol_theme_line);
+	box-shadow: 0 0 0 1px var(--mol_theme_line);
+	margin: 0;
+}
+
+[mol_string]:disabled {
+	background-color: transparent;
+}
+
+[mol_string]:focus {
+	outline: none;
+	z-index: 1;
+	box-shadow: 0 0 0 1px var(--mol_theme_focus);
+	box-shadow: 0 0 0 1px var(--mol_theme_focus);
+}
+
+[mol_string]::-ms-clear {
+	display: none;
+}
+
 [mol_book] {
 	display: flex;
 	flex-flow: row nowrap;
@@ -840,45 +879,6 @@
 	opacity: 0.66;
 }
 
-[mol_string] {
-	box-sizing: border-box;
-	outline-offset: 0;
-	border: none;
-	border-radius: 0px;
-	border-radius: var(--mol_skin_round);
-	white-space: nowrap;
-	overflow: hidden;
-	padding: .5rem 1rem;
-	text-align: left;
-	position: relative;
-	z-index: 0;
-	font: inherit;
-	flex: 0 1 auto;
-	width: 100%;
-	background: var(--mol_theme_field);
-	background: var(--mol_theme_field);
-	color: var(--mol_theme_text);
-	color: var(--mol_theme_text);
-	box-shadow: 0 0 0 1px var(--mol_theme_line);
-	box-shadow: 0 0 0 1px var(--mol_theme_line);
-	margin: 0;
-}
-
-[mol_string]:disabled {
-	background-color: transparent;
-}
-
-[mol_string]:focus {
-	outline: none;
-	z-index: 1;
-	box-shadow: 0 0 0 1px var(--mol_theme_focus);
-	box-shadow: 0 0 0 1px var(--mol_theme_focus);
-}
-
-[mol_string]::-ms-clear {
-	display: none;
-}
-
 [mol_select] {
 	display: flex;
 	word-break: normal;
@@ -1048,6 +1048,10 @@
 	flex: 1 1 5rem;
 }
 
+[mpk_tss_reports_axis] {
+	flex: 1000 1 700px;
+}
+
 [mol_check] {
 	flex: 0 0 auto;
 	justify-content: flex-start;
@@ -1162,6 +1166,11 @@
 [mpk_tss_main] > [mol_page] {
 
 	/* box-shadow: none; */
+}
+
+[mpk_tss_main] * [mol_string] {
+	margin-top: 1px;
+	padding: 0.45rem 1rem;
 }
 
 [mpk_tss_main] > [mol_page_body] {

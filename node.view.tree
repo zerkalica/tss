@@ -61,6 +61,26 @@ $mol_page $mol_view
 			attr * mol_theme \$mol_theme_base
 			sub <= foot /
 
+$mol_string $mol_view
+	dom_name \input
+	enabled true
+	debounce 200
+	minimal_height 40
+	field *
+		^
+		disabled <= disabled false
+		value <= value_changed?val <=> value?val \
+		placeholder <= hint \
+		type <= type?val \text
+		spellcheck <= spellcheck false
+	attr *
+		^
+		maxlength <= length_max Infinity
+	event *
+		^
+		input?event <=> event_change?event null
+		keypress?event <=> event_key_press?event null
+
 $mol_plugin $mol_object
 	dom_node null
 	attr_static *
@@ -423,26 +443,6 @@ $mol_nav $mol_plugin
 		^
 		keydown?event <=> event_key?event null
 
-$mol_string $mol_view
-	dom_name \input
-	enabled true
-	debounce 200
-	minimal_height 40
-	field *
-		^
-		disabled <= disabled false
-		value <= value_changed?val <=> value?val \
-		placeholder <= hint \
-		type <= type?val \text
-		spellcheck <= spellcheck false
-	attr *
-		^
-		maxlength <= length_max Infinity
-	event *
-		^
-		input?event <=> event_change?event null
-		keypress?event <=> event_key_press?event null
-
 $mol_icon_chevron $mol_icon path \M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z
 
 $mol_select $mol_pop
@@ -557,7 +557,7 @@ $mpk_tss_reports_violation $mol_view
 $mpk_tss_reports_carriage $mpk_tss_card
 	carriage null
 	arg * carriage <= carriage_id \
-	title_prefix @ \Carriage
+	title @ \Carriage № %carriage_number
 	status <= resolution \
 	Status_text $mol_view
 		sub /
@@ -629,6 +629,17 @@ $mpk_tss_reports_train $mpk_tss_card
 			title <= train_number_title @ \Train
 			content <= train_number \
 
+$mpk_tss_reports_axis $mol_page
+	carriage null
+	title @ \Axis of carriage № %carriage_number
+	minimal_width 800
+	tools /
+		<= Close $mol_link
+			arg * carriage null
+			sub / <= Close_icon $mol_icon_cross
+	body /
+		<= Main $mol_filler
+
 $mol_check $mol_button_minor
 	attr *
 		^
@@ -649,7 +660,7 @@ $mol_check_box $mol_check
 
 $mpk_tss_reports_carriages $mol_view
 	report null
-	title_prefix @ \Train
+	title @ \Train № %train_number
 	pages /
 		<= Main $mpk_tss_reports_carriages_page
 			title <= title
@@ -663,6 +674,10 @@ $mpk_tss_reports_carriages $mol_view
 			body /
 				<= Carriages $mol_list
 					rows <= carriage_links /
+		<= Axis null
+	Axis_details!id $mpk_tss_reports_axis
+		carriage <= carriage!id null
+		event_top?e <=> focus_main?e null
 	Carriage_link!id $mpk_tss_reports_carriage
 		carriage <= carriage!id null
 

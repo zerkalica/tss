@@ -514,6 +514,45 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
+    class $mol_string extends $mol_view {
+        dom_name(): string;
+        enabled(): boolean;
+        debounce(): number;
+        minimal_height(): number;
+        field(): {
+            "disabled": boolean;
+            "value": any;
+            "placeholder": string;
+            "type": any;
+            "spellcheck": boolean;
+        };
+        disabled(): boolean;
+        value_changed(val?: any, force?: $mol_atom_force): any;
+        value(val?: any, force?: $mol_atom_force): any;
+        hint(): string;
+        type(val?: any, force?: $mol_atom_force): any;
+        spellcheck(): boolean;
+        attr(): {
+            "maxlength": number;
+        };
+        length_max(): number;
+        event(): {
+            "input": (event?: any) => any;
+            "keypress": (event?: any) => any;
+        };
+        event_change(event?: any, force?: $mol_atom_force): any;
+        event_key_press(event?: any, force?: $mol_atom_force): any;
+    }
+}
+declare namespace $.$$ {
+    class $mol_string extends $.$mol_string {
+        _timer: any;
+        event_change(next?: Event): void;
+        event_key_press(next?: KeyboardEvent): void;
+        disabled(): boolean;
+    }
+}
+declare namespace $ {
     class $mol_state_local<Value> extends $mol_object {
         static 'native()': Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
         static native(): Storage | {
@@ -1370,45 +1409,6 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
-    class $mol_string extends $mol_view {
-        dom_name(): string;
-        enabled(): boolean;
-        debounce(): number;
-        minimal_height(): number;
-        field(): {
-            "disabled": boolean;
-            "value": any;
-            "placeholder": string;
-            "type": any;
-            "spellcheck": boolean;
-        };
-        disabled(): boolean;
-        value_changed(val?: any, force?: $mol_atom_force): any;
-        value(val?: any, force?: $mol_atom_force): any;
-        hint(): string;
-        type(val?: any, force?: $mol_atom_force): any;
-        spellcheck(): boolean;
-        attr(): {
-            "maxlength": number;
-        };
-        length_max(): number;
-        event(): {
-            "input": (event?: any) => any;
-            "keypress": (event?: any) => any;
-        };
-        event_change(event?: any, force?: $mol_atom_force): any;
-        event_key_press(event?: any, force?: $mol_atom_force): any;
-    }
-}
-declare namespace $.$$ {
-    class $mol_string extends $.$mol_string {
-        _timer: any;
-        event_change(next?: Event): void;
-        event_key_press(next?: KeyboardEvent): void;
-        disabled(): boolean;
-    }
-}
-declare namespace $ {
     class $mol_icon_chevron extends $mol_icon {
         path(): string;
     }
@@ -1664,7 +1664,7 @@ declare namespace $ {
             "carriage": string;
         };
         carriage_id(): string;
-        title_prefix(): string;
+        title(): string;
         status(): string;
         resolution(): string;
         Status_text(): $mol_view;
@@ -1792,6 +1792,24 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
+    class $mpk_tss_reports_axis extends $mol_page {
+        carriage(): any;
+        title(): string;
+        minimal_width(): number;
+        tools(): any[];
+        Close(): $mol_link;
+        Close_icon(): $mol_icon_cross;
+        body(): any[];
+        Main(): $mol_filler;
+    }
+}
+declare namespace $.$$ {
+    class $mpk_tss_reports_axis extends $.$mpk_tss_reports_axis {
+        carriage(): $mpk_tss_reports_domain_carriage;
+        title(): string;
+    }
+}
+declare namespace $ {
     class $mol_check extends $mol_button_minor {
         attr(): {
             "mol_check_checked": any;
@@ -1827,7 +1845,7 @@ declare namespace $ {
 declare namespace $ {
     class $mpk_tss_reports_carriages extends $mol_view {
         report(): any;
-        title_prefix(): string;
+        title(): string;
         pages(): any[];
         Main(): $mpk_tss_reports_carriages_page;
         filter_warnings(val?: any, force?: $mol_atom_force): any;
@@ -1837,8 +1855,11 @@ declare namespace $ {
         Details_close_icon(): $mol_icon_cross;
         Carriages(): $mol_list;
         carriage_links(): any[];
-        Carriage_link(id: any): $mpk_tss_reports_carriage;
+        Axis(): any;
+        Axis_details(id: any): $mpk_tss_reports_axis;
         carriage(id: any): any;
+        focus_main(e?: any, force?: $mol_atom_force): any;
+        Carriage_link(id: any): $mpk_tss_reports_carriage;
     }
 }
 declare namespace $ {
@@ -1862,7 +1883,9 @@ declare namespace $.$$ {
         carriage(id: string): $mpk_tss_reports_domain_carriage;
         carriage_links(): $.$mpk_tss_reports_carriage[];
         average_speed(): string;
-        carriage_current_id(next?: string): any;
+        carriage_id(next?: string): any;
+        Axis(): $.$mpk_tss_reports_axis;
+        focus_main(): void;
         filter_warnings(next?: boolean): boolean;
         filter_number(next?: string): any;
         destructor(): void;
