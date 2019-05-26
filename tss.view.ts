@@ -16,6 +16,17 @@ namespace $.$$ {
 	}
 
 	export class $mpk_tss_main extends $.$mpk_tss_main {
+		Pereferial() {
+			const Pereferial = super.Pereferial()
+			Pereferial.$ = this.$
+			return Pereferial
+		}
+
+		Reports() {
+			const Reports = super.Reports()
+			Reports.$ = this.$
+			return Reports
+		}
 
 		entered( next? : boolean ) {
 			if( this.$.$mol_state_arg.value( `entered` ) != null ) return true
