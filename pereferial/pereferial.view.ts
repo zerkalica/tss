@@ -2,7 +2,7 @@ namespace $.$$ {
 	export class $mpk_tss_pereferial extends $.$mpk_tss_pereferial {
 		@$mol_mem
 		domain() {
-			return this.$.$mpk_tss_pereferial_domain_mock.make({
+			return this.$.$mpk_tss_pereferial_domain.make({
 				filter_name: () => this.filter_value()
 			})
 		}
