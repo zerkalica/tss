@@ -1602,42 +1602,6 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
-    class $mpk_tss_reports_load extends $mol_view {
-        status(): any;
-        statuses(): {
-            "free": string;
-            "full": string;
-        };
-        free(): string;
-        full(): string;
-        sub(): any[];
-        status_text(): string;
-    }
-}
-declare namespace $.$$ {
-    class $mpk_tss_reports_load extends $.$mpk_tss_reports_load {
-        status_text(): any;
-    }
-}
-declare namespace $ {
-    class $mpk_tss_reports_violation extends $mol_view {
-        status(): any;
-        statuses(): {
-            "slider": string;
-        };
-        slider(): string;
-        group(): any[];
-        status_text(): string;
-        sub(): any[];
-    }
-}
-declare namespace $.$$ {
-    class $mpk_tss_reports_violation extends $.$mpk_tss_reports_violation {
-        status_text(): any;
-        sub(): any[];
-    }
-}
-declare namespace $ {
     class $mpk_tss_reports_domain extends $mol_object {
         report(id: string): $mpk_tss_reports_domain_report;
         filter_ids(next?: string | null): string | null;
@@ -1702,59 +1666,6 @@ declare namespace $ {
         resolution(): $mpk_tss_reports_domain_resolution;
         started(): $mol_time_moment | null;
         carriages(config?: Partial<$mpk_tss_reports_domain_carriages>): $mpk_tss_reports_domain_carriages;
-    }
-}
-declare namespace $ {
-    class $mpk_tss_reports_carriage extends $mpk_tss_card {
-        carriage(): any;
-        arg(): {
-            "carriage": string;
-        };
-        carriage_id(): string;
-        title(): string;
-        status(): string;
-        resolution(): string;
-        Status_text(): $mol_view;
-        Status_main(): $mpk_tss_reports_resolution;
-        Violation(): $mpk_tss_reports_carriage_violation;
-        violation(): string;
-        Status_icon(): $mpk_tss_icon_cloud_download;
-        status_click(event?: any, force?: $mol_atom_force): any;
-        carriage_status_click(event?: any, force?: $mol_atom_force): any;
-        items(): any[];
-        Place(): $mol_labeler;
-        place_title(): string;
-        place(): string;
-        Carriage_number(): $mol_labeler;
-        carriage_number_title(): string;
-        carriage_number(): string;
-        Load(): $mol_labeler;
-        load_title(): string;
-        Load_text(): $mpk_tss_reports_load;
-        load(): string;
-        Speed(): $mol_labeler;
-        speed_title(): string;
-        speed(): string;
-    }
-}
-declare namespace $ {
-    class $mpk_tss_reports_carriage_violation extends $mpk_tss_reports_violation {
-        group(): any[];
-        before(): string;
-        after(): string;
-    }
-}
-declare namespace $.$$ {
-    class $mpk_tss_reports_carriage extends $.$mpk_tss_reports_carriage {
-        carriage(): $mpk_tss_reports_domain_carriage;
-        title(): string;
-        carriage_id(): string;
-        place(): string;
-        carriage_number(): string;
-        resolution(): $mpk_tss_reports_domain_resolution;
-        load(): $mpk_tss_reports_domain_load;
-        violation(): $mpk_tss_reports_domain_violation;
-        speed(): string;
     }
 }
 declare namespace $ {
@@ -1854,6 +1765,95 @@ declare namespace $.$$ {
     class $mpk_tss_reports_axis extends $.$mpk_tss_reports_axis {
         carriage(): $mpk_tss_reports_domain_carriage;
         title(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_reports_load extends $mol_view {
+        status(): any;
+        statuses(): {
+            "free": string;
+            "full": string;
+        };
+        free(): string;
+        full(): string;
+        sub(): any[];
+        status_text(): string;
+    }
+}
+declare namespace $.$$ {
+    class $mpk_tss_reports_load extends $.$mpk_tss_reports_load {
+        status_text(): any;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_reports_violation extends $mol_view {
+        status(): any;
+        statuses(): {
+            "slider": string;
+        };
+        slider(): string;
+        group(): any[];
+        status_text(): string;
+        sub(): any[];
+    }
+}
+declare namespace $.$$ {
+    class $mpk_tss_reports_violation extends $.$mpk_tss_reports_violation {
+        status_text(): any;
+        sub(): any[];
+    }
+}
+declare namespace $ {
+    class $mpk_tss_reports_carriage extends $mpk_tss_card {
+        carriage(): any;
+        arg(): {
+            "carriage": string;
+        };
+        carriage_id(): string;
+        title(): string;
+        status(): string;
+        resolution(): string;
+        Status_text(): $mol_view;
+        Status_main(): $mpk_tss_reports_resolution;
+        Violation(): $mpk_tss_reports_carriage_violation;
+        violation(): string;
+        Status_icon(): $mpk_tss_icon_cloud_download;
+        status_click(event?: any, force?: $mol_atom_force): any;
+        carriage_status_click(event?: any, force?: $mol_atom_force): any;
+        items(): any[];
+        Place(): $mol_labeler;
+        place_title(): string;
+        place(): string;
+        Carriage_number(): $mol_labeler;
+        carriage_number_title(): string;
+        carriage_number(): string;
+        Load(): $mol_labeler;
+        load_title(): string;
+        Load_text(): $mpk_tss_reports_load;
+        load(): string;
+        Speed(): $mol_labeler;
+        speed_title(): string;
+        speed(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_reports_carriage_violation extends $mpk_tss_reports_violation {
+        group(): any[];
+        before(): string;
+        after(): string;
+    }
+}
+declare namespace $.$$ {
+    class $mpk_tss_reports_carriage extends $.$mpk_tss_reports_carriage {
+        carriage(): $mpk_tss_reports_domain_carriage;
+        title(): string;
+        carriage_id(): string;
+        place(): string;
+        carriage_number(): string;
+        resolution(): $mpk_tss_reports_domain_resolution;
+        load(): $mpk_tss_reports_domain_load;
+        violation(): $mpk_tss_reports_domain_violation;
+        speed(): string;
     }
 }
 declare namespace $ {

@@ -540,6 +540,60 @@ $mpk_tss_reports_resolution $mol_view
 		warning <= warning @ \Warning
 	sub / <= status_text \
 
+$mpk_tss_reports_delivery $mol_view
+	attr *
+		^
+		mpk_tss_reports_delivery_type <= status \
+	statuses *
+		preparing <= preparing @ \Preparing
+		sending <= sending @ \Sending
+		sent <= sent @ \Sent
+		error <= error @ \Error
+	icons *
+		preparing <= Preparing $mpk_tss_icon_sync
+		sending <= Sending $mpk_tss_icon_sync
+		sent <= Sent $mpk_tss_icon_done
+		error <= Error $mpk_tss_icon_clear
+	sub /
+		<= Icon null
+		<= Text $mol_view sub / <= status_text \
+
+$mpk_tss_reports_train $mpk_tss_card
+	report null
+	arg * report <= report_id \
+	status <= resolution
+	Status_text $mpk_tss_reports_resolution
+		status <= resolution \
+	status_click?event <=> report_status_click?event null
+	items /
+		<= Id $mol_labeler
+			title <= id_title @ \Id
+			content <= report_id \
+		<= Started $mol_labeler
+			title <= started_title @ \Date
+			content <= started \
+		<= Average_speed $mol_labeler
+			title <= average_speed_title @ \Speed
+			content <= average_speed \
+		<= Delivery $mol_labeler
+			title <= delivery_title @ \Delivery
+			Content <= Delivery_value $mpk_tss_reports_delivery
+				status <= delivery \
+		<= Train_number $mol_labeler
+			title <= train_number_title @ \Train
+			content <= train_number \
+
+$mpk_tss_reports_axis $mol_page
+	carriage null
+	title @ \Axis of carriage № %carriage_number
+	minimal_width 900
+	tools /
+		<= Close $mol_link
+			arg * carriage null
+			sub / <= Close_icon $mol_icon_cross
+	body /
+		<= Main $mol_filler
+
 $mpk_tss_reports_load $mol_view
 	status null
 	statuses *
@@ -586,60 +640,6 @@ $mpk_tss_reports_carriage_violation $mpk_tss_reports_violation
 		<= before \(
 		<= status_text
 		<= after \)
-
-$mpk_tss_reports_delivery $mol_view
-	attr *
-		^
-		mpk_tss_reports_delivery_type <= status \
-	statuses *
-		preparing <= preparing @ \Preparing
-		sending <= sending @ \Sending
-		sent <= sent @ \Sent
-		error <= error @ \Error
-	icons *
-		preparing <= Preparing $mpk_tss_icon_sync
-		sending <= Sending $mpk_tss_icon_sync
-		sent <= Sent $mpk_tss_icon_done
-		error <= Error $mpk_tss_icon_clear
-	sub /
-		<= Icon null
-		<= Text $mol_view sub / <= status_text \
-
-$mpk_tss_reports_train $mpk_tss_card
-	report null
-	arg * report <= report_id \
-	status <= resolution
-	Status_text $mpk_tss_reports_resolution
-		status <= resolution \
-	status_click?event <=> report_status_click?event null
-	items /
-		<= Id $mol_labeler
-			title <= id_title @ \Id
-			content <= report_id \
-		<= Started $mol_labeler
-			title <= started_title @ \Date
-			content <= started \
-		<= Average_speed $mol_labeler
-			title <= average_speed_title @ \Speed
-			content <= average_speed \
-		<= Delivery $mol_labeler
-			title <= delivery_title @ \Report
-			Content <= Delivery_value $mpk_tss_reports_delivery
-				status <= delivery \
-		<= Train_number $mol_labeler
-			title <= train_number_title @ \Train
-			content <= train_number \
-
-$mpk_tss_reports_axis $mol_page
-	carriage null
-	title @ \Axis of carriage № %carriage_number
-	minimal_width 800
-	tools /
-		<= Close $mol_link
-			arg * carriage null
-			sub / <= Close_icon $mol_icon_cross
-	body /
-		<= Main $mol_filler
 
 $mol_check $mol_button_minor
 	attr *

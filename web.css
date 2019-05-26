@@ -981,26 +981,6 @@
 	align-self: stretch;
 }
 
-[mpk_tss_reports_carriage_violation] {
-	padding-left: 0.3rem;
-}
-
-[mpk_tss_reports_carriage_place] {
-	flex: 1 1 2rem;
-}
-
-[mpk_tss_reports_carriage_carriage] {
-	flex: 1 1 5rem;
-}
-
-[mpk_tss_reports_carriage_load] {
-	flex: 1 1 5rem;
-}
-
-[mpk_tss_reports_carriage_speed] {
-	flex: 1 1 4rem;
-}
-
 [mpk_tss_reports_delivery_type="preparing"] {
 	color: rgb(151, 151, 1);
 }
@@ -1045,11 +1025,31 @@
 }
 
 [mpk_tss_reports_train_delivery] {
-	flex: 1 1 5rem;
+	flex: 1 1 6rem;
 }
 
 [mpk_tss_reports_axis] {
-	flex: 1000 1 700px;
+	flex: 1000 1 900px;
+}
+
+[mpk_tss_reports_carriage_violation] {
+	padding-left: 0.3rem;
+}
+
+[mpk_tss_reports_carriage_place] {
+	flex: 1 1 2rem;
+}
+
+[mpk_tss_reports_carriage_carriage] {
+	flex: 1 1 5rem;
+}
+
+[mpk_tss_reports_carriage_load] {
+	flex: 1 1 5rem;
+}
+
+[mpk_tss_reports_carriage_speed] {
+	flex: 1 1 4rem;
 }
 
 [mol_check] {
@@ -1094,7 +1094,7 @@
 }
 
 [mpk_tss_reports_main] {
-	flex: 1 1 33rem;
+	flex: 1 1 34rem;
 }
 
 [mpk_tss_reports_page_body] {
@@ -1103,14 +1103,6 @@
 
 [mpk_tss_reports_page_filter_value] {
 	align-self: stretch;
-}
-
-[mpk_tss_reports_report_link] {
-	display: block;
-}
-
-[mpk_tss_reports_carriage] {
-	flex: 1000 0 600px;
 }
 
 [mol_image] {
