@@ -1913,70 +1913,6 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
-    class $mol_unit extends $mol_object {
-        'valueOf()': number;
-        constructor(value?: number);
-        prefix(): string;
-        postfix(): string;
-        valueOf(): number;
-        delimiter(): string;
-        value_view(): string;
-        toString(): string;
-        static summ(a: $mol_unit, b: $mol_unit): any;
-        mult(m: number): this;
-    }
-}
-declare namespace $ {
-    class $mol_unit_money extends $mol_unit {
-    }
-    class $mol_unit_money_usd extends $mol_unit_money {
-        prefix(): string;
-    }
-    class $mol_unit_money_rur extends $mol_unit_money {
-        postfix(): string;
-    }
-}
-declare namespace $ {
-    function $mol_stub_select_random<Value>(list: Value[]): Value;
-    function $mol_stub_strings(prefix?: string, count?: number, length?: number): any[];
-    function $mol_stub_code(length?: number): string;
-    function $mol_stub_price(max?: number): $mol_unit_money_usd;
-    function $mol_stub_product_name(): string;
-    function $mol_stub_company_name_big(): string;
-    function $mol_stub_company_name_small(): string;
-    function $mol_stub_company_name(): string;
-    function $mol_stub_person_name(): string;
-    function $mol_stub_city(): string;
-    function $mol_stub_time(maxShift?: number): $mol_time_moment;
-}
-declare namespace $ {
-    function $mpk_tss_stub_id(): string;
-    function $mpk_tss_stub_ids(max?: number): string[];
-    function $mpk_tss_stub_number(min?: number, max?: number): number;
-    function $mpk_tss_stub_mem<Host, Value>(obj: Host, name: string, descr: TypedPropertyDescriptor<(id?: string | Object) => Value>): void;
-}
-declare namespace $ {
-    function $mol_range2<Item = number>(item?: (index: number) => Item, size?: () => number): Item[];
-    class $mol_range2_array<Item> extends Array<Item> {
-        concat(...tail: this[]): Item[];
-        filter<Context>(check: (val: Item, index: number, list: Item[]) => boolean, context?: Context): Item[];
-        forEach<Context>(proceed: (this: Context, val: Item, index: number, list: Item[]) => void, context?: Context): void;
-        map<Item_out, Context>(proceed: (this: Context, val: Item, index: number, list: Item[]) => Item_out, context?: Context): Item_out[];
-        reduce<Result>(merge: (result: Result, val: Item, index: number, list: Item[]) => Result, result?: Result): Result;
-        slice(from?: number, to?: number): Item[];
-        some<Context>(check: (this: Context, val: Item, index: number, list: Item[]) => boolean, context?: Context): boolean;
-        every<Context = null>(check: (this: Context, val: Item, index: number, list: Item[]) => boolean, context?: Context): boolean;
-    }
-}
-declare namespace $ {
-    class $mpk_tss_reports_domain_mock extends $mpk_tss_reports_domain {
-        max_reports(): number;
-        report(id: string): $mpk_tss_reports_domain_report;
-        reports_all(): $mpk_tss_reports_domain_report[];
-        reports(): $mpk_tss_reports_domain_report[];
-    }
-}
-declare namespace $ {
     class $mpk_tss_reports extends $mol_view {
         title(): string;
         pages(): any[];
@@ -2007,7 +1943,7 @@ declare namespace $ {
 }
 declare namespace $.$$ {
     class $mpk_tss_reports extends $.$mpk_tss_reports {
-        domain(): $mpk_tss_reports_domain_mock;
+        domain(): $mpk_tss_reports_domain;
         main_blended(): boolean;
         report_links(): $.$mpk_tss_reports_train[];
         report(id: string): $mpk_tss_reports_domain_report;
@@ -2082,11 +2018,75 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
+    class $mol_unit extends $mol_object {
+        'valueOf()': number;
+        constructor(value?: number);
+        prefix(): string;
+        postfix(): string;
+        valueOf(): number;
+        delimiter(): string;
+        value_view(): string;
+        toString(): string;
+        static summ(a: $mol_unit, b: $mol_unit): any;
+        mult(m: number): this;
+    }
+}
+declare namespace $ {
+    class $mol_unit_money extends $mol_unit {
+    }
+    class $mol_unit_money_usd extends $mol_unit_money {
+        prefix(): string;
+    }
+    class $mol_unit_money_rur extends $mol_unit_money {
+        postfix(): string;
+    }
+}
+declare namespace $ {
+    function $mol_stub_select_random<Value>(list: Value[]): Value;
+    function $mol_stub_strings(prefix?: string, count?: number, length?: number): any[];
+    function $mol_stub_code(length?: number): string;
+    function $mol_stub_price(max?: number): $mol_unit_money_usd;
+    function $mol_stub_product_name(): string;
+    function $mol_stub_company_name_big(): string;
+    function $mol_stub_company_name_small(): string;
+    function $mol_stub_company_name(): string;
+    function $mol_stub_person_name(): string;
+    function $mol_stub_city(): string;
+    function $mol_stub_time(maxShift?: number): $mol_time_moment;
+}
+declare namespace $ {
+    function $mpk_tss_stub_id(): string;
+    function $mpk_tss_stub_ids(max?: number): string[];
+    function $mpk_tss_stub_number(min?: number, max?: number): number;
+    function $mpk_tss_stub_mem<Host, Value>(obj: Host, name: string, descr: TypedPropertyDescriptor<(id?: string | Object) => Value>): void;
+}
+declare namespace $ {
     class $mpk_tss_pereferial_domain_mock extends $mpk_tss_pereferial_domain {
         max_units(): number;
         unit(id: string): $mpk_tss_pereferial_domain_unit;
         protected units_all(): $mpk_tss_pereferial_domain_unit[];
         units(): $mpk_tss_pereferial_domain_unit[];
+    }
+}
+declare namespace $ {
+    function $mol_range2<Item = number>(item?: (index: number) => Item, size?: () => number): Item[];
+    class $mol_range2_array<Item> extends Array<Item> {
+        concat(...tail: this[]): Item[];
+        filter<Context>(check: (val: Item, index: number, list: Item[]) => boolean, context?: Context): Item[];
+        forEach<Context>(proceed: (this: Context, val: Item, index: number, list: Item[]) => void, context?: Context): void;
+        map<Item_out, Context>(proceed: (this: Context, val: Item, index: number, list: Item[]) => Item_out, context?: Context): Item_out[];
+        reduce<Result>(merge: (result: Result, val: Item, index: number, list: Item[]) => Result, result?: Result): Result;
+        slice(from?: number, to?: number): Item[];
+        some<Context>(check: (this: Context, val: Item, index: number, list: Item[]) => boolean, context?: Context): boolean;
+        every<Context = null>(check: (this: Context, val: Item, index: number, list: Item[]) => boolean, context?: Context): boolean;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_reports_domain_mock extends $mpk_tss_reports_domain {
+        max_reports(): number;
+        report(id: string): $mpk_tss_reports_domain_report;
+        reports_all(): $mpk_tss_reports_domain_report[];
+        reports(): $mpk_tss_reports_domain_report[];
     }
 }
 declare namespace $ {
@@ -2162,6 +2162,8 @@ declare namespace $.$$ {
         context_sub(): $mol_ambient_context;
     }
     class $mpk_tss_main extends $.$mpk_tss_main {
+        Pereferial(): $.$mpk_tss_pereferial;
+        Reports(): $.$mpk_tss_reports;
         entered(next?: boolean): boolean;
         Logged_user(): $mol_button_minor;
         logout_click(): void;
