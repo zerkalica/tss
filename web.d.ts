@@ -432,6 +432,40 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
+    class $mol_svg extends $mol_view {
+        dom_name(): string;
+        dom_name_space(): string;
+    }
+}
+declare namespace $ {
+    class $mol_svg_root extends $mol_svg {
+        dom_name(): string;
+        attr(): {
+            "viewBox": string;
+            "preserveAspectRatio": string;
+        };
+        view_box(): string;
+        aspect(): string;
+    }
+}
+declare namespace $ {
+    class $mol_svg_path extends $mol_svg {
+        dom_name(): string;
+        attr(): {
+            "d": string;
+        };
+        geometry(): string;
+    }
+}
+declare namespace $ {
+    class $mol_icon extends $mol_svg_root {
+        view_box(): string;
+        sub(): any[];
+        Path(): $mol_svg_path;
+        path(): string;
+    }
+}
+declare namespace $ {
     class $mol_button extends $mol_view {
         enabled(): boolean;
         minimal_height(): number;
@@ -722,40 +756,6 @@ declare namespace $.$$ {
         title(): string;
         event_front_up(event?: Event): void;
         event_front_down(event?: Event): void;
-    }
-}
-declare namespace $ {
-    class $mol_svg extends $mol_view {
-        dom_name(): string;
-        dom_name_space(): string;
-    }
-}
-declare namespace $ {
-    class $mol_svg_root extends $mol_svg {
-        dom_name(): string;
-        attr(): {
-            "viewBox": string;
-            "preserveAspectRatio": string;
-        };
-        view_box(): string;
-        aspect(): string;
-    }
-}
-declare namespace $ {
-    class $mol_svg_path extends $mol_svg {
-        dom_name(): string;
-        attr(): {
-            "d": string;
-        };
-        geometry(): string;
-    }
-}
-declare namespace $ {
-    class $mol_icon extends $mol_svg_root {
-        view_box(): string;
-        sub(): any[];
-        Path(): $mol_svg_path;
-        path(): string;
     }
 }
 declare namespace $ {
@@ -1604,7 +1604,8 @@ declare namespace $.$$ {
 declare namespace $ {
     class $mpk_tss_reports_domain extends $mol_object {
         report(id: string): $mpk_tss_reports_domain_report;
-        filter_ids(next?: string | null): string | null;
+        filter_number(next?: string | null): string | null;
+        filter_resolution(next?: $mpk_tss_reports_domain_resolution | null): $mpk_tss_reports_domain_resolution | null;
         reports(): $mpk_tss_reports_domain_report[];
     }
     enum $mpk_tss_reports_domain_resolution {
@@ -1857,6 +1858,51 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
+    class $mpk_tss_reports_carriages extends $mol_view {
+        report(): any;
+        title(): string;
+        pages(): any[];
+        Main(): $mpk_tss_reports_carriages_page;
+        filter_number(val?: any, force?: $mol_atom_force): any;
+        event_top(e?: any, force?: $mol_atom_force): any;
+        Details_close(): $mol_link;
+        Details_close_icon(): $mol_icon_cross;
+        Carriages(): $mol_list;
+        carriage_links(): any[];
+        Axis(): any;
+        Axis_details(id: any): $mpk_tss_reports_axis;
+        carriage(id: any): any;
+        focus_main(e?: any, force?: $mol_atom_force): any;
+        Carriage_link(id: any): $mpk_tss_reports_carriage;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_reports_carriages_page extends $mol_page {
+        minimal_width(): number;
+        sub(): any[];
+        Search(): $mol_view;
+        Filter_number(): $mol_search;
+        hint(): string;
+        filter_number(val?: any, force?: $mol_atom_force): any;
+    }
+}
+declare namespace $.$$ {
+    class $mpk_tss_reports_carriages extends $.$mpk_tss_reports_carriages {
+        report(): $mpk_tss_reports_domain_report;
+        carriages(): $mpk_tss_reports_domain_carriages;
+        filter_all(next?: boolean): boolean;
+        title(): string;
+        carriage(id: string): $mpk_tss_reports_domain_carriage;
+        carriage_links(): $.$mpk_tss_reports_carriage[];
+        average_speed(): string;
+        carriage_id(next?: string): string;
+        Axis(): $.$mpk_tss_reports_axis;
+        focus_main(): void;
+        filter_number(next?: string): string;
+        destructor(): void;
+    }
+}
+declare namespace $ {
     class $mol_check extends $mol_button_minor {
         attr(): {
             "mol_check_checked": any;
@@ -1890,55 +1936,6 @@ declare namespace $ {
     }
 }
 declare namespace $ {
-    class $mpk_tss_reports_carriages extends $mol_view {
-        report(): any;
-        title(): string;
-        pages(): any[];
-        Main(): $mpk_tss_reports_carriages_page;
-        filter_warnings(val?: any, force?: $mol_atom_force): any;
-        filter_number(val?: any, force?: $mol_atom_force): any;
-        event_top(e?: any, force?: $mol_atom_force): any;
-        Details_close(): $mol_link;
-        Details_close_icon(): $mol_icon_cross;
-        Carriages(): $mol_list;
-        carriage_links(): any[];
-        Axis(): any;
-        Axis_details(id: any): $mpk_tss_reports_axis;
-        carriage(id: any): any;
-        focus_main(e?: any, force?: $mol_atom_force): any;
-        Carriage_link(id: any): $mpk_tss_reports_carriage;
-    }
-}
-declare namespace $ {
-    class $mpk_tss_reports_carriages_page extends $mol_page {
-        minimal_width(): number;
-        sub(): any[];
-        Search(): $mol_view;
-        Filter_number(): $mol_search;
-        hint(): string;
-        filter_number(val?: any, force?: $mol_atom_force): any;
-        Filter_warnings(): $mol_check_box;
-        filter_warnings(val?: any, force?: $mol_atom_force): any;
-        filter_warnings_title(): string;
-    }
-}
-declare namespace $.$$ {
-    class $mpk_tss_reports_carriages extends $.$mpk_tss_reports_carriages {
-        report(): $mpk_tss_reports_domain_report;
-        carriages(): $mpk_tss_reports_domain_carriages;
-        title(): string;
-        carriage(id: string): $mpk_tss_reports_domain_carriage;
-        carriage_links(): $.$mpk_tss_reports_carriage[];
-        average_speed(): string;
-        carriage_id(next?: string): string;
-        Axis(): $.$mpk_tss_reports_axis;
-        focus_main(): void;
-        filter_warnings(next?: boolean): boolean;
-        filter_number(next?: string): string;
-        destructor(): void;
-    }
-}
-declare namespace $ {
     class $mpk_tss_reports extends $mol_view {
         title(): string;
         pages(): any[];
@@ -1946,7 +1943,8 @@ declare namespace $ {
         event_top(e?: any, force?: $mol_atom_force): any;
         tools(): any[];
         report_current_id(id?: any, force?: $mol_atom_force): any;
-        filter_value(val?: any, force?: $mol_atom_force): any;
+        filter_number(val?: any, force?: $mol_atom_force): any;
+        filter_all(val?: any, force?: $mol_atom_force): any;
         Reports(): $mol_list;
         report_links(): any[];
         Details_pages(): any;
@@ -1962,9 +1960,13 @@ declare namespace $ {
         minimal_width(): number;
         report_current_id(uri?: any, force?: $mol_atom_force): any;
         sub(): any[];
-        Filter_value(): $mol_search;
+        Search(): $mol_view;
+        Filter_number(): $mol_search;
         hint(): string;
-        filter_value(val?: any, force?: $mol_atom_force): any;
+        filter_number(val?: any, force?: $mol_atom_force): any;
+        Filter_all(): $mol_check_box;
+        filter_all(val?: any, force?: $mol_atom_force): any;
+        filter_all_title(): string;
     }
 }
 declare namespace $.$$ {
@@ -1973,7 +1975,8 @@ declare namespace $.$$ {
         main_blended(): boolean;
         report_links(): $.$mpk_tss_reports_train[];
         report(id: string): $mpk_tss_reports_domain_report;
-        filter_value(next?: string): string;
+        filter_number(next?: string): string;
+        filter_all(next?: boolean): boolean;
         report_current_id(next?: string): string;
         shaded(id: string): boolean;
         Details_pages(): any[];

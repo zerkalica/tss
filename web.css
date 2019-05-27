@@ -213,6 +213,23 @@
 	display: none;
 }
 
+[mol_svg_root] {
+	overflow: hidden;
+}
+
+[mol_icon] {
+	fill: currentColor;
+	width: 1em;
+	height: 1em;
+	flex: 0 0 auto;
+	vertical-align: -.1em;
+	will-change: transform;
+}
+
+:hover > [mol_icon] {
+	transform: scale(1.2);
+}
+
 [mol_button] {
 	border: none;
 	font: inherit;
@@ -340,23 +357,6 @@
 
 [mol_book_page]:not(:first-child) {
 	animation: mol_book_page_show .25s ease-out;
-}
-
-[mol_svg_root] {
-	overflow: hidden;
-}
-
-[mol_icon] {
-	fill: currentColor;
-	width: 1em;
-	height: 1em;
-	flex: 0 0 auto;
-	vertical-align: -.1em;
-	will-change: transform;
-}
-
-:hover > [mol_icon] {
-	transform: scale(1.2);
 }
 
 [mol_link] {
@@ -1052,6 +1052,14 @@
 	flex: 1 1 4rem;
 }
 
+[mpk_tss_reports_carriages_main] {
+	flex: 1 1 22rem;
+}
+
+[mpk_tss_reports_carriages_page_search] {
+	display: inline-flex;
+}
+
 [mol_check] {
 	flex: 0 0 auto;
 	justify-content: flex-start;
@@ -1085,14 +1093,6 @@
 	color: var(--mol_theme_text);
 }
 
-[mpk_tss_reports_carriages_main] {
-	flex: 1 1 22rem;
-}
-
-[mpk_tss_reports_carriages_page_search] {
-	display: inline-flex;
-}
-
 [mpk_tss_reports_main] {
 	flex: 1 1 34rem;
 }
@@ -1103,6 +1103,10 @@
 
 [mpk_tss_reports_page_filter_value] {
 	align-self: stretch;
+}
+
+[mpk_tss_reports_page_search] {
+	display: inline-flex;
 }
 
 [mol_image] {
@@ -1152,6 +1156,10 @@
 [mpk_tss_main] * [mol_string] {
 	margin-top: 1px;
 	padding: 0.45rem 1rem;
+}
+
+[mol_icon] {
+	stroke: none;
 }
 
 [mpk_tss] {
