@@ -3,6 +3,10 @@
 	padding: 0.45rem 1rem;
 }
 
+[mol_icon] {
+	stroke: none;
+}
+
 [mpk_tss] {
 	flex-direction: column;
 	display: flex;

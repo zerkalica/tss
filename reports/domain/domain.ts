@@ -8,7 +8,12 @@ namespace $ {
 		}
 
 		@$mol_mem
-		filter_ids(next?: string | null): string | null {
+		filter_number(next?: string | null): string | null {
+			throw new t
+		}
+
+		@$mol_mem
+		filter_resolution(next?: $mpk_tss_reports_domain_resolution | null): $mpk_tss_reports_domain_resolution | null {
 			throw new t
 		}
 

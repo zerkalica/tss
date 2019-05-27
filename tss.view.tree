@@ -52,7 +52,7 @@ $mpk_tss_main $mol_book
 					uri \mpk/tss/tss_logo.svg
 					event * click?val <=> event_top?val null
 			title @ \Menu
-			minimal_width 200
+			minimal_width 230
 			body / <= sidebar_items /
 				<= Login $mpk_tss_login
 					entered?val <=> entered?val false

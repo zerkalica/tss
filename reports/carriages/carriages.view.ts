@@ -8,13 +8,17 @@ namespace $.$$ {
 		carriages() {
 			return this.report().carriages({
 				filter_number: (next?: string | null) => this.filter_number(),
-
 				filter_resolution: () => {
-					return this.filter_warnings()
-						? $mpk_tss_reports_domain_resolution.warning
-						: null
+					return this.filter_all()
+						? null
+						: $mpk_tss_reports_domain_resolution.warning
 				},
 			})
+		}
+
+		@$mol_mem
+		filter_all(next?: boolean) {
+			return this.$.$mol_state_arg.value( this.state_key( 'trains_all' )) === '1'
 		}
 
 		title() {
@@ -46,14 +50,6 @@ namespace $.$$ {
 
 		focus_main() {
 			this.Main().focused(true)
-		}
-
-		@$mol_mem
-		filter_warnings(next?: boolean) {
-			const param = this.$.$mol_state_arg.value( this.state_key( 'only_warnings' ) , next === undefined ? undefined : (next ? '1' : '0') )
-			return param === '1'
-				? true
-				: (param === '0' ? false : true)
 		}
 
 		@$mol_mem

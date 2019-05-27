@@ -20,14 +20,19 @@ namespace $ {
 
 		@$mol_mem
 		reports(): $mpk_tss_reports_domain_report[] {
-			const filter = this.filter_ids()
+			const filter_number = this.filter_number().toUpperCase()
+			const filter_resolution = this.filter_resolution()
 			return this.reports_all()
 				.filter(report => {
-					if (!filter) return true
-					if (report.train_number().indexOf(filter) !== -1) return true
-					if (report.id().indexOf(filter) !== -1) return true
+					if (filter_number && report.train_number().toUpperCase().indexOf(filter_number) === -1) {
+						return false
+					}
 
-					return false
+					if (filter_resolution && report.resolution() !== filter_resolution) {
+						return false
+					}
+
+					return true
 				})
 			}
 	}
@@ -96,23 +101,13 @@ namespace $ {
 		}
 
 		@$mol_mem
-		filter_number(next?: string | null): string | null {
-			return next || null
-		}
-
-		@$mol_mem
-		filter_resolution(next?: $mpk_tss_reports_domain_resolution | null): $mpk_tss_reports_domain_resolution | null {
-			return next || null
-		}
-
-		@$mol_mem
 		carriages(): $mpk_tss_reports_domain_carriage[] {
-			const filter_number = this.filter_number()
+			const filter_number = this.filter_number().toUpperCase()
 			const filter_resolution = this.filter_resolution()
 
 			return this.carriages_all()
 				.filter(carriage => {
-					if (filter_number && carriage.carriage_number().indexOf(filter_number) === -1) {
+					if (filter_number && carriage.carriage_number().toUpperCase().indexOf(filter_number) === -1) {
 						return false
 					}
 

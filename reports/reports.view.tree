@@ -6,7 +6,8 @@ $mpk_tss_reports $mol_view
 			tools <= tools /
 			title <= title
 			report_current_id?id <=> report_current_id?id \
-			filter_value?val <=> filter_value?val \
+			filter_number?val <=> filter_number?val \
+			filter_all?val <=> filter_all?val false
 			body /
 				<= Reports $mol_list
 					minimal_width 300
@@ -22,11 +23,16 @@ $mpk_tss_reports $mol_view
 		event_top?e <=> focus_main?e null
 
 $mpk_tss_reports_page $mol_page
-	minimal_width 400
+	minimal_width 520
 	report_current_id?uri \
 	sub /
 		<= Head
-		<= Filter_value $mol_search
-			hint <= hint @ \Train number or report id
-			query?val <=> filter_value?val \
+		<= Search $mol_view
+			sub /
+				<= Filter_number $mol_search
+					hint <= hint @ \Train number or report id
+					query?val <=> filter_number?val \
+				<= Filter_all $mol_check_box
+					checked?val <=> filter_all?val false
+					title <= filter_all_title @ \All
 		<= Body
