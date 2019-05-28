@@ -1833,6 +1833,7 @@ declare namespace $.$$ {
 }
 declare namespace $ {
     class $mpk_tss_reports_carriage extends $mpk_tss_card {
+        minimal_height(): number;
         carriage(): any;
         arg(): {
             "carriage": string;
@@ -1885,51 +1886,6 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
-    class $mpk_tss_reports_carriages extends $mol_view {
-        report(): any;
-        title(): string;
-        pages(): any[];
-        Main(): $mpk_tss_reports_carriages_page;
-        filter_number(val?: any, force?: $mol_atom_force): any;
-        event_top(e?: any, force?: $mol_atom_force): any;
-        Details_close(): $mol_link;
-        Details_close_icon(): $mol_icon_cross;
-        Carriages(): $mol_list;
-        carriage_links(): any[];
-        Axis(): any;
-        Axis_details(id: any): $mpk_tss_reports_axis;
-        carriage(id: any): any;
-        focus_main(e?: any, force?: $mol_atom_force): any;
-        Carriage_link(id: any): $mpk_tss_reports_carriage;
-    }
-}
-declare namespace $ {
-    class $mpk_tss_reports_carriages_page extends $mol_page {
-        minimal_width(): number;
-        sub(): any[];
-        Search(): $mol_view;
-        Filter_number(): $mol_search;
-        hint(): string;
-        filter_number(val?: any, force?: $mol_atom_force): any;
-    }
-}
-declare namespace $.$$ {
-    class $mpk_tss_reports_carriages extends $.$mpk_tss_reports_carriages {
-        report(): $mpk_tss_reports_domain_report;
-        carriages(): $mpk_tss_reports_domain_carriages;
-        filter_all(next?: boolean): boolean;
-        title(): string;
-        carriage(id: string): $mpk_tss_reports_domain_carriage;
-        carriage_links(): $.$mpk_tss_reports_carriage[];
-        average_speed(): string;
-        carriage_id(next?: string): string;
-        Axis(): $.$mpk_tss_reports_axis;
-        focus_main(): void;
-        filter_number(next?: string): string;
-        destructor(): void;
-    }
-}
-declare namespace $ {
     class $mol_check extends $mol_button_minor {
         attr(): {
             "mol_check_checked": any;
@@ -1954,6 +1910,61 @@ declare namespace $.$$ {
 }
 declare namespace $ {
     class $mol_check_icon extends $mol_check {
+    }
+}
+declare namespace $ {
+    class $mpk_tss_reports_check_warning extends $mol_check_icon {
+        checked(val?: any, force?: $mol_atom_force): any;
+        filter_warning(val?: any, force?: $mol_atom_force): any;
+        Icon(): $mpk_tss_icon_round_warning;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_reports_carriages extends $mol_view {
+        report(): any;
+        title(): string;
+        pages(): any[];
+        Main(): $mpk_tss_reports_carriages_page;
+        filter_number(val?: any, force?: $mol_atom_force): any;
+        filter_warning(val?: any, force?: $mol_atom_force): any;
+        event_top(e?: any, force?: $mol_atom_force): any;
+        Details_close(): $mol_link;
+        Details_close_icon(): $mol_icon_cross;
+        Carriages(): $mol_list;
+        carriage_links(): any[];
+        Axis(): any;
+        Axis_details(id: any): $mpk_tss_reports_axis;
+        carriage(id: any): any;
+        focus_main(e?: any, force?: $mol_atom_force): any;
+        Carriage_link(id: any): $mpk_tss_reports_carriage;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_reports_carriages_page extends $mol_page {
+        minimal_width(): number;
+        sub(): any[];
+        Search(): $mol_view;
+        Filter_number(): $mol_search;
+        hint(): string;
+        filter_number(val?: any, force?: $mol_atom_force): any;
+        Filter_warning(): $mpk_tss_reports_check_warning;
+        filter_warning(val?: any, force?: $mol_atom_force): any;
+    }
+}
+declare namespace $.$$ {
+    class $mpk_tss_reports_carriages extends $.$mpk_tss_reports_carriages {
+        report(): $mpk_tss_reports_domain_report;
+        carriages(): $mpk_tss_reports_domain_carriages;
+        filter_warning(next?: boolean): boolean;
+        title(): string;
+        carriage(id: string): $mpk_tss_reports_domain_carriage;
+        carriage_links(): $.$mpk_tss_reports_carriage[];
+        average_speed(): string;
+        carriage_id(next?: string): string;
+        Axis(): $.$mpk_tss_reports_axis;
+        focus_main(): void;
+        filter_number(next?: string): string;
+        destructor(): void;
     }
 }
 declare namespace $ {
@@ -1984,9 +1995,8 @@ declare namespace $ {
         Filter_number(): $mol_search;
         hint(): string;
         filter_number(val?: any, force?: $mol_atom_force): any;
-        Filter_warning(): $mol_check_icon;
+        Filter_warning(): $mpk_tss_reports_check_warning;
         filter_warning(val?: any, force?: $mol_atom_force): any;
-        Warning_icon(): $mpk_tss_icon_round_warning;
     }
 }
 declare namespace $.$$ {

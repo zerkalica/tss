@@ -622,6 +622,7 @@ $mpk_tss_reports_violation $mol_view
 	sub <= group
 
 $mpk_tss_reports_carriage $mpk_tss_card
+	minimal_height 100
 	carriage null
 	arg * carriage <= carriage_id \
 	title @ \Carriage № %carriage_number
@@ -653,6 +654,25 @@ $mpk_tss_reports_carriage_violation $mpk_tss_reports_violation
 		<= status_text
 		<= after \)
 
+$mol_check $mol_button_minor
+	attr *
+		^
+		mol_check_checked <= checked?val false
+		aria-checked <= checked?val false
+		role \checkbox
+	sub /
+		<= Icon null
+		<= label /
+			<= Title $mol_view
+				sub /
+					<= title \
+
+$mol_check_icon $mol_check
+
+$mpk_tss_reports_check_warning $mol_check_icon
+	checked?val <=> filter_warning?val true
+	Icon $mpk_tss_icon_round_warning
+
 $mpk_tss_reports_carriages $mol_view
 	report null
 	title @ \Train № %train_number
@@ -660,6 +680,7 @@ $mpk_tss_reports_carriages $mol_view
 		<= Main $mpk_tss_reports_carriages_page
 			title <= title
 			filter_number?val <=> filter_number?val \
+			filter_warning?val <=> filter_warning?val true
 			event_top?e <=> event_top?e null
 			tools /
 				<= Details_close $mol_link
@@ -684,22 +705,9 @@ $mpk_tss_reports_carriages_page $mol_page
 				<= Filter_number $mol_search
 					hint <= hint @ \Carriage number
 					query?val <=> filter_number?val \
+				<= Filter_warning $mpk_tss_reports_check_warning
+					checked?val <=> filter_warning?val true
 		<= Body
-
-$mol_check $mol_button_minor
-	attr *
-		^
-		mol_check_checked <= checked?val false
-		aria-checked <= checked?val false
-		role \checkbox
-	sub /
-		<= Icon null
-		<= label /
-			<= Title $mol_view
-				sub /
-					<= title \
-
-$mol_check_icon $mol_check
 
 $mpk_tss_reports $mol_view
 	title @ \Reports
@@ -719,6 +727,7 @@ $mpk_tss_reports $mol_view
 		<= Details_pages null
 	-
 	Report_link!id $mpk_tss_reports_train
+		minimal_height 100
 		report <= report!id null
 	-
 	Report_details!id $mpk_tss_reports_carriages
@@ -735,9 +744,8 @@ $mpk_tss_reports_page $mol_page
 				<= Filter_number $mol_search
 					hint <= hint @ \Train number or report id
 					query?val <=> filter_number?val \
-				<= Filter_warning $mol_check_icon
+				<= Filter_warning $mpk_tss_reports_check_warning
 					checked?val <=> filter_warning?val true
-					Icon <= Warning_icon $mpk_tss_icon_round_warning
 		<= Body
 
 $mol_image $mol_view
