@@ -37,6 +37,8 @@ namespace $ {
 		slider = 'slider',
 	}
 
+	export type $mpk_tss_reports_domain_force = [number, number]
+
 	export class $mpk_tss_reports_domain_wheel extends $mol_object {
 		id(): string { throw new t }
 		resolution(): $mpk_tss_reports_domain_resolution { throw new t }
@@ -44,14 +46,11 @@ namespace $ {
 		force_horizontal(): number { throw new t }
 	}
 
-	export type $mpk_tss_reports_domain_axle_chart = [number, number]
-
 	export class $mpk_tss_reports_domain_axle extends $mol_object {
 		id(): string { return String(this.axle_number()) }
 		axle_number(): number { throw new t }
 		wheel_left(): $mpk_tss_reports_domain_wheel { throw new t }
 		wheel_right(): $mpk_tss_reports_domain_wheel { throw new t }
-		chart_data(): $mpk_tss_reports_domain_axle_chart[] { throw new t }
 	}
 
 	export class $mpk_tss_reports_domain_carriage extends $mol_object {

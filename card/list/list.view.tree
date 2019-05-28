@@ -1,0 +1,6 @@
+$mpk_tss_card_list $mol_list
+	minimal_width 300
+	current_id \
+	attr *
+		^
+		mpk_tss_card_list_selected <= selected false

@@ -1,6 +1,12 @@
 $mpk_tss_reports_resolution $mol_view
-	status null
+	attr *
+		^
+		mpk_tss_reports_resolution_type <= status \
 	statuses *
 		success <= success @ \Success
 		warning <= warning @ \Warning
-	sub / <= status_text \
+	icons *
+		success <= Success $mpk_tss_icon_circle_outline
+		warning <= Warning $mpk_tss_icon_round_warning
+	sub /
+		<= Text $mol_view sub / <= status_text \

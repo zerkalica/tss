@@ -1,0 +1,22 @@
+[mpk_tss_reports_resolution] {
+	display: inline-flex;
+	align-items: baseline;
+}
+
+[mpk_tss_reports_resolution_text] {
+	margin-left: 0.1rem;
+	white-space: nowrap;
+	display: inline-flex;
+}
+
+[mpk_tss_reports_resolution_icon_place] {
+	display: inline-flex;
+	align-self: center;
+	margin-top: -.2em;
+	--mol_theme_control: hsl(46, 73%, 55%);
+}
+
+[mpk_tss_reports_resolution_icon_place] > [mol_icon] {
+	width: 1.3em;
+	height: 1.3em;
+}

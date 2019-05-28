@@ -1,0 +1,3 @@
+[mpk_tss_card_list_selected="true"] > :not([mol_link_current="true"]) > [mol_card] {
+	--mol_theme_line: lightgray;
+}
