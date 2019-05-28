@@ -170,6 +170,8 @@ $mpk_tss_icon_warning $mol_icon path \M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2
 $mpk_tss_icon_sync $mol_icon path \M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z
 $mpk_tss_icon_clear $mol_icon path \M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z
 $mpk_tss_icon_block $mol_icon path \M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z
+$mpk_tss_icon_circle_outline $mol_icon path \M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.88-11.71L10 14.17l-1.88-1.88c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l2.59 2.59c.39.39 1.02.39 1.41 0L17.3 9.7c.39-.39.39-1.02 0-1.41-.39-.39-1.03-.39-1.42 0z
+$mpk_tss_icon_round_warning $mol_icon path \M4.47 21h15.06c1.54 0 2.5-1.67 1.73-3L13.73 4.99c-.77-1.33-2.69-1.33-3.46 0L2.74 18c-.77 1.33.19 3 1.73 3zM12 14c-.55 0-1-.45-1-1v-2c0-.55.45-1 1-1s1 .45 1 1v2c0 .55-.45 1-1 1zm1 4h-2v-2h2v2z
 
 $mol_link $mol_view
 	minimal_height 40
@@ -352,9 +354,6 @@ $mol_card $mol_list
 				<= status_text <= status \
 
 $mpk_tss_card $mol_link
-	attr *
-		^
-		mpk_tss_card_shaded <= shaded false
 	minimal_height 32
 	sub /
 		<= Card $mol_card
@@ -533,12 +532,25 @@ $mpk_tss_sensors $mol_page
 	body /
 		<= Content $mol_filler
 
+$mpk_tss_card_list $mol_list
+	minimal_width 300
+	current_id \
+	attr *
+		^
+		mpk_tss_card_list_selected <= selected false
+
 $mpk_tss_reports_resolution $mol_view
-	status null
+	attr *
+		^
+		mpk_tss_reports_resolution_type <= status \
 	statuses *
 		success <= success @ \Success
 		warning <= warning @ \Warning
-	sub / <= status_text \
+	icons *
+		success <= Success $mpk_tss_icon_circle_outline
+		warning <= Warning $mpk_tss_icon_round_warning
+	sub /
+		<= Text $mol_view sub / <= status_text \
 
 $mpk_tss_reports_delivery $mol_view
 	attr *
@@ -687,10 +699,7 @@ $mol_check $mol_button_minor
 				sub /
 					<= title \
 
-$mol_icon_tick $mol_icon path \M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z
-
-$mol_check_box $mol_check
-	Icon $mol_icon_tick
+$mol_check_icon $mol_check
 
 $mpk_tss_reports $mol_view
 	title @ \Reports
@@ -701,16 +710,16 @@ $mpk_tss_reports $mol_view
 			title <= title
 			report_current_id?id <=> report_current_id?id \
 			filter_number?val <=> filter_number?val \
-			filter_all?val <=> filter_all?val false
+			filter_warning?val <=> filter_warning?val true
 			body /
-				<= Reports $mol_list
+				<= Reports $mpk_tss_card_list
+					current_id <= report_current_id?id \
 					minimal_width 300
 					rows <= report_links /
 		<= Details_pages null
 	-
 	Report_link!id $mpk_tss_reports_train
 		report <= report!id null
-		shaded <= shaded!id false
 	-
 	Report_details!id $mpk_tss_reports_carriages
 		report <= report!id null
@@ -726,9 +735,9 @@ $mpk_tss_reports_page $mol_page
 				<= Filter_number $mol_search
 					hint <= hint @ \Train number or report id
 					query?val <=> filter_number?val \
-				<= Filter_all $mol_check_box
-					checked?val <=> filter_all?val false
-					title <= filter_all_title @ \All
+				<= Filter_warning $mol_check_icon
+					checked?val <=> filter_warning?val true
+					Icon <= Warning_icon $mpk_tss_icon_round_warning
 		<= Body
 
 $mol_image $mol_view
@@ -877,6 +886,11 @@ $mpk_tss_summary_status $mol_view
 		mpk_tss_summary_status_type <= type \success
 
 $mol_float $mol_view
+
+$mol_icon_tick $mol_icon path \M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z
+
+$mol_check_box $mol_check
+	Icon $mol_icon_tick
 
 $mol_check_expand $mol_check
 	minimal_height 32

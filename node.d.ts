@@ -779,6 +779,16 @@ declare namespace $ {
     }
 }
 declare namespace $ {
+    class $mpk_tss_icon_circle_outline extends $mol_icon {
+        path(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_icon_round_warning extends $mol_icon {
+        path(): string;
+    }
+}
+declare namespace $ {
     class $mol_state_arg extends $mol_object {
         prefix: string;
         static href(next?: string): string;
@@ -1261,15 +1271,6 @@ declare namespace $.$$ {
 }
 declare namespace $ {
     class $mpk_tss_card extends $mol_link {
-        attr(): {
-            "mpk_tss_card_shaded": boolean;
-            "href": string;
-            "title": string;
-            "target": string;
-            "download": string;
-            "mol_link_current": boolean;
-        };
-        shaded(): boolean;
         minimal_height(): number;
         sub(): any[];
         Card(): $mol_card;
@@ -1540,21 +1541,18 @@ declare namespace $ {
     }
 }
 declare namespace $ {
-    class $mpk_tss_reports_resolution extends $mol_view {
-        status(): any;
-        statuses(): {
-            "success": string;
-            "warning": string;
+    class $mpk_tss_card_list extends $mol_list {
+        minimal_width(): number;
+        current_id(): string;
+        attr(): {
+            "mpk_tss_card_list_selected": boolean;
         };
-        success(): string;
-        warning(): string;
-        sub(): any[];
-        status_text(): string;
+        selected(): boolean;
     }
 }
 declare namespace $.$$ {
-    class $mpk_tss_reports_resolution extends $.$mpk_tss_reports_resolution {
-        status_text(): any;
+    class $mpk_tss_card_list extends $.$mpk_tss_card_list {
+        selected(): boolean;
     }
 }
 declare namespace $ {
@@ -1575,19 +1573,18 @@ declare namespace $ {
     enum $mpk_tss_reports_domain_violation {
         slider = "slider"
     }
+    type $mpk_tss_reports_domain_force = [number, number];
     class $mpk_tss_reports_domain_wheel extends $mol_object {
         id(): string;
         resolution(): $mpk_tss_reports_domain_resolution;
         force_vertical(): number;
         force_horizontal(): number;
     }
-    type $mpk_tss_reports_domain_axle_chart = [number, number];
     class $mpk_tss_reports_domain_axle extends $mol_object {
         id(): string;
         axle_number(): number;
         wheel_left(): $mpk_tss_reports_domain_wheel;
         wheel_right(): $mpk_tss_reports_domain_wheel;
-        chart_data(): $mpk_tss_reports_domain_axle_chart[];
     }
     class $mpk_tss_reports_domain_carriage extends $mol_object {
         id(): string;
@@ -1623,6 +1620,36 @@ declare namespace $ {
         resolution(): $mpk_tss_reports_domain_resolution;
         started(): $mol_time_moment | null;
         carriages(config?: Partial<$mpk_tss_reports_domain_carriages>): $mpk_tss_reports_domain_carriages;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_reports_resolution extends $mol_view {
+        attr(): {
+            "mpk_tss_reports_resolution_type": string;
+        };
+        status(): string;
+        statuses(): {
+            "success": string;
+            "warning": string;
+        };
+        success(): string;
+        warning(): string;
+        icons(): {
+            "success": $mpk_tss_icon_circle_outline;
+            "warning": $mpk_tss_icon_round_warning;
+        };
+        Success(): $mpk_tss_icon_circle_outline;
+        Warning(): $mpk_tss_icon_round_warning;
+        sub(): any[];
+        Text(): $mol_view;
+        status_text(): string;
+    }
+}
+declare namespace $.$$ {
+    class $mpk_tss_reports_resolution extends $.$mpk_tss_reports_resolution {
+        status(): $mpk_tss_reports_domain_resolution;
+        status_text(): string;
+        Icon(): $mpk_tss_icon_circle_outline | $mpk_tss_icon_round_warning;
     }
 }
 declare namespace $ {
@@ -1882,13 +1909,7 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
-    class $mol_icon_tick extends $mol_icon {
-        path(): string;
-    }
-}
-declare namespace $ {
-    class $mol_check_box extends $mol_check {
-        Icon(): $mol_icon_tick;
+    class $mol_check_icon extends $mol_check {
     }
 }
 declare namespace $ {
@@ -1900,13 +1921,12 @@ declare namespace $ {
         tools(): any[];
         report_current_id(id?: any, force?: $mol_atom_force): any;
         filter_number(val?: any, force?: $mol_atom_force): any;
-        filter_all(val?: any, force?: $mol_atom_force): any;
-        Reports(): $mol_list;
+        filter_warning(val?: any, force?: $mol_atom_force): any;
+        Reports(): $mpk_tss_card_list;
         report_links(): any[];
         Details_pages(): any;
         Report_link(id: any): $mpk_tss_reports_train;
         report(id: any): any;
-        shaded(id: any): boolean;
         Report_details(id: any): $mpk_tss_reports_carriages;
         focus_main(e?: any, force?: $mol_atom_force): any;
     }
@@ -1920,9 +1940,9 @@ declare namespace $ {
         Filter_number(): $mol_search;
         hint(): string;
         filter_number(val?: any, force?: $mol_atom_force): any;
-        Filter_all(): $mol_check_box;
-        filter_all(val?: any, force?: $mol_atom_force): any;
-        filter_all_title(): string;
+        Filter_warning(): $mol_check_icon;
+        filter_warning(val?: any, force?: $mol_atom_force): any;
+        Warning_icon(): $mpk_tss_icon_round_warning;
     }
 }
 declare namespace $.$$ {
@@ -1932,9 +1952,8 @@ declare namespace $.$$ {
         report_links(): $.$mpk_tss_reports_train[];
         report(id: string): $mpk_tss_reports_domain_report;
         filter_number(next?: string): any;
-        filter_all(next?: boolean): boolean;
+        filter_warning(next?: boolean): boolean;
         report_current_id(next?: string): any;
-        shaded(id: string): boolean;
         Details_pages(): any[];
         focus_main(): void;
     }
@@ -2206,6 +2225,16 @@ declare namespace $.$$ {
 }
 declare namespace $ {
     class $mol_float extends $mol_view {
+    }
+}
+declare namespace $ {
+    class $mol_icon_tick extends $mol_icon {
+        path(): string;
+    }
+}
+declare namespace $ {
+    class $mol_check_box extends $mol_check {
+        Icon(): $mol_icon_tick;
     }
 }
 declare namespace $ {
