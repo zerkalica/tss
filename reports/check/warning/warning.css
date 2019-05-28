@@ -1,0 +1,9 @@
+[mpk_tss_reports_check_warning] {
+	--mol_theme_control: gray;
+	--mol_skin_accent: var(--mpk_theme_warning);
+}
+
+[mpk_tss_reports_check_warning_icon] {
+	width: 1.5em;
+	height: 1.5em;
+}

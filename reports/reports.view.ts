@@ -34,7 +34,9 @@ namespace $.$$ {
 		filter_warning(next?: boolean) {
 			const param = this.$.$mol_state_arg.value(
 				this.state_key( 'trains_all' ),
-				next ? null : '1'
+				next === undefined
+					? undefined
+					: next ? null : '1'
 			)
 
 			return param !== '1'

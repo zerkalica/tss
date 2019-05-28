@@ -1,0 +1,3 @@
+$mpk_tss_reports_check_warning $mol_check_icon
+	checked?val <=> filter_warning?val true
+	Icon $mpk_tss_icon_round_warning

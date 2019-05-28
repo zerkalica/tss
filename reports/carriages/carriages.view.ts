@@ -9,16 +9,23 @@ namespace $.$$ {
 			return this.report().carriages({
 				filter_number: (next?: string | null) => this.filter_number(),
 				filter_resolution: () => {
-					return this.filter_all()
-						? null
-						: $mpk_tss_reports_domain_resolution.warning
+					return this.filter_warning()
+						? $mpk_tss_reports_domain_resolution.warning
+						: null
 				},
 			})
 		}
 
 		@$mol_mem
-		filter_all(next?: boolean) {
-			return this.$.$mol_state_arg.value( this.state_key( 'trains_all' )) === '1'
+		filter_warning(next?: boolean) {
+			const param = this.$.$mol_state_arg.value(
+				this.state_key( 'carriages_all' ),
+				next === undefined
+					? undefined
+					: next ? null : '1'
+			)
+
+			return param !== '1'
 		}
 
 		title() {

@@ -1,4 +1,5 @@
 $mpk_tss_reports_carriage $mpk_tss_card
+	minimal_height 100
 	carriage null
 	arg * carriage <= carriage_id \
 	title @ \Carriage № %carriage_number

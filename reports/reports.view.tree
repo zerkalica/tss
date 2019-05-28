@@ -16,6 +16,7 @@ $mpk_tss_reports $mol_view
 		<= Details_pages null
 	-
 	Report_link!id $mpk_tss_reports_train
+		minimal_height 100
 		report <= report!id null
 	-
 	Report_details!id $mpk_tss_reports_carriages
@@ -32,7 +33,6 @@ $mpk_tss_reports_page $mol_page
 				<= Filter_number $mol_search
 					hint <= hint @ \Train number or report id
 					query?val <=> filter_number?val \
-				<= Filter_warning $mol_check_icon
+				<= Filter_warning $mpk_tss_reports_check_warning
 					checked?val <=> filter_warning?val true
-					Icon <= Warning_icon $mpk_tss_icon_round_warning
 		<= Body
