@@ -708,6 +708,30 @@ $mol_plot_pane $mol_svg_root
 			width => width
 			height => height
 
+$mol_chart_legend $mol_scroll
+	graphs /
+	sub <= graph_legends /
+	-
+	Graph_legend!id $mol_view
+		sub /
+			<= Graph_sample_box!id $mol_view
+				sub /
+					<= Graph_sample!id null
+			<= Graph_title!id $mol_view
+				sub /
+					<= graph_title!id \
+
+$mol_chart $mol_view
+	sub /
+		<= Plot $mol_plot_pane
+			graphs <= graphs /
+			gap_hor 48
+			gap_vert 24
+			hue_base?val <= hue_base 140
+			hue_shift?val <= hue_shift 111
+		<= Legend $mol_chart_legend
+			graphs <= graphs /
+
 $mol_svg_group $mol_svg
 	dom_name \g
 
@@ -817,23 +841,27 @@ $mol_plot_line $mol_plot_graph
 		color <= color
 		type <= type
 
-$mpk_tss_reports_axle_chart $mol_view
+$mpk_tss_reports_axle_chart $mol_chart
 	axle null
 	carriage null
-	sub /
-		<= Wheel $mol_plot_pane
+	graphs /
+		<= Vert_ruler $mol_plot_ruler_vert
+			title <= vert_title @ \kN
+			series <= ruler *
+		<= Hor_ruler $mol_plot_ruler_hor
+			title <= hor_title @ \m
+			series <= ruler *
+			label_text!id <= ruler_x_norm!id \
+		<= Forces_left $mol_plot_group
+			title <= forces_left_title @ \Left wheel
+			series <= forces_left /
 			graphs /
-				<= Vert_ruler $mol_plot_ruler_vert
-					title <= vert_title @ \kN
-				<= Hor_ruler $mol_plot_ruler_hor
-					title <= hor_title @ \m
-					series <= length_series /
-					label_text!key <= hor_label_text!key \
-				<= Forces $mol_plot_group
-					series <= forces_left /
-					graphs /
-						<= Input_line $mol_plot_line
-				-
+				<= Left_fill $mol_plot_line
+		<= Forces_right $mol_plot_group
+			title <= forces_right_title @ \Right wheel
+			series <= forces_right /
+			graphs /
+				<= Right_fill $mol_plot_line
 
 $mpk_tss_reports_carriage_details $mol_page
 	carriage null

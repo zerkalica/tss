@@ -1128,6 +1128,45 @@
 	stroke-width: 2px;
 }
 
+[mol_chart_legend] {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	padding: .5rem;
+	margin: .5rem;
+	flex: 0 1 auto;
+}
+
+[mol_chart_legend_graph_legend] {
+	display: flex;
+	justify-content: flex-start;
+	flex: 1 1 8rem;
+	padding: .5rem;
+}
+
+[mol_chart_legend_graph_title] {
+	margin: 0 .25rem;
+}
+
+[mol_chart_legend_graph_sample_box] {
+	position: relative;
+	width: 1.5rem;
+	flex: none;
+}
+
+[mol_chart] {
+	display: flex;
+	flex-direction: column;
+	align-self: stretch;
+	flex: 1 1 auto;
+	padding: .5rem;
+}
+
+[mol_chart_plot] {
+	flex: 1 0 50%;
+	margin: .5rem;
+}
+
 [mol_plot_graph] {
 	stroke: currentColor;
 }
@@ -1202,8 +1241,8 @@
 	transform: translateY(-50%);
 }
 
-[mpk_tss_reports_axle_chart_wheel] {
-	max-height: 20rem;
+[mpk_tss_reports_axle_chart] {
+	height: 60%;
 	background-color: var(--mol_theme_field);
 	background-color: var(--mol_theme_field);
 }

@@ -1576,11 +1576,12 @@ declare namespace $ {
         sink = "sink",
         dent = "dent"
     }
+    type $mpk_tss_reports_domain_point = [number, number];
     class $mpk_tss_reports_domain_wheel extends $mol_object {
         id(): string;
         resolution(): $mpk_tss_reports_domain_resolution;
         violation(): $mpk_tss_reports_domain_violation | null;
-        forces(): number[];
+        forces(): $mpk_tss_reports_domain_point[];
     }
     class $mpk_tss_reports_domain_axle extends $mol_object {
         id(): string;
@@ -1949,6 +1950,36 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
+    class $mol_chart_legend extends $mol_scroll {
+        graphs(): any[];
+        sub(): any[];
+        graph_legends(): any[];
+        Graph_legend(id: any): $mol_view;
+        Graph_sample_box(id: any): $mol_view;
+        Graph_sample(id: any): any;
+        Graph_title(id: any): $mol_view;
+        graph_title(id: any): string;
+    }
+}
+declare namespace $.$$ {
+    class $mol_chart_legend extends $.$mol_chart_legend {
+        graphs_front(): any[];
+        graph_legends(): $mol_view[];
+        graph_title(index: number): any;
+        Graph_sample(index: number): any;
+    }
+}
+declare namespace $ {
+    class $mol_chart extends $mol_view {
+        sub(): any[];
+        Plot(): $mol_plot_pane;
+        graphs(): any[];
+        hue_base(): number;
+        hue_shift(): number;
+        Legend(): $mol_chart_legend;
+    }
+}
+declare namespace $ {
     class $mol_svg_group extends $mol_svg {
         dom_name(): string;
     }
@@ -2121,30 +2152,37 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
-    class $mpk_tss_reports_axle_chart extends $mol_view {
+    class $mpk_tss_reports_axle_chart extends $mol_chart {
         axle(): any;
         carriage(): any;
-        sub(): any[];
-        Wheel(): $mol_plot_pane;
+        graphs(): any[];
         Vert_ruler(): $mol_plot_ruler_vert;
         vert_title(): string;
+        ruler(): {};
         Hor_ruler(): $mol_plot_ruler_hor;
         hor_title(): string;
-        length_series(): any[];
-        hor_label_text(key: any): string;
-        Forces(): $mol_plot_group;
+        ruler_x_norm(id: any): string;
+        Forces_left(): $mol_plot_group;
+        forces_left_title(): string;
         forces_left(): any[];
-        Input_line(): $mol_plot_line;
+        Left_fill(): $mol_plot_line;
+        Forces_right(): $mol_plot_group;
+        forces_right_title(): string;
+        forces_right(): any[];
+        Right_fill(): $mol_plot_line;
     }
 }
 declare namespace $.$$ {
     class $mpk_tss_reports_axle_chart extends $.$mpk_tss_reports_axle_chart {
         axle(): $mpk_tss_reports_domain_axle;
         carriage(): $mpk_tss_reports_domain_carriage;
-        count(): number;
-        length_series(): number[];
+        wheel_left(): $mpk_tss_reports_domain_wheel;
+        wheel_right(): $mpk_tss_reports_domain_wheel;
         forces_left(): number[];
-        hor_label_text(key: string): string;
+        forces_right(): number[];
+        ruler_data(): [number, number][];
+        ruler(): Record<number, number>;
+        ruler_x_norm(id: string): string;
     }
 }
 declare namespace $ {

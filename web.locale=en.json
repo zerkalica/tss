@@ -24,6 +24,8 @@
 	"$mpk_tss_pereferial_status_ready": "Ready",
 	"$mpk_tss_pereferial_status_unknown": "Unknown",
 	"$mpk_tss_pereferial_title": "Pereferials",
+	"$mpk_tss_reports_axle_chart_forces_left_title": "Left wheel",
+	"$mpk_tss_reports_axle_chart_forces_right_title": "Right wheel",
 	"$mpk_tss_reports_axle_chart_hor_title": "m",
 	"$mpk_tss_reports_axle_chart_vert_title": "kN",
 	"$mpk_tss_reports_carriage_details_length_title": "Length",

@@ -7420,6 +7420,145 @@ var $;
 //pane.view.js.map
 ;
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mol_chart_legend extends $.$mol_scroll {
+        graphs() {
+            return [];
+        }
+        sub() {
+            return this.graph_legends();
+        }
+        graph_legends() {
+            return [];
+        }
+        Graph_legend(id) {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.Graph_sample_box(id), this.Graph_title(id));
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        Graph_sample_box(id) {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.Graph_sample(id));
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        Graph_sample(id) {
+            return null;
+        }
+        Graph_title(id) {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.graph_title(id));
+                return obj;
+            })(new this.$.$mol_view);
+        }
+        graph_title(id) {
+            return "";
+        }
+    }
+    __decorate([
+        $.$mol_mem_key
+    ], $mol_chart_legend.prototype, "Graph_legend", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $mol_chart_legend.prototype, "Graph_sample_box", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $mol_chart_legend.prototype, "Graph_title", null);
+    $.$mol_chart_legend = $mol_chart_legend;
+})($ || ($ = {}));
+//legend.view.tree.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_chart_legend extends $.$mol_chart_legend {
+            graphs_front() {
+                return this.graphs().filter(graph => graph.Sample());
+            }
+            graph_legends() {
+                return this.graphs_front().map((graph, index) => this.Graph_legend(index));
+            }
+            graph_title(index) {
+                return this.graphs_front()[index].title();
+            }
+            Graph_sample(index) {
+                return this.graphs_front()[index].Sample();
+            }
+        }
+        __decorate([
+            $.$mol_mem
+        ], $mol_chart_legend.prototype, "graphs_front", null);
+        $$.$mol_chart_legend = $mol_chart_legend;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//legend.view.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mol_chart extends $.$mol_view {
+        sub() {
+            return [].concat(this.Plot(), this.Legend());
+        }
+        Plot() {
+            return ((obj) => {
+                obj.graphs = () => this.graphs();
+                obj.gap_hor = () => 48;
+                obj.gap_vert = () => 24;
+                obj.hue_base = (val) => this.hue_base();
+                obj.hue_shift = (val) => this.hue_shift();
+                return obj;
+            })(new this.$.$mol_plot_pane);
+        }
+        graphs() {
+            return [];
+        }
+        hue_base() {
+            return 140;
+        }
+        hue_shift() {
+            return 111;
+        }
+        Legend() {
+            return ((obj) => {
+                obj.graphs = () => this.graphs();
+                return obj;
+            })(new this.$.$mol_chart_legend);
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_chart.prototype, "Plot", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_chart.prototype, "Legend", null);
+    $.$mol_chart = $mol_chart;
+})($ || ($ = {}));
+//chart.view.tree.js.map
+;
+"use strict";
 var $;
 (function ($) {
     class $mol_svg_group extends $.$mol_svg {
@@ -8132,67 +8271,82 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var $;
 (function ($) {
-    class $mpk_tss_reports_axle_chart extends $.$mol_view {
+    class $mpk_tss_reports_axle_chart extends $.$mol_chart {
         axle() {
             return null;
         }
         carriage() {
             return null;
         }
-        sub() {
-            return [].concat(this.Wheel());
-        }
-        Wheel() {
-            return ((obj) => {
-                obj.graphs = () => [].concat(this.Vert_ruler(), this.Hor_ruler(), this.Forces());
-                return obj;
-            })(new this.$.$mol_plot_pane);
+        graphs() {
+            return [].concat(this.Vert_ruler(), this.Hor_ruler(), this.Forces_left(), this.Forces_right());
         }
         Vert_ruler() {
             return ((obj) => {
                 obj.title = () => this.vert_title();
+                obj.series = () => this.ruler();
                 return obj;
             })(new this.$.$mol_plot_ruler_vert);
         }
         vert_title() {
             return this.$.$mol_locale.text("$mpk_tss_reports_axle_chart_vert_title");
         }
+        ruler() {
+            return ({});
+        }
         Hor_ruler() {
             return ((obj) => {
                 obj.title = () => this.hor_title();
-                obj.series = () => this.length_series();
-                obj.label_text = (key) => this.hor_label_text(key);
+                obj.series = () => this.ruler();
+                obj.label_text = (id) => this.ruler_x_norm(id);
                 return obj;
             })(new this.$.$mol_plot_ruler_hor);
         }
         hor_title() {
             return this.$.$mol_locale.text("$mpk_tss_reports_axle_chart_hor_title");
         }
-        length_series() {
-            return [];
-        }
-        hor_label_text(key) {
+        ruler_x_norm(id) {
             return "";
         }
-        Forces() {
+        Forces_left() {
             return ((obj) => {
+                obj.title = () => this.forces_left_title();
                 obj.series = () => this.forces_left();
-                obj.graphs = () => [].concat(this.Input_line());
+                obj.graphs = () => [].concat(this.Left_fill());
                 return obj;
             })(new this.$.$mol_plot_group);
+        }
+        forces_left_title() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_axle_chart_forces_left_title");
         }
         forces_left() {
             return [];
         }
-        Input_line() {
+        Left_fill() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mol_plot_line);
+        }
+        Forces_right() {
+            return ((obj) => {
+                obj.title = () => this.forces_right_title();
+                obj.series = () => this.forces_right();
+                obj.graphs = () => [].concat(this.Right_fill());
+                return obj;
+            })(new this.$.$mol_plot_group);
+        }
+        forces_right_title() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_axle_chart_forces_right_title");
+        }
+        forces_right() {
+            return [];
+        }
+        Right_fill() {
             return ((obj) => {
                 return obj;
             })(new this.$.$mol_plot_line);
         }
     }
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_axle_chart.prototype, "Wheel", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports_axle_chart.prototype, "Vert_ruler", null);
@@ -8201,10 +8355,16 @@ var $;
     ], $mpk_tss_reports_axle_chart.prototype, "Hor_ruler", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_axle_chart.prototype, "Forces", null);
+    ], $mpk_tss_reports_axle_chart.prototype, "Forces_left", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_axle_chart.prototype, "Input_line", null);
+    ], $mpk_tss_reports_axle_chart.prototype, "Left_fill", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_axle_chart.prototype, "Forces_right", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_axle_chart.prototype, "Right_fill", null);
     $.$mpk_tss_reports_axle_chart = $mpk_tss_reports_axle_chart;
 })($ || ($ = {}));
 //chart.view.tree.js.map
@@ -8223,29 +8383,51 @@ var $;
         class $mpk_tss_reports_axle_chart extends $.$mpk_tss_reports_axle_chart {
             axle() { throw new $.$mpk_tss_todo; }
             carriage() { throw new $.$mpk_tss_todo; }
-            count() {
-                return 30;
+            wheel_left() {
+                return this.axle().wheels()[0];
             }
-            length_series() {
-                const wheel = this.axle().wheels()[0];
-                return wheel.forces();
+            wheel_right() {
+                return this.axle().wheels()[1];
             }
             forces_left() {
-                const wheel = this.axle().wheels()[0];
-                return wheel.forces();
+                return this.wheel_left().forces().map(force => force[1]);
             }
-            hor_label_text(key) {
-                const points = this.forces_left().length;
-                const max = this.axle().max();
-                return String(Math.ceil(Number(key) * (max / points)));
+            forces_right() {
+                return this.wheel_right().forces().map(force => force[1]);
+            }
+            ruler_data() {
+                return this.wheel_right().forces();
+            }
+            ruler() {
+                const result = {};
+                const forces = this.ruler_data();
+                for (let i = 0; i < forces.length; i++) {
+                    result[i] = forces[i][1];
+                }
+                return result;
+            }
+            ruler_x_norm(id) {
+                return '' + this.ruler_data()[Number(id)][0];
             }
         }
         __decorate([
             $.$mol_mem
-        ], $mpk_tss_reports_axle_chart.prototype, "length_series", null);
+        ], $mpk_tss_reports_axle_chart.prototype, "wheel_left", null);
+        __decorate([
+            $.$mol_mem
+        ], $mpk_tss_reports_axle_chart.prototype, "wheel_right", null);
         __decorate([
             $.$mol_mem
         ], $mpk_tss_reports_axle_chart.prototype, "forces_left", null);
+        __decorate([
+            $.$mol_mem
+        ], $mpk_tss_reports_axle_chart.prototype, "forces_right", null);
+        __decorate([
+            $.$mol_mem
+        ], $mpk_tss_reports_axle_chart.prototype, "ruler_data", null);
+        __decorate([
+            $.$mol_mem
+        ], $mpk_tss_reports_axle_chart.prototype, "ruler", null);
         $$.$mpk_tss_reports_axle_chart = $mpk_tss_reports_axle_chart;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -9845,7 +10027,11 @@ var $;
             return this.wheels().find(wheel => wheel.id() === id) || this.wheels()[0];
         }
         max() {
-            return 600 + Math.floor(Math.random() * 20);
+            return this.wheels()[0].forces().reduce((max, force) => {
+                if (force[0] > max)
+                    max = force[0];
+                return max;
+            }, 0);
         }
     }
     __decorate([
@@ -9875,11 +10061,17 @@ var $;
             return $mpk_tss_reports_domain_mock_stub_violation();
         }
         forces() {
-            const max_points = 300;
+            const max_x = 600;
+            const base_y = 80;
+            const amplitude = 5;
+            const freq = 50;
+            const samples_count = 200;
             const result = [];
-            for (let i = 0; i < max_points; i++) {
-                const value = 80 + Math.sin(i / 2) * Math.random() * 100;
-                result.push(value);
+            const ratio = max_x / samples_count;
+            for (let i = 0; i < samples_count; i++) {
+                const deviation = Math.random() > 0.6 ? (Math.random() * 3) : Math.random();
+                const value = Number((base_y + Math.sin((freq / samples_count) * i) * amplitude * deviation).toFixed(3));
+                result.push([i * ratio, value]);
             }
             return result;
         }
