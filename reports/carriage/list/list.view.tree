@@ -1,8 +1,8 @@
-$mpk_tss_reports_carriages $mol_view
+$mpk_tss_reports_carriage_list $mol_view
 	report null
 	title @ \Train № %train_number
 	pages /
-		<= Main $mpk_tss_reports_carriages_page
+		<= Main $mpk_tss_reports_carriage_list_page
 			title <= title
 			filter_number?val <=> filter_number?val \
 			filter_warning?val <=> filter_warning?val true
@@ -21,7 +21,7 @@ $mpk_tss_reports_carriages $mol_view
 	Carriage_link!id $mpk_tss_reports_carriage_link
 		carriage <= carriage!id null
 
-$mpk_tss_reports_carriages_page $mol_page
+$mpk_tss_reports_carriage_list_page $mol_page
 	minimal_width 337
 	sub /
 		<= Head
