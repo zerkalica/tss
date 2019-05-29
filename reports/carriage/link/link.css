@@ -6,12 +6,12 @@
 	flex: 1 1 3rem;
 }
 
-[mpk_tss_reports_carriage_link_carriage] {
-	flex: 1 1 12rem;
+[mpk_tss_reports_carriage_link_carriage_number] {
+	flex: 1 1 7rem;
 }
 
 [mpk_tss_reports_carriage_link_load] {
-	flex: 1 1 5rem;
+	flex: 1 1 4rem;
 }
 
 [mpk_tss_reports_carriage_link_speed] {

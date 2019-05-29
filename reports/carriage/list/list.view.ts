@@ -49,10 +49,10 @@ namespace $.$$ {
 			return this.$.$mol_state_arg.value( this.state_key( 'carriage' ) , next ) || ''
 		}
 
-		Axis() {
+		Carriage() {
 			if (!this.carriage_id()) return null
 
-			return this.Axis_details(this.carriage_id())
+			return this.Carriage_details(this.carriage_id())
 		}
 
 		focus_main() {

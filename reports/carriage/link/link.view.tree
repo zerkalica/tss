@@ -19,7 +19,7 @@ $mpk_tss_reports_carriage_link $mpk_tss_card
 			content <= carriage_number \
 		<= Load $mol_labeler
 			title <= load_title @ \Load
-			content <= Load_text $mpk_tss_reports_load
+			content <= Load_text $mpk_tss_reports_carriage_load
 				status <= load \
 		<= Speed $mol_labeler
 			title <= speed_title @ \Speed

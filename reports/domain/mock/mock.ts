@@ -201,6 +201,11 @@ namespace $ {
 				})
 			})
 		}
+
+		@$mpk_tss_stub_mem
+		axle(id: string) {
+			return this.axis().find(axle => axle.id() === id)
+		}
 	}
 
 	class $mpk_tss_reports_domain_mock_axle extends $mpk_tss_reports_domain_axle {
@@ -243,6 +248,11 @@ namespace $ {
 		wheel(id: string) {
 			return this.wheels().find(wheel => wheel.id() === id) || this.wheels()[0]
 		}
+
+		@$mpk_tss_stub_mem
+		max(): number {
+			return 600 + Math.floor(Math.random() * 20)
+		}
 	}
 
 	class $mpk_tss_reports_domain_mock_wheel extends $mpk_tss_reports_domain_wheel {
@@ -260,17 +270,12 @@ namespace $ {
 		}
 
 		@$mpk_tss_stub_mem
-		max(): number {
-			return 620
-		}
-
-		@$mpk_tss_stub_mem
 		forces(): number[] {
-			const max_points = 100
+			const max_points = 300
 			const result: number[] = []
 
 			for (let i = 0; i < max_points; i++) {
-				const value = Math.sin(i) + Math.random() / 2
+				const value = 80 + Math.sin(i / 2) * Math.random() * 100
 				result.push(value)
 			}
 

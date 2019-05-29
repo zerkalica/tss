@@ -1,0 +1,19 @@
+$mpk_tss_reports_axle_link $mol_link
+	axle null
+	arg * axle <= axle_id \
+	sub /
+		<= Wheels $mol_list
+			rows /
+				<= wheels /
+	Wheel!id $mpk_tss_reports_axle_link_wheel
+		wheel <= wheel!id null
+		axle_id <= axle_id
+
+$mpk_tss_reports_axle_link_wheel $mol_view
+	wheel null
+	axle_id \
+	attr *
+		^
+		mpk_tss_reports_axle_link_wheel_type <= resolution \
+	sub /
+		<= name \

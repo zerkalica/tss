@@ -1,0 +1,17 @@
+$mpk_tss_reports_axle_chart $mol_view
+	axle null
+	carriage null
+	sub /
+		<= Wheel $mol_plot_pane
+			graphs /
+				<= Vert_ruler $mol_plot_ruler_vert
+					title <= vert_title @ \kN
+				<= Hor_ruler $mol_plot_ruler_hor
+					title <= hor_title @ \m
+					series <= length_series /
+					label_text!key <= hor_label_text!key \
+				<= Forces $mol_plot_group
+					series <= forces_left /
+					graphs /
+						<= Input_line $mol_plot_line
+				-

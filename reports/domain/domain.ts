@@ -44,7 +44,6 @@ namespace $ {
 		id(): string { throw new t }
 		resolution(): $mpk_tss_reports_domain_resolution { throw new t }
 		violation(): $mpk_tss_reports_domain_violation | null { throw new t }
-		max(): number { throw new t }
 		forces(): number[] { throw new t }
 	}
 
@@ -53,6 +52,8 @@ namespace $ {
 		axle_number(): number { throw new t }
 		resolution(): $mpk_tss_reports_domain_resolution { throw new t }
 		violation(): $mpk_tss_reports_domain_violation | null { throw new t }
+		wheel(id: string): $mpk_tss_reports_domain_wheel { throw new t }
+		max(): number { throw new t }
 		wheels(): $mpk_tss_reports_domain_wheel[] {
 			throw new t
 		}
@@ -78,6 +79,7 @@ namespace $ {
 		length(): number { throw new t }
 		type(): $mpk_tss_reports_domain_carriage_type { throw new t }
 		axis(): $mpk_tss_reports_domain_axle[] { throw new t }
+		axle(id: string): $mpk_tss_reports_domain_axle { throw new t }
 	}
 
 	export enum $mpk_tss_reports_domain_delivery {

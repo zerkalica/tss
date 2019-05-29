@@ -19,26 +19,15 @@ $mpk_tss_reports_carriage_details $mol_page
 					content <= type \
 				<= Length $mol_labeler
 					title <= length_title @ \Length
-					content <= length \
+					content <= length \axle
 				<= Violation $mol_labeler
 					title <= violation_title @ \Violation
 					content <= Violation_content $mpk_tss_reports_violation
 						empty true
 						status <= violation \
-		<= Wheel $mol_chart
-			graphs /
-				<= Vert_ruler $mol_plot_ruler_vert
-					title <= vert_title @ \kH
-				<= Hor_ruler $mol_plot_ruler_hor
-					title <= hor_title @ \Month
-					series <= fact
-					label_text!key <= hor_label_text!key \
-				<= Fact $mol_plot_group
-					title <= fact_title @ \Fact
-					series <= fact *
-						january 5
-						february 10
-						march 30
-					graphs /
-						<= Fact_line $mol_plot_line
-						<= Fact_dots $mol_plot_dot
+		<= Axle_list $mpk_tss_reports_axle_list
+			carriage <= carriage null
+			axle_current => axle_current
+		<= Axle_chart $mpk_tss_reports_axle_chart
+			carriage <= carriage null
+			axle <= axle_current
