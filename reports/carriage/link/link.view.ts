@@ -1,5 +1,5 @@
 namespace $.$$ {
-	export class $mpk_tss_reports_carriage extends $.$mpk_tss_reports_carriage {
+	export class $mpk_tss_reports_carriage_link extends $.$mpk_tss_reports_carriage_link {
 		carriage(): $mpk_tss_reports_domain_carriage { throw new $mpk_tss_todo }
 
 		title() {

@@ -1,4 +1,4 @@
-$mpk_tss_reports_carriage $mpk_tss_card
+$mpk_tss_reports_carriage_link $mpk_tss_card
 	minimal_height 100
 	carriage null
 	arg * carriage <= carriage_id \
@@ -7,7 +7,7 @@ $mpk_tss_reports_carriage $mpk_tss_card
 	Status_text $mol_view
 		sub /
 			<= Status_main $mpk_tss_reports_resolution status <= resolution \
-			<= Violation $mpk_tss_reports_carriage_violation status <= violation \
+			<= Violation $mpk_tss_reports_carriage_link_violation status <= violation \
 	Status_icon $mpk_tss_icon_cloud_download
 	status_click?event <=> carriage_status_click?event null
 	items /
@@ -26,7 +26,7 @@ $mpk_tss_reports_carriage $mpk_tss_card
 			content <= speed \
 		<= additional /
 
-$mpk_tss_reports_carriage_violation $mpk_tss_reports_violation
+$mpk_tss_reports_carriage_link_violation $mpk_tss_reports_violation
 	group /
 		<= before \(
 		<= status_text

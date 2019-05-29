@@ -7,7 +7,7 @@ $mpk_tss_reports_carriage_details $mol_page
 			arg * carriage null
 			sub / <= Close_icon $mol_icon_cross
 	body /
-		<= Info $mpk_tss_reports_carriage
+		<= Info $mpk_tss_reports_carriage_link
 			carriage <= carriage
 			arg null
 			additional /
