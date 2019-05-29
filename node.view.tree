@@ -595,18 +595,7 @@ $mpk_tss_reports_train $mpk_tss_card
 			title <= train_number_title @ \Train
 			content <= train_number \
 
-$mpk_tss_reports_axis $mol_page
-	carriage null
-	title @ \Axis of carriage № %carriage_number
-	minimal_width 900
-	tools /
-		<= Close $mol_link
-			arg * carriage null
-			sub / <= Close_icon $mol_icon_cross
-	body /
-		<= Main $mol_filler
-
-$mpk_tss_reports_load $mol_view
+$mpk_tss_reports_carriage_load $mol_view
 	status null
 	statuses *
 		free <= free @ \Free
@@ -615,22 +604,27 @@ $mpk_tss_reports_load $mol_view
 
 $mpk_tss_reports_violation $mol_view
 	status null
+	none @ \None
+	empty false
 	statuses *
 		slider <= slider @ \Slider
+		vyscherbiny <= vyscherbiny @ \Vyscherbiny
+		sink <= sink @ \Sink
+		dent <= dent @ \Dent
 	group /
 		<= status_text \
 	sub <= group
 
-$mpk_tss_reports_carriage $mpk_tss_card
+$mpk_tss_reports_carriage_link $mpk_tss_card
 	minimal_height 100
 	carriage null
 	arg * carriage <= carriage_id \
-	title @ \Carriage № %carriage_number
+	title @ \Train %train_number | Carriage %carriage_number
 	status <= resolution \
 	Status_text $mol_view
 		sub /
 			<= Status_main $mpk_tss_reports_resolution status <= resolution \
-			<= Violation $mpk_tss_reports_carriage_violation status <= violation \
+			<= Violation $mpk_tss_reports_carriage_link_violation status <= violation \
 	Status_icon $mpk_tss_icon_cloud_download
 	status_click?event <=> carriage_status_click?event null
 	items /
@@ -642,17 +636,238 @@ $mpk_tss_reports_carriage $mpk_tss_card
 			content <= carriage_number \
 		<= Load $mol_labeler
 			title <= load_title @ \Load
-			content <= Load_text $mpk_tss_reports_load
+			content <= Load_text $mpk_tss_reports_carriage_load
 				status <= load \
 		<= Speed $mol_labeler
 			title <= speed_title @ \Speed
 			content <= speed \
+		<= additional /
 
-$mpk_tss_reports_carriage_violation $mpk_tss_reports_violation
+$mpk_tss_reports_carriage_link_violation $mpk_tss_reports_violation
 	group /
 		<= before \(
 		<= status_text
 		<= after \)
+
+$mpk_tss_reports_axle_link $mol_link
+	axle null
+	arg * axle <= axle_id \
+	sub /
+		<= Wheels $mol_list
+			rows /
+				<= wheels /
+	Wheel!id $mpk_tss_reports_axle_link_wheel
+		wheel <= wheel!id null
+		axle_id <= axle_id
+
+$mpk_tss_reports_axle_link_wheel $mol_view
+	wheel null
+	axle_id \
+	attr *
+		^
+		mpk_tss_reports_axle_link_wheel_type <= resolution \
+	sub /
+		<= name \
+
+$mpk_tss_reports_axle_list $mol_list
+	carriage null
+	axle_current null
+	rows /
+		<= axis /
+	Axle_link!id $mpk_tss_reports_axle_link
+		axle <= axle!id null
+
+$mol_plot_pane $mol_svg_root
+	aspect \none
+	-
+	hue_base?val NaN
+	hue_shift?val 111
+	-
+	gap 24
+	gap_hor <= gap
+	gap_vert <= gap
+	gap_left <= gap_hor
+	gap_right <= gap_hor
+	gap_top <= gap_vert
+	gap_bottom <= gap_vert
+	-
+	shift /
+		0
+		0
+	scale /
+		1
+		1
+	size_real /
+		1
+		1
+	-
+	sub <= graphs_sorted <= graphs_colored <= graphs_positioned <= graphs /
+	-
+	plugins /
+		<= Meter $mol_meter
+			width => width
+			height => height
+
+$mol_svg_group $mol_svg
+	dom_name \g
+
+$mol_plot_graph $mol_svg_group
+	series *
+	points <= points_scaled <= points_raw /
+	threshold 4
+	shift /
+		0
+		0
+	scale /
+		1
+		1
+	dimensions_expanded <= dimensions /
+		/
+		/
+	size_real /
+		0
+		0
+	hue NaN
+	-
+	attr *
+		^
+		mol_plot_graph_type <= type \solid
+	-
+	style *
+		^
+		color <= color \
+	-
+	Sample null
+	-
+	front /
+	back /
+
+$mol_plot_graph_sample $mol_view
+	attr *
+		^
+		mol_plot_graph_type <= type \solid
+	style *
+		^
+		color <= color \black
+
+$mol_svg_text $mol_svg
+	dom_name \text
+	pos /
+	attr *
+		^
+		x <= pos_x \
+		y <= pos_y \
+		text-anchor <= align \middle
+	sub /
+		<= text \
+
+$mol_plot_ruler_vert $mol_plot_graph
+	front /
+	color null
+	sub /
+		<= Curve $mol_svg_path
+			geometry <= curve \
+		<= labels /
+		<= Title $mol_svg_text
+			pos <= title_pos /
+				<= title_pos_x \36px
+				<= title_pos_y \14px
+			align \end
+			sub /
+				<= title
+	Label!index $mol_svg_text
+		pos <= label_pos!index /
+			<= label_pos_x!index <= title_pos_x
+			<= label_pos_y!index \
+		align \end
+		text <= label_text!index \
+
+$mol_plot_ruler_hor $mol_plot_graph
+	front /
+	color null
+	sub /
+		<= Curve $mol_svg_path
+			geometry <= curve \
+		<= labels /
+		<= Title $mol_svg_text
+			pos <= title_pos /
+				<= title_pos_x \0
+				<= title_pos_y \100%
+			align \start
+			sub /
+				<= title
+	Label!index $mol_svg_text
+		pos <= label_pos!index /
+			<= label_pos_x!index \
+			<= label_pos_y!index <= title_pos_y
+		text <= label_text!index \
+
+$mol_plot_group $mol_plot_graph
+	sub <= graphs_enriched <= graphs /
+	Sample $mol_plot_graph_sample
+		sub <= graph_samples /
+
+$mol_plot_line $mol_plot_graph
+	color_fill \none
+	sub /
+		<= Curve $mol_svg_path
+			geometry <= curve \
+	-
+	Sample $mol_plot_graph_sample
+		color <= color
+		type <= type
+
+$mpk_tss_reports_axle_chart $mol_view
+	axle null
+	carriage null
+	sub /
+		<= Wheel $mol_plot_pane
+			graphs /
+				<= Vert_ruler $mol_plot_ruler_vert
+					title <= vert_title @ \kN
+				<= Hor_ruler $mol_plot_ruler_hor
+					title <= hor_title @ \m
+					series <= length_series /
+					label_text!key <= hor_label_text!key \
+				<= Forces $mol_plot_group
+					series <= forces_left /
+					graphs /
+						<= Input_line $mol_plot_line
+				-
+
+$mpk_tss_reports_carriage_details $mol_page
+	carriage null
+	title @ \Train %train_number | Carriage %carriage_number
+	minimal_width 900
+	tools /
+		<= Close $mol_link
+			arg * carriage null
+			sub / <= Close_icon $mol_icon_cross
+	body /
+		<= Info $mpk_tss_reports_carriage_link
+			carriage <= carriage
+			arg null
+			additional /
+				<= Weight $mol_labeler
+					title <= total_weight_title @ \Total weight
+					content <= total_weight \
+				<= Type $mol_labeler
+					title <= type_title @ \Type
+					content <= type \
+				<= Length $mol_labeler
+					title <= length_title @ \Length
+					content <= length \axle
+				<= Violation $mol_labeler
+					title <= violation_title @ \Violation
+					content <= Violation_content $mpk_tss_reports_violation
+						empty true
+						status <= violation \
+		<= Axle_list $mpk_tss_reports_axle_list
+			carriage <= carriage null
+			axle_current => axle_current
+		<= Axle_chart $mpk_tss_reports_axle_chart
+			carriage <= carriage null
+			axle <= axle_current
 
 $mol_check $mol_button_minor
 	attr *
@@ -673,11 +888,11 @@ $mpk_tss_reports_check_warning $mol_check_icon
 	checked?val <=> filter_warning?val true
 	Icon $mpk_tss_icon_round_warning
 
-$mpk_tss_reports_carriages $mol_view
+$mpk_tss_reports_carriage_list $mol_view
 	report null
 	title @ \Train № %train_number
 	pages /
-		<= Main $mpk_tss_reports_carriages_page
+		<= Main $mpk_tss_reports_carriage_list_page
 			title <= title
 			filter_number?val <=> filter_number?val \
 			filter_warning?val <=> filter_warning?val true
@@ -689,14 +904,14 @@ $mpk_tss_reports_carriages $mol_view
 			body /
 				<= Carriages $mol_list
 					rows <= carriage_links /
-		<= Axis null
-	Axis_details!id $mpk_tss_reports_axis
+		<= Carriage null
+	Carriage_details!id $mpk_tss_reports_carriage_details
 		carriage <= carriage!id null
 		event_top?e <=> focus_main?e null
-	Carriage_link!id $mpk_tss_reports_carriage
+	Carriage_link!id $mpk_tss_reports_carriage_link
 		carriage <= carriage!id null
 
-$mpk_tss_reports_carriages_page $mol_page
+$mpk_tss_reports_carriage_list_page $mol_page
 	minimal_width 337
 	sub /
 		<= Head
@@ -730,7 +945,7 @@ $mpk_tss_reports $mol_view
 		minimal_height 100
 		report <= report!id null
 	-
-	Report_details!id $mpk_tss_reports_carriages
+	Report_details!id $mpk_tss_reports_carriage_list
 		report <= report!id null
 		event_top?e <=> focus_main?e null
 

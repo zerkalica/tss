@@ -1052,28 +1052,184 @@
 	flex: 1 1 6rem;
 }
 
-[mpk_tss_reports_axis] {
-	flex: 1000 1 900px;
-}
-
-[mpk_tss_reports_carriage_violation] {
+[mpk_tss_reports_carriage_link_violation] {
 	padding-left: 0.3rem;
 }
 
-[mpk_tss_reports_carriage_place] {
-	flex: 1 1 2rem;
+[mpk_tss_reports_carriage_link_place] {
+	flex: 1 1 3rem;
 }
 
-[mpk_tss_reports_carriage_carriage] {
-	flex: 1 1 5rem;
+[mpk_tss_reports_carriage_link_carriage_number] {
+	flex: 1 1 7rem;
 }
 
-[mpk_tss_reports_carriage_load] {
-	flex: 1 1 5rem;
-}
-
-[mpk_tss_reports_carriage_speed] {
+[mpk_tss_reports_carriage_link_load] {
 	flex: 1 1 4rem;
+}
+
+[mpk_tss_reports_carriage_link_speed] {
+	flex: 1 1 4rem;
+}
+
+[mpk_tss_reports_axle_link_wheels] {
+	display: flex;
+	flex-direction: column-reverse;
+	height: 5rem;
+	justify-content: space-between;
+}
+
+[mpk_tss_reports_axle_link_wheel] {
+	width: 4rem;
+	padding: 0.3rem;
+	display: flex;
+	justify-content: center;
+	background-color: var(--mol_theme_line);
+	background-color: var(--mol_theme_line);
+
+	/* box-shadow: 0 0 0 1px var(--mol_theme_line); */
+}
+
+[mpk_tss_reports_axle_link] {
+	--mol_theme_control: var(--mol_theme_field);
+	--mol_theme_control: var(--mol_theme_field);
+}
+
+[mpk_tss_reports_axle_link_wheel_type="success"] {
+	--mol_theme_line: var(--mpk_theme_success);
+	--mol_theme_line: var(--mpk_theme_success);
+	--mol_theme_control: var(--mol_theme_field);
+	--mol_theme_control: var(--mol_theme_field);
+}
+
+[mpk_tss_reports_axle_link_wheel_type="warning"] {
+	--mol_theme_line: var(--mpk_theme_warning);
+	--mol_theme_line: var(--mpk_theme_warning);
+	--mol_theme_control: var(--mol_theme_field);
+	--mol_theme_control: var(--mol_theme_field);
+}
+
+[mpk_tss_reports_axle_list] {
+	display: inline-flex;
+	padding: 0.5rem;
+	flex: 1 1 30rem;
+	box-shadow: 0 0 0 1px var(--mol_theme_line);
+	box-shadow: 0 0 0 1px var(--mol_theme_line);
+}
+
+[mpk_tss_reports_axle_list] > [mol_link_current="true"] {
+	--mol_theme_control: var(--mol_theme_field);
+	--mol_theme_control: var(--mol_theme_field);
+}
+
+[mol_plot_pane] {
+	flex: 1 1 auto;
+	align-self: stretch;
+	stroke-width: 2px;
+}
+
+[mol_plot_graph] {
+	stroke: currentColor;
+}
+
+[mol_plot_graph_sample] {
+	border-width: 0;
+	border-style: solid;
+}
+
+[mol_plot_graph_type="dashed"] {
+	stroke-dasharray: 4 4;
+	border-style: dashed;
+}
+
+[mol_svg_text] {
+	fill: currentColor;
+	stroke: none;
+}
+
+[mol_plot_ruler_vert_curve] {
+	color: var(--mol_theme_line);
+	color: var(--mol_theme_line);
+	stroke-width: .1%;
+	stroke: currentColor;
+}
+
+[mol_plot_ruler_vert_label] {
+	color: var(--mol_theme_text);
+	color: var(--mol_theme_text);
+	transform: translateY( 4px );
+}
+
+[mol_plot_ruler_vert_title] {
+	color: var(--mol_theme_shade);
+	color: var(--mol_theme_shade);
+}
+
+[mol_plot_ruler_hor_curve] {
+	color: var(--mol_theme_line);
+	color: var(--mol_theme_line);
+	stroke-width: .1%;
+	stroke: currentColor;
+}
+
+[mol_plot_ruler_hor_label] {
+	color: var(--mol_theme_text);
+	color: var(--mol_theme_text);
+	transform: translateY( -4px );
+}
+
+[mol_plot_ruler_hor_title] {
+	color: var(--mol_theme_shade);
+	color: var(--mol_theme_shade);
+	transform: translateY( -4px );
+}
+
+[mol_plot_line] {
+	color: #3a8ccb;
+	color: var(--mol_skin_base);
+	fill: none;
+	stroke-linejoin: round;
+}
+
+[mol_plot_line_sample] {
+	height: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border-width: 2px 0 0;
+	position: absolute;
+	top: .75em;
+	transform: translateY(-50%);
+}
+
+[mpk_tss_reports_axle_chart_wheel] {
+	max-height: 20rem;
+	background-color: var(--mol_theme_field);
+	background-color: var(--mol_theme_field);
+}
+
+[mpk_tss_reports_carriage_details] {
+	flex: 1000 1 900px;
+}
+
+[mpk_tss_reports_carriage_details_weight] {
+	flex: 1 1 4rem;
+}
+
+[mpk_tss_reports_carriage_details_type] {
+	flex: 1 1 4rem;
+}
+
+[mpk_tss_reports_carriage_details_length] {
+	flex: 1 1 4rem;
+}
+
+[mpk_tss_reports_carriage_details_violation] {
+	flex: 1 1 4rem;
+}
+
+[mpk_tss_reports_carriage_details_axle_list] {
+	margin: 1rem 0.5rem;
 }
 
 [mol_check] {
@@ -1106,11 +1262,11 @@
 	height: 1.5em;
 }
 
-[mpk_tss_reports_carriages_main] {
+[mpk_tss_reports_carriage_list_main] {
 	flex: 1 1 22rem;
 }
 
-[mpk_tss_reports_carriages_page_search] {
+[mpk_tss_reports_carriage_list_page_search] {
 	display: inline-flex;
 }
 
