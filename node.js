@@ -8459,7 +8459,7 @@ var $;
             return this.$.$mol_locale.text("$mpk_tss_reports_carriage_details_title");
         }
         minimal_width() {
-            return 900;
+            return 1400;
         }
         tools() {
             return [].concat(this.Close());

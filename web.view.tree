@@ -866,7 +866,7 @@ $mpk_tss_reports_axle_chart $mol_chart
 $mpk_tss_reports_carriage_details $mol_page
 	carriage null
 	title @ \Train %train_number | Carriage %carriage_number
-	minimal_width 900
+	minimal_width 1400
 	tools /
 		<= Close $mol_link
 			arg * carriage null

@@ -1061,7 +1061,7 @@
 }
 
 [mpk_tss_reports_carriage_link_carriage_number] {
-	flex: 1 1 7rem;
+	flex: 1 1 5rem;
 }
 
 [mpk_tss_reports_carriage_link_load] {
@@ -1248,7 +1248,7 @@
 }
 
 [mpk_tss_reports_carriage_details] {
-	flex: 1000 1 900px;
+	flex: 1000 1 1200px;
 }
 
 [mpk_tss_reports_carriage_details_weight] {
