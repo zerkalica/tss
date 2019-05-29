@@ -251,7 +251,10 @@ namespace $ {
 
 		@$mpk_tss_stub_mem
 		max(): number {
-			return 600 + Math.floor(Math.random() * 20)
+			return this.wheels()[0].forces().reduce((max, force) => {
+				if (force[0] > max) max = force[0]
+				return max
+			}, 0)
 		}
 	}
 
@@ -270,13 +273,19 @@ namespace $ {
 		}
 
 		@$mpk_tss_stub_mem
-		forces(): number[] {
-			const max_points = 300
-			const result: number[] = []
+		forces(): $mpk_tss_reports_domain_point[] {
+			const max_x = 600
+			const base_y = 80
+			const amplitude = 5
+			const freq = 50
+			const samples_count = 200
+			const result: $mpk_tss_reports_domain_point[] = []
+			const ratio = max_x / samples_count
 
-			for (let i = 0; i < max_points; i++) {
-				const value = 80 + Math.sin(i / 2) * Math.random() * 100
-				result.push(value)
+			for (let i = 0; i < samples_count; i++) {
+				const deviation = Math.random() > 0.6 ? (Math.random() * 3) : Math.random()
+				const value = Number((base_y + Math.sin((freq / samples_count) * i) * amplitude * deviation).toFixed(3))
+				result.push([i * ratio, value])
 			}
 
 			return result

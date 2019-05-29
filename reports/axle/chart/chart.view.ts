@@ -2,36 +2,45 @@ namespace $.$$ {
 	export class $mpk_tss_reports_axle_chart extends $.$mpk_tss_reports_axle_chart {
 		axle(): $mpk_tss_reports_domain_axle { throw new $mpk_tss_todo }
 		carriage(): $mpk_tss_reports_domain_carriage { throw new $mpk_tss_todo }
-		count() {
-			return 30
+
+		@$mol_mem
+		wheel_left() {
+			return this.axle().wheels()[0]
 		}
 
-		@ $mol_mem
-		length_series() {
-			// const result: number[] = []
-			// for (let i = 0, count = this.count(); i < count; i++) {
-			// 	result.push(i)
-			// }
-			const wheel = this.axle().wheels()[0]
-			return wheel.forces()
+		@$mol_mem
+		wheel_right() {
+			return this.axle().wheels()[1]
 		}
 
 		@ $mol_mem
 		forces_left() {
-			const wheel = this.axle().wheels()[0]
-			return wheel.forces()
+			return this.wheel_left().forces().map(force => force[1])
 		}
 
-		hor_label_text(key: string) {
-			const points = this.forces_left().length
-			const max = this.axle().max()
-			return String(Math.ceil(Number(key) * (max/points)))
+		@ $mol_mem
+		forces_right() {
+			return this.wheel_right().forces().map(force => force[1])
 		}
 
-		// length_series() {
-		// 	const wheel = this.axle().wheels()[0]
-		// 	return wheel.forces()
-		// }
+		@ $mol_mem
+		ruler_data() {
+			return this.wheel_right().forces()
+		}
 
+		@ $mol_mem
+		ruler() {
+			const result: Record<number, number> = {}
+			const forces = this.ruler_data()
+			for (let i = 0; i < forces.length; i++) {
+				result[i] = forces[i][1]
+			}
+
+			return result
+		}
+
+		ruler_x_norm(id: string) {
+			return '' + this.ruler_data()[Number(id)][0]
+		}
 	}
 }

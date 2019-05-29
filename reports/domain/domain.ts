@@ -40,11 +40,13 @@ namespace $ {
 		dent = 'dent',
 	}
 
+	export type $mpk_tss_reports_domain_point = [number, number]
+
 	export class $mpk_tss_reports_domain_wheel extends $mol_object {
 		id(): string { throw new t }
 		resolution(): $mpk_tss_reports_domain_resolution { throw new t }
 		violation(): $mpk_tss_reports_domain_violation | null { throw new t }
-		forces(): number[] { throw new t }
+		forces(): $mpk_tss_reports_domain_point[] { throw new t }
 	}
 
 	export class $mpk_tss_reports_domain_axle extends $mol_object {
