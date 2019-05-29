@@ -2,7 +2,7 @@ $mpk_tss_reports_carriage $mpk_tss_card
 	minimal_height 100
 	carriage null
 	arg * carriage <= carriage_id \
-	title @ \Carriage № %carriage_number
+	title @ \Train %train_number | Carriage %carriage_number
 	status <= resolution \
 	Status_text $mol_view
 		sub /
@@ -24,6 +24,7 @@ $mpk_tss_reports_carriage $mpk_tss_card
 		<= Speed $mol_labeler
 			title <= speed_title @ \Speed
 			content <= speed \
+		<= additional /
 
 $mpk_tss_reports_carriage_violation $mpk_tss_reports_violation
 	group /

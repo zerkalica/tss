@@ -15,7 +15,7 @@ $mpk_tss_reports_carriages $mol_view
 				<= Carriages $mol_list
 					rows <= carriage_links /
 		<= Axis null
-	Axis_details!id $mpk_tss_reports_axis
+	Axis_details!id $mpk_tss_reports_carriage_details
 		carriage <= carriage!id null
 		event_top?e <=> focus_main?e null
 	Carriage_link!id $mpk_tss_reports_carriage

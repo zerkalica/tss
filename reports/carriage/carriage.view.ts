@@ -3,7 +3,9 @@ namespace $.$$ {
 		carriage(): $mpk_tss_reports_domain_carriage { throw new $mpk_tss_todo }
 
 		title() {
-			return super.title().replace('%carriage_number', this.carriage_number())
+			return super.title()
+				.replace('%train_number', this.carriage().train().train_number())
+				.replace('%carriage_number', this.carriage_number())
 		}
 
 		carriage_id() {

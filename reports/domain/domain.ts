@@ -35,26 +35,36 @@ namespace $ {
 
 	export enum $mpk_tss_reports_domain_violation {
 		slider = 'slider',
+		vyscherbiny = 'vyscherbiny',
+		sink = 'sink',
+		dent = 'dent',
 	}
-
-	export type $mpk_tss_reports_domain_force = [number, number]
 
 	export class $mpk_tss_reports_domain_wheel extends $mol_object {
 		id(): string { throw new t }
 		resolution(): $mpk_tss_reports_domain_resolution { throw new t }
-		force_vertical(): number { throw new t }
-		force_horizontal(): number { throw new t }
+		violation(): $mpk_tss_reports_domain_violation | null { throw new t }
+		max(): number { throw new t }
+		forces(): number[] { throw new t }
 	}
 
 	export class $mpk_tss_reports_domain_axle extends $mol_object {
 		id(): string { return String(this.axle_number()) }
 		axle_number(): number { throw new t }
-		wheel_left(): $mpk_tss_reports_domain_wheel { throw new t }
-		wheel_right(): $mpk_tss_reports_domain_wheel { throw new t }
+		resolution(): $mpk_tss_reports_domain_resolution { throw new t }
+		violation(): $mpk_tss_reports_domain_violation | null { throw new t }
+		wheels(): $mpk_tss_reports_domain_wheel[] {
+			throw new t
+		}
+	}
+
+	export enum $mpk_tss_reports_domain_carriage_type {
+		hopper = 'hopper',
 	}
 
 	export class $mpk_tss_reports_domain_carriage extends $mol_object {
 		id(): string { return this.carriage_number() }
+		train(): $mpk_tss_reports_domain_report { throw new t }
 		carriage_number(): string { throw new t }
 		place(): number { throw new t }
 		resolution(): $mpk_tss_reports_domain_resolution { throw new t }
@@ -62,9 +72,11 @@ namespace $ {
 		load(): $mpk_tss_reports_domain_load { throw new t }
 		// Measured speed at time point, km/h
 		measured_speed(): number { throw new t }
-		cargo_weight(): number { throw new t }
+		// kg
 		total_weight(): number { throw new t }
-		carriage_length(): number { throw new t }
+		// meters
+		length(): number { throw new t }
+		type(): $mpk_tss_reports_domain_carriage_type { throw new t }
 		axis(): $mpk_tss_reports_domain_axle[] { throw new t }
 	}
 

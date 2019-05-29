@@ -1,7 +1,12 @@
 $mpk_tss_reports_violation $mol_view
 	status null
+	none @ \None
+	empty false
 	statuses *
 		slider <= slider @ \Slider
+		vyscherbiny <= vyscherbiny @ \Vyscherbiny
+		sink <= sink @ \Sink
+		dent <= dent @ \Dent
 	group /
 		<= status_text \
 	sub <= group

@@ -3,11 +3,11 @@
 }
 
 [mpk_tss_reports_carriage_place] {
-	flex: 1 1 2rem;
+	flex: 1 1 3rem;
 }
 
 [mpk_tss_reports_carriage_carriage] {
-	flex: 1 1 5rem;
+	flex: 1 1 12rem;
 }
 
 [mpk_tss_reports_carriage_load] {
