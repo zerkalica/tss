@@ -26,7 +26,7 @@
 	"$mpk_tss_pereferial_title": "Pereferials",
 	"$mpk_tss_reports_axle_chart_forces_left_title": "Left wheel",
 	"$mpk_tss_reports_axle_chart_forces_right_title": "Right wheel",
-	"$mpk_tss_reports_axle_chart_hor_title": "m",
+	"$mpk_tss_reports_axle_chart_hor_title": "cm",
 	"$mpk_tss_reports_axle_chart_vert_title": "kN",
 	"$mpk_tss_reports_carriage_details_length_title": "Length",
 	"$mpk_tss_reports_carriage_details_title": "Train %train_number | Carriage %carriage_number",

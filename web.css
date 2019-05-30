@@ -1267,8 +1267,12 @@
 	flex: 1 1 4rem;
 }
 
+[mpk_tss_reports_carriage_details_info] {
+	flex: 1000 1 35rem;
+}
+
 [mpk_tss_reports_carriage_details_axle_list] {
-	margin: 1rem 0.5rem;
+	flex: 0 1 10rem;
 }
 
 [mol_check] {

@@ -8676,7 +8676,13 @@ var $;
             })(new this.$.$mol_icon_cross);
         }
         body() {
-            return [].concat(this.Info(), this.Axle_list(), this.Axle_chart());
+            return [].concat(this.Main(), this.Axle_chart());
+        }
+        Main() {
+            return ((obj) => {
+                obj.sub = () => [].concat(this.Info(), this.Axle_list());
+                return obj;
+            })(new this.$.$mol_row);
         }
         Info() {
             return ((obj) => {
@@ -8768,6 +8774,9 @@ var $;
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports_carriage_details.prototype, "Close_icon", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_carriage_details.prototype, "Main", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports_carriage_details.prototype, "Info", null);

@@ -2240,6 +2240,7 @@ declare namespace $ {
         Close(): $mol_link;
         Close_icon(): $mol_icon_cross;
         body(): any[];
+        Main(): $mol_row;
         Info(): $mpk_tss_reports_carriage_link;
         Weight(): $mol_labeler;
         total_weight_title(): string;
