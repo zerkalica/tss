@@ -1,0 +1,7 @@
+{
+	"$mpk_tss_pereferial_status_ready": "Готов",
+	"$mpk_tss_pereferial_status_error": "Ошибка",
+	"$mpk_tss_pereferial_status_not_responding": "Не отвечает",
+	"$mpk_tss_pereferial_status_inactive": "Не активен",
+	"$mpk_tss_pereferial_status_unknown": "Неизвестно"
+}

@@ -1,0 +1,7 @@
+{
+	"$mpk_tss_reports_carriage_link_title": "Поезд %train_number | Вагон %carriage_number",
+	"$mpk_tss_reports_carriage_link_place_title": "Место",
+	"$mpk_tss_reports_carriage_link_carriage_number_title": "Вагон",
+	"$mpk_tss_reports_carriage_link_load_title": "Загрузка",
+	"$mpk_tss_reports_carriage_link_speed_title": "Скорость"
+}

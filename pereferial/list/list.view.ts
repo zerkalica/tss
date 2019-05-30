@@ -1,8 +1,8 @@
 namespace $.$$ {
-	export class $mpk_tss_pereferial extends $.$mpk_tss_pereferial {
+	export class $mpk_tss_pereferial_list extends $.$mpk_tss_pereferial_list {
 		@$mol_mem
 		domain() {
-			return this.$.$mpk_tss_pereferial_domain.make({
+			return this.$.$mpk_tss_pereferial_domain_units.make({
 				filter_name: () => this.filter_value()
 			})
 		}
@@ -34,7 +34,7 @@ namespace $.$$ {
 		}
 	}
 
-	export class $mpk_tss_pereferial_page extends $.$mpk_tss_pereferial_page {
+	export class $mpk_tss_pereferial_list_page extends $.$mpk_tss_pereferial_list_page {
 		destructor() {
 			this.unit_current_id(null)
 			this.filter_value(null)

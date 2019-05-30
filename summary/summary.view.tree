@@ -7,15 +7,15 @@ $mpk_tss_summary $mol_page
 				<= All $mpk_tss_summary_status
 					type \warning
 				<= Software $mpk_tss_summary_item
-					title @ \Software
+					title <= software_title @ \Software
 					type \warning
 					arg * page \software
 				<= Sensors $mpk_tss_summary_item
-					title @ \Sensors
+					title <= sensors_title @ \Sensors
 					type \ready
 					arg * page \sensors
 				<= Pereferials $mpk_tss_summary_item
-					title @ \Pereferial
+					title <= pereferial_title @ \Pereferial
 					type \error
 					arg * page \pereferial
 		<= Log $mol_expander

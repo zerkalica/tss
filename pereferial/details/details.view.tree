@@ -7,5 +7,5 @@ $mpk_tss_pereferial_details $mol_page
 			sub / <= Details_close_icon $mol_icon_cross
 	body /
 		<= unit_details null
-	Ups $mpk_tss_pereferial_details_ups
+	Ups $mpk_tss_pereferial_ups
 		unit <= unit null

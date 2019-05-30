@@ -1,0 +1,6 @@
+{
+	"$mpk_tss_reports_delivery_preparing": "Подготовка",
+	"$mpk_tss_reports_delivery_sending": "Отправка",
+	"$mpk_tss_reports_delivery_sent": "Отправлено",
+	"$mpk_tss_reports_delivery_error": "Ошибка"
+}

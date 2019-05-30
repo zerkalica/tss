@@ -1,6 +1,6 @@
 namespace $ {
 	
-	export class $mpk_tss_pereferial_domain_mock extends $mpk_tss_pereferial_domain {
+	export class $mpk_tss_pereferial_domain_mock_units extends $mpk_tss_pereferial_domain_units {
 		max_units() { return 4 }
 
 		@ $mol_mem_key

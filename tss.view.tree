@@ -32,7 +32,7 @@ $mpk_tss_main $mol_book
 		software <= Software $mpk_tss_software
 			tools <= common_tools
 			event_top?event <=> event_front_up?event
-		pereferial <= Pereferial $mpk_tss_pereferial
+		pereferial <= Pereferial $mpk_tss_pereferial_list
 			tools <= common_tools
 			event_top?event <=> event_front_up?event
 		sensors <= Sensors $mpk_tss_sensors

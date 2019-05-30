@@ -1,0 +1,5 @@
+{
+	"$mpk_tss_login_login_label": "Имя пользователя",
+	"$mpk_tss_login_password_label": "Пароль",
+	"$mpk_tss_login_submit_label": "Войти"
+}

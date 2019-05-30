@@ -1,0 +1,11 @@
+[mpk_tss_pereferial_list_main] {
+	flex: 1 1 20rem;
+}
+
+[mpk_tss_pereferial_list_page_body] {
+	overflow-y: scroll;
+}
+
+[mpk_tss_pereferial_list_page_filter_value] {
+	align-self: stretch;
+}

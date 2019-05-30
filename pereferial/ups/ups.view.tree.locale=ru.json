@@ -1,0 +1,7 @@
+{
+	"$mpk_tss_pereferial_ups_status_title": "Состояние",
+	"$mpk_tss_pereferial_ups_power_title": "Источник питания",
+	"$mpk_tss_pereferial_ups_voltage_title": "Напряжение",
+	"$mpk_tss_pereferial_ups_bat_level_title": "Ур. батареи",
+	"$mpk_tss_pereferial_ups_bat_time_title": "Время батареи"
+}

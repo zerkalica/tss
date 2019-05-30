@@ -1,5 +1,5 @@
 namespace $ {
-	export class $mpk_tss_pereferial_domain extends $mol_object {
+	export class $mpk_tss_pereferial_domain_units extends $mol_object {
 		unit(id: string): $mpk_tss_pereferial_domain_unit {
 			throw new $mpk_tss_todo
 		}

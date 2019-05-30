@@ -1,0 +1,7 @@
+{
+	"$mpk_tss_reports_carriage_details_title": "Поезд %train_number | Вагон %carriage_number",
+	"$mpk_tss_reports_carriage_details_total_weight_title": "Вес",
+	"$mpk_tss_reports_carriage_details_type_title": "Тип",
+	"$mpk_tss_reports_carriage_details_length_title": "Длина",
+	"$mpk_tss_reports_carriage_details_violation_title": "Нарушение"
+}

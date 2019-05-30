@@ -1,5 +1,5 @@
 namespace $.$$ {
-	export class $mpk_tss_pereferial_details_ups extends $.$mpk_tss_pereferial_details_ups {
+	export class $mpk_tss_pereferial_ups extends $.$mpk_tss_pereferial_ups {
 		unit(): $mpk_tss_pereferial_domain_ups { throw new $mpk_tss_todo }
 		status() { return this.unit().status() }
 		updated() { return this.unit().updated() }
