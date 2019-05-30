@@ -7,27 +7,28 @@ $mpk_tss_reports_carriage_details $mol_page
 			arg * carriage null
 			sub / <= Close_icon $mol_icon_cross
 	body /
-		<= Info $mpk_tss_reports_carriage_link
-			carriage <= carriage
-			arg null
-			additional /
-				<= Weight $mol_labeler
-					title <= total_weight_title @ \Total weight
-					content <= total_weight \
-				<= Type $mol_labeler
-					title <= type_title @ \Type
-					content <= type \
-				<= Length $mol_labeler
-					title <= length_title @ \Length
-					content <= length \axle
-				<= Violation $mol_labeler
-					title <= violation_title @ \Violation
-					content <= Violation_content $mpk_tss_reports_violation
-						empty true
-						status <= violation \
-		<= Axle_list $mpk_tss_reports_axle_list
-			carriage <= carriage null
-			axle_current => axle_current
+		<= Main $mol_row sub /
+			<= Info $mpk_tss_reports_carriage_link
+				carriage <= carriage
+				arg null
+				additional /
+					<= Weight $mol_labeler
+						title <= total_weight_title @ \Total weight
+						content <= total_weight \
+					<= Type $mol_labeler
+						title <= type_title @ \Type
+						content <= type \
+					<= Length $mol_labeler
+						title <= length_title @ \Length
+						content <= length \axle
+					<= Violation $mol_labeler
+						title <= violation_title @ \Violation
+						content <= Violation_content $mpk_tss_reports_violation
+							empty true
+							status <= violation \
+			<= Axle_list $mpk_tss_reports_axle_list
+				carriage <= carriage null
+				axle_current => axle_current
 		<= Axle_chart $mpk_tss_reports_axle_chart
 			carriage <= carriage null
 			axle <= axle_current
