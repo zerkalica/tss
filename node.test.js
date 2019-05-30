@@ -4269,12 +4269,6 @@ var $;
 //todo.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     class $mpk_tss_parameter_date extends $.$mol_view {
@@ -4287,15 +4281,7 @@ var $;
         date_formatted() {
             return null;
         }
-        Unknown() {
-            return ((obj) => {
-                return obj;
-            })(new this.$.$mpk_tss_parameter_unknown);
-        }
     }
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_parameter_date.prototype, "Unknown", null);
     $.$mpk_tss_parameter_date = $mpk_tss_parameter_date;
 })($ || ($ = {}));
 //date.view.tree.js.map
@@ -4310,8 +4296,6 @@ var $;
                 throw new $.$mpk_tss_todo;
             }
             date_formatted() {
-                if (!this.date())
-                    return this.Unknown();
                 return this.date().native.toLocaleString();
             }
         }
@@ -4330,6 +4314,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var $;
 (function ($) {
     class $mpk_tss_parameter extends $.$mol_row {
+        Unknown_value() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mpk_tss_parameter_unknown);
+        }
+        Unknown_updated() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mpk_tss_parameter_unknown);
+        }
+        value() {
+            return null;
+        }
+        updated() {
+            return null;
+        }
         sub() {
             return [].concat(this.Name(), this.Value(), this.Updated());
         }
@@ -4352,26 +4352,20 @@ var $;
         Value() {
             return ((obj) => {
                 obj.title = () => this.value_title();
-                obj.Content = () => ((obj) => {
-                    obj.sub = () => [].concat(this.value());
-                    return obj;
-                })(new this.$.$mol_view);
+                obj.Content = () => this.Value_content();
                 return obj;
             })(new this.$.$mol_labeler);
         }
         value_title() {
             return this.$.$mol_locale.text("$mpk_tss_parameter_value_title");
         }
-        value() {
+        Value_content() {
             return null;
         }
         Updated() {
             return ((obj) => {
                 obj.title = () => this.updated_title();
-                obj.Content = () => ((obj) => {
-                    obj.sub = () => [].concat(this.Updated_value());
-                    return obj;
-                })(new this.$.$mol_view);
+                obj.Content = () => this.Updated_value();
                 return obj;
             })(new this.$.$mol_labeler);
         }
@@ -4379,15 +4373,15 @@ var $;
             return this.$.$mol_locale.text("$mpk_tss_parameter_updated_title");
         }
         Updated_value() {
-            return ((obj) => {
-                obj.date = () => this.updated();
-                return obj;
-            })(new this.$.$mpk_tss_parameter_date);
-        }
-        updated() {
             return null;
         }
     }
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_parameter.prototype, "Unknown_value", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_parameter.prototype, "Unknown_updated", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_parameter.prototype, "Name", null);
@@ -4397,12 +4391,31 @@ var $;
     __decorate([
         $.$mol_mem
     ], $mpk_tss_parameter.prototype, "Updated", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_parameter.prototype, "Updated_value", null);
     $.$mpk_tss_parameter = $mpk_tss_parameter;
 })($ || ($ = {}));
 //parameter.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mpk_tss_parameter extends $.$mpk_tss_parameter {
+            Value_content() {
+                if (this.value() === null || this.value() === undefined)
+                    return this.Unknown_value();
+                return this.value();
+            }
+            Updated_value() {
+                if (this.updated() === null || this.updated() === undefined)
+                    return this.Unknown_updated();
+                return $$.$mpk_tss_parameter_date.make({ date: () => this.updated() });
+            }
+        }
+        $$.$mpk_tss_parameter = $mpk_tss_parameter;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//parameter.view.js.map
 ;
 "use strict";
 var $;
@@ -4412,6 +4425,64 @@ var $;
     $.$mpk_tss_parameter_list = $mpk_tss_parameter_list;
 })($ || ($ = {}));
 //list.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mpk_tss_pereferial_domain_units extends $.$mol_object {
+        unit(id) {
+            throw new $.$mpk_tss_todo;
+        }
+        filter_name(next) {
+            return next || '';
+        }
+        units() {
+            throw new $.$mpk_tss_todo;
+        }
+    }
+    $.$mpk_tss_pereferial_domain_units = $mpk_tss_pereferial_domain_units;
+    let $mpk_tss_pereferial_domain_type;
+    (function ($mpk_tss_pereferial_domain_type) {
+        $mpk_tss_pereferial_domain_type["ups"] = "UPS";
+    })($mpk_tss_pereferial_domain_type = $.$mpk_tss_pereferial_domain_type || ($.$mpk_tss_pereferial_domain_type = {}));
+    let $mpk_tss_pereferial_domain_status;
+    (function ($mpk_tss_pereferial_domain_status) {
+        $mpk_tss_pereferial_domain_status["ready"] = "ready";
+        $mpk_tss_pereferial_domain_status["error"] = "error";
+        $mpk_tss_pereferial_domain_status["not_responding"] = "not_responding";
+        $mpk_tss_pereferial_domain_status["inactive"] = "inactive";
+        $mpk_tss_pereferial_domain_status["unknown"] = "unknown";
+    })($mpk_tss_pereferial_domain_status = $.$mpk_tss_pereferial_domain_status || ($.$mpk_tss_pereferial_domain_status = {}));
+    $.$mpk_tss_pereferial_domain_status_weights = {
+        ready: 20,
+        error: 0,
+        not_responding: 5,
+        inactive: 6,
+        unknown: 7,
+    };
+    class $mpk_tss_pereferial_domain_unit extends $.$mol_object {
+        id() { throw new $.$mpk_tss_todo; }
+        type() { throw new $.$mpk_tss_todo; }
+        name() { throw new $.$mpk_tss_todo; }
+        status() { throw new $.$mpk_tss_todo; }
+        updated(next) { throw new $.$mpk_tss_todo; }
+    }
+    $.$mpk_tss_pereferial_domain_unit = $mpk_tss_pereferial_domain_unit;
+    let $mpk_tss_pereferial_domain_ups_power_source;
+    (function ($mpk_tss_pereferial_domain_ups_power_source) {
+        $mpk_tss_pereferial_domain_ups_power_source["linein"] = "linein";
+        $mpk_tss_pereferial_domain_ups_power_source["internal"] = "internal";
+    })($mpk_tss_pereferial_domain_ups_power_source = $.$mpk_tss_pereferial_domain_ups_power_source || ($.$mpk_tss_pereferial_domain_ups_power_source = {}));
+    class $mpk_tss_pereferial_domain_ups extends $mpk_tss_pereferial_domain_unit {
+        type() { return $mpk_tss_pereferial_domain_type.ups; }
+        power_source() { throw new $.$mpk_tss_todo; }
+        voltage() { throw new $.$mpk_tss_todo; }
+        battery_level() { throw new $.$mpk_tss_todo; }
+        battery_time() { throw new $.$mpk_tss_todo; }
+    }
+    $.$mpk_tss_pereferial_domain_ups = $mpk_tss_pereferial_domain_ups;
+})($ || ($ = {}));
+//domain.js.map
 ;
 "use strict";
 var $;
@@ -4479,64 +4550,6 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //status.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mpk_tss_pereferial_domain_units extends $.$mol_object {
-        unit(id) {
-            throw new $.$mpk_tss_todo;
-        }
-        filter_name(next) {
-            return next || '';
-        }
-        units() {
-            throw new $.$mpk_tss_todo;
-        }
-    }
-    $.$mpk_tss_pereferial_domain_units = $mpk_tss_pereferial_domain_units;
-    let $mpk_tss_pereferial_domain_type;
-    (function ($mpk_tss_pereferial_domain_type) {
-        $mpk_tss_pereferial_domain_type["ups"] = "UPS";
-    })($mpk_tss_pereferial_domain_type = $.$mpk_tss_pereferial_domain_type || ($.$mpk_tss_pereferial_domain_type = {}));
-    let $mpk_tss_pereferial_domain_status;
-    (function ($mpk_tss_pereferial_domain_status) {
-        $mpk_tss_pereferial_domain_status["ready"] = "ready";
-        $mpk_tss_pereferial_domain_status["error"] = "error";
-        $mpk_tss_pereferial_domain_status["not_responding"] = "not_responding";
-        $mpk_tss_pereferial_domain_status["inactive"] = "inactive";
-        $mpk_tss_pereferial_domain_status["unknown"] = "unknown";
-    })($mpk_tss_pereferial_domain_status = $.$mpk_tss_pereferial_domain_status || ($.$mpk_tss_pereferial_domain_status = {}));
-    $.$mpk_tss_pereferial_domain_status_weights = {
-        ready: 20,
-        error: 0,
-        not_responding: 5,
-        inactive: 6,
-        unknown: 7,
-    };
-    class $mpk_tss_pereferial_domain_unit extends $.$mol_object {
-        id() { throw new $.$mpk_tss_todo; }
-        type() { throw new $.$mpk_tss_todo; }
-        name() { throw new $.$mpk_tss_todo; }
-        status() { throw new $.$mpk_tss_todo; }
-        updated(next) { throw new $.$mpk_tss_todo; }
-    }
-    $.$mpk_tss_pereferial_domain_unit = $mpk_tss_pereferial_domain_unit;
-    let $mpk_tss_pereferial_domain_ups_power_source;
-    (function ($mpk_tss_pereferial_domain_ups_power_source) {
-        $mpk_tss_pereferial_domain_ups_power_source["linein"] = "linein";
-        $mpk_tss_pereferial_domain_ups_power_source["internal"] = "internal";
-    })($mpk_tss_pereferial_domain_ups_power_source = $.$mpk_tss_pereferial_domain_ups_power_source || ($.$mpk_tss_pereferial_domain_ups_power_source = {}));
-    class $mpk_tss_pereferial_domain_ups extends $mpk_tss_pereferial_domain_unit {
-        type() { return $mpk_tss_pereferial_domain_type.ups; }
-        power_source() { throw new $.$mpk_tss_todo; }
-        voltage() { throw new $.$mpk_tss_todo; }
-        battery_level() { throw new $.$mpk_tss_todo; }
-        battery_time() { throw new $.$mpk_tss_todo; }
-    }
-    $.$mpk_tss_pereferial_domain_ups = $mpk_tss_pereferial_domain_ups;
-})($ || ($ = {}));
-//domain.js.map
 ;
 "use strict";
 var $;
@@ -4654,18 +4667,13 @@ var $;
         unit() {
             return null;
         }
-        Unknown() {
-            return ((obj) => {
-                return obj;
-            })(new this.$.$mpk_tss_parameter_unknown);
-        }
         rows() {
             return [].concat(this.Status(), this.Power(), this.Voltage(), this.Bat_level(), this.Bat_time());
         }
         Status() {
             return ((obj) => {
                 obj.name = () => this.status_title();
-                obj.value = () => this.Status_text();
+                obj.value = () => this.status();
                 obj.updated = () => this.updated();
                 return obj;
             })(new this.$.$mpk_tss_parameter);
@@ -4673,14 +4681,8 @@ var $;
         status_title() {
             return this.$.$mol_locale.text("$mpk_tss_pereferial_ups_status_title");
         }
-        Status_text() {
-            return ((obj) => {
-                obj.status = () => this.status();
-                return obj;
-            })(new this.$.$mpk_tss_pereferial_status);
-        }
         status() {
-            return "";
+            return null;
         }
         updated() {
             return null;
@@ -4744,13 +4746,7 @@ var $;
     }
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_pereferial_ups.prototype, "Unknown", null);
-    __decorate([
-        $.$mol_mem
     ], $mpk_tss_pereferial_ups.prototype, "Status", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_pereferial_ups.prototype, "Status_text", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_pereferial_ups.prototype, "Power", null);
@@ -4780,29 +4776,24 @@ var $;
     (function ($$) {
         class $mpk_tss_pereferial_ups extends $.$mpk_tss_pereferial_ups {
             unit() { throw new $.$mpk_tss_todo; }
-            status() { return this.unit().status(); }
             updated() { return this.unit().updated(); }
+            status() { return $$.$mpk_tss_pereferial_status.make({ status: () => this.unit().status() }); }
             power_source() {
-                if (!this.unit().power_source())
-                    return this.Unknown();
-                return $$.$mpk_tss_pereferial_source.make({ status: () => this.unit().power_source() });
+                return this.unit().power_source() && $$.$mpk_tss_pereferial_source.make({ status: () => this.unit().power_source() });
             }
             voltage() {
-                if (!this.unit().voltage())
-                    return this.Unknown();
-                return $.$mpk_tss_parameter_voltage.make({ value: () => this.unit().voltage() });
+                return this.unit().voltage() && $.$mpk_tss_parameter_voltage.make({ value: () => this.unit().voltage() });
             }
             battery_level() {
-                if (!this.unit().battery_level())
-                    return this.Unknown();
-                return this.unit().battery_level() + '%';
+                return this.unit().battery_level() && (this.unit().battery_level() + '%');
             }
             battery_time() {
-                if (!this.unit().battery_time())
-                    return this.Unknown();
-                return $$.$mpk_tss_parameter_duration.make({ value: () => this.unit().battery_time() });
+                return this.unit().battery_time() && $$.$mpk_tss_parameter_duration.make({ value: () => this.unit().battery_time() });
             }
         }
+        __decorate([
+            $.$mol_mem
+        ], $mpk_tss_pereferial_ups.prototype, "status", null);
         __decorate([
             $.$mol_mem
         ], $mpk_tss_pereferial_ups.prototype, "power_source", null);

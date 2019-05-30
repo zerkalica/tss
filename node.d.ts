@@ -1101,62 +1101,40 @@ declare namespace $ {
         date(): any;
         sub(): any[];
         date_formatted(): any;
-        Unknown(): $mpk_tss_parameter_unknown;
     }
 }
 declare namespace $.$$ {
     class $mpk_tss_parameter_date extends $.$mpk_tss_parameter_date {
         date(): $mol_time_moment;
-        date_formatted(): string | $mpk_tss_parameter_unknown;
+        date_formatted(): string;
     }
 }
 declare namespace $ {
     class $mpk_tss_parameter extends $mol_row {
+        Unknown_value(): $mpk_tss_parameter_unknown;
+        Unknown_updated(): $mpk_tss_parameter_unknown;
+        value(): any;
+        updated(): any;
         sub(): any[];
         Name(): $mol_labeler;
         name_title(): string;
         name(): string;
         Value(): $mol_labeler;
         value_title(): string;
-        value(): any;
+        Value_content(): any;
         Updated(): $mol_labeler;
         updated_title(): string;
-        Updated_value(): $mpk_tss_parameter_date;
-        updated(): any;
+        Updated_value(): any;
+    }
+}
+declare namespace $.$$ {
+    class $mpk_tss_parameter extends $.$mpk_tss_parameter {
+        Value_content(): any;
+        Updated_value(): $mpk_tss_parameter_date | $mpk_tss_parameter_unknown;
     }
 }
 declare namespace $ {
     class $mpk_tss_parameter_list extends $mol_list {
-    }
-}
-declare namespace $ {
-    class $mpk_tss_pereferial_status extends $mol_view {
-        status(): any;
-        colors(): boolean;
-        statuses(): {
-            "ready": string;
-            "error": string;
-            "not_responding": string;
-            "inactive": string;
-            "unknown": string;
-        };
-        ready(): string;
-        error(): string;
-        not_responding(): string;
-        inactive(): string;
-        unknown(): string;
-        sub(): any[];
-        status_text(): string;
-    }
-}
-declare namespace $.$$ {
-    class $mpk_tss_pereferial_status extends $.$mpk_tss_pereferial_status {
-        status_text(): any;
-        attr(): {
-            [key: string]: string | number | boolean;
-        } | {
-            'mpk_tss_pereferial_status_type': any;
-        };
     }
 }
 declare namespace $ {
@@ -1193,6 +1171,36 @@ declare namespace $ {
         voltage(): number;
         battery_level(): number;
         battery_time(): $mol_time_duration;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_pereferial_status extends $mol_view {
+        status(): any;
+        colors(): boolean;
+        statuses(): {
+            "ready": string;
+            "error": string;
+            "not_responding": string;
+            "inactive": string;
+            "unknown": string;
+        };
+        ready(): string;
+        error(): string;
+        not_responding(): string;
+        inactive(): string;
+        unknown(): string;
+        sub(): any[];
+        status_text(): string;
+    }
+}
+declare namespace $.$$ {
+    class $mpk_tss_pereferial_status extends $.$mpk_tss_pereferial_status {
+        status_text(): any;
+        attr(): {
+            [key: string]: string | number | boolean;
+        } | {
+            'mpk_tss_pereferial_status_type': any;
+        };
     }
 }
 declare namespace $ {
@@ -1238,12 +1246,10 @@ declare namespace $.$$ {
 declare namespace $ {
     class $mpk_tss_pereferial_ups extends $mpk_tss_parameter_list {
         unit(): any;
-        Unknown(): $mpk_tss_parameter_unknown;
         rows(): any[];
         Status(): $mpk_tss_parameter;
         status_title(): string;
-        Status_text(): $mpk_tss_pereferial_status;
-        status(): string;
+        status(): any;
         updated(): any;
         Power(): $mpk_tss_parameter;
         power_title(): string;
@@ -1262,12 +1268,12 @@ declare namespace $ {
 declare namespace $.$$ {
     class $mpk_tss_pereferial_ups extends $.$mpk_tss_pereferial_ups {
         unit(): $mpk_tss_pereferial_domain_ups;
-        status(): $mpk_tss_pereferial_domain_status;
         updated(): $mol_time_moment;
-        power_source(): $mpk_tss_pereferial_source | $mpk_tss_parameter_unknown;
-        voltage(): $mpk_tss_parameter_unknown | $mpk_tss_parameter_voltage;
-        battery_level(): string | $mpk_tss_parameter_unknown;
-        battery_time(): $mpk_tss_parameter_duration | $mpk_tss_parameter_unknown;
+        status(): $mpk_tss_pereferial_status;
+        power_source(): $mpk_tss_pereferial_source;
+        voltage(): $mpk_tss_parameter_voltage;
+        battery_level(): string;
+        battery_time(): $mpk_tss_parameter_duration;
     }
 }
 declare namespace $ {
