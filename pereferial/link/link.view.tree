@@ -1,4 +1,4 @@
-$mpk_tss_pereferial_card $mpk_tss_card
+$mpk_tss_pereferial_link $mpk_tss_card
 	unit null
 	arg * unit <= unit_id \
 	status <= unit_status \

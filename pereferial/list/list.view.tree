@@ -15,7 +15,7 @@ $mpk_tss_pereferial_list $mol_view
 	Unit_details!id $mpk_tss_pereferial_details
 		event_top?e <=> details_event_top?e null
 		unit <= unit!id null
-	Unit_link!id $mpk_tss_pereferial_card
+	Unit_link!id $mpk_tss_pereferial_link
 		unit <= unit!id null
 
 $mpk_tss_pereferial_list_page $mol_page

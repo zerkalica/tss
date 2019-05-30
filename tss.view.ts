@@ -1,4 +1,11 @@
 namespace $.$$ {
+	class $mpk_tss_locale extends $mol_locale {
+		@ $mol_mem
+		static lang_default() {
+			return 'ru'
+		}
+	}
+
 	export class $mpk_tss extends $.$mpk_tss {
 		title() {
 			return super.title().replace('%terminal_number', this.terminal_number())
@@ -14,6 +21,7 @@ namespace $.$$ {
 
 		context_sub() {
 			return this.$.$mol_ambient({
+				$mol_locale: $mpk_tss_locale,
 				$mpk_tss_pereferial_domain_units: $mpk_tss_pereferial_domain_mock_units,
 				$mpk_tss_reports_domain_trains: $mpk_tss_reports_domain_mock_trains,
 			})

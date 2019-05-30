@@ -61,7 +61,7 @@ namespace $ {
 		@$mpk_tss_stub_mem
 		power_source() {
 			if (this.status() === $mpk_tss_pereferial_domain_status.unknown) return null
-			return $mol_stub_select_random(['Line', 'Internal'] as $mpk_tss_pereferial_domain_ups_power_source[])
+			return $mol_stub_select_random(['linein', 'internal'] as $mpk_tss_pereferial_domain_ups_power_source[])
 		}
 
 		@$mpk_tss_stub_mem

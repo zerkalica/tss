@@ -1,0 +1,7 @@
+$mpk_tss_pereferial_source $mol_view
+	status null
+	statuses *
+		linein <= linein @ \Linein
+		internal <= internal @ \Internal
+	sub /
+		<= status_text \

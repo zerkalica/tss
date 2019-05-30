@@ -1,5 +1,5 @@
 {
-	"$mpk_tss_summary_status_warning": "Внимание",
+	"$mpk_tss_summary_status_warning": "Предупреждение",
 	"$mpk_tss_summary_status_error": "Ошибка",
 	"$mpk_tss_summary_status_success": "Успешно",
 	"$mpk_tss_summary_status_ready": "Готов"

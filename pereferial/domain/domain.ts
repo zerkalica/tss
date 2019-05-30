@@ -40,8 +40,8 @@ namespace $ {
 	}
 
 	export enum $mpk_tss_pereferial_domain_ups_power_source {
-		line = 'Line',
-		internal = 'Internal',
+		linein = 'linein',
+		internal = 'internal',
 	}
 
 	export class $mpk_tss_pereferial_domain_ups extends $mpk_tss_pereferial_domain_unit {

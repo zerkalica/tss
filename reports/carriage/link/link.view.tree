@@ -23,7 +23,7 @@ $mpk_tss_reports_carriage_link $mpk_tss_card
 				status <= load \
 		<= Speed $mol_labeler
 			title <= speed_title @ \Speed
-			content <= speed \
+			content <= Speed_formatted $mpk_tss_parameter_speed value <= speed 0
 		<= additional /
 
 $mpk_tss_reports_carriage_link_violation $mpk_tss_reports_violation

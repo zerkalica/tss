@@ -14,13 +14,13 @@ $mpk_tss_reports_carriage_details $mol_page
 				additional /
 					<= Weight $mol_labeler
 						title <= total_weight_title @ \Total weight
-						content <= total_weight \
+						content <= Weight_content $mpk_tss_parameter_weight value <= total_weight 0
 					<= Type $mol_labeler
 						title <= type_title @ \Type
-						content <= type \
+						content <= Type_content $mpk_tss_reports_carriage_type value <= type \
 					<= Length $mol_labeler
 						title <= length_title @ \Length
-						content <= length \axle
+						content <= Length_content $mpk_tss_parameter_length value <= length 0
 					<= Violation $mol_labeler
 						title <= violation_title @ \Violation
 						content <= Violation_content $mpk_tss_reports_violation

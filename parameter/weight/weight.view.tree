@@ -1,0 +1,5 @@
+$mpk_tss_parameter_weight $mol_view
+	sub /
+		<= value 0
+		<= spacer \ 
+		<= unit @ \kg

@@ -9,7 +9,7 @@ namespace $.$$ {
 		}
 
 		total_weight() {
-			return this.carriage().total_weight() + ' kg'
+			return this.carriage().total_weight()
 		}
 
 		type() {
@@ -21,7 +21,7 @@ namespace $.$$ {
 		}
 
 		length() {
-			return this.carriage().length() + ' m'
+			return this.carriage().length()
 		}
 	}
 }

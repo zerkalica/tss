@@ -31,7 +31,7 @@ namespace $.$$ {
 		}
 
 		speed() {
-			return this.carriage().measured_speed() + ' km/h'
+			return this.carriage().measured_speed()
 		}
 	}
 }

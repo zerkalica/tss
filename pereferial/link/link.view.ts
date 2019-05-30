@@ -1,5 +1,5 @@
 namespace $.$$ {
-	export class $mpk_tss_pereferial_card extends $.$mpk_tss_pereferial_card {
+	export class $mpk_tss_pereferial_link extends $.$mpk_tss_pereferial_link {
 		unit(): $mpk_tss_pereferial_domain_unit {
 			throw new $mpk_tss_todo
 		}

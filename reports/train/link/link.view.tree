@@ -14,7 +14,7 @@ $mpk_tss_reports_train_link $mpk_tss_card
 			content <= started \
 		<= Average_speed $mol_labeler
 			title <= average_speed_title @ \Speed
-			content <= average_speed \
+			content <= Average_speed_formatted $mpk_tss_parameter_speed value <= average_speed 0
 		<= Delivery $mol_labeler
 			title <= delivery_title @ \Delivery
 			Content <= Delivery_value $mpk_tss_reports_delivery

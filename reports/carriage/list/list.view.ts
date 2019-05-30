@@ -39,10 +39,6 @@ namespace $.$$ {
 				.map(carriage => this.Carriage_link(carriage.id()))
 		}
 
-		average_speed() {
-			return this.report().average_speed() + ' km/h'
-		}
-
 		carriage_id( next? : string ) {
 			return this.$.$mol_state_arg.value( this.state_key( 'carriage' ) , next ) || ''
 		}

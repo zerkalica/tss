@@ -1,0 +1,9 @@
+$mpk_tss_reports_carriage_type $mol_view
+	value null
+	values *
+		hopper <= hopper @ \Hopper
+		flatcar <= flatcar @ \Flatcar
+		tank <= tank @ \Tank
+		covered <= covered @ \Covered
+	sub /
+		<= status_text \
