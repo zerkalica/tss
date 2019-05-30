@@ -6,12 +6,17 @@ namespace $.$$ {
 			return this.carriage().axle(id)
 		}
 
+		@$mol_mem
 		axle_current_id( next? : string ) {
-			return this.$.$mol_state_arg.value( this.state_key( 'axle' ) , next ) || this.carriage().axis()[0].id()
+			return this.$.$mol_state_arg.value( this.state_key( 'axle' ) , next) || this.carriage().axis()[0].id()
+		}
+
+		current(id: string): boolean {
+			return this.axle_current_id() === id
 		}
 
 		axle_current() {
-			if (!this.axle_current_id()) return null
+			if (!this.axle_current_id()) return null	
 			return this.axle(this.axle_current_id())
 		}
 

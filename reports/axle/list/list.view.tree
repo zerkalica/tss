@@ -5,3 +5,4 @@ $mpk_tss_reports_axle_list $mol_list
 		<= axis /
 	Axle_link!id $mpk_tss_reports_axle_link
 		axle <= axle!id null
+		current <= current!id false

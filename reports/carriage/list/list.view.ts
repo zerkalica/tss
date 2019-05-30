@@ -19,13 +19,11 @@ namespace $.$$ {
 		@$mol_mem
 		filter_warning(next?: boolean) {
 			const param = this.$.$mol_state_arg.value(
-				this.state_key( 'carriages_all' ),
-				next === undefined
-					? undefined
-					: next ? null : '1'
+				this.state_key( 'carriages_warning' ),
+				next ? '1' : null
 			)
 
-			return param !== '1'
+			return !!param
 		}
 
 		title() {
