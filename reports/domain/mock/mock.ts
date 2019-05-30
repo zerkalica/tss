@@ -159,7 +159,7 @@ namespace $ {
 
 		@$mpk_tss_stub_mem
 		type(): $mpk_tss_reports_domain_carriage_type {
-			return $mpk_tss_reports_domain_carriage_type.hopper
+			return $mpk_tss_reports_domain_mock_stub_carriage_type()
 		}
 
 		@$mpk_tss_stub_mem
@@ -290,6 +290,15 @@ namespace $ {
 
 			return result
 		}
+	}
+
+	function $mpk_tss_reports_domain_mock_stub_carriage_type() {
+		return $mol_stub_select_random( [
+			$mpk_tss_reports_domain_carriage_type.tank,
+			$mpk_tss_reports_domain_carriage_type.hopper,
+			$mpk_tss_reports_domain_carriage_type.flatcar,
+			$mpk_tss_reports_domain_carriage_type.covered,
+		] as $mpk_tss_reports_domain_carriage_type[])
 	}
 
 	function $mpk_tss_reports_domain_mock_stub_violation() {

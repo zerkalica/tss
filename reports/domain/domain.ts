@@ -40,6 +40,13 @@ namespace $ {
 		dent = 'dent',
 	}
 
+	export enum $mpk_tss_reports_domain_carriage_type {
+		hopper = 'hopper',
+		flatcar = 'flatcar',
+		tank = 'tank',
+		covered = 'covered',
+	}
+
 	export type $mpk_tss_reports_domain_point = [number, number]
 
 	export class $mpk_tss_reports_domain_wheel extends $mol_object {
@@ -59,10 +66,6 @@ namespace $ {
 		wheels(): $mpk_tss_reports_domain_wheel[] {
 			throw new t
 		}
-	}
-
-	export enum $mpk_tss_reports_domain_carriage_type {
-		hopper = 'hopper',
 	}
 
 	export class $mpk_tss_reports_domain_carriage extends $mol_object {
