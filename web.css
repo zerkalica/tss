@@ -966,15 +966,15 @@
 
 [mol_search_clear_icon] {}
 
-[mpk_tss_pereferial_main] {
+[mpk_tss_pereferial_list_main] {
 	flex: 1 1 20rem;
 }
 
-[mpk_tss_pereferial_page_body] {
+[mpk_tss_pereferial_list_page_body] {
 	overflow-y: scroll;
 }
 
-[mpk_tss_pereferial_page_filter_value] {
+[mpk_tss_pereferial_list_page_filter_value] {
 	align-self: stretch;
 }
 
@@ -1032,24 +1032,24 @@
 	display: inline-block;
 }
 
-[mpk_tss_reports_train_id] {
+[mpk_tss_reports_train_link_id] {
 	flex: 1 1 5rem;
 }
 
-[mpk_tss_reports_train_train_number] {
+[mpk_tss_reports_train_link_train_number] {
 	flex: 1 1 7rem;
 }
 
-[mpk_tss_reports_train_started] {
+[mpk_tss_reports_train_link_started] {
 	flex: 1 1 5rem;
 }
 
-[mpk_tss_reports_train_average_speed] {
+[mpk_tss_reports_train_link_average_speed] {
 	flex: 1 1 4rem;
 }
 
-[mpk_tss_reports_train_delivery] {
-	flex: 1 1 6rem;
+[mpk_tss_reports_train_link_delivery] {
+	flex: 1 1 7rem;
 }
 
 [mpk_tss_reports_carriage_link_violation] {
@@ -1316,15 +1316,15 @@
 	display: inline-flex;
 }
 
-[mpk_tss_reports_main] {
-	flex: 1 1 34rem;
+[mpk_tss_reports_train_list_main] {
+	flex: 1 1 35rem;
 }
 
-[mpk_tss_reports_page_body] {
+[mpk_tss_reports_train_list_page_body] {
 	overflow-y: scroll;
 }
 
-[mpk_tss_reports_page_search] {
+[mpk_tss_reports_train_list_page_search] {
 	display: inline-flex;
 	align-items: baseline;
 }

@@ -250,7 +250,7 @@ $mol_icon_cross $mol_icon path \M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12
 
 $mpk_tss_parameter_unknown $mol_view
 	sub /
-		<= unknown_title @ \Unknown
+		<= title @ \Unknown
 
 $mol_row $mol_view
 
@@ -303,13 +303,13 @@ $mpk_tss_pereferial_status $mol_view
 		unknown <= unknown @ \Unknown
 	sub / <= status_text <= unknown
 
-$mpk_tss_pereferial_details_ups $mpk_tss_parameter_list
+$mpk_tss_pereferial_ups $mpk_tss_parameter_list
 	unit null
 	Unknown $mpk_tss_parameter_unknown
 	rows /
-		<= State $mpk_tss_parameter
-			name <= name_title @ \State
-			value <= Status $mpk_tss_pereferial_status
+		<= Status $mpk_tss_parameter
+			name <= status_title @ \State
+			value <= Status_text $mpk_tss_pereferial_status
 				status <= status \
 			updated <= updated null
 		<= Power $mpk_tss_parameter
@@ -338,7 +338,7 @@ $mpk_tss_pereferial_details $mol_page
 			sub / <= Details_close_icon $mol_icon_cross
 	body /
 		<= unit_details null
-	Ups $mpk_tss_pereferial_details_ups
+	Ups $mpk_tss_pereferial_ups
 		unit <= unit null
 
 $mol_card $mol_list
@@ -498,10 +498,10 @@ $mol_search $mol_bar
 				<= Clear_icon $mol_icon_cross
 			event_click?val <=> event_clear?val null
 
-$mpk_tss_pereferial $mol_view
+$mpk_tss_pereferial_list $mol_view
 	title @ \Pereferials
 	pages /
-		<= Main $mpk_tss_pereferial_page
+		<= Main $mpk_tss_pereferial_list_page
 			minimal_width 200
 			event_top?e <=> event_top?e null
 			tools <= tools /
@@ -518,7 +518,7 @@ $mpk_tss_pereferial $mol_view
 	Unit_link!id $mpk_tss_pereferial_card
 		unit <= unit!id null
 
-$mpk_tss_pereferial_page $mol_page
+$mpk_tss_pereferial_list_page $mol_page
 	unit_current_id?v \
 	sub /
 		<= Head
@@ -570,7 +570,7 @@ $mpk_tss_reports_delivery $mol_view
 		<= Icon null
 		<= Text $mol_view sub / <= status_text \
 
-$mpk_tss_reports_train $mpk_tss_card
+$mpk_tss_reports_train_link $mpk_tss_card
 	report null
 	arg * report <= report_id \
 	status <= resolution
@@ -954,10 +954,10 @@ $mpk_tss_reports_carriage_list_page $mol_page
 					checked?val <=> filter_warning?val true
 		<= Body
 
-$mpk_tss_reports $mol_view
+$mpk_tss_reports_train_list $mol_view
 	title @ \Reports
 	pages /
-		<= Main $mpk_tss_reports_page
+		<= Main $mpk_tss_reports_train_list_page
 			event_top?e <=> event_top?e null
 			tools <= tools /
 			title <= title
@@ -971,7 +971,7 @@ $mpk_tss_reports $mol_view
 					rows <= report_links /
 		<= Details_pages null
 	-
-	Report_link!id $mpk_tss_reports_train
+	Report_link!id $mpk_tss_reports_train_link
 		minimal_height 100
 		report <= report!id null
 	-
@@ -979,7 +979,7 @@ $mpk_tss_reports $mol_view
 		report <= report!id null
 		event_top?e <=> focus_main?e null
 
-$mpk_tss_reports_page $mol_page
+$mpk_tss_reports_train_list_page $mol_page
 	minimal_width 520
 	report_current_id?uri \
 	sub /
@@ -1068,13 +1068,13 @@ $mpk_tss_main $mol_book
 		software <= Software $mpk_tss_software
 			tools <= common_tools
 			event_top?event <=> event_front_up?event
-		pereferial <= Pereferial $mpk_tss_pereferial
+		pereferial <= Pereferial $mpk_tss_pereferial_list
 			tools <= common_tools
 			event_top?event <=> event_front_up?event
 		sensors <= Sensors $mpk_tss_sensors
 			tools <= common_tools
 			event_top?event <=> event_front_up?event
-		reports <= Reports $mpk_tss_reports
+		reports <= Reports $mpk_tss_reports_train_list
 			tools <= common_tools
 			event_top?event <=> event_front_up?event
 	common_tools /
@@ -1087,7 +1087,7 @@ $mpk_tss_main $mol_book
 				<= Logo $mol_image
 					uri \mpk/tss/tss_logo.svg
 					event * click?val <=> event_top?val null
-			title @ \Menu
+			title <= sidebar_title @ \Menu
 			minimal_width 230
 			body / <= sidebar_items /
 				<= Login $mpk_tss_login
@@ -1101,7 +1101,7 @@ $mpk_tss_main $mol_book
 					sub /
 						<= Foot_text $mol_view
 							sub /
-								<= copyright \© %year MPK Software, Russia
+								<= copyright @ \© %year MPK Software, Russia
 		<= Summary
 		<= menu_pages
 		<= details null
@@ -1306,15 +1306,15 @@ $mpk_tss_summary $mol_page
 				<= All $mpk_tss_summary_status
 					type \warning
 				<= Software $mpk_tss_summary_item
-					title @ \Software
+					title <= software_title @ \Software
 					type \warning
 					arg * page \software
 				<= Sensors $mpk_tss_summary_item
-					title @ \Sensors
+					title <= sensors_title @ \Sensors
 					type \ready
 					arg * page \sensors
 				<= Pereferials $mpk_tss_summary_item
-					title @ \Pereferial
+					title <= pereferial_title @ \Pereferial
 					type \error
 					arg * page \pereferial
 		<= Log $mol_expander

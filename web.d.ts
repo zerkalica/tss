@@ -1000,7 +1000,7 @@ declare namespace $ {
 declare namespace $ {
     class $mpk_tss_parameter_unknown extends $mol_view {
         sub(): any[];
-        unknown_title(): string;
+        title(): string;
     }
 }
 declare namespace $ {
@@ -1204,7 +1204,7 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
-    class $mpk_tss_pereferial_domain extends $mol_object {
+    class $mpk_tss_pereferial_domain_units extends $mol_object {
         unit(id: string): $mpk_tss_pereferial_domain_unit;
         filter_name(next?: string): string;
         units(): $mpk_tss_pereferial_domain_unit[];
@@ -1240,13 +1240,13 @@ declare namespace $ {
     }
 }
 declare namespace $ {
-    class $mpk_tss_pereferial_details_ups extends $mpk_tss_parameter_list {
+    class $mpk_tss_pereferial_ups extends $mpk_tss_parameter_list {
         unit(): any;
         Unknown(): $mpk_tss_parameter_unknown;
         rows(): any[];
-        State(): $mpk_tss_parameter;
-        name_title(): string;
-        Status(): $mpk_tss_pereferial_status;
+        Status(): $mpk_tss_parameter;
+        status_title(): string;
+        Status_text(): $mpk_tss_pereferial_status;
         status(): string;
         updated(): any;
         Power(): $mpk_tss_parameter;
@@ -1264,7 +1264,7 @@ declare namespace $ {
     }
 }
 declare namespace $.$$ {
-    class $mpk_tss_pereferial_details_ups extends $.$mpk_tss_pereferial_details_ups {
+    class $mpk_tss_pereferial_ups extends $.$mpk_tss_pereferial_ups {
         unit(): $mpk_tss_pereferial_domain_ups;
         status(): $mpk_tss_pereferial_domain_status;
         updated(): $mol_time_moment;
@@ -1283,7 +1283,7 @@ declare namespace $ {
         Details_close_icon(): $mol_icon_cross;
         body(): any[];
         unit_details(): any;
-        Ups(): $mpk_tss_pereferial_details_ups;
+        Ups(): $mpk_tss_pereferial_ups;
     }
 }
 declare namespace $.$$ {
@@ -1292,7 +1292,7 @@ declare namespace $.$$ {
         title(): string;
         type(): $mpk_tss_pereferial_domain_type;
         name(): string;
-        unit_details(): $.$mpk_tss_pereferial_details_ups;
+        unit_details(): $.$mpk_tss_pereferial_ups;
     }
 }
 declare namespace $ {
@@ -1537,10 +1537,10 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
-    class $mpk_tss_pereferial extends $mol_view {
+    class $mpk_tss_pereferial_list extends $mol_view {
         title(): string;
         pages(): any[];
-        Main(): $mpk_tss_pereferial_page;
+        Main(): $mpk_tss_pereferial_list_page;
         event_top(e?: any, force?: $mol_atom_force): any;
         tools(): any[];
         unit_current_id(v?: any, force?: $mol_atom_force): any;
@@ -1555,7 +1555,7 @@ declare namespace $ {
     }
 }
 declare namespace $ {
-    class $mpk_tss_pereferial_page extends $mol_page {
+    class $mpk_tss_pereferial_list_page extends $mol_page {
         unit_current_id(v?: any, force?: $mol_atom_force): any;
         sub(): any[];
         Filter_value(): $mol_search;
@@ -1564,8 +1564,8 @@ declare namespace $ {
     }
 }
 declare namespace $.$$ {
-    class $mpk_tss_pereferial extends $.$mpk_tss_pereferial {
-        domain(): $mpk_tss_pereferial_domain;
+    class $mpk_tss_pereferial_list extends $.$mpk_tss_pereferial_list {
+        domain(): $mpk_tss_pereferial_domain_units;
         unit_links(): $.$mpk_tss_pereferial_card[];
         unit(id: string): $mpk_tss_pereferial_domain_unit;
         filter_value(next?: string): string;
@@ -1573,7 +1573,7 @@ declare namespace $.$$ {
         Unit_current(): $.$mpk_tss_pereferial_details;
         details_event_top(event?: Event): void;
     }
-    class $mpk_tss_pereferial_page extends $.$mpk_tss_pereferial_page {
+    class $mpk_tss_pereferial_list_page extends $.$mpk_tss_pereferial_list_page {
         destructor(): void;
     }
 }
@@ -1600,7 +1600,7 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
-    class $mpk_tss_reports_domain extends $mol_object {
+    class $mpk_tss_reports_domain_trains extends $mol_object {
         report(id: string): $mpk_tss_reports_domain_report;
         filter_number(next?: string | null): string | null;
         filter_resolution(next?: $mpk_tss_reports_domain_resolution | null): $mpk_tss_reports_domain_resolution | null;
@@ -1620,6 +1620,12 @@ declare namespace $ {
         sink = "sink",
         dent = "dent"
     }
+    enum $mpk_tss_reports_domain_carriage_type {
+        hopper = "hopper",
+        flatcar = "flatcar",
+        tank = "tank",
+        covered = "covered"
+    }
     type $mpk_tss_reports_domain_point = [number, number];
     class $mpk_tss_reports_domain_wheel extends $mol_object {
         id(): string;
@@ -1635,9 +1641,6 @@ declare namespace $ {
         wheel(id: string): $mpk_tss_reports_domain_wheel;
         max(): number;
         wheels(): $mpk_tss_reports_domain_wheel[];
-    }
-    enum $mpk_tss_reports_domain_carriage_type {
-        hopper = "hopper"
     }
     class $mpk_tss_reports_domain_carriage extends $mol_object {
         id(): string;
@@ -1747,7 +1750,7 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
-    class $mpk_tss_reports_train extends $mpk_tss_card {
+    class $mpk_tss_reports_train_link extends $mpk_tss_card {
         report(): any;
         arg(): {
             "report": string;
@@ -1777,7 +1780,7 @@ declare namespace $ {
     }
 }
 declare namespace $.$$ {
-    class $mpk_tss_reports_train extends $.$mpk_tss_reports_train {
+    class $mpk_tss_reports_train_link extends $.$mpk_tss_reports_train_link {
         report(): $mpk_tss_reports_domain_report;
         report_id(): string;
         train_number(): string;
@@ -2353,10 +2356,10 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
-    class $mpk_tss_reports extends $mol_view {
+    class $mpk_tss_reports_train_list extends $mol_view {
         title(): string;
         pages(): any[];
-        Main(): $mpk_tss_reports_page;
+        Main(): $mpk_tss_reports_train_list_page;
         event_top(e?: any, force?: $mol_atom_force): any;
         tools(): any[];
         report_current_id(id?: any, force?: $mol_atom_force): any;
@@ -2365,14 +2368,14 @@ declare namespace $ {
         Reports(): $mpk_tss_card_list;
         report_links(): any[];
         Details_pages(): any;
-        Report_link(id: any): $mpk_tss_reports_train;
+        Report_link(id: any): $mpk_tss_reports_train_link;
         report(id: any): any;
         Report_details(id: any): $mpk_tss_reports_carriage_list;
         focus_main(e?: any, force?: $mol_atom_force): any;
     }
 }
 declare namespace $ {
-    class $mpk_tss_reports_page extends $mol_page {
+    class $mpk_tss_reports_train_list_page extends $mol_page {
         minimal_width(): number;
         report_current_id(uri?: any, force?: $mol_atom_force): any;
         sub(): any[];
@@ -2385,10 +2388,10 @@ declare namespace $ {
     }
 }
 declare namespace $.$$ {
-    class $mpk_tss_reports extends $.$mpk_tss_reports {
-        domain(): $mpk_tss_reports_domain;
+    class $mpk_tss_reports_train_list extends $.$mpk_tss_reports_train_list {
+        domain(): $mpk_tss_reports_domain_trains;
         main_blended(): boolean;
-        report_links(): $.$mpk_tss_reports_train[];
+        report_links(): $.$mpk_tss_reports_train_link[];
         report(id: string): $mpk_tss_reports_domain_report;
         filter_number(next?: string): string;
         filter_warning(next?: boolean): boolean;
@@ -2396,7 +2399,7 @@ declare namespace $.$$ {
         Details_pages(): any[];
         focus_main(): void;
     }
-    class $mpk_tss_reports_page extends $.$mpk_tss_reports_page {
+    class $mpk_tss_reports_train_list_page extends $.$mpk_tss_reports_train_list_page {
         destructor(): void;
     }
 }
@@ -2503,7 +2506,7 @@ declare namespace $ {
     function $mpk_tss_stub_mem<Host, Value>(obj: Host, name: string, descr: TypedPropertyDescriptor<(id?: string | Object) => Value>): void;
 }
 declare namespace $ {
-    class $mpk_tss_pereferial_domain_mock extends $mpk_tss_pereferial_domain {
+    class $mpk_tss_pereferial_domain_mock_units extends $mpk_tss_pereferial_domain_units {
         max_units(): number;
         unit(id: string): $mpk_tss_pereferial_domain_unit;
         protected units_all(): $mpk_tss_pereferial_domain_unit[];
@@ -2511,7 +2514,7 @@ declare namespace $ {
     }
 }
 declare namespace $ {
-    class $mpk_tss_reports_domain_mock extends $mpk_tss_reports_domain {
+    class $mpk_tss_reports_domain_mock_trains extends $mpk_tss_reports_domain_trains {
         max_reports(): number;
         report(id: string): $mpk_tss_reports_domain_report;
         reports_all(): $mpk_tss_reports_domain_report[];
@@ -2547,15 +2550,15 @@ declare namespace $ {
         menu_pages(): {
             "summary": $mpk_tss_summary;
             "software": $mpk_tss_software;
-            "pereferial": $mpk_tss_pereferial;
+            "pereferial": $mpk_tss_pereferial_list;
             "sensors": $mpk_tss_sensors;
-            "reports": $mpk_tss_reports;
+            "reports": $mpk_tss_reports_train_list;
         };
         Summary(): $mpk_tss_summary;
         Software(): $mpk_tss_software;
-        Pereferial(): $mpk_tss_pereferial;
+        Pereferial(): $mpk_tss_pereferial_list;
         Sensors(): $mpk_tss_sensors;
-        Reports(): $mpk_tss_reports;
+        Reports(): $mpk_tss_reports_train_list;
         common_tools(): any[];
         Details_close(): $mol_link;
         Details_close_icon(): $mol_icon_cross;
@@ -2563,6 +2566,7 @@ declare namespace $ {
         Sidebar(): $mol_page;
         Logo(): $mol_image;
         event_top(val?: any, force?: $mol_atom_force): any;
+        sidebar_title(): string;
         sidebar_items(): any[];
         Login(): $mpk_tss_login;
         entered(val?: any, force?: $mol_atom_force): any;
@@ -2595,8 +2599,8 @@ declare namespace $.$$ {
         context_sub(): $mol_ambient_context;
     }
     class $mpk_tss_main extends $.$mpk_tss_main {
-        Pereferial(): $.$mpk_tss_pereferial;
-        Reports(): $.$mpk_tss_reports;
+        Pereferial(): $.$mpk_tss_pereferial_list;
+        Reports(): $.$mpk_tss_reports_train_list;
         copyright(): string;
         entered(next?: boolean): boolean;
         Logged_user(): $mol_button_minor;
@@ -2985,8 +2989,11 @@ declare namespace $ {
         Statuses(): $mpk_tss_summary_section;
         All(): $mpk_tss_summary_status;
         Software(): $mpk_tss_summary_item;
+        software_title(): string;
         Sensors(): $mpk_tss_summary_item;
+        sensors_title(): string;
         Pereferials(): $mpk_tss_summary_item;
+        pereferial_title(): string;
         Log(): $mol_expander;
         log_title(): string;
     }
