@@ -1,17 +1,17 @@
 [mpk_tss_summary_status_type="warning"] {
-	background-color: rgb(219, 146, 10);
+	background-color: var(--mpk_theme_status_bg_warning);
 }
 
 [mpk_tss_summary_status_type="error"] {
-	background-color: rgb(202, 6, 6);
+	background-color: var(--mpk_theme_status_bg_error);
 }
 
 [mpk_tss_summary_status_type="success"] {
-	background-color: rgb(16, 139, 16);
+	background-color: var(--mpk_theme_status_bg_success);
 }
 
 [mpk_tss_summary_status_type="ready"] {
-	background-color: rgb(4, 116, 4);
+	background-color: var(--mpk_theme_status_bg_success);
 }
 
 [mpk_tss_summary_status] {
@@ -19,7 +19,7 @@
 	justify-content: center;
 	align-items: center;
 	padding: .1rem .5rem;
-	color: white;
+	color: var(--mpk_theme_status_text);
 	min-width: 10rem;
 	border-radius: var(--mol_skin_round);
 }

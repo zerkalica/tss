@@ -1,14 +1,14 @@
 [mpk_tss_pereferial_status_type="ready"] {
-	color: hsl(140, 50%, 50%);
+	color: var(--mpk_theme_status_text_success);
 }
 
 [mpk_tss_pereferial_status_type="not_responding"],
 [mpk_tss_pereferial_status_type="error"] {
-	color: hsl(0, 50%, 50%);
+	color: var(--mpk_theme_status_text_error);
 }
 
 
 [mpk_tss_pereferial_status_type="unknown"],
 [mpk_tss_pereferial_status_type="inactive"] {
-	color: hsl(0, 0%, 61%);
+	color: var(--mpk_theme_status_text_inactive);
 }

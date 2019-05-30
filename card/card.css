@@ -11,6 +11,7 @@
 
 [mpk_tss_card_status] {
 	background: var(--mol_theme_line);
+	color: var(--mol_theme_text);
 	padding: 0;
 	line-height: 2;
 	margin: 0;
@@ -23,11 +24,37 @@
 }
 
 [mpk_tss_card] > [mol_card_status_type="success"] {
-	--mol_theme_line: var(--mpk_theme_success);
-	--mol_theme_control: var(--mol_theme_field);
+	--mol_theme_line: var(--mpk_theme_status_bg_success);
+	--mol_theme_control: var(--mpk_theme_status_control);
+	--mol_theme_text: var(--mpk_theme_status_text);
 }
 
 [mpk_tss_card] > [mol_card_status_type="warning"] {
-	--mol_theme_line: var(--mpk_theme_warning);
+	--mol_theme_line: var(--mpk_theme_status_bg_warning);
+	--mol_theme_control: var(--mpk_theme_status_control);
+	--mol_theme_text: var(--mpk_theme_status_text);
+}
+[mpk_tss_card] > [mol_card_status_type="ready"] {
+	--mol_theme_line: var(--mpk_theme_status_bg_success);
+	--mol_theme_control: var(--mpk_theme_status_control);
+	--mol_theme_text: var(--mpk_theme_status_text);
+}
+
+[mpk_tss_card] > [mol_card_status_type="not_responding"],
+[mpk_tss_card] > [mol_card_status_type="error"] {
+	--mol_theme_line: var(--mpk_theme_status_bg_error);
 	--mol_theme_control: var(--mol_theme_field);
+	--mol_theme_text: var(--mpk_theme_status_text);
+}
+
+[mpk_tss_card] > [mol_card_status_type="inactive"] {
+	--mol_theme_line: var(--mpk_theme_status_bg_inactive);
+	--mol_theme_control: var(--mol_theme_field);
+	--mol_theme_text: var(--mpk_theme_status_text);
+}
+
+[mpk_tss_card] > [mol_card_status_type="unknown"] {
+	--mol_theme_line: var(--mpk_theme_status_bg_unknown);
+	--mol_theme_control: var(--mol_theme_field);
+	--mol_theme_text: var(--mpk_theme_status_text);
 }

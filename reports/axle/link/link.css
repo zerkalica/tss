@@ -18,11 +18,11 @@
 }
 
 [mpk_tss_reports_axle_link_wheel_type="success"] {
-	--mol_theme_line: var(--mpk_theme_success);
+	--mol_theme_line: var(--mpk_theme_status_bg_success);
 	--mol_theme_control: var(--mol_theme_field);
 }
 
 [mpk_tss_reports_axle_link_wheel_type="warning"] {
-	--mol_theme_line: var(--mpk_theme_warning);
+	--mol_theme_line: var(--mpk_theme_status_bg_warning);
 	--mol_theme_control: var(--mol_theme_field);
 }
