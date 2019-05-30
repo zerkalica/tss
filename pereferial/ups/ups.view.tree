@@ -1,11 +1,9 @@
 $mpk_tss_pereferial_ups $mpk_tss_parameter_list
 	unit null
-	Unknown $mpk_tss_parameter_unknown
 	rows /
 		<= Status $mpk_tss_parameter
 			name <= status_title @ \State
-			value <= Status_text $mpk_tss_pereferial_status
-				status <= status \
+			value <= status null
 			updated <= updated null
 		<= Power $mpk_tss_parameter
 			name <= power_title @ \Power source

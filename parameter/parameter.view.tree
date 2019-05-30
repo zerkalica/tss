@@ -1,18 +1,15 @@
 $mpk_tss_parameter $mol_row
+	Unknown_value $mpk_tss_parameter_unknown
+	Unknown_updated $mpk_tss_parameter_unknown
+	value null
+	updated null
 	sub /
 		<= Name $mol_labeler
 			title <= name_title @ \Parameter
-			Content $mol_view
-				sub /
-					<= name \
+			Content $mol_view sub / <= name \
 		<= Value $mol_labeler
 			title <= value_title @ \Value
-			Content $mol_view
-				sub /
-					<= value null
+			Content <= Value_content null
 		<= Updated $mol_labeler
 			title <= updated_title @ \Updated
-			Content $mol_view
-				sub /
-					<= Updated_value $mpk_tss_parameter_date
-						date <= updated null
+			Content <= Updated_value null

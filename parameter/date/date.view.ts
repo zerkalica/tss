@@ -5,7 +5,6 @@ namespace $.$$ {
 		}
 
 		date_formatted() {
-			if (!this.date()) return this.Unknown()
 			return this.date().native.toLocaleString()
 		}
 	}
