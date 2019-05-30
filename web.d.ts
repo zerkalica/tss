@@ -1228,8 +1228,8 @@ declare namespace $ {
         updated(next?: $mol_time_moment): $mol_time_moment | null;
     }
     enum $mpk_tss_pereferial_domain_ups_power_source {
-        line = "Line",
-        internal = "Internal"
+        linein = "linein",
+        internal = "internal"
     }
     class $mpk_tss_pereferial_domain_ups extends $mpk_tss_pereferial_domain_unit {
         type(): $mpk_tss_pereferial_domain_type;
@@ -1237,6 +1237,46 @@ declare namespace $ {
         voltage(): number;
         battery_level(): number;
         battery_time(): $mol_time_duration;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_pereferial_source extends $mol_view {
+        status(): any;
+        statuses(): {
+            "linein": string;
+            "internal": string;
+        };
+        linein(): string;
+        internal(): string;
+        sub(): any[];
+        status_text(): string;
+    }
+}
+declare namespace $.$$ {
+    class $mpk_tss_pereferial_source extends $.$mpk_tss_pereferial_source {
+        status_text(): any;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_parameter_voltage extends $mol_view {
+        sub(): any[];
+        value(): number;
+        spacer(): string;
+        unit(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_parameter_duration extends $mol_view {
+        minutes(): string;
+        value(): any;
+        sub(): any[];
+        formatted_value(): string;
+    }
+}
+declare namespace $.$$ {
+    class $mpk_tss_parameter_duration extends $.$mpk_tss_parameter_duration {
+        value(): $mol_time_duration;
+        formatted_value(): string;
     }
 }
 declare namespace $ {
@@ -1268,10 +1308,10 @@ declare namespace $.$$ {
         unit(): $mpk_tss_pereferial_domain_ups;
         status(): $mpk_tss_pereferial_domain_status;
         updated(): $mol_time_moment;
-        power_source(): $mpk_tss_parameter_unknown | $mpk_tss_pereferial_domain_ups_power_source;
-        voltage(): string | $mpk_tss_parameter_unknown;
+        power_source(): $mpk_tss_pereferial_source | $mpk_tss_parameter_unknown;
+        voltage(): $mpk_tss_parameter_unknown | $mpk_tss_parameter_voltage;
         battery_level(): string | $mpk_tss_parameter_unknown;
-        battery_time(): string | $mpk_tss_parameter_unknown;
+        battery_time(): $mpk_tss_parameter_duration | $mpk_tss_parameter_unknown;
     }
 }
 declare namespace $ {
@@ -1331,7 +1371,7 @@ declare namespace $ {
     }
 }
 declare namespace $ {
-    class $mpk_tss_pereferial_card extends $mpk_tss_card {
+    class $mpk_tss_pereferial_link extends $mpk_tss_card {
         unit(): any;
         arg(): {
             "unit": string;
@@ -1353,7 +1393,7 @@ declare namespace $ {
     }
 }
 declare namespace $.$$ {
-    class $mpk_tss_pereferial_card extends $.$mpk_tss_pereferial_card {
+    class $mpk_tss_pereferial_link extends $.$mpk_tss_pereferial_link {
         unit(): $mpk_tss_pereferial_domain_unit;
         unit_id(): string;
         type(): $mpk_tss_pereferial_domain_type;
@@ -1551,7 +1591,7 @@ declare namespace $ {
         Unit_details(id: any): $mpk_tss_pereferial_details;
         details_event_top(e?: any, force?: $mol_atom_force): any;
         unit(id: any): any;
-        Unit_link(id: any): $mpk_tss_pereferial_card;
+        Unit_link(id: any): $mpk_tss_pereferial_link;
     }
 }
 declare namespace $ {
@@ -1566,7 +1606,7 @@ declare namespace $ {
 declare namespace $.$$ {
     class $mpk_tss_pereferial_list extends $.$mpk_tss_pereferial_list {
         domain(): $mpk_tss_pereferial_domain_units;
-        unit_links(): $.$mpk_tss_pereferial_card[];
+        unit_links(): $.$mpk_tss_pereferial_link[];
         unit(id: string): $mpk_tss_pereferial_domain_unit;
         filter_value(next?: string): string;
         unit_current_id(next?: string): string;
@@ -1711,6 +1751,14 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
+    class $mpk_tss_parameter_speed extends $mol_view {
+        sub(): any[];
+        value(): number;
+        spacer(): string;
+        unit(): string;
+    }
+}
+declare namespace $ {
     class $mpk_tss_reports_delivery extends $mol_view {
         attr(): {
             "mpk_tss_reports_delivery_type": string;
@@ -1769,7 +1817,8 @@ declare namespace $ {
         started(): string;
         Average_speed(): $mol_labeler;
         average_speed_title(): string;
-        average_speed(): string;
+        Average_speed_formatted(): $mpk_tss_parameter_speed;
+        average_speed(): number;
         Delivery(): $mol_labeler;
         delivery_title(): string;
         Delivery_value(): $mpk_tss_reports_delivery;
@@ -1786,7 +1835,7 @@ declare namespace $.$$ {
         train_number(): string;
         resolution(): $mpk_tss_reports_domain_resolution;
         started(): string;
-        average_speed(): string;
+        average_speed(): number;
         delivery(): $mpk_tss_reports_domain_delivery;
         report_status_click(even?: Event): void;
     }
@@ -1866,7 +1915,8 @@ declare namespace $ {
         load(): string;
         Speed(): $mol_labeler;
         speed_title(): string;
-        speed(): string;
+        Speed_formatted(): $mpk_tss_parameter_speed;
+        speed(): number;
         additional(): any[];
     }
 }
@@ -1887,7 +1937,45 @@ declare namespace $.$$ {
         resolution(): $mpk_tss_reports_domain_resolution;
         load(): $mpk_tss_reports_domain_load;
         violation(): $mpk_tss_reports_domain_violation;
-        speed(): string;
+        speed(): number;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_parameter_weight extends $mol_view {
+        sub(): any[];
+        value(): number;
+        spacer(): string;
+        unit(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_reports_carriage_type extends $mol_view {
+        value(): any;
+        values(): {
+            "hopper": string;
+            "flatcar": string;
+            "tank": string;
+            "covered": string;
+        };
+        hopper(): string;
+        flatcar(): string;
+        tank(): string;
+        covered(): string;
+        sub(): any[];
+        status_text(): string;
+    }
+}
+declare namespace $.$$ {
+    class $mpk_tss_reports_carriage_type extends $.$mpk_tss_reports_carriage_type {
+        status_text(): any;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_parameter_length extends $mol_view {
+        sub(): any[];
+        value(): number;
+        spacer(): string;
+        unit(): string;
     }
 }
 declare namespace $ {
@@ -2247,13 +2335,16 @@ declare namespace $ {
         Info(): $mpk_tss_reports_carriage_link;
         Weight(): $mol_labeler;
         total_weight_title(): string;
-        total_weight(): string;
+        Weight_content(): $mpk_tss_parameter_weight;
+        total_weight(): number;
         Type(): $mol_labeler;
         type_title(): string;
+        Type_content(): $mpk_tss_reports_carriage_type;
         type(): string;
         Length(): $mol_labeler;
         length_title(): string;
-        length(): string;
+        Length_content(): $mpk_tss_parameter_length;
+        length(): number;
         Violation(): $mol_labeler;
         violation_title(): string;
         Violation_content(): $mpk_tss_reports_violation;
@@ -2267,10 +2358,10 @@ declare namespace $.$$ {
     class $mpk_tss_reports_carriage_details extends $.$mpk_tss_reports_carriage_details {
         carriage(): $mpk_tss_reports_domain_carriage;
         title(): string;
-        total_weight(): string;
+        total_weight(): number;
         type(): $mpk_tss_reports_domain_carriage_type;
         violation(): $mpk_tss_reports_domain_violation;
-        length(): string;
+        length(): number;
     }
 }
 declare namespace $ {
@@ -2347,7 +2438,6 @@ declare namespace $.$$ {
         title(): string;
         carriage(id: string): $mpk_tss_reports_domain_carriage;
         carriage_links(): $.$mpk_tss_reports_carriage_link[];
-        average_speed(): string;
         carriage_id(next?: string): string;
         Carriage(): $.$mpk_tss_reports_carriage_details;
         focus_main(): void;

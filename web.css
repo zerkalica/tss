@@ -713,23 +713,23 @@
 	--mol_theme_control: var(--mol_theme_field);
 }
 
-[mpk_tss_pereferial_card] > [mol_card_status_type="ready"] {
+[mpk_tss_pereferial_link] > [mol_card_status_type="ready"] {
 	--mol_theme_line: hsl(140, 50%, 50%);
 	--mol_theme_control: white;
 }
 
-[mpk_tss_pereferial_card] > [mol_card_status_type="not_responding"],
-[mpk_tss_pereferial_card] > [mol_card_status_type="error"] {
+[mpk_tss_pereferial_link] > [mol_card_status_type="not_responding"],
+[mpk_tss_pereferial_link] > [mol_card_status_type="error"] {
 	--mol_theme_line: hsl(0, 50%, 50%);
 	--mol_theme_control: white;
 }
 
-[mpk_tss_pereferial_card] > [mol_card_status_type="inactive"] {
+[mpk_tss_pereferial_link] > [mol_card_status_type="inactive"] {
 	--mol_theme_line: hsl(225, 2%, 60%);
 	--mol_theme_control: white;
 }
 
-[mpk_tss_pereferial_card] > [mol_card_status_type="unknown"] {
+[mpk_tss_pereferial_link] > [mol_card_status_type="unknown"] {
 	--mol_theme_line: hsl(0, 1%, 60%);
 	--mol_theme_control: white;
 }

@@ -329,6 +329,26 @@ $mpk_tss_pereferial_ups $mpk_tss_parameter_list
 			value <= battery_time null
 			updated <= updated null
 
+$mpk_tss_pereferial_source $mol_view
+	status null
+	statuses *
+		linein <= linein @ \Linein
+		internal <= internal @ \Internal
+	sub /
+		<= status_text \
+
+$mpk_tss_parameter_voltage $mol_view
+	sub /
+		<= value 0
+		<= spacer \ 
+		<= unit @ \V
+	
+$mpk_tss_parameter_duration $mol_view
+	minutes @ \min
+	value null
+	sub /
+		<= formatted_value \
+
 $mpk_tss_pereferial_details $mol_page
 	unit null
 	minimal_width 400
@@ -369,7 +389,7 @@ $mpk_tss_card $mol_link
 			Content <= Content $mol_row
 				sub / <= items /
 
-$mpk_tss_pereferial_card $mpk_tss_card
+$mpk_tss_pereferial_link $mpk_tss_card
 	unit null
 	arg * unit <= unit_id \
 	status <= unit_status \
@@ -515,7 +535,7 @@ $mpk_tss_pereferial_list $mol_view
 	Unit_details!id $mpk_tss_pereferial_details
 		event_top?e <=> details_event_top?e null
 		unit <= unit!id null
-	Unit_link!id $mpk_tss_pereferial_card
+	Unit_link!id $mpk_tss_pereferial_link
 		unit <= unit!id null
 
 $mpk_tss_pereferial_list_page $mol_page
@@ -552,6 +572,12 @@ $mpk_tss_reports_resolution $mol_view
 	sub /
 		<= Text $mol_view sub / <= status_text \
 
+$mpk_tss_parameter_speed $mol_view
+	sub /
+		<= value 0
+		<= spacer \ 
+		<= unit @ \km/h
+
 $mpk_tss_reports_delivery $mol_view
 	attr *
 		^
@@ -586,7 +612,7 @@ $mpk_tss_reports_train_link $mpk_tss_card
 			content <= started \
 		<= Average_speed $mol_labeler
 			title <= average_speed_title @ \Speed
-			content <= average_speed \
+			content <= Average_speed_formatted $mpk_tss_parameter_speed value <= average_speed 0
 		<= Delivery $mol_labeler
 			title <= delivery_title @ \Delivery
 			Content <= Delivery_value $mpk_tss_reports_delivery
@@ -640,7 +666,7 @@ $mpk_tss_reports_carriage_link $mpk_tss_card
 				status <= load \
 		<= Speed $mol_labeler
 			title <= speed_title @ \Speed
-			content <= speed \
+			content <= Speed_formatted $mpk_tss_parameter_speed value <= speed 0
 		<= additional /
 
 $mpk_tss_reports_carriage_link_violation $mpk_tss_reports_violation
@@ -648,6 +674,28 @@ $mpk_tss_reports_carriage_link_violation $mpk_tss_reports_violation
 		<= before \(
 		<= status_text
 		<= after \)
+
+$mpk_tss_parameter_weight $mol_view
+	sub /
+		<= value 0
+		<= spacer \ 
+		<= unit @ \kg
+
+$mpk_tss_reports_carriage_type $mol_view
+	value null
+	values *
+		hopper <= hopper @ \Hopper
+		flatcar <= flatcar @ \Flatcar
+		tank <= tank @ \Tank
+		covered <= covered @ \Covered
+	sub /
+		<= status_text \
+
+$mpk_tss_parameter_length $mol_view
+	sub /
+		<= value 0
+		<= spacer \ 
+		<= unit @ \м
 
 $mpk_tss_reports_axle_link $mol_link
 	axle null
@@ -880,13 +928,13 @@ $mpk_tss_reports_carriage_details $mol_page
 				additional /
 					<= Weight $mol_labeler
 						title <= total_weight_title @ \Total weight
-						content <= total_weight \
+						content <= Weight_content $mpk_tss_parameter_weight value <= total_weight 0
 					<= Type $mol_labeler
 						title <= type_title @ \Type
-						content <= type \
+						content <= Type_content $mpk_tss_reports_carriage_type value <= type \
 					<= Length $mol_labeler
 						title <= length_title @ \Length
-						content <= length \axle
+						content <= Length_content $mpk_tss_parameter_length value <= length 0
 					<= Violation $mol_labeler
 						title <= violation_title @ \Violation
 						content <= Violation_content $mpk_tss_reports_violation
