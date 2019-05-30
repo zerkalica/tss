@@ -1,5 +1,5 @@
 namespace $ {
-	export class $mpk_tss_reports_domain_mock extends $mpk_tss_reports_domain {
+	export class $mpk_tss_reports_domain_mock_trains extends $mpk_tss_reports_domain_trains {
 		max_reports() { return 100 }
 
 		@$mpk_tss_stub_mem

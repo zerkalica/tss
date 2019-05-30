@@ -1,7 +1,7 @@
 namespace $ {
 	const t = $mpk_tss_todo
 
-	export class $mpk_tss_reports_domain extends $mol_object {
+	export class $mpk_tss_reports_domain_trains extends $mol_object {
 		@$mol_mem_key
 		report(id: string): $mpk_tss_reports_domain_report {
 			throw new t

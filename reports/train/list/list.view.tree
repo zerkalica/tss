@@ -1,7 +1,7 @@
-$mpk_tss_reports $mol_view
+$mpk_tss_reports_train_list $mol_view
 	title @ \Reports
 	pages /
-		<= Main $mpk_tss_reports_page
+		<= Main $mpk_tss_reports_train_list_page
 			event_top?e <=> event_top?e null
 			tools <= tools /
 			title <= title
@@ -15,7 +15,7 @@ $mpk_tss_reports $mol_view
 					rows <= report_links /
 		<= Details_pages null
 	-
-	Report_link!id $mpk_tss_reports_train
+	Report_link!id $mpk_tss_reports_train_link
 		minimal_height 100
 		report <= report!id null
 	-
@@ -23,7 +23,7 @@ $mpk_tss_reports $mol_view
 		report <= report!id null
 		event_top?e <=> focus_main?e null
 
-$mpk_tss_reports_page $mol_page
+$mpk_tss_reports_train_list_page $mol_page
 	minimal_width 520
 	report_current_id?uri \
 	sub /

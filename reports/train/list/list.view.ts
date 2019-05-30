@@ -1,8 +1,8 @@
 namespace $.$$ {
-	export class $mpk_tss_reports extends $.$mpk_tss_reports {
+	export class $mpk_tss_reports_train_list extends $.$mpk_tss_reports_train_list {
 		@$mol_mem
 		domain() {
-			return this.$.$mpk_tss_reports_domain.make({
+			return this.$.$mpk_tss_reports_domain_trains.make({
 				filter_number: (next?: string ) => this.filter_number(),
 				filter_resolution: () => {
 					return this.filter_warning()
@@ -54,7 +54,7 @@ namespace $.$$ {
 		}
 	}
 
-	export class $mpk_tss_reports_page extends $.$mpk_tss_reports_page {
+	export class $mpk_tss_reports_train_list_page extends $.$mpk_tss_reports_train_list_page {
 		destructor() {
 			this.report_current_id(null)
 			this.filter_number(null)
