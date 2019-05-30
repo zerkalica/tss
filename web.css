@@ -1294,6 +1294,9 @@
 	--mol_theme_control: gray;
 	--mol_skin_accent: var(--mpk_theme_warning);
 	--mol_skin_accent: var(--mpk_theme_warning);
+	margin-bottom: 1px;
+	box-shadow: 0 0 0 1px var(--mol_theme_line);
+	box-shadow: 0 0 0 1px var(--mol_theme_line);
 }
 
 [mpk_tss_reports_check_warning_icon] {
@@ -1367,8 +1370,8 @@
 }
 
 [mpk_tss_main] * [mol_string] {
-	margin-top: 1px;
-	padding: 0.45rem 1rem;
+
+	/* padding: 0.45rem 1rem; */
 }
 
 [mol_icon] {

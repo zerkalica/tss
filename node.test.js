@@ -7144,11 +7144,15 @@ var $;
         Axle_link(id) {
             return ((obj) => {
                 obj.axle = () => this.axle(id);
+                obj.current = () => this.current(id);
                 return obj;
             })(new this.$.$mpk_tss_reports_axle_link);
         }
         axle(id) {
             return null;
+        }
+        current(id) {
+            return false;
         }
     }
     __decorate([
@@ -7159,6 +7163,12 @@ var $;
 //list.view.tree.js.map
 ;
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 var $;
 (function ($) {
     var $$;
@@ -7170,6 +7180,9 @@ var $;
             }
             axle_current_id(next) {
                 return this.$.$mol_state_arg.value(this.state_key('axle'), next) || this.carriage().axis()[0].id();
+            }
+            current(id) {
+                return this.axle_current_id() === id;
             }
             axle_current() {
                 if (!this.axle_current_id())
@@ -7183,6 +7196,9 @@ var $;
                 this.axle_current_id(null);
             }
         }
+        __decorate([
+            $.$mol_mem
+        ], $mpk_tss_reports_axle_list.prototype, "axle_current_id", null);
         $$.$mpk_tss_reports_axle_list = $mpk_tss_reports_axle_list;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -8925,10 +8941,8 @@ var $;
                 });
             }
             filter_warning(next) {
-                const param = this.$.$mol_state_arg.value(this.state_key('carriages_all'), next === undefined
-                    ? undefined
-                    : next ? null : '1');
-                return param !== '1';
+                const param = this.$.$mol_state_arg.value(this.state_key('carriages_warning'), next ? '1' : null);
+                return !!param;
             }
             title() {
                 return super.title().replace('%train_number', this.report().train_number());
@@ -9180,10 +9194,8 @@ var $;
                 return $.$mol_state_arg.value(this.state_key('trains'), next === '' ? null : next) || '';
             }
             filter_warning(next) {
-                const param = this.$.$mol_state_arg.value(this.state_key('trains_all'), next === undefined
-                    ? undefined
-                    : next ? null : '1');
-                return param !== '1';
+                const param = this.$.$mol_state_arg.value(this.state_key('trains_warning'), next ? '1' : null);
+                return !!param;
             }
             report_current_id(next) {
                 return $.$mol_state_arg.value(this.state_key('report'), next) || '';

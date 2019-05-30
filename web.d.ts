@@ -1939,6 +1939,7 @@ declare namespace $ {
         axis(): any[];
         Axle_link(id: any): $mpk_tss_reports_axle_link;
         axle(id: any): any;
+        current(id: any): boolean;
     }
 }
 declare namespace $.$$ {
@@ -1946,6 +1947,7 @@ declare namespace $.$$ {
         carriage(): $mpk_tss_reports_domain_carriage;
         axle(id: string): $mpk_tss_reports_domain_axle;
         axle_current_id(next?: string): string;
+        current(id: string): boolean;
         axle_current(): $mpk_tss_reports_domain_axle;
         axis(): $.$mpk_tss_reports_axle_link[];
         destructor(): void;
