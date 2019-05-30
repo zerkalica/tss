@@ -51,7 +51,7 @@ $mpk_tss_main $mol_book
 				<= Logo $mol_image
 					uri \mpk/tss/tss_logo.svg
 					event * click?val <=> event_top?val null
-			title @ \Menu
+			title <= sidebar_title @ \Menu
 			minimal_width 230
 			body / <= sidebar_items /
 				<= Login $mpk_tss_login
@@ -65,7 +65,7 @@ $mpk_tss_main $mol_book
 					sub /
 						<= Foot_text $mol_view
 							sub /
-								<= copyright \© %year MPK Software, Russia
+								<= copyright @ \© %year MPK Software, Russia
 		<= Summary
 		<= menu_pages
 		<= details null
