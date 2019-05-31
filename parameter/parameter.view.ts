@@ -9,7 +9,7 @@ namespace $.$$ {
 		Updated_value() {
 			if (this.updated() === null || this.updated() === undefined) return this.Unknown_updated()
 
-			return $mpk_tss_parameter_date.make({date: () => this.updated()})
+			return this.Date()
 		}
 	}
 }

@@ -13,3 +13,5 @@ $mpk_tss_parameter $mol_row
 		<= Updated $mol_labeler
 			title <= updated_title @ \Updated
 			Content <= Updated_value null
+	Date $mpk_tss_parameter_date
+		date <= updated
