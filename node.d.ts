@@ -2254,6 +2254,7 @@ declare namespace $ {
     class $mpk_tss_reports_axle_chart extends $mol_chart {
         axle(): any;
         carriage(): any;
+        Plot(): $mpk_tss_reports_axle_chart_pane;
         graphs(): any[];
         Vert_ruler(): $mol_plot_ruler_vert;
         vert_title(): string;
@@ -2271,6 +2272,18 @@ declare namespace $ {
         Right_fill(): $mol_plot_line;
     }
 }
+declare namespace $ {
+    class $mpk_tss_reports_axle_chart_pane extends $mol_plot_pane {
+        gap_hor(): number;
+        gap_vert(): number;
+        hue_base(): number;
+        hue_shift(): number;
+        zoom_x(val?: any, force?: $mol_atom_force): any;
+        pan(val?: any, force?: $mol_atom_force): any;
+        plugins(): any[];
+        Touch(): $mol_touch;
+    }
+}
 declare namespace $.$$ {
     class $mpk_tss_reports_axle_chart extends $.$mpk_tss_reports_axle_chart {
         axle(): $mpk_tss_reports_domain_axle;
@@ -2282,6 +2295,12 @@ declare namespace $.$$ {
         ruler_data(): [number, number][];
         ruler(): Record<number, number>;
         ruler_x_norm(id: string): string;
+    }
+    class $mpk_tss_reports_axle_chart_pane extends $.$mpk_tss_reports_axle_chart_pane {
+        zoom_x(next?: number): any;
+        scale(): any[];
+        pan(next?: [number, number]): [number, number];
+        shift(): [number, number];
     }
 }
 declare namespace $ {

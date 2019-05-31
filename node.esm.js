@@ -8552,6 +8552,12 @@ var $;
         carriage() {
             return null;
         }
+        Plot() {
+            return ((obj) => {
+                obj.graphs = () => this.graphs();
+                return obj;
+            })(new this.$.$mpk_tss_reports_axle_chart_pane);
+        }
         graphs() {
             return [].concat(this.Vert_ruler(), this.Hor_ruler(), this.Forces_left(), this.Forces_right());
         }
@@ -8623,6 +8629,9 @@ var $;
     }
     __decorate([
         $.$mol_mem
+    ], $mpk_tss_reports_axle_chart.prototype, "Plot", null);
+    __decorate([
+        $.$mol_mem
     ], $mpk_tss_reports_axle_chart.prototype, "Vert_ruler", null);
     __decorate([
         $.$mol_mem
@@ -8640,6 +8649,48 @@ var $;
         $.$mol_mem
     ], $mpk_tss_reports_axle_chart.prototype, "Right_fill", null);
     $.$mpk_tss_reports_axle_chart = $mpk_tss_reports_axle_chart;
+})($ || ($ = {}));
+(function ($) {
+    class $mpk_tss_reports_axle_chart_pane extends $.$mol_plot_pane {
+        gap_hor() {
+            return 48;
+        }
+        gap_vert() {
+            return 24;
+        }
+        hue_base() {
+            return 140;
+        }
+        hue_shift() {
+            return 111;
+        }
+        zoom_x(val, force) {
+            return (val !== void 0) ? val : 0;
+        }
+        pan(val, force) {
+            return (val !== void 0) ? val : [].concat(0, 0);
+        }
+        plugins() {
+            return [].concat(this.Touch());
+        }
+        Touch() {
+            return ((obj) => {
+                obj.zoom = (val) => this.zoom_x(val);
+                obj.pan = (val) => this.pan(val);
+                return obj;
+            })(new this.$.$mol_touch);
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_axle_chart_pane.prototype, "zoom_x", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_axle_chart_pane.prototype, "pan", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_axle_chart_pane.prototype, "Touch", null);
+    $.$mpk_tss_reports_axle_chart_pane = $mpk_tss_reports_axle_chart_pane;
 })($ || ($ = {}));
 //chart.view.tree.js.map
 ;
@@ -8703,6 +8754,52 @@ var $;
             $.$mol_mem
         ], $mpk_tss_reports_axle_chart.prototype, "ruler", null);
         $$.$mpk_tss_reports_axle_chart = $mpk_tss_reports_axle_chart;
+        class $mpk_tss_reports_axle_chart_pane extends $.$mpk_tss_reports_axle_chart_pane {
+            zoom_x(next) {
+                const scale = super.scale();
+                if (next === undefined) {
+                    return scale[0];
+                }
+                if (next < scale[0])
+                    return scale[0];
+                if (next > 20)
+                    return 20;
+                return next;
+            }
+            scale() {
+                const scale = super.scale();
+                const zoom = this.zoom_x();
+                return [
+                    zoom,
+                    scale[1],
+                ];
+            }
+            pan(next) {
+                const shift = super.shift();
+                if (next === undefined)
+                    return shift;
+                let shift_x = next[0];
+                if (shift_x > this.gap_left())
+                    shift_x = this.gap_left();
+                return [
+                    shift_x,
+                    shift[1],
+                ];
+            }
+            shift() {
+                return this.pan();
+            }
+        }
+        __decorate([
+            $.$mol_mem
+        ], $mpk_tss_reports_axle_chart_pane.prototype, "zoom_x", null);
+        __decorate([
+            $.$mol_mem
+        ], $mpk_tss_reports_axle_chart_pane.prototype, "scale", null);
+        __decorate([
+            $.$mol_mem
+        ], $mpk_tss_reports_axle_chart_pane.prototype, "pan", null);
+        $$.$mpk_tss_reports_axle_chart_pane = $mpk_tss_reports_axle_chart_pane;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //chart.view.js.map
