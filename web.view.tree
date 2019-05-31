@@ -265,6 +265,11 @@ $mol_labeler $mol_view
 			sub /
 				<= content null
 
+$mpk_tss_parameter_date $mol_view
+	date null
+	sub /
+		<= date_formatted null
+
 $mpk_tss_parameter $mol_row
 	Unknown_value $mpk_tss_parameter_unknown
 	Unknown_updated $mpk_tss_parameter_unknown
@@ -280,11 +285,8 @@ $mpk_tss_parameter $mol_row
 		<= Updated $mol_labeler
 			title <= updated_title @ \Updated
 			Content <= Updated_value null
-
-$mpk_tss_parameter_date $mol_view
-	date null
-	sub /
-		<= date_formatted null
+	Date $mpk_tss_parameter_date
+		date <= updated
 
 $mpk_tss_parameter_list $mol_list
 

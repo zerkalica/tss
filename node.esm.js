@@ -4384,6 +4384,12 @@ var $;
         Updated_value() {
             return null;
         }
+        Date() {
+            return ((obj) => {
+                obj.date = () => this.updated();
+                return obj;
+            })(new this.$.$mpk_tss_parameter_date);
+        }
     }
     __decorate([
         $.$mol_mem
@@ -4400,6 +4406,9 @@ var $;
     __decorate([
         $.$mol_mem
     ], $mpk_tss_parameter.prototype, "Updated", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_parameter.prototype, "Date", null);
     $.$mpk_tss_parameter = $mpk_tss_parameter;
 })($ || ($ = {}));
 //parameter.view.tree.js.map
@@ -4418,7 +4427,7 @@ var $;
             Updated_value() {
                 if (this.updated() === null || this.updated() === undefined)
                     return this.Unknown_updated();
-                return $$.$mpk_tss_parameter_date.make({ date: () => this.updated() });
+                return this.Date();
             }
         }
         $$.$mpk_tss_parameter = $mpk_tss_parameter;

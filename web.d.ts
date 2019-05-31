@@ -1169,12 +1169,13 @@ declare namespace $ {
         Updated(): $mol_labeler;
         updated_title(): string;
         Updated_value(): any;
+        Date(): $mpk_tss_parameter_date;
     }
 }
 declare namespace $.$$ {
     class $mpk_tss_parameter extends $.$mpk_tss_parameter {
         Value_content(): any;
-        Updated_value(): $mpk_tss_parameter_date | $mpk_tss_parameter_unknown;
+        Updated_value(): $.$mpk_tss_parameter_date | $mpk_tss_parameter_unknown;
     }
 }
 declare namespace $ {
