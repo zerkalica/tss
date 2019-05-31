@@ -1,6 +1,8 @@
 $mpk_tss_reports_axle_chart $mol_chart
 	axle null
 	carriage null
+	Plot $mpk_tss_reports_axle_chart_pane
+		graphs <= graphs
 	graphs /
 		<= Vert_ruler $mol_plot_ruler_vert
 			title <= vert_title @ \kN
@@ -19,3 +21,17 @@ $mpk_tss_reports_axle_chart $mol_chart
 			series <= forces_right /
 			graphs /
 				<= Right_fill $mol_plot_line
+
+$mpk_tss_reports_axle_chart_pane $mol_plot_pane
+	gap_hor 48
+	gap_vert 24
+	hue_base?val <= hue_base 140
+	hue_shift?val <= hue_shift 111
+	zoom_x?val 0
+	pan?val /
+		0
+		0
+	plugins /
+		<= Touch $mol_touch
+			zoom?val <=> zoom_x?val
+			pan?val <=> pan?val
