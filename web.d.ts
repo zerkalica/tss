@@ -2062,17 +2062,17 @@ declare namespace $ {
         gap_right(): number;
         gap_top(): number;
         gap_bottom(): number;
-        shift(): any[];
+        shift(val?: any, force?: $mol_atom_force): any;
         scale(): any[];
         size_real(): any[];
+        size_expaned(): any[];
+        dimensions_expanded(): any[];
+        dimensions(): any[];
         sub(): any[];
         graphs_sorted(): any[];
         graphs_colored(): any[];
         graphs_positioned(): any[];
         graphs(): any[];
-        size_expaned(): any[];
-        dimensions_expanded(): any[];
-        dimensions(): any[];
         plugins(): any[];
         width(): any;
         height(): any;
@@ -2090,7 +2090,8 @@ declare namespace $.$$ {
         size_real(): any[];
         view_box(): string;
         scale(): number[];
-        shift(): number[];
+        shift_defaults(): number[];
+        shift(next?: [number, number]): number[];
         graphs_positioned(): any[];
         graphs_sorted(): $mol_view[];
     }
@@ -2326,7 +2327,6 @@ declare namespace $ {
         hue_base(): number;
         hue_shift(): number;
         zoom_x(val?: any, force?: $mol_atom_force): any;
-        pan(val?: any, force?: $mol_atom_force): any;
         plugins(): any[];
         Touch(): $mol_touch;
     }
@@ -2344,10 +2344,11 @@ declare namespace $.$$ {
         ruler_x_norm(id: string): string;
     }
     class $mpk_tss_reports_axle_chart_pane extends $.$mpk_tss_reports_axle_chart_pane {
+        zoom_x_max(): number;
         zoom_x(next?: number): any;
+        zoom_y_max(): number;
+        zoom_y(next?: number): any;
         scale(): any[];
-        pan(next?: [number, number]): [number, number];
-        shift(): [number, number];
     }
 }
 declare namespace $ {
