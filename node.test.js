@@ -8779,10 +8779,9 @@ var $;
                 if (next === undefined)
                     return shift;
                 let shift_x = next[0];
-                if (shift_x > 0)
-                    shift_x = 0;
-                const size = this.size_expaned();
-                const last_x = size[0] * this.scale()[0];
+                if (shift_x > this.gap_left())
+                    shift_x = this.gap_left();
+                const last_x = this.size_expaned()[0] * this.scale()[0] - this.size_real()[0] + this.gap_right();
                 if (-shift_x > last_x)
                     shift_x = -last_x;
                 return [
