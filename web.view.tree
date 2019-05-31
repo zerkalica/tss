@@ -922,10 +922,10 @@ $mpk_tss_reports_axle_chart_pane $mol_plot_pane
 	gap_vert 24
 	hue_base?val <= hue_base 140
 	hue_shift?val <= hue_shift 111
-	zoom_x?val 0
+	scale_x?val 0
 	plugins /
 		<= Touch $mol_touch
-			zoom?val <=> zoom_x?val
+			zoom?val <=> scale_x?val
 			pan?val <=> shift?val
 
 $mpk_tss_reports_carriage_details $mol_page

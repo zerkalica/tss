@@ -2090,7 +2090,8 @@ declare namespace $.$$ {
         size_real(): any[];
         view_box(): string;
         scale(): number[];
-        shift_defaults(): number[];
+        shift_defaults(): [number, number];
+        protected last_shift: number[];
         shift(next?: [number, number]): number[];
         graphs_positioned(): any[];
         graphs_sorted(): $mol_view[];
@@ -2326,7 +2327,7 @@ declare namespace $ {
         gap_vert(): number;
         hue_base(): number;
         hue_shift(): number;
-        zoom_x(val?: any, force?: $mol_atom_force): any;
+        scale_x(val?: any, force?: $mol_atom_force): any;
         plugins(): any[];
         Touch(): $mol_touch;
     }
@@ -2344,11 +2345,11 @@ declare namespace $.$$ {
         ruler_x_norm(id: string): string;
     }
     class $mpk_tss_reports_axle_chart_pane extends $.$mpk_tss_reports_axle_chart_pane {
-        zoom_x_max(): number;
-        zoom_x(next?: number): any;
-        zoom_y_max(): number;
-        zoom_y(next?: number): any;
-        scale(): any[];
+        scale_limit(): [number, number];
+        scale_x(next?: number): number;
+        scale_y(next?: number): number;
+        scale_xy(next?: number): number;
+        scale(next?: [number, number]): [number, number];
     }
 }
 declare namespace $ {

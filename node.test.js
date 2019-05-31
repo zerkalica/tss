@@ -7569,6 +7569,10 @@ var $;
     var $$;
     (function ($$) {
         class $mol_plot_pane extends $.$mol_plot_pane {
+            constructor() {
+                super(...arguments);
+                this.last_shift = [];
+            }
             dimensions() {
                 const graphs = this.graphs();
                 const next = [
@@ -7645,8 +7649,9 @@ var $;
                 ];
             }
             shift(next) {
+                const { last_shift } = this;
                 if (next === undefined)
-                    return this.shift_defaults();
+                    return last_shift.length > 0 ? last_shift : this.shift_defaults();
                 const [dim0, dim1] = this.dimensions_expanded();
                 const [scale_x, scale_y] = this.scale();
                 const [size_x, size_y] = this.size_real();
@@ -7664,9 +7669,11 @@ var $;
                     shift_y = top;
                 if (shift_y < bottom)
                     shift_y = bottom;
+                last_shift[0] = shift_x;
+                last_shift[1] = shift_y;
                 return [
-                    shift_x,
-                    shift_y,
+                    Math.round(shift_x),
+                    Math.round(shift_y),
                 ];
             }
             graphs_positioned() {
@@ -8695,7 +8702,7 @@ var $;
         hue_shift() {
             return 111;
         }
-        zoom_x(val, force) {
+        scale_x(val, force) {
             return (val !== void 0) ? val : 0;
         }
         plugins() {
@@ -8703,7 +8710,7 @@ var $;
         }
         Touch() {
             return ((obj) => {
-                obj.zoom = (val) => this.zoom_x(val);
+                obj.zoom = (val) => this.scale_x(val);
                 obj.pan = (val) => this.shift(val);
                 return obj;
             })(new this.$.$mol_touch);
@@ -8711,7 +8718,7 @@ var $;
     }
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_axle_chart_pane.prototype, "zoom_x", null);
+    ], $mpk_tss_reports_axle_chart_pane.prototype, "scale_x", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports_axle_chart_pane.prototype, "Touch", null);
@@ -8780,47 +8787,36 @@ var $;
         ], $mpk_tss_reports_axle_chart.prototype, "ruler", null);
         $$.$mpk_tss_reports_axle_chart = $mpk_tss_reports_axle_chart;
         class $mpk_tss_reports_axle_chart_pane extends $.$mpk_tss_reports_axle_chart_pane {
-            zoom_x_max() {
-                return 20;
+            scale_limit() {
+                return [20, 20];
             }
-            zoom_x(next) {
-                const [scale_x,] = super.scale();
+            scale_x(next) {
+                return this.scale(next && [next, this.scale()[1]])[0];
+            }
+            scale_y(next) {
+                return this.scale(next && [this.scale()[0], next])[1];
+            }
+            scale_xy(next) {
+                return this.scale(next && [next, next])[0];
+            }
+            scale(next) {
+                const scale = super.scale();
                 if (next === undefined)
-                    return scale_x;
-                const zoom_x_max = this.zoom_x_max();
-                if (next < scale_x)
-                    return scale_x;
-                if (next > zoom_x_max)
-                    return zoom_x_max;
-                return next;
-            }
-            zoom_y_max() {
-                return 20;
-            }
-            zoom_y(next) {
-                const [, scale_y] = super.scale();
-                if (next === undefined)
-                    return scale_y;
-                const zoom_y_max = this.zoom_y_max();
-                if (next < scale_y)
-                    return scale_y;
-                if (next > zoom_y_max)
-                    return zoom_y_max;
-                return next;
-            }
-            scale() {
-                return [
-                    this.zoom_x(),
-                    this.zoom_y(),
-                ];
+                    return scale;
+                let scale_x = next[0];
+                let scale_y = next[1];
+                const scale_limit = this.scale_limit();
+                if (scale_x < scale[0])
+                    scale_x = scale[0];
+                if (scale_x > scale_limit[0])
+                    scale_x = scale_limit[0];
+                if (scale_y < scale[1])
+                    scale_y = scale[1];
+                if (scale_y > scale_limit[1])
+                    scale_y = scale_limit[1];
+                return [scale_x, scale_y];
             }
         }
-        __decorate([
-            $.$mol_mem
-        ], $mpk_tss_reports_axle_chart_pane.prototype, "zoom_x", null);
-        __decorate([
-            $.$mol_mem
-        ], $mpk_tss_reports_axle_chart_pane.prototype, "zoom_y", null);
         __decorate([
             $.$mol_mem
         ], $mpk_tss_reports_axle_chart_pane.prototype, "scale", null);
