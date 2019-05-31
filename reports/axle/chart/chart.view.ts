@@ -45,46 +45,36 @@ namespace $.$$ {
 	}
 
 	export class $mpk_tss_reports_axle_chart_pane extends $.$mpk_tss_reports_axle_chart_pane {
-		zoom_x_max() {
-			return 20
+		scale_limit(): [number, number] {
+			return [20, 20]
+		}
+
+		scale_x(next?: number): number {
+			return this.scale(next && [next, this.scale()[1]])[0]
+		}
+
+		scale_y(next?: number): number {
+			return this.scale(next && [this.scale()[0], next])[1]
+		}
+
+		scale_xy(next?: number): number {
+			return this.scale(next && [next, next])[0]
 		}
 
 		@$mol_mem
-		zoom_x(next?: number) {
-			const [scale_x,] = super.scale()
-			if (next === undefined) return scale_x
+		scale(next?: [number, number]): [number, number] {
+			const scale = super.scale() as [number, number]
+			if (next === undefined) return scale
+			let scale_x = next[0]
+			let scale_y = next[1]
+			const scale_limit = this.scale_limit()
+			if (scale_x < scale[0]) scale_x = scale[0]
+			if (scale_x > scale_limit[0]) scale_x = scale_limit[0]
 
-			const zoom_x_max = this.zoom_x_max()
+			if (scale_y < scale[1]) scale_y = scale[1]
+			if (scale_y > scale_limit[1]) scale_y = scale_limit[1]
 
-			if (next < scale_x) return scale_x
-			if (next > zoom_x_max) return zoom_x_max
-
-			return next
-		}
-
-		zoom_y_max() {
-			return 20
-		}
-
-		@$mol_mem
-		zoom_y(next?: number) {
-			const [,scale_y] = super.scale()
-			if (next === undefined) return scale_y
-
-			const zoom_y_max = this.zoom_y_max()
-
-			if (next < scale_y) return scale_y
-			if (next > zoom_y_max) return zoom_y_max
-
-			return next
-		}
-
-		@$mol_mem
-		scale() {
-			return [
-				this.zoom_x(),
-				this.zoom_y(),
-			]
+			return [scale_x, scale_y]
 		}
 	}
 }
