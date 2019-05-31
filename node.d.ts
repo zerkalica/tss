@@ -2026,6 +2026,9 @@ declare namespace $ {
         graphs_colored(): any[];
         graphs_positioned(): any[];
         graphs(): any[];
+        size_expaned(): any[];
+        dimensions_expanded(): any[];
+        dimensions(): any[];
         plugins(): any[];
         width(): any;
         height(): any;

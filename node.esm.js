@@ -7526,6 +7526,15 @@ var $;
         graphs() {
             return [];
         }
+        size_expaned() {
+            return [].concat(0, 0);
+        }
+        dimensions_expanded() {
+            return [].concat(0, 0);
+        }
+        dimensions() {
+            return [].concat(0, 0);
+        }
         plugins() {
             return [].concat(this.Meter());
         }
@@ -8779,8 +8788,12 @@ var $;
                 if (next === undefined)
                     return shift;
                 let shift_x = next[0];
-                if (shift_x > this.gap_left())
-                    shift_x = this.gap_left();
+                if (shift_x > 0)
+                    shift_x = 0;
+                const size = this.size_expaned();
+                const last_x = size[0] * this.scale()[0];
+                if (-shift_x > last_x)
+                    shift_x = -last_x;
                 return [
                     shift_x,
                     shift[1],

@@ -745,6 +745,15 @@ $mol_plot_pane $mol_svg_root
 		1
 	-
 	sub <= graphs_sorted <= graphs_colored <= graphs_positioned <= graphs /
+	size_expaned /
+		0
+		0
+	dimensions_expanded /
+		0
+		0
+	dimensions /
+		0
+		0
 	-
 	plugins /
 		<= Meter $mol_meter
