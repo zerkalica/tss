@@ -28,10 +28,7 @@ $mpk_tss_reports_axle_chart_pane $mol_plot_pane
 	hue_base?val <= hue_base 140
 	hue_shift?val <= hue_shift 111
 	zoom_x?val 0
-	pan?val /
-		0
-		0
 	plugins /
 		<= Touch $mol_touch
 			zoom?val <=> zoom_x?val
-			pan?val <=> pan?val
+			pan?val <=> shift?val

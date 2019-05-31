@@ -45,46 +45,46 @@ namespace $.$$ {
 	}
 
 	export class $mpk_tss_reports_axle_chart_pane extends $.$mpk_tss_reports_axle_chart_pane {
+		zoom_x_max() {
+			return 20
+		}
+
 		@$mol_mem
 		zoom_x(next?: number) {
-			const scale = super.scale()
-			if (next === undefined) {
-				return scale[0]
-			}
+			const [scale_x,] = super.scale()
+			if (next === undefined) return scale_x
 
-			if (next < scale[0]) return scale[0]
-			if (next > 20) return 20
+			const zoom_x_max = this.zoom_x_max()
+
+			if (next < scale_x) return scale_x
+			if (next > zoom_x_max) return zoom_x_max
+
+			return next
+		}
+
+		zoom_y_max() {
+			return 20
+		}
+
+		@$mol_mem
+		zoom_y(next?: number) {
+			const [,scale_y] = super.scale()
+			if (next === undefined) return scale_y
+
+			const zoom_y_max = this.zoom_y_max()
+
+			if (next < scale_y) return scale_y
+			if (next > zoom_y_max) return zoom_y_max
 
 			return next
 		}
 
 		@$mol_mem
 		scale() {
-			const scale = super.scale()
-			const zoom = this.zoom_x()
-
 			return [
-				zoom,
-				scale[1],
+				this.zoom_x(),
+				this.zoom_y(),
 			]
-		}
-
-		@$mol_mem
-		pan(next?: [number, number]): [number, number] {
-			const shift = super.shift() as [number, number]
-			if (next === undefined) return shift
-			let shift_x = next[0]
-			if (shift_x > this.gap_left()) shift_x = this.gap_left()
-			const last_x = this.size_expaned()[0] * this.scale()[0] - this.size_real()[0] + this.gap_right()
-			if (-shift_x > last_x) shift_x = -last_x
-			return [
-				shift_x,
-				shift[1],
-			]
-		}
-
-		shift() {
-			return this.pan()
 		}
 	}
 }
