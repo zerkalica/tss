@@ -736,16 +736,36 @@ $mol_plot_pane $mol_svg_root
 	gap_top <= gap_vert
 	gap_bottom <= gap_vert
 	-
-	shift?val /
+	shift_limit /readonly[number,number]
+		<= shift_limit_x /number
+			0
+			0
+		<= shift_limit_y /number
+			0
+			0
+	shift_default /number
 		0
 		0
-	scale /
+	shift?val /number
+		0
+		0
+	scale_limit /readonly[number,number]
+		<= scale_limit_x /number
+			0
+			20
+		<= scale_limit_y /number
+			0
+			20
+	scale_default /number
+		0
+		0
+	scale?val /number
 		1
 		1
-	size_real /
+	size_real /number
 		1
 		1
-	size_expaned /
+	size_expaned /number
 		0
 		0
 	dimensions_expanded /
@@ -907,15 +927,14 @@ $mpk_tss_reports_axle_chart $mol_chart
 		<= Hor_ruler $mol_plot_ruler_hor
 			title <= hor_title @ \cm
 			series <= ruler *
-			label_text!id <= ruler_x_norm!id \
 		<= Forces_left $mol_plot_group
 			title <= forces_left_title @ \Left wheel
-			series <= forces_left /
+			series <= forces_left *
 			graphs /
 				<= Left_fill $mol_plot_line
 		<= Forces_right $mol_plot_group
 			title <= forces_right_title @ \Right wheel
-			series <= forces_right /
+			series <= forces_right *
 			graphs /
 				<= Right_fill $mol_plot_line
 
@@ -1112,7 +1131,7 @@ $mpk_tss $mol_view
 					enabled false
 					sub /
 						<= terminal_formatted_label \
-				<= Logged_user null
+				<= Logged_user
 		<= Body $mpk_tss_main
 			Logged_user => Logged_user
 

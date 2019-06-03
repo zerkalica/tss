@@ -146,16 +146,16 @@ var $;
             $.$mol_assert_equal(result.join(','), '1,2,3');
         },
         'return source when values are deep equal'() {
-            const source = [1, [2, [3]]];
-            $.$mol_assert_equal($.$mol_conform([1, [2, [3]]], source), source);
+            const source = { foo: { bar: 1 } };
+            $.$mol_assert_equal($.$mol_conform({ foo: { bar: 1 } }, source), source);
         },
         'return target with equal values from source and not equal from target'() {
-            const source = [[1], [2]];
-            const target = [[1], [3]];
+            const source = { foo: { xxx: 1 }, bar: { xxx: 2 } };
+            const target = { foo: { xxx: 1 }, bar: { xxx: 3 } };
             const result = $.$mol_conform(target, source);
             $.$mol_assert_equal(result, target);
-            $.$mol_assert_equal(result[0], source[0]);
-            $.$mol_assert_equal(result[1], target[1]);
+            $.$mol_assert_equal(result.foo, source.foo);
+            $.$mol_assert_equal(result.bar, target.bar);
         },
         'return target when equal but with different class'() {
             const target = { '0': 1 };
@@ -192,11 +192,11 @@ var $;
             $.$mol_assert_equal(result, source);
         },
         'return cached value if already conformed'() {
-            const source = [[1], [3]];
-            const target = [[2], [3]];
+            const source = { foo: { xxx: 1 }, bar: { xxx: 3 } };
+            const target = { foo: { xxx: 2 }, bar: { xxx: 3 } };
             const result = $.$mol_conform(target, source);
-            target[0][0] = 1;
-            $.$mol_assert_equal($.$mol_conform(target[0], source[0]), target[0]);
+            target.foo.xxx = 1;
+            $.$mol_assert_equal($.$mol_conform(target.foo, source.foo), target.foo);
         },
         'skip readlony fields'() {
             const source = { foo: {}, bar: {} };
@@ -583,7 +583,7 @@ var $;
             if (typeof props[key] === 'string') {
                 node.setAttribute(key, props[key]);
             }
-            else if (props[key] && props[key].constructor === Object) {
+            else if (props[key] && props[key]['constructor'] === Object) {
                 if (typeof node[key] === 'object') {
                     Object.assign(node[key], props[key]);
                     continue;
@@ -1141,6 +1141,69 @@ var $;
     });
 })($ || ($ = {}));
 //moment.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'Vector limiting'() {
+            let point = new $.$mol_vector_3d(7, 10, 13);
+            const res = point.limited([[1, 5], [15, 20], [5, 10]]);
+            $.$mol_assert_equal(res.x, 5);
+            $.$mol_assert_equal(res.y, 15);
+            $.$mol_assert_equal(res.z, 10);
+        },
+        'Vector adding scalar'() {
+            let point = new $.$mol_vector_3d(1, 2, 3);
+            let res = point.added0(5);
+            $.$mol_assert_equal(res.x, 6);
+            $.$mol_assert_equal(res.y, 7);
+            $.$mol_assert_equal(res.z, 8);
+        },
+        'Vector adding vector'() {
+            let point = new $.$mol_vector_3d(1, 2, 3);
+            let res = point.added1([5, 10, 15]);
+            $.$mol_assert_equal(res.x, 6);
+            $.$mol_assert_equal(res.y, 12);
+            $.$mol_assert_equal(res.z, 18);
+        },
+        'Vector multiplying scalar'() {
+            let point = new $.$mol_vector_3d(2, 3, 4);
+            let res = point.multed0(-1);
+            $.$mol_assert_equal(res.x, -2);
+            $.$mol_assert_equal(res.y, -3);
+            $.$mol_assert_equal(res.z, -4);
+        },
+        'Vector multiplying vector'() {
+            let point = new $.$mol_vector_3d(2, 3, 4);
+            let res = point.multed1([5, 2, -2]);
+            $.$mol_assert_equal(res.x, 10);
+            $.$mol_assert_equal(res.y, 6);
+            $.$mol_assert_equal(res.z, -8);
+        },
+        'Matrix adding matrix'() {
+            let matrix = new $.$mol_vector_matrix(...[[1, 2], [3, 4], [5, 6]]);
+            let res = matrix.added2([[10, 20], [30, 40], [50, 60]]);
+            $.$mol_assert_equal(res[0][0], 11);
+            $.$mol_assert_equal(res[0][1], 22);
+            $.$mol_assert_equal(res[1][0], 33);
+            $.$mol_assert_equal(res[1][1], 44);
+            $.$mol_assert_equal(res[2][0], 55);
+            $.$mol_assert_equal(res[2][1], 66);
+        },
+        'Matrix multiplying matrix'() {
+            let matrix = new $.$mol_vector_matrix(...[[2, 3], [4, 5], [6, 7]]);
+            let res = matrix.multed2([[2, 3], [4, 5], [6, 7]]);
+            $.$mol_assert_equal(res[0][0], 4);
+            $.$mol_assert_equal(res[0][1], 9);
+            $.$mol_assert_equal(res[1][0], 16);
+            $.$mol_assert_equal(res[1][1], 25);
+            $.$mol_assert_equal(res[2][0], 36);
+            $.$mol_assert_equal(res[2][1], 49);
+        },
+    });
+})($ || ($ = {}));
+//vector.test.js.map
 ;
 "use strict";
 var $;
