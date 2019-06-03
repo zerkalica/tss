@@ -53,7 +53,7 @@ namespace $ {
 		id(): string { throw new t }
 		resolution(): $mpk_tss_reports_domain_resolution { throw new t }
 		violation(): $mpk_tss_reports_domain_violation | null { throw new t }
-		forces(): $mpk_tss_reports_domain_point[] { throw new t }
+		forces(): Record<number, number> { throw new t }
 	}
 
 	export class $mpk_tss_reports_domain_axle extends $mol_object {
@@ -62,7 +62,6 @@ namespace $ {
 		resolution(): $mpk_tss_reports_domain_resolution { throw new t }
 		violation(): $mpk_tss_reports_domain_violation | null { throw new t }
 		wheel(id: string): $mpk_tss_reports_domain_wheel { throw new t }
-		max(): number { throw new t }
 		wheels(): $mpk_tss_reports_domain_wheel[] {
 			throw new t
 		}

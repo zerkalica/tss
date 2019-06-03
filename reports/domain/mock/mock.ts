@@ -248,14 +248,6 @@ namespace $ {
 		wheel(id: string) {
 			return this.wheels().find(wheel => wheel.id() === id) || this.wheels()[0]
 		}
-
-		@$mpk_tss_stub_mem
-		max(): number {
-			return this.wheels()[0].forces().reduce((max, force) => {
-				if (force[0] > max) max = force[0]
-				return max
-			}, 0)
-		}
 	}
 
 	class $mpk_tss_reports_domain_mock_wheel extends $mpk_tss_reports_domain_wheel {
@@ -273,19 +265,20 @@ namespace $ {
 		}
 
 		@$mpk_tss_stub_mem
-		forces(): $mpk_tss_reports_domain_point[] {
+		forces(): Record<number, number> {
+			const samples_count = 10000
+
 			const max_x = 600
 			const base_y = 80
 			const amplitude = 5
 			const freq = 50
-			const samples_count = 200
-			const result: $mpk_tss_reports_domain_point[] = []
+			const result = {}
 			const ratio = max_x / samples_count
 
 			for (let i = 0; i < samples_count; i++) {
 				const deviation = Math.random() > 0.6 ? (Math.random() * 3) : Math.random()
 				const value = Number((base_y + Math.sin((freq / samples_count) * i) * amplitude * deviation).toFixed(3))
-				result.push([i * ratio, value])
+				result[i * ratio] = value
 			}
 
 			return result
