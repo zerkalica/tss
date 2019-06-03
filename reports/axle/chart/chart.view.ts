@@ -13,16 +13,29 @@ namespace $.$$ {
 			return this.axle().wheels()[1]
 		}
 
+		@ $mol_mem
 		forces_left() {
-			return this.wheel_left().forces()
+			return this.wheel_left().forces()[1]
 		}
 
+		@ $mol_mem
 		forces_right() {
-			return this.wheel_right().forces()
+			return this.wheel_right().forces()[1]
 		}
 
+		@ $mol_mem
 		ruler() {
-			return this.wheel_right().forces()
+			const result: Record<number, number> = {}
+			const [, forces_y] = this.wheel_right().forces()
+			for (let i = 0; i < forces_y.length; i++) {
+				result[i] = forces_y[i]
+			}
+
+			return result
+		}
+
+		ruler_x_norm(id: string) {
+			return '' + this.wheel_right().forces()[0][Number(id)]
 		}
 	}
 

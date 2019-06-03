@@ -10,6 +10,7 @@ $mpk_tss_reports_axle_chart $mol_chart
 		<= Hor_ruler $mol_plot_ruler_hor
 			title <= hor_title @ \cm
 			series <= ruler *
+			label_text!id <= ruler_x_norm!id \
 		<= Forces_left $mol_plot_group
 			title <= forces_left_title @ \Left wheel
 			series <= forces_left *
