@@ -1634,7 +1634,7 @@ declare namespace $ {
         id(): string;
         resolution(): $mpk_tss_reports_domain_resolution;
         violation(): $mpk_tss_reports_domain_violation | null;
-        forces(): Record<number, number>;
+        forces(): [number[], number[]];
     }
     class $mpk_tss_reports_domain_axle extends $mol_object {
         id(): string;
@@ -2337,6 +2337,7 @@ declare namespace $ {
         ruler(): {};
         Hor_ruler(): $mol_plot_ruler_hor;
         hor_title(): string;
+        ruler_x_norm(id: any): string;
         Forces_left(): $mol_plot_group;
         forces_left_title(): string;
         forces_left(): {};
@@ -2364,9 +2365,10 @@ declare namespace $.$$ {
         carriage(): $mpk_tss_reports_domain_carriage;
         wheel_left(): $mpk_tss_reports_domain_wheel;
         wheel_right(): $mpk_tss_reports_domain_wheel;
-        forces_left(): Record<number, number>;
-        forces_right(): Record<number, number>;
+        forces_left(): number[];
+        forces_right(): number[];
         ruler(): Record<number, number>;
+        ruler_x_norm(id: string): string;
     }
     class $mpk_tss_reports_axle_chart_pane extends $.$mpk_tss_reports_axle_chart_pane {
         scale_x(next?: number): number;
