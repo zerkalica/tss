@@ -8479,7 +8479,7 @@ var $;
             step() {
                 const dims = this.dimensions_expanded();
                 const size = $.$mol_math_round_expand((dims[1][0] - dims[0][0]), -1);
-                const count = Math.max(1, Math.pow(10, Math.floor(Math.log(-size * this.scale()[0] / 8) / Math.log(10))));
+                const count = Math.max(1, Math.pow(10, Math.floor(Math.log(size * this.scale()[0] / 48) / Math.log(10))));
                 const step = size / count;
                 return step;
             }
@@ -8495,6 +8495,7 @@ var $;
                 return next;
             }
             curve() {
+                const shift = this.shift();
                 const points = this.points();
                 if (points.length < 1)
                     return '';
@@ -8715,7 +8716,6 @@ var $;
             return ((obj) => {
                 obj.title = () => this.hor_title();
                 obj.series = () => this.ruler();
-                obj.label_text = (id) => this.ruler_x_norm(id);
                 return obj;
             })(new this.$.$mol_plot_ruler_hor);
         }
@@ -8724,9 +8724,6 @@ var $;
         }
         ruler() {
             return ({});
-        }
-        ruler_x_norm(id) {
-            return "";
         }
         Forces_left() {
             return ((obj) => {
@@ -8856,9 +8853,9 @@ var $;
             }
             ruler() {
                 const result = {};
-                const [, forces_y] = this.wheel_right().forces();
+                const [forces_x, forces_y] = this.wheel_right().forces();
                 for (let i = 0; i < forces_y.length; i++) {
-                    result[i] = forces_y[i];
+                    result[i] = forces_x[i];
                 }
                 return result;
             }

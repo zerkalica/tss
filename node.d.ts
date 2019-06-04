@@ -2337,7 +2337,6 @@ declare namespace $ {
         Hor_ruler(): $mol_plot_ruler_hor;
         hor_title(): string;
         ruler(): {};
-        ruler_x_norm(id: any): string;
         Forces_left(): $mol_plot_group;
         forces_left_title(): string;
         forces_left(): {};
