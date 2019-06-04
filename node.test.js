@@ -7569,10 +7569,10 @@ var $;
             return [].concat(this.scale_limit_x(), this.scale_limit_y());
         }
         scale_limit_x() {
-            return [].concat(0, 20);
+            return [].concat(0, Infinity);
         }
         scale_limit_y() {
-            return [].concat(0, 20);
+            return [].concat(0, Infinity);
         }
         scale_default() {
             return [].concat(0, 0);
@@ -7653,6 +7653,10 @@ var $;
     var $$;
     (function ($$) {
         class $mol_plot_pane extends $.$mol_plot_pane {
+            constructor() {
+                super(...arguments);
+                this.shift_changed = false;
+            }
             dimensions() {
                 const graphs = this.graphs();
                 const next = [
@@ -7748,8 +7752,12 @@ var $;
                 ];
             }
             shift(next) {
-                if (next === undefined)
+                if (next === undefined) {
+                    if (!this.shift_changed)
+                        return this.shift_default();
                     next = $.$mol_atom_current()['value()'] || this.shift_default();
+                }
+                this.shift_changed = true;
                 return new $.$mol_vector_2d(...next).limited(this.shift_limit());
             }
             graphs_positioned() {
@@ -8453,35 +8461,40 @@ var $;
     var $$;
     (function ($$) {
         class $mol_plot_ruler_hor extends $.$mol_plot_ruler_hor {
-            count() {
-                return this.points_raw().length * this.scale()[0] / 100;
+            dimensions() {
+                const series = this.series();
+                const next = [
+                    [Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY],
+                    [Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY],
+                ];
+                for (let key of Object.keys(series)) {
+                    const point_x = Number(key);
+                    if (point_x < next[0][0])
+                        next[0][0] = point_x;
+                    if (point_x > next[1][0])
+                        next[1][0] = point_x;
+                }
+                return next;
             }
             step() {
-                const count = this.count();
-                let points = this.points_scaled();
-                let step = Math.max(1, Math.ceil(points.length / count));
+                const dims = this.dimensions_expanded();
+                const size = $.$mol_math_round_expand((dims[1][0] - dims[0][0]), -1);
+                const count = Math.max(1, Math.pow(10, Math.floor(Math.log(-size * this.scale()[0] / 8) / Math.log(10))));
+                const step = size / count;
                 return step;
             }
-            keys_visible() {
-                const res = [];
-                const keys = Object.keys(this.series());
-                if (keys.length === 0)
-                    return [];
-                let step = this.step();
-                let limit = Math.floor(keys.length - step / 2);
-                for (let i = 0; i < limit; i += step) {
-                    res.push(keys[i]);
+            points_raw() {
+                const dims = this.dimensions_expanded();
+                const step = this.step();
+                const next = [];
+                const start = Math.round(dims[0][0] / step) * step;
+                const end = Math.round(dims[1][0] / step) * step;
+                for (let val = start; val <= end; val += step) {
+                    next.push([Number(val.toFixed(10)), 0]);
                 }
-                res.push(keys[keys.length - 1]);
-                return res;
-            }
-            points() {
-                const points = this.points_scaled();
-                const keys = Object.keys(this.series());
-                return this.keys_visible().map(key => points[keys.indexOf(key)]);
+                return next;
             }
             curve() {
-                const shift = this.shift();
                 const points = this.points();
                 if (points.length < 1)
                     return '';
@@ -8489,13 +8502,15 @@ var $;
                 return points.map(point => `M ${point[0]} 1000 V 0`).join(' ');
             }
             labels() {
-                return this.keys_visible().map(key => this.Label(key));
+                return this.points().map((point, index) => this.Label(index));
             }
-            label_pos_x(key) {
-                return String(this.points()[this.keys_visible().indexOf(key)][0]);
+            label_pos_x(index) {
+                return this.points()[index][0] + 'px';
             }
-            label_text(key) {
-                return key;
+            label_text(index) {
+                const step = this.step();
+                const precision = Math.max(0, Math.min(15, (step - Math.floor(step)).toString().length - 2));
+                return this.points_raw()[index][0].toFixed(precision);
             }
             back() {
                 return [this];
@@ -8506,10 +8521,7 @@ var $;
         ], $mol_plot_ruler_hor.prototype, "step", null);
         __decorate([
             $.$mol_mem
-        ], $mol_plot_ruler_hor.prototype, "keys_visible", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_ruler_hor.prototype, "points", null);
+        ], $mol_plot_ruler_hor.prototype, "points_raw", null);
         $$.$mol_plot_ruler_hor = $mol_plot_ruler_hor;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -8693,15 +8705,11 @@ var $;
         Vert_ruler() {
             return ((obj) => {
                 obj.title = () => this.vert_title();
-                obj.series = () => this.ruler();
                 return obj;
             })(new this.$.$mol_plot_ruler_vert);
         }
         vert_title() {
             return this.$.$mol_locale.text("$mpk_tss_reports_axle_chart_vert_title");
-        }
-        ruler() {
-            return ({});
         }
         Hor_ruler() {
             return ((obj) => {
@@ -8713,6 +8721,9 @@ var $;
         }
         hor_title() {
             return this.$.$mol_locale.text("$mpk_tss_reports_axle_chart_hor_title");
+        }
+        ruler() {
+            return ({});
         }
         ruler_x_norm(id) {
             return "";
@@ -8852,7 +8863,7 @@ var $;
                 return result;
             }
             ruler_x_norm(id) {
-                return '' + this.wheel_right().forces()[0][Number(id)];
+                return id;
             }
         }
         __decorate([

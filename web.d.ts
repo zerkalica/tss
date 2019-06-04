@@ -2163,7 +2163,8 @@ declare namespace $.$$ {
         scale(next?: readonly [number, number]): $mol_vector_2d<number>;
         shift_limit(): readonly [readonly [number, number], readonly [number, number]];
         shift_default(): readonly [number, number];
-        shift(next?: [number, number]): $mol_vector_2d<number>;
+        shift_changed: boolean;
+        shift(next?: [number, number]): readonly [number, number];
         graphs_positioned(): readonly any[];
         graphs_sorted(): $mol_view[];
     }
@@ -2328,14 +2329,13 @@ declare namespace $ {
 }
 declare namespace $.$$ {
     class $mol_plot_ruler_hor extends $.$mol_plot_ruler_hor {
-        count(): number;
+        dimensions(): number[][];
         step(): number;
-        keys_visible(): string[];
-        points(): any[];
+        points_raw(): number[][];
         curve(): string;
         labels(): $.$mol_svg_text[];
-        label_pos_x(key: string): string;
-        label_text(key: string): string;
+        label_pos_x(index: number): string;
+        label_text(index: number): string;
         back(): this[];
     }
 }
@@ -2378,9 +2378,9 @@ declare namespace $ {
         graphs(): readonly any[];
         Vert_ruler(): $mol_plot_ruler_vert;
         vert_title(): string;
-        ruler(): {};
         Hor_ruler(): $mol_plot_ruler_hor;
         hor_title(): string;
+        ruler(): {};
         ruler_x_norm(id: any): string;
         Forces_left(): $mol_plot_group;
         forces_left_title(): string;

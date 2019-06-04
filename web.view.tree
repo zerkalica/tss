@@ -752,10 +752,10 @@ $mol_plot_pane $mol_svg_root
 	scale_limit /readonly[number,number]
 		<= scale_limit_x /number
 			0
-			20
+			Infinity
 		<= scale_limit_y /number
 			0
-			20
+			Infinity
 	scale_default /number
 		0
 		0
@@ -923,7 +923,6 @@ $mpk_tss_reports_axle_chart $mol_chart
 	graphs /
 		<= Vert_ruler $mol_plot_ruler_vert
 			title <= vert_title @ \kN
-			series <= ruler *
 		<= Hor_ruler $mol_plot_ruler_hor
 			title <= hor_title @ \cm
 			series <= ruler *
