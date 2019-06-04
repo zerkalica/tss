@@ -278,7 +278,7 @@ namespace $ {
 			for (let i = 0; i < samples_count; i++) {
 				const deviation = Math.random() > 0.6 ? (Math.random() * 3) : Math.random()
 				const value = Number((base_y + Math.sin((freq / samples_count) * i) * amplitude * deviation).toFixed(3))
-				result[Number(i * ratio).toFixed(3)] = value
+				result[(i * ratio)] = value
 			}
 
 			return result
