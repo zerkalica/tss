@@ -26,9 +26,9 @@ namespace $.$$ {
 		@ $mol_mem
 		ruler() {
 			const result: Record<number, number> = {}
-			const [, forces_y] = this.wheel_right().forces()
+			const [forces_x, forces_y] = this.wheel_right().forces()
 			for (let i = 0; i < forces_y.length; i++) {
-				result[i] = forces_y[i]
+				result[i] = forces_x[i]
 			}
 
 			return result
