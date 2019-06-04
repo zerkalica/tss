@@ -266,7 +266,7 @@ namespace $ {
 
 		@$mpk_tss_stub_mem
 		forces(): Record<number, number> {
-			const samples_count = 10000
+			const samples_count = 1000
 
 			const max_x = 600
 			const base_y = 80
