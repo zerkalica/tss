@@ -2312,6 +2312,7 @@ declare namespace $ {
     class $mol_plot_ruler_hor extends $mol_plot_graph {
         front(): readonly any[];
         color(): any;
+        step_width(): number;
         sub(): readonly any[];
         Curve(): $mol_svg_path;
         curve(): string;

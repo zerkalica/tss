@@ -8393,6 +8393,9 @@ var $;
         color() {
             return null;
         }
+        step_width() {
+            return 50;
+        }
         sub() {
             return [].concat(this.Curve(), this.labels(), this.Title());
         }
@@ -8488,8 +8491,13 @@ var $;
             step() {
                 const dims = this.dimensions_expanded();
                 const size = $.$mol_math_round_expand((dims[1][0] - dims[0][0]), -1);
-                const count = Math.max(1, Math.pow(10, Math.floor(Math.log(size * this.scale()[0] / 48) / Math.log(10))));
-                const step = size / count;
+                const min_width = this.step_width();
+                const count = Math.max(1, Math.pow(10, Math.floor(Math.log(size * this.scale()[0] / min_width) / Math.log(10))));
+                let step = size / count;
+                if (step * this.scale()[0] > 2 * min_width)
+                    step /= 2;
+                if (step * this.scale()[0] > 2 * min_width)
+                    step /= 2;
                 return step;
             }
             points_raw() {
@@ -10527,7 +10535,7 @@ var $;
             return $mpk_tss_reports_domain_mock_stub_violation();
         }
         forces() {
-            const samples_count = 10000;
+            const samples_count = 1000;
             const max_x = 600;
             const base_y = 80;
             const amplitude = 5;
