@@ -8724,15 +8724,11 @@ var $;
         Hor_ruler() {
             return ((obj) => {
                 obj.title = () => this.hor_title();
-                obj.series = () => this.ruler();
                 return obj;
             })(new this.$.$mol_plot_ruler_hor);
         }
         hor_title() {
             return this.$.$mol_locale.text("$mpk_tss_reports_axle_chart_hor_title");
-        }
-        ruler() {
-            return ({});
         }
         Forces_left() {
             return ((obj) => {
@@ -8855,21 +8851,10 @@ var $;
                 return this.axle().wheels()[1];
             }
             forces_left() {
-                return this.wheel_left().forces()[1];
+                return this.wheel_left().forces();
             }
             forces_right() {
-                return this.wheel_right().forces()[1];
-            }
-            ruler() {
-                const result = {};
-                const [forces_x, forces_y] = this.wheel_right().forces();
-                for (let i = 0; i < forces_y.length; i++) {
-                    result[i] = forces_x[i];
-                }
-                return result;
-            }
-            ruler_x_norm(id) {
-                return id;
+                return this.wheel_right().forces();
             }
         }
         __decorate([
@@ -8884,9 +8869,6 @@ var $;
         __decorate([
             $.$mol_mem
         ], $mpk_tss_reports_axle_chart.prototype, "forces_right", null);
-        __decorate([
-            $.$mol_mem
-        ], $mpk_tss_reports_axle_chart.prototype, "ruler", null);
         $$.$mpk_tss_reports_axle_chart = $mpk_tss_reports_axle_chart;
         class $mpk_tss_reports_axle_chart_pane extends $.$mpk_tss_reports_axle_chart_pane {
             scale_x(next) {
@@ -10545,18 +10527,17 @@ var $;
             return $mpk_tss_reports_domain_mock_stub_violation();
         }
         forces() {
-            const samples_count = 200;
+            const samples_count = 500;
             const max_x = 600;
             const base_y = 80;
             const amplitude = 5;
             const freq = 50;
-            const result = [[], []];
+            const result = {};
             const ratio = max_x / samples_count;
             for (let i = 0; i < samples_count; i++) {
                 const deviation = Math.random() > 0.6 ? (Math.random() * 3) : Math.random();
                 const value = Number((base_y + Math.sin((freq / samples_count) * i) * amplitude * deviation).toFixed(3));
-                result[0].push(i * ratio);
-                result[1].push(value);
+                result[Number(i * ratio).toFixed(3)] = value;
             }
             return result;
         }

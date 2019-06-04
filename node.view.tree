@@ -925,7 +925,6 @@ $mpk_tss_reports_axle_chart $mol_chart
 			title <= vert_title @ \kN
 		<= Hor_ruler $mol_plot_ruler_hor
 			title <= hor_title @ \cm
-			series <= ruler *
 		<= Forces_left $mol_plot_group
 			title <= forces_left_title @ \Left wheel
 			series <= forces_left *
