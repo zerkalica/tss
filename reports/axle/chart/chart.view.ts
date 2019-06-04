@@ -35,7 +35,8 @@ namespace $.$$ {
 		}
 
 		ruler_x_norm(id: string) {
-			return '' + this.wheel_right().forces()[0][Number(id)]
+			return id
+			// return '' + this.wheel_right().forces()[0][Number(id)]
 		}
 	}
 
