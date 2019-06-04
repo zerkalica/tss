@@ -10708,7 +10708,7 @@ var $;
             return $mpk_tss_reports_domain_mock_stub_violation();
         }
         forces() {
-            const samples_count = 500;
+            const samples_count = 10000;
             const max_x = 600;
             const base_y = 80;
             const amplitude = 5;
