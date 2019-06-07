@@ -1193,20 +1193,6 @@
 	margin: .5rem;
 }
 
-[mol_plot_graph] {
-	stroke: currentColor;
-}
-
-[mol_plot_graph_sample] {
-	border-width: 0;
-	border-style: solid;
-}
-
-[mol_plot_graph_type="dashed"] {
-	stroke-dasharray: 4 4;
-	border-style: dashed;
-}
-
 [mol_svg_text] {
 	fill: currentColor;
 	stroke: none;
@@ -1247,6 +1233,20 @@
 	color: var(--mol_theme_shade);
 	color: var(--mol_theme_shade);
 	transform: translateY( -4px );
+}
+
+[mol_plot_graph] {
+	stroke: currentColor;
+}
+
+[mol_plot_graph_sample] {
+	border-width: 0;
+	border-style: solid;
+}
+
+[mol_plot_graph_type="dashed"] {
+	stroke-dasharray: 4 4;
+	border-style: dashed;
 }
 
 [mol_plot_line] {

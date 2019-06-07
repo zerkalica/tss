@@ -809,10 +809,80 @@ $mol_chart $mol_view
 $mol_svg_group $mol_svg
 	dom_name \g
 
+$mol_svg_text $mol_svg
+	dom_name \text
+	pos /
+	attr *
+		^
+		x <= pos_x \
+		y <= pos_y \
+		text-anchor <= align \middle
+	sub /
+		<= text \
+
+$mol_plot_ruler $mol_svg_group
+	dimensions_expanded <= dimensions /
+	shift /number
+		0
+		0
+	scale /number
+		1
+		1
+	Sample null
+	-
+	front /
+	color null
+	step_width 50
+	step 10
+	points /
+	points_generated *
+		raw <= generated_raw /number
+		scaled <= generated_scaled /number
+	shift_axle 0
+	range *
+		from <= range_from 0
+		to <= range_to 0
+		scale <= range_scale 0
+	sub /
+		<= Curve $mol_svg_path
+			geometry <= curve \
+		<= labels /
+		<= Title $mol_svg_text
+			pos <= title_pos /
+				<= title_pos_x \0
+				<= title_pos_y \100%
+			align <= title_align \start
+			sub /
+				<= title
+	Label!index $mol_svg_text
+		pos <= label_pos!index /
+			<= label_pos_x!index \
+			<= label_pos_y!index \
+		text <= label_text!index \
+		align <= label_align \
+
+
+$mol_plot_ruler_vert $mol_plot_ruler
+	step_width 75
+	title_align \end
+	label_align \end
+	title_pos_x \36px
+	title_pos_y \14px
+
+$mol_plot_ruler_hor $mol_plot_ruler
+	step_width 50
+	title_align \start
+	label_align \middle
+	title_pos_x \0
+	title_pos_y \100%
+
 $mol_plot_graph $mol_svg_group
 	series *
-	points <= points_scaled <= points_raw /
-	threshold 4
+	points_raw /
+	points *
+		raw /readonly[number,number]
+		scaled /readonly[number,number]
+	threshold 24
 	shift /
 		0
 		0
@@ -847,59 +917,6 @@ $mol_plot_graph_sample $mol_view
 	style *
 		^
 		color <= color \black
-
-$mol_svg_text $mol_svg
-	dom_name \text
-	pos /
-	attr *
-		^
-		x <= pos_x \
-		y <= pos_y \
-		text-anchor <= align \middle
-	sub /
-		<= text \
-
-$mol_plot_ruler_vert $mol_plot_graph
-	front /
-	color null
-	sub /
-		<= Curve $mol_svg_path
-			geometry <= curve \
-		<= labels /
-		<= Title $mol_svg_text
-			pos <= title_pos /
-				<= title_pos_x \36px
-				<= title_pos_y \14px
-			align \end
-			sub /
-				<= title
-	Label!index $mol_svg_text
-		pos <= label_pos!index /
-			<= label_pos_x!index <= title_pos_x
-			<= label_pos_y!index \
-		align \end
-		text <= label_text!index \
-
-$mol_plot_ruler_hor $mol_plot_graph
-	front /
-	color null
-	step_width 50
-	sub /
-		<= Curve $mol_svg_path
-			geometry <= curve \
-		<= labels /
-		<= Title $mol_svg_text
-			pos <= title_pos /
-				<= title_pos_x \0
-				<= title_pos_y \100%
-			align \start
-			sub /
-				<= title
-	Label!index $mol_svg_text
-		pos <= label_pos!index /
-			<= label_pos_x!index \
-			<= label_pos_y!index <= title_pos_y
-		text <= label_text!index \
 
 $mol_plot_group $mol_plot_graph
 	sub <= graphs_enriched <= graphs /

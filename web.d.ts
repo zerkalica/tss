@@ -2205,11 +2205,142 @@ declare namespace $ {
     }
 }
 declare namespace $ {
+    class $mol_svg_text extends $mol_svg {
+        dom_name(): string;
+        pos(): readonly any[];
+        attr(): {
+            "x": string;
+            "y": string;
+            "text-anchor": string;
+        };
+        pos_x(): string;
+        pos_y(): string;
+        align(): string;
+        sub(): readonly any[];
+        text(): string;
+    }
+}
+declare namespace $.$$ {
+    class $mol_svg_text extends $.$mol_svg_text {
+        pos_x(): any;
+        pos_y(): any;
+    }
+}
+declare namespace $ {
+    function $mol_math_round_expand(val: number, gap?: number): number;
+}
+declare namespace $ {
+    class $mol_plot_ruler extends $mol_svg_group {
+        dimensions_expanded(): readonly any[];
+        dimensions(): readonly any[];
+        shift(): readonly number[];
+        scale(): readonly number[];
+        Sample(): any;
+        front(): readonly any[];
+        color(): any;
+        step_width(): number;
+        step(): number;
+        points(): readonly any[];
+        points_generated(): {
+            "raw": readonly number[];
+            "scaled": readonly number[];
+        };
+        generated_raw(): readonly number[];
+        generated_scaled(): readonly number[];
+        shift_axle(): number;
+        range(): {
+            "from": number;
+            "to": number;
+            "scale": number;
+        };
+        range_from(): number;
+        range_to(): number;
+        range_scale(): number;
+        sub(): readonly any[];
+        Curve(): $mol_svg_path;
+        curve(): string;
+        labels(): readonly any[];
+        Title(): $mol_svg_text;
+        title_pos(): readonly any[];
+        title_pos_x(): string;
+        title_pos_y(): string;
+        title_align(): string;
+        Label(index: any): $mol_svg_text;
+        label_pos(index: any): readonly any[];
+        label_pos_x(index: any): string;
+        label_pos_y(index: any): string;
+        label_text(index: any): string;
+        label_align(): string;
+    }
+}
+declare namespace $.$$ {
+    class $mol_plot_ruler extends $.$mol_plot_ruler {
+        dimensions(): number[][];
+        direction(): number;
+        step(): number;
+        points_generated(): {
+            raw: number[];
+            scaled: number[];
+        };
+        labels(): $.$mol_svg_text[];
+        precision(): number;
+        label_text(index: number): string;
+        back(): this[];
+    }
+}
+declare namespace $ {
+    class $mol_plot_ruler_vert extends $mol_plot_ruler {
+        step_width(): number;
+        title_align(): string;
+        label_align(): string;
+        title_pos_x(): string;
+        title_pos_y(): string;
+    }
+}
+declare namespace $.$$ {
+    class $mol_plot_ruler_vert extends $.$mol_plot_ruler_vert {
+        range(): {
+            from: any;
+            to: any;
+            scale: number;
+        };
+        direction(): number;
+        shift_axle(): number;
+        curve(): string;
+        label_pos_x(index: number): string;
+        label_pos_y(index: number): string;
+    }
+}
+declare namespace $ {
+    class $mol_plot_ruler_hor extends $mol_plot_ruler {
+        step_width(): number;
+        title_align(): string;
+        label_align(): string;
+        title_pos_x(): string;
+        title_pos_y(): string;
+    }
+}
+declare namespace $.$$ {
+    class $mol_plot_ruler_hor extends $.$mol_plot_ruler_hor {
+        range(): {
+            readonly from: any;
+            readonly to: any;
+            readonly scale: number;
+        };
+        shift_axle(): number;
+        curve(): string;
+        label_pos_x(index: number): string;
+        label_pos_y(index: number): string;
+    }
+}
+declare namespace $ {
     class $mol_plot_graph extends $mol_svg_group {
         series(): {};
-        points(): readonly any[];
-        points_scaled(): readonly any[];
         points_raw(): readonly any[];
+        points(): {
+            "raw": readonly (readonly [number, number])[];
+            "scaled": readonly (readonly [number, number])[];
+        };
         threshold(): number;
         shift(): readonly any[];
         scale(): readonly any[];
@@ -2244,100 +2375,14 @@ declare namespace $ {
 }
 declare namespace $.$$ {
     class $mol_plot_graph extends $.$mol_plot_graph {
-        points_raw(): any[][];
-        points_scaled(): number[][];
-        points(): number[][];
+        points_raw(): [number, number][];
+        points(): {
+            raw: (readonly [number, number])[];
+            scaled: (readonly [number, number])[];
+        };
         dimensions(): number[][];
         color(): string;
         front(): this[];
-    }
-}
-declare namespace $ {
-    class $mol_svg_text extends $mol_svg {
-        dom_name(): string;
-        pos(): readonly any[];
-        attr(): {
-            "x": string;
-            "y": string;
-            "text-anchor": string;
-        };
-        pos_x(): string;
-        pos_y(): string;
-        align(): string;
-        sub(): readonly any[];
-        text(): string;
-    }
-}
-declare namespace $.$$ {
-    class $mol_svg_text extends $.$mol_svg_text {
-        pos_x(): any;
-        pos_y(): any;
-    }
-}
-declare namespace $ {
-    function $mol_math_round_expand(val: number, gap?: number): number;
-}
-declare namespace $ {
-    class $mol_plot_ruler_vert extends $mol_plot_graph {
-        front(): readonly any[];
-        color(): any;
-        sub(): readonly any[];
-        Curve(): $mol_svg_path;
-        curve(): string;
-        labels(): readonly any[];
-        Title(): $mol_svg_text;
-        title_pos(): readonly any[];
-        title_pos_x(): string;
-        title_pos_y(): string;
-        Label(index: any): $mol_svg_text;
-        label_pos(index: any): readonly any[];
-        label_pos_x(index: any): string;
-        label_pos_y(index: any): string;
-        label_text(index: any): string;
-    }
-}
-declare namespace $.$$ {
-    class $mol_plot_ruler_vert extends $.$mol_plot_ruler_vert {
-        dimensions(): number[][];
-        step(): number;
-        points_raw(): number[][];
-        curve(): string;
-        labels(): $.$mol_svg_text[];
-        label_pos_y(index: number): string;
-        label_text(index: number): string;
-        back(): this[];
-    }
-}
-declare namespace $ {
-    class $mol_plot_ruler_hor extends $mol_plot_graph {
-        front(): readonly any[];
-        color(): any;
-        step_width(): number;
-        sub(): readonly any[];
-        Curve(): $mol_svg_path;
-        curve(): string;
-        labels(): readonly any[];
-        Title(): $mol_svg_text;
-        title_pos(): readonly any[];
-        title_pos_x(): string;
-        title_pos_y(): string;
-        Label(index: any): $mol_svg_text;
-        label_pos(index: any): readonly any[];
-        label_pos_x(index: any): string;
-        label_pos_y(index: any): string;
-        label_text(index: any): string;
-    }
-}
-declare namespace $.$$ {
-    class $mol_plot_ruler_hor extends $.$mol_plot_ruler_hor {
-        dimensions(): number[][];
-        step(): number;
-        points_raw(): number[][];
-        curve(): string;
-        labels(): $.$mol_svg_text[];
-        label_pos_x(index: number): string;
-        label_text(index: number): string;
-        back(): this[];
     }
 }
 declare namespace $ {
