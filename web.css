@@ -1148,6 +1148,20 @@
 	--mol_theme_control: var(--mol_theme_field);
 }
 
+[mol_plot_graph] {
+	stroke: currentColor;
+}
+
+[mol_plot_graph_sample] {
+	border-width: 0;
+	border-style: solid;
+}
+
+[mol_plot_graph_type="dashed"] {
+	stroke-dasharray: 4 4;
+	border-style: dashed;
+}
+
 [mol_plot_pane] {
 	flex: 1 1 auto;
 	align-self: stretch;
@@ -1233,20 +1247,6 @@
 	color: var(--mol_theme_shade);
 	color: var(--mol_theme_shade);
 	transform: translateY( -4px );
-}
-
-[mol_plot_graph] {
-	stroke: currentColor;
-}
-
-[mol_plot_graph_sample] {
-	border-width: 0;
-	border-style: solid;
-}
-
-[mol_plot_graph_type="dashed"] {
-	stroke-dasharray: 4 4;
-	border-style: dashed;
 }
 
 [mol_plot_line] {

@@ -2007,6 +2007,66 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
+    class $mol_svg_group extends $mol_svg {
+        dom_name(): string;
+    }
+}
+declare namespace $ {
+    class $mol_plot_graph extends $mol_svg_group {
+        series(): {};
+        points_raw(): readonly (readonly [number, number])[];
+        points(): {
+            "raw": readonly (readonly [number, number])[];
+            "scaled": readonly (readonly [number, number])[];
+        };
+        threshold(): number;
+        shift(): readonly number[];
+        scale(): readonly number[];
+        dimensions_viewport_total(): readonly (readonly [number, number])[];
+        dimensions_viewport(): readonly (readonly [number, number])[];
+        dimensions(): readonly (readonly [number, number])[];
+        size_real(): readonly number[];
+        hue(): number;
+        attr(): {
+            "mol_plot_graph_type": string;
+        };
+        type(): string;
+        style(): {
+            "color": string;
+        };
+        color(): string;
+        Sample(): any;
+        front(): readonly any[];
+        back(): readonly any[];
+    }
+}
+declare namespace $ {
+    class $mol_plot_graph_sample extends $mol_view {
+        attr(): {
+            "mol_plot_graph_type": string;
+        };
+        type(): string;
+        style(): {
+            "color": string;
+        };
+        color(): string;
+    }
+}
+declare namespace $.$$ {
+    class $mol_plot_graph extends $.$mol_plot_graph {
+        points_raw(): [number, number][];
+        points(): {
+            raw: (readonly [number, number])[];
+            scaled: (readonly [number, number])[];
+            raw_limit: [[number, number], [number, number]];
+        };
+        dimensions_viewport(): [[number, number], [number, number]];
+        dimensions(): [[number, number], [number, number]];
+        color(): string;
+        front(): this[];
+    }
+}
+declare namespace $ {
     class $mol_vector<Value, Length extends number> extends Array<Value> {
         length: Length;
         constructor(...values: Value[] & {
@@ -2089,15 +2149,15 @@ declare namespace $ {
         scale_limit_y(): readonly number[];
         scale_default(): readonly number[];
         scale(val?: any, force?: $mol_atom_force): any;
+        size(): readonly number[];
         size_real(): readonly number[];
-        size_expaned(): readonly number[];
-        dimensions_expanded(): readonly any[];
-        dimensions(): readonly any[];
-        sub(): readonly any[];
-        graphs_sorted(): readonly any[];
-        graphs_colored(): readonly any[];
-        graphs_positioned(): readonly any[];
-        graphs(): readonly any[];
+        dimensions_viewport(): readonly (readonly [number, number])[];
+        dimensions(): readonly (readonly [number, number])[];
+        sub(): readonly $mol_plot_graph[];
+        graphs_sorted(): readonly $mol_plot_graph[];
+        graphs_colored(): readonly $mol_plot_graph[];
+        graphs_positioned(): readonly $mol_plot_graph[];
+        graphs(): readonly $mol_plot_graph[];
         plugins(): readonly any[];
         width(): any;
         height(): any;
@@ -2106,13 +2166,12 @@ declare namespace $ {
 }
 declare namespace $.$$ {
     class $mol_plot_pane extends $.$mol_plot_pane {
-        dimensions(): number[][];
-        size(): number[];
-        dimensions_expanded(): number[][];
-        size_expaned(): number[];
+        dimensions(): [[number, number], [number, number]];
+        dimensions_viewport(): [[number, number], [number, number]];
+        size(): readonly [number, number];
         graph_hue(index: number): number;
-        graphs_colored(): readonly any[];
-        size_real(): any[];
+        graphs_colored(): readonly $.$mol_plot_graph[];
+        size_real(): readonly [any, any];
         view_box(): string;
         scale_limit(): readonly [readonly [number, number], readonly [number, number]];
         scale_default(): readonly [number, number];
@@ -2121,8 +2180,8 @@ declare namespace $.$$ {
         shift_default(): readonly [number, number];
         shift_changed: boolean;
         shift(next?: [number, number]): readonly [number, number];
-        graphs_positioned(): readonly any[];
-        graphs_sorted(): $mol_view[];
+        graphs_positioned(): readonly $.$mol_plot_graph[];
+        graphs_sorted(): $mol_plot_graph[];
     }
 }
 declare namespace $ {
@@ -2156,11 +2215,6 @@ declare namespace $ {
     }
 }
 declare namespace $ {
-    class $mol_svg_group extends $mol_svg {
-        dom_name(): string;
-    }
-}
-declare namespace $ {
     class $mol_svg_text extends $mol_svg {
         dom_name(): string;
         pos(): readonly any[];
@@ -2186,17 +2240,9 @@ declare namespace $ {
     function $mol_math_round_expand(val: number, gap?: number): number;
 }
 declare namespace $ {
-    class $mol_plot_ruler extends $mol_svg_group {
-        dimensions_expanded(): readonly any[];
-        dimensions(): readonly any[];
-        shift(): readonly number[];
-        scale(): readonly number[];
-        Sample(): any;
-        front(): readonly any[];
-        color(): any;
+    class $mol_plot_ruler extends $mol_plot_graph {
         step_width(): number;
         step(): number;
-        points(): readonly any[];
         points_generated(): {
             "raw": readonly number[];
             "scaled": readonly number[];
@@ -2231,7 +2277,6 @@ declare namespace $ {
 }
 declare namespace $.$$ {
     class $mol_plot_ruler extends $.$mol_plot_ruler {
-        dimensions(): number[][];
         direction(): number;
         step(): number;
         points_generated(): {
@@ -2256,8 +2301,8 @@ declare namespace $ {
 declare namespace $.$$ {
     class $mol_plot_ruler_vert extends $.$mol_plot_ruler_vert {
         range(): {
-            from: any;
-            to: any;
+            from: number;
+            to: number;
             scale: number;
         };
         direction(): number;
@@ -2279,8 +2324,8 @@ declare namespace $ {
 declare namespace $.$$ {
     class $mol_plot_ruler_hor extends $.$mol_plot_ruler_hor {
         range(): {
-            readonly from: any;
-            readonly to: any;
+            readonly from: number;
+            readonly to: number;
             readonly scale: number;
         };
         shift_axle(): number;
@@ -2290,72 +2335,20 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
-    class $mol_plot_graph extends $mol_svg_group {
-        series(): {};
-        points_raw(): readonly any[];
-        points(): {
-            "raw": readonly (readonly [number, number])[];
-            "scaled": readonly (readonly [number, number])[];
-        };
-        threshold(): number;
-        shift(): readonly any[];
-        scale(): readonly any[];
-        dimensions_expanded(): readonly any[];
-        dimensions(): readonly any[];
-        size_real(): readonly any[];
-        hue(): number;
-        attr(): {
-            "mol_plot_graph_type": string;
-        };
-        type(): string;
-        style(): {
-            "color": string;
-        };
-        color(): string;
-        Sample(): any;
-        front(): readonly any[];
-        back(): readonly any[];
-    }
-}
-declare namespace $ {
-    class $mol_plot_graph_sample extends $mol_view {
-        attr(): {
-            "mol_plot_graph_type": string;
-        };
-        type(): string;
-        style(): {
-            "color": string;
-        };
-        color(): string;
-    }
-}
-declare namespace $.$$ {
-    class $mol_plot_graph extends $.$mol_plot_graph {
-        points_raw(): [number, number][];
-        points(): {
-            raw: (readonly [number, number])[];
-            scaled: (readonly [number, number])[];
-        };
-        dimensions(): number[][];
-        color(): string;
-        front(): this[];
-    }
-}
-declare namespace $ {
     class $mol_plot_group extends $mol_plot_graph {
-        sub(): readonly any[];
-        graphs_enriched(): readonly any[];
-        graphs(): readonly any[];
+        sub(): readonly $mol_plot_graph[];
+        graphs_enriched(): readonly $mol_plot_graph[];
+        graphs(): readonly $mol_plot_graph[];
         Sample(): $mol_plot_graph_sample;
-        graph_samples(): readonly any[];
+        graph_samples(): readonly $mol_view[];
     }
 }
 declare namespace $.$$ {
     class $mol_plot_group extends $.$mol_plot_group {
-        graphs_enriched(): readonly any[];
+        graphs_enriched(): readonly $.$mol_plot_graph[];
         graph_samples(): any[];
-        back(): $mol_view[];
-        front(): $mol_view[];
+        back(): $mol_plot_graph[];
+        front(): $mol_plot_graph[];
     }
 }
 declare namespace $ {

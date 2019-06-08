@@ -722,6 +722,57 @@ $mpk_tss_reports_axle_list $mol_list
 		axle <= axle!id null
 		current <= current!id false
 
+$mol_svg_group $mol_svg
+	dom_name \g
+
+$mol_plot_graph $mol_svg_group
+	series *
+	points_raw /readonly[number,number]
+	points *
+		raw /readonly[number,number]
+		scaled /readonly[number,number]
+	threshold 4
+	shift /number
+		0
+		0
+	scale /number
+		1
+		1
+	dimensions_viewport_total /readonly[number,number]
+		/number
+		/number
+	dimensions_viewport /readonly[number,number]
+		/number
+		/number
+	dimensions /readonly[number,number]
+		/number
+		/number
+	size_real /number
+		0
+		0
+	hue NaN
+	-
+	attr *
+		^
+		mol_plot_graph_type <= type \solid
+	-
+	style *
+		^
+		color <= color \
+	-
+	Sample null
+	-
+	front /
+	back /
+
+$mol_plot_graph_sample $mol_view
+	attr *
+		^
+		mol_plot_graph_type <= type \solid
+	style *
+		^
+		color <= color \black
+
 $mol_plot_pane $mol_svg_root
 	aspect \none
 	-
@@ -762,20 +813,20 @@ $mol_plot_pane $mol_svg_root
 	scale?val /number
 		1
 		1
+	size /number
+		0
+		0
 	size_real /number
 		1
 		1
-	size_expaned /number
-		0
-		0
-	dimensions_expanded /
-		0
-		0
-	dimensions /
-		0
-		0
+	dimensions_viewport /readonly[number,number]
+		/number
+		/number
+	dimensions /readonly[number,number]
+		/number
+		/number
 	-
-	sub <= graphs_sorted <= graphs_colored <= graphs_positioned <= graphs /
+	sub <= graphs_sorted <= graphs_colored <= graphs_positioned <= graphs /$mol_plot_graph
 	-
 	plugins /
 		<= Meter $mol_meter
@@ -806,9 +857,6 @@ $mol_chart $mol_view
 		<= Legend $mol_chart_legend
 			graphs <= graphs /
 
-$mol_svg_group $mol_svg
-	dom_name \g
-
 $mol_svg_text $mol_svg
 	dom_name \text
 	pos /
@@ -820,21 +868,9 @@ $mol_svg_text $mol_svg
 	sub /
 		<= text \
 
-$mol_plot_ruler $mol_svg_group
-	dimensions_expanded <= dimensions /
-	shift /number
-		0
-		0
-	scale /number
-		1
-		1
-	Sample null
-	-
-	front /
-	color null
+$mol_plot_ruler $mol_plot_graph
 	step_width 50
 	step 10
-	points /
 	points_generated *
 		raw <= generated_raw /number
 		scaled <= generated_scaled /number
@@ -861,7 +897,6 @@ $mol_plot_ruler $mol_svg_group
 		text <= label_text!index \
 		align <= label_align \
 
-
 $mol_plot_ruler_vert $mol_plot_ruler
 	step_width 75
 	title_align \end
@@ -876,52 +911,10 @@ $mol_plot_ruler_hor $mol_plot_ruler
 	title_pos_x \0
 	title_pos_y \100%
 
-$mol_plot_graph $mol_svg_group
-	series *
-	points_raw /
-	points *
-		raw /readonly[number,number]
-		scaled /readonly[number,number]
-	threshold 24
-	shift /
-		0
-		0
-	scale /
-		1
-		1
-	dimensions_expanded <= dimensions /
-		/
-		/
-	size_real /
-		0
-		0
-	hue NaN
-	-
-	attr *
-		^
-		mol_plot_graph_type <= type \solid
-	-
-	style *
-		^
-		color <= color \
-	-
-	Sample null
-	-
-	front /
-	back /
-
-$mol_plot_graph_sample $mol_view
-	attr *
-		^
-		mol_plot_graph_type <= type \solid
-	style *
-		^
-		color <= color \black
-
 $mol_plot_group $mol_plot_graph
-	sub <= graphs_enriched <= graphs /
+	sub <= graphs_enriched <= graphs /$mol_plot_graph
 	Sample $mol_plot_graph_sample
-		sub <= graph_samples /
+		sub <= graph_samples /$mol_view
 
 $mol_plot_line $mol_plot_graph
 	color_fill \none
