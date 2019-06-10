@@ -2206,10 +2206,12 @@ declare namespace $ {
 }
 declare namespace $ {
     class $mol_plot_ruler extends $mol_plot_base {
-        step_width(): number;
         step(): number;
-        step_scale(): number;
-        axle_viewport(): readonly number[];
+        scale_axle(): number;
+        scale_step(): number;
+        shift_axle(): number;
+        dimensions_axle(): readonly number[];
+        viewport_axle(): readonly number[];
         points(): readonly number[];
         normalize(val?: any, force?: $mol_atom_force): any;
         sub(): readonly any[];
@@ -2233,6 +2235,7 @@ declare namespace $.$$ {
     class $mol_plot_ruler extends $.$mol_plot_ruler {
         labels(): $.$mol_svg_text[];
         step(): number;
+        normalize(val: number): number;
         points(): number[];
         precision(): number;
         label_text(index: number): string;
@@ -2241,7 +2244,7 @@ declare namespace $.$$ {
 }
 declare namespace $ {
     class $mol_plot_ruler_vert extends $mol_plot_ruler {
-        step_width(): number;
+        gap_top(): number;
         title_align(): string;
         label_align(): string;
         title_pos_x(): string;
@@ -2250,9 +2253,11 @@ declare namespace $ {
 }
 declare namespace $.$$ {
     class $mol_plot_ruler_vert extends $.$mol_plot_ruler_vert {
-        axle_viewport(): readonly [number, number];
-        step_scale(): number;
-        normalize(val: number): number;
+        dimensions_axle(): readonly [number, number];
+        viewport_axle(): readonly [number, number];
+        scale_axle(): number;
+        scale_step(): number;
+        shift_axle(): number;
         curve(): string;
         label_pos_x(index: number): string;
         label_pos_y(index: number): string;
@@ -2260,7 +2265,7 @@ declare namespace $.$$ {
 }
 declare namespace $ {
     class $mol_plot_ruler_hor extends $mol_plot_ruler {
-        step_width(): number;
+        gap_left(): number;
         title_align(): string;
         label_align(): string;
         title_pos_x(): string;
@@ -2269,9 +2274,11 @@ declare namespace $ {
 }
 declare namespace $.$$ {
     class $mol_plot_ruler_hor extends $.$mol_plot_ruler_hor {
-        axle_viewport(): readonly [number, number];
-        normalize(val: number): number;
-        step_scale(): number;
+        dimensions_axle(): readonly [number, number];
+        viewport_axle(): readonly [number, number];
+        scale_axle(): number;
+        scale_step(): number;
+        shift_axle(): number;
         curve(): string;
         label_pos_x(index: number): string;
         label_pos_y(index: number): string;

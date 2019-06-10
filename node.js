@@ -8106,16 +8106,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var $;
 (function ($) {
     class $mol_plot_ruler extends $.$mol_plot_base {
-        step_width() {
-            return 50;
-        }
         step() {
             return 0;
         }
-        step_scale() {
+        scale_axle() {
             return 1;
         }
-        axle_viewport() {
+        scale_step() {
+            return 1;
+        }
+        shift_axle() {
+            return 1;
+        }
+        dimensions_axle() {
+            return [].concat();
+        }
+        viewport_axle() {
             return [].concat();
         }
         points() {
@@ -8215,10 +8221,11 @@ var $;
                 return this.points().map((point, index) => this.Label(index));
             }
             step() {
-                const scale = this.step_scale();
-                const viewport = this.axle_viewport();
-                const min_width = (Math.abs(Math.log10(viewport[1] - viewport[0])) + 2) * 15;
-                const size = $.$mol_math_round_expand(viewport[1] - viewport[0], -1);
+                const scale = this.scale_step();
+                const [first, last] = this.dimensions_axle();
+                const range = last - first;
+                const min_width = (Math.abs(Math.log10(range)) + 2) * 15;
+                const size = $.$mol_math_round_expand(range, -1);
                 const count = Math.max(1, Math.pow(10, Math.floor(Math.log(size * scale / min_width) / Math.log(10))));
                 let step = size / count;
                 const step_max = min_width * 2 / scale;
@@ -8228,12 +8235,28 @@ var $;
                     step /= 2;
                 return step;
             }
+            normalize(val) {
+                const [first, last] = this.viewport_axle();
+                const scale = this.scale_axle();
+                const shift = this.shift_axle();
+                const step = this.step();
+                if (scale == 0)
+                    return val;
+                const step_scaled = step * scale;
+                const scaled = val * scale + shift;
+                let count = 0;
+                if (scaled < first)
+                    count = (scaled - first) / step_scaled;
+                if (scaled > last)
+                    count = (scaled - last) / step_scaled;
+                return val - Math.floor(count) * step;
+            }
             points() {
-                const viewport = this.axle_viewport();
+                const [first, last] = this.dimensions_axle();
                 const step = this.step();
                 const next = [];
-                const start = this.normalize(Math.round(viewport[0] / step) * step);
-                const end = this.normalize(Math.round(viewport[1] / step) * step);
+                const start = this.normalize(Math.round(first / step) * step);
+                const end = this.normalize(Math.round(last / step) * step);
                 for (let val = start; val <= end; val += step) {
                     next.push(val);
                 }
@@ -8266,7 +8289,7 @@ var $;
 var $;
 (function ($) {
     class $mol_plot_ruler_vert extends $.$mol_plot_ruler {
-        step_width() {
+        gap_top() {
             return 28;
         }
         title_align() {
@@ -8292,28 +8315,21 @@ var $;
     var $$;
     (function ($$) {
         class $mol_plot_ruler_vert extends $.$mol_plot_ruler_vert {
-            axle_viewport() {
+            dimensions_axle() {
                 const dims = this.dimensions_pane();
                 return [dims[0][1], dims[1][1]];
             }
-            step_scale() {
+            viewport_axle() {
+                return [this.gap_top(), this.size_real()[1]];
+            }
+            scale_axle() {
+                return this.scale()[1];
+            }
+            scale_step() {
                 return -this.scale()[1];
             }
-            normalize(val) {
-                const [[, first], [, last]] = this.viewport();
-                const [, shift] = this.shift();
-                const [, scale] = this.scale();
-                const step = this.step();
-                if (scale == 0)
-                    return val;
-                const step_scaled = step * scale;
-                const scaled = val * scale + shift;
-                let count = 0;
-                if (scaled < first)
-                    count = (scaled - first) / step_scaled;
-                if (scaled > last)
-                    count = (scaled - last) / step_scaled;
-                return val - Math.floor(count) * step;
+            shift_axle() {
+                return this.shift()[1];
             }
             curve() {
                 const [, shift] = this.shift();
@@ -8336,8 +8352,8 @@ var $;
 var $;
 (function ($) {
     class $mol_plot_ruler_hor extends $.$mol_plot_ruler {
-        step_width() {
-            return 50;
+        gap_left() {
+            return 28;
         }
         title_align() {
             return "start";
@@ -8362,28 +8378,21 @@ var $;
     var $$;
     (function ($$) {
         class $mol_plot_ruler_hor extends $.$mol_plot_ruler_hor {
-            axle_viewport() {
+            dimensions_axle() {
                 const dims = this.dimensions_pane();
                 return [dims[0][0], dims[1][0]];
             }
-            normalize(val) {
-                const [[first], [last]] = this.viewport();
-                const [shift] = this.shift();
-                const [scale] = this.scale();
-                const step = this.step();
-                if (scale == 0)
-                    return val;
-                const step_scaled = step * scale;
-                const scaled = val * scale + shift;
-                let count = 0;
-                if (scaled < first)
-                    count = (scaled - first) / step_scaled;
-                if (scaled > last)
-                    count = (scaled - last) / step_scaled;
-                return val - Math.floor(count) * step;
+            viewport_axle() {
+                return [this.gap_left(), this.size_real()[0]];
             }
-            step_scale() {
+            scale_axle() {
                 return this.scale()[0];
+            }
+            scale_step() {
+                return this.scale()[0];
+            }
+            shift_axle() {
+                return this.shift()[0];
             }
             curve() {
                 const [shift] = this.shift();
@@ -8779,6 +8788,7 @@ var $;
         }
         Left_fill() {
             return ((obj) => {
+                obj.spacing = () => 16;
                 return obj;
             })(new this.$.$mol_plot_dot);
         }
@@ -8798,6 +8808,7 @@ var $;
         }
         Right_fill() {
             return ((obj) => {
+                obj.spacing = () => 16;
                 return obj;
             })(new this.$.$mol_plot_dot);
         }
