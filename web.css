@@ -1148,20 +1148,6 @@
 	--mol_theme_control: var(--mol_theme_field);
 }
 
-[mol_plot_graph] {
-	stroke: currentColor;
-}
-
-[mol_plot_graph_sample] {
-	border-width: 0;
-	border-style: solid;
-}
-
-[mol_plot_graph_type="dashed"] {
-	stroke-dasharray: 4 4;
-	border-style: dashed;
-}
-
 [mol_plot_pane] {
 	flex: 1 1 auto;
 	align-self: stretch;
@@ -1249,22 +1235,36 @@
 	transform: translateY( -4px );
 }
 
-[mol_plot_line] {
-	color: #3a8ccb;
-	color: var(--mol_skin_base);
-	fill: none;
-	stroke-linejoin: round;
+[mol_plot_graph] {
+	stroke: currentColor;
 }
 
-[mol_plot_line_sample] {
-	height: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	border-width: 2px 0 0;
+[mol_plot_graph_sample] {
+	border-width: 0;
+	border-style: solid;
+}
+
+[mol_plot_graph_type="dashed"] {
+	stroke-dasharray: 4 4;
+	border-style: dashed;
+}
+
+[mol_plot_dot] {
+	color: #3a8ccb;
+	color: var(--mol_skin_base);
+	stroke-linecap: round;
+	fill: none;
+}
+
+[mol_plot_dot_sample] {
+	width: .5rem;
+	height: .5rem;
+	border-radius: 1rem;
+	background: currentColor;
 	position: absolute;
 	top: .75em;
-	transform: translateY(-50%);
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 [mpk_tss_reports_axle_chart] {

@@ -725,23 +725,17 @@ $mpk_tss_reports_axle_list $mol_list
 $mol_svg_group $mol_svg
 	dom_name \g
 
-$mol_plot_graph $mol_svg_group
-	series *
-	points_raw /readonly[number,number]
-	points *
-		raw /readonly[number,number]
-		scaled /readonly[number,number]
-	threshold 4
+$mol_plot_base $mol_svg_group
+	viewport /readonly[number,number]
+		/number
+		/number
 	shift /number
 		0
 		0
 	scale /number
 		1
 		1
-	dimensions_viewport_total /readonly[number,number]
-		/number
-		/number
-	dimensions_viewport /readonly[number,number]
+	dimensions_pane /readonly[number,number]
 		/number
 		/number
 	dimensions /readonly[number,number]
@@ -750,28 +744,11 @@ $mol_plot_graph $mol_svg_group
 	size_real /number
 		0
 		0
-	hue NaN
-	-
-	attr *
-		^
-		mol_plot_graph_type <= type \solid
-	-
-	style *
-		^
-		color <= color \
-	-
-	Sample null
-	-
 	front /
 	back /
+	hue NaN
+	Sample null
 
-$mol_plot_graph_sample $mol_view
-	attr *
-		^
-		mol_plot_graph_type <= type \solid
-	style *
-		^
-		color <= color \black
 
 $mol_plot_pane $mol_svg_root
 	aspect \none
@@ -826,7 +803,7 @@ $mol_plot_pane $mol_svg_root
 		/number
 		/number
 	-
-	sub <= graphs_sorted <= graphs_colored <= graphs_positioned <= graphs /$mol_plot_graph
+	sub <= graphs_sorted <= graphs_colored <= graphs_positioned <= graphs /$mol_plot_base
 	-
 	plugins /
 		<= Meter $mol_meter
@@ -868,17 +845,13 @@ $mol_svg_text $mol_svg
 	sub /
 		<= text \
 
-$mol_plot_ruler $mol_plot_graph
+$mol_plot_ruler $mol_plot_base
 	step_width 50
-	step 10
-	points_generated *
-		raw <= generated_raw /number
-		scaled <= generated_scaled /number
-	shift_axle 0
-	range *
-		from <= range_from 0
-		to <= range_to 0
-		scale <= range_scale 0
+	step 0
+	step_scale 1
+	axle_viewport /number
+	points /number
+	normalize?val 0
 	sub /
 		<= Curve $mol_svg_path
 			geometry <= curve \
@@ -898,7 +871,7 @@ $mol_plot_ruler $mol_plot_graph
 		align <= label_align \
 
 $mol_plot_ruler_vert $mol_plot_ruler
-	step_width 75
+	step_width 28
 	title_align \end
 	label_align \end
 	title_pos_x \36px
@@ -911,20 +884,44 @@ $mol_plot_ruler_hor $mol_plot_ruler
 	title_pos_x \0
 	title_pos_y \100%
 
+$mol_plot_graph $mol_plot_base
+	series *
+	points_raw /readonly[number,number]
+	-
+	attr *
+		^
+		mol_plot_graph_type <= type \solid
+	-
+	style *
+		^
+		color <= color \
+	-
+	Sample null
+
+$mol_plot_graph_sample $mol_view
+	attr *
+		^
+		mol_plot_graph_type <= type \solid
+	style *
+		^
+		color <= color \black
+
 $mol_plot_group $mol_plot_graph
 	sub <= graphs_enriched <= graphs /$mol_plot_graph
 	Sample $mol_plot_graph_sample
 		sub <= graph_samples /$mol_view
 
-$mol_plot_line $mol_plot_graph
-	color_fill \none
+$mol_plot_dot $mol_plot_graph
+	spacing <= diameter
+	style *
+		^
+		stroke-width <= diameter 8
 	sub /
 		<= Curve $mol_svg_path
 			geometry <= curve \
 	-
 	Sample $mol_plot_graph_sample
 		color <= color
-		type <= type
 
 $mpk_tss_reports_axle_chart $mol_chart
 	axle null
@@ -940,14 +937,16 @@ $mpk_tss_reports_axle_chart $mol_chart
 			title <= forces_left_title @ \Left wheel
 			series <= forces_left *
 			graphs /
-				<= Left_fill $mol_plot_line
+				<= Left_fill $mol_plot_dot
 		<= Forces_right $mol_plot_group
 			title <= forces_right_title @ \Right wheel
 			series <= forces_right *
 			graphs /
-				<= Right_fill $mol_plot_line
+				<= Right_fill $mol_plot_dot
 
 $mpk_tss_reports_axle_chart_pane $mol_plot_pane
+	minimal_width 800
+	minimal_height 300
 	gap_hor 48
 	gap_vert 24
 	hue_base?val <= hue_base 140
