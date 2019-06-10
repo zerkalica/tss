@@ -2180,6 +2180,26 @@ declare namespace $ {
     }
 }
 declare namespace $ {
+    class $mol_svg_circle extends $mol_svg {
+        dom_name(): string;
+        pos(): readonly any[];
+        attr(): {
+            "r": string;
+            "cx": string;
+            "cy": string;
+        };
+        radius(): string;
+        pos_x(): string;
+        pos_y(): string;
+    }
+}
+declare namespace $.$$ {
+    class $mol_svg_circle extends $.$mol_svg_circle {
+        pos_x(): any;
+        pos_y(): any;
+    }
+}
+declare namespace $ {
     class $mol_svg_text extends $mol_svg {
         dom_name(): string;
         pos(): readonly any[];
@@ -2218,6 +2238,11 @@ declare namespace $ {
         Curve(): $mol_svg_path;
         curve(): string;
         labels(): readonly any[];
+        Title_box(): $mol_svg_circle;
+        box_radius(): string;
+        box_pos(): readonly any[];
+        box_pos_x(): string;
+        box_pos_y(): string;
         Title(): $mol_svg_text;
         title_pos(): readonly any[];
         title_pos_x(): string;
@@ -2235,6 +2260,7 @@ declare namespace $.$$ {
     class $mol_plot_ruler extends $.$mol_plot_ruler {
         labels(): $.$mol_svg_text[];
         step(): number;
+        box_radius(): string;
         normalize(val: number): number;
         points(): number[];
         precision(): number;
@@ -2249,12 +2275,14 @@ declare namespace $ {
         label_align(): string;
         title_pos_x(): string;
         title_pos_y(): string;
+        box_pos_y(): string;
     }
 }
 declare namespace $.$$ {
     class $mol_plot_ruler_vert extends $.$mol_plot_ruler_vert {
         dimensions_axle(): readonly [number, number];
-        viewport_axle(): readonly [number, number];
+        box_pos_x(): string;
+        viewport_axle(): readonly [0, number];
         scale_axle(): number;
         scale_step(): number;
         shift_axle(): number;
@@ -2270,13 +2298,15 @@ declare namespace $ {
         label_align(): string;
         title_pos_x(): string;
         title_pos_y(): string;
+        box_pos_y(): string;
     }
 }
 declare namespace $.$$ {
     class $mol_plot_ruler_hor extends $.$mol_plot_ruler_hor {
         dimensions_axle(): readonly [number, number];
-        viewport_axle(): readonly [number, number];
+        viewport_axle(): readonly [0, number];
         scale_axle(): number;
+        box_pos_x(): string;
         scale_step(): number;
         shift_axle(): number;
         curve(): string;
@@ -2383,6 +2413,7 @@ declare namespace $ {
         minimal_height(): number;
         gap_hor(): number;
         gap_vert(): number;
+        gap_right(): number;
         hue_base(): number;
         hue_shift(): number;
         scale_x(val?: any, force?: $mol_atom_force): any;

@@ -834,6 +834,15 @@ $mol_chart $mol_view
 		<= Legend $mol_chart_legend
 			graphs <= graphs /
 
+$mol_svg_circle $mol_svg
+	dom_name \circle
+	pos /
+	attr *
+		^
+		r <= radius \.5%
+		cx <= pos_x \
+		cy <= pos_y \
+
 $mol_svg_text $mol_svg
 	dom_name \text
 	pos /
@@ -858,6 +867,11 @@ $mol_plot_ruler $mol_plot_base
 		<= Curve $mol_svg_path
 			geometry <= curve \
 		<= labels /
+		<= Title_box $mol_svg_circle
+			radius <= box_radius \0.5rem
+			pos <= box_pos /
+				<= box_pos_x \0
+				<= box_pos_y \100%
 		<= Title $mol_svg_text
 			pos <= title_pos /
 				<= title_pos_x \0
@@ -878,6 +892,7 @@ $mol_plot_ruler_vert $mol_plot_ruler
 	label_align \end
 	title_pos_x \36px
 	title_pos_y \14px
+	box_pos_y \0.5rem
 
 $mol_plot_ruler_hor $mol_plot_ruler
 	gap_left 28
@@ -885,6 +900,7 @@ $mol_plot_ruler_hor $mol_plot_ruler
 	label_align \middle
 	title_pos_x \0
 	title_pos_y \100%
+	box_pos_y \calc(100% - 0.5rem)
 
 $mol_plot_graph $mol_plot_base
 	series *
@@ -953,6 +969,7 @@ $mpk_tss_reports_axle_chart_pane $mol_plot_pane
 	minimal_height 300
 	gap_hor 48
 	gap_vert 24
+	gap_right 0
 	hue_base?val <= hue_base 140
 	hue_shift?val <= hue_shift 111
 	scale_x?val 0

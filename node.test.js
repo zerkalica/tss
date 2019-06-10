@@ -8022,6 +8022,51 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_svg_circle extends $.$mol_svg {
+        dom_name() {
+            return "circle";
+        }
+        pos() {
+            return [].concat();
+        }
+        attr() {
+            return (Object.assign({}, super.attr(), { "r": this.radius(), "cx": this.pos_x(), "cy": this.pos_y() }));
+        }
+        radius() {
+            return ".5%";
+        }
+        pos_x() {
+            return "";
+        }
+        pos_y() {
+            return "";
+        }
+    }
+    $.$mol_svg_circle = $mol_svg_circle;
+})($ || ($ = {}));
+//circle.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_svg_circle extends $.$mol_svg_circle {
+            pos_x() {
+                return this.pos()[0];
+            }
+            pos_y() {
+                return this.pos()[1];
+            }
+        }
+        $$.$mol_svg_circle = $mol_svg_circle;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//circle.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_svg_text extends $.$mol_svg {
         dom_name() {
             return "text";
@@ -8122,7 +8167,7 @@ var $;
             return (val !== void 0) ? val : 0;
         }
         sub() {
-            return [].concat(this.Curve(), this.labels(), this.Title());
+            return [].concat(this.Curve(), this.labels(), this.Title_box(), this.Title());
         }
         Curve() {
             return ((obj) => {
@@ -8135,6 +8180,25 @@ var $;
         }
         labels() {
             return [].concat();
+        }
+        Title_box() {
+            return ((obj) => {
+                obj.radius = () => this.box_radius();
+                obj.pos = () => this.box_pos();
+                return obj;
+            })(new this.$.$mol_svg_circle);
+        }
+        box_radius() {
+            return "0.5rem";
+        }
+        box_pos() {
+            return [].concat(this.box_pos_x(), this.box_pos_y());
+        }
+        box_pos_x() {
+            return "0";
+        }
+        box_pos_y() {
+            return "100%";
         }
         Title() {
             return ((obj) => {
@@ -8188,6 +8252,9 @@ var $;
     ], $mol_plot_ruler.prototype, "Curve", null);
     __decorate([
         $.$mol_mem
+    ], $mol_plot_ruler.prototype, "Title_box", null);
+    __decorate([
+        $.$mol_mem
     ], $mol_plot_ruler.prototype, "Title", null);
     __decorate([
         $.$mol_mem_key
@@ -8225,6 +8292,9 @@ var $;
                 if (step > step_max)
                     step /= 2;
                 return step;
+            }
+            box_radius() {
+                return this.title().length / 2 + 'rem';
             }
             normalize(val) {
                 const [first, last] = this.viewport_axle();
@@ -8295,6 +8365,9 @@ var $;
         title_pos_y() {
             return "14px";
         }
+        box_pos_y() {
+            return "0.5rem";
+        }
     }
     $.$mol_plot_ruler_vert = $mol_plot_ruler_vert;
 })($ || ($ = {}));
@@ -8310,8 +8383,11 @@ var $;
                 const dims = this.dimensions_pane();
                 return [dims[0][1], dims[1][1]];
             }
+            box_pos_x() {
+                return `calc(${this.title_pos_x()} - ${Math.max(0, (this.title().length / 4))}rem`;
+            }
             viewport_axle() {
-                return [this.gap_top(), this.size_real()[1]];
+                return [0, this.size_real()[1]];
             }
             scale_axle() {
                 return this.scale()[1];
@@ -8358,6 +8434,9 @@ var $;
         title_pos_y() {
             return "100%";
         }
+        box_pos_y() {
+            return "calc(100% - 0.5rem)";
+        }
     }
     $.$mol_plot_ruler_hor = $mol_plot_ruler_hor;
 })($ || ($ = {}));
@@ -8374,10 +8453,13 @@ var $;
                 return [dims[0][0], dims[1][0]];
             }
             viewport_axle() {
-                return [this.gap_left(), this.size_real()[0]];
+                return [0, this.size_real()[0]];
             }
             scale_axle() {
                 return this.scale()[0];
+            }
+            box_pos_x() {
+                return Math.max(0, (this.title().length / 4)) + 'rem';
             }
             scale_step() {
                 return this.scale()[0];
@@ -8840,6 +8922,9 @@ var $;
         }
         gap_vert() {
             return 24;
+        }
+        gap_right() {
+            return 0;
         }
         hue_base() {
             return 140;
