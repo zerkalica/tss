@@ -277,9 +277,16 @@ var $;
             handler();
         }
         catch (error) {
-            if (ErrorRight)
+            if (!ErrorRight)
+                return error;
+            if (typeof ErrorRight === 'string') {
+                if (error.message !== ErrorRight)
+                    throw error;
+            }
+            else {
                 if (!(error instanceof ErrorRight))
                     throw error;
+            }
             return error;
         }
         finally {
@@ -1200,6 +1207,17 @@ var $;
             $.$mol_assert_equal(res[1][1], 25);
             $.$mol_assert_equal(res[2][0], 36);
             $.$mol_assert_equal(res[2][1], 49);
+        },
+        'Range expanding'() {
+            let range = $.$mol_vector_range_full.inversed;
+            const expanded = range.expanded0(10).expanded0(5);
+            $.$mol_assert_like([...expanded], [5, 10]);
+        },
+        'Vector of range expanding by vector'() {
+            let dimensions = new $.$mol_vector_2d($.$mol_vector_range_full.inversed, $.$mol_vector_range_full.inversed);
+            const expanded = dimensions.expanded1([1, 7]).expanded1([3, 5]);
+            $.$mol_assert_like([...expanded.x], [1, 3]);
+            $.$mol_assert_like([...expanded.y], [5, 7]);
         },
     });
 })($ || ($ = {}));

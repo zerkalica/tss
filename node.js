@@ -7558,6 +7558,9 @@ var $;
         multed1(mults) {
             return this.merged(mults, (a, b) => a * b);
         }
+        expanded1(point) {
+            return this.merged(point, (range, value) => range.expanded0(value));
+        }
     }
     $.$mol_vector = $mol_vector;
     class $mol_vector_1d extends $mol_vector {
@@ -7578,8 +7581,21 @@ var $;
     class $mol_vector_range extends $mol_vector {
         get min() { return this[0]; }
         get max() { return this[1]; }
+        get inversed() {
+            return new this.constructor(this.max, this.min);
+        }
+        expanded0(value) {
+            const Range = this.constructor;
+            let range = this;
+            if (value > range.max)
+                range = new Range(range.min, value);
+            if (value < range.min)
+                range = new Range(value, range.max);
+            return range;
+        }
     }
     $.$mol_vector_range = $mol_vector_range;
+    $.$mol_vector_range_full = new $mol_vector_range(Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY);
     class $mol_vector_matrix extends $mol_vector {
         added2(diff) {
             return this.merged(diff, (a, b) => a.map((a2, index) => a2 + b[index]));
@@ -8031,6 +8047,109 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_plot_graph extends $.$mol_plot_base {
+        series() {
+            return ({});
+        }
+        points_raw() {
+            return [].concat();
+        }
+        attr() {
+            return (Object.assign({}, super.attr(), { "mol_plot_graph_type": this.type() }));
+        }
+        type() {
+            return "solid";
+        }
+        style() {
+            return (Object.assign({}, super.style(), { "color": this.color() }));
+        }
+        color() {
+            return "";
+        }
+        Sample() {
+            return null;
+        }
+    }
+    $.$mol_plot_graph = $mol_plot_graph;
+})($ || ($ = {}));
+(function ($) {
+    class $mol_plot_graph_sample extends $.$mol_view {
+        attr() {
+            return (Object.assign({}, super.attr(), { "mol_plot_graph_type": this.type() }));
+        }
+        type() {
+            return "solid";
+        }
+        style() {
+            return (Object.assign({}, super.style(), { "color": this.color() }));
+        }
+        color() {
+            return "black";
+        }
+    }
+    $.$mol_plot_graph_sample = $mol_plot_graph_sample;
+})($ || ($ = {}));
+//graph.view.tree.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_plot_graph extends $.$mol_plot_graph {
+            points_raw() {
+                const series = this.series();
+                return Object.keys(series).map((key, index) => [
+                    isNaN(Number(key)) ? index : Number(key),
+                    series[key],
+                ]);
+            }
+            dimensions() {
+                const points = this.points_raw();
+                const next = [
+                    [Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY],
+                    [Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY],
+                ];
+                for (let point of points) {
+                    if (point[0] < next[0][0])
+                        next[0][0] = point[0];
+                    if (point[1] < next[0][1])
+                        next[0][1] = point[1];
+                    if (point[0] > next[1][0])
+                        next[1][0] = point[0];
+                    if (point[1] > next[1][1])
+                        next[1][1] = point[1];
+                }
+                return next;
+            }
+            color() {
+                const hue = this.hue();
+                return hue ? `hsl( ${hue} , 100% , 35% )` : '';
+            }
+            front() {
+                return [this];
+            }
+        }
+        __decorate([
+            $.$mol_mem
+        ], $mol_plot_graph.prototype, "points_raw", null);
+        __decorate([
+            $.$mol_mem
+        ], $mol_plot_graph.prototype, "dimensions", null);
+        $$.$mol_plot_graph = $mol_plot_graph;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//graph.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_svg_circle extends $.$mol_svg {
         dom_name() {
             return "circle";
@@ -8150,7 +8269,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var $;
 (function ($) {
-    class $mol_plot_ruler extends $.$mol_plot_base {
+    class $mol_plot_ruler extends $.$mol_plot_graph {
         step() {
             return 0;
         }
@@ -8167,6 +8286,9 @@ var $;
             return [].concat();
         }
         viewport_axle() {
+            return [].concat();
+        }
+        viewport_dimensions() {
             return [].concat();
         }
         points() {
@@ -8305,11 +8427,12 @@ var $;
             box_radius() {
                 return this.title().length / 2 + 'rem';
             }
-            normalize(val) {
+            normalize(coord) {
                 const [first, last] = this.viewport_axle();
                 const scale = this.scale_axle();
                 const shift = this.shift_axle();
                 const step = this.step();
+                const val = Math.round(coord / step) * step;
                 if (scale == 0)
                     return val;
                 const step_scaled = step * scale;
@@ -8321,12 +8444,17 @@ var $;
                     count = (scaled - last) / step_scaled;
                 return val - Math.floor(count) * step;
             }
+            viewport_dimensions() {
+                const dims = this.dimensions_axle();
+                return [
+                    this.normalize(dims[0]),
+                    this.normalize(dims[1]),
+                ];
+            }
             points() {
-                const [first, last] = this.dimensions_axle();
+                const [start, end] = this.viewport_dimensions();
                 const step = this.step();
                 const next = [];
-                const start = this.normalize(Math.round(first / step) * step);
-                const end = this.normalize(Math.round(last / step) * step);
                 for (let val = start; val <= end; val += step) {
                     next.push(val);
                 }
@@ -8496,49 +8624,14 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_plot_graph extends $.$mol_plot_base {
-        series() {
-            return ({});
-        }
-        points_raw() {
-            return [].concat();
-        }
-        attr() {
-            return (Object.assign({}, super.attr(), { "mol_plot_graph_type": this.type() }));
-        }
-        type() {
-            return "solid";
-        }
-        style() {
-            return (Object.assign({}, super.style(), { "color": this.color() }));
-        }
-        color() {
-            return "";
-        }
-        Sample() {
-            return null;
+    class $mol_plot_mark_hor extends $.$mol_plot_ruler_hor {
+        visible_marks() {
+            return 10;
         }
     }
-    $.$mol_plot_graph = $mol_plot_graph;
+    $.$mol_plot_mark_hor = $mol_plot_mark_hor;
 })($ || ($ = {}));
-(function ($) {
-    class $mol_plot_graph_sample extends $.$mol_view {
-        attr() {
-            return (Object.assign({}, super.attr(), { "mol_plot_graph_type": this.type() }));
-        }
-        type() {
-            return "solid";
-        }
-        style() {
-            return (Object.assign({}, super.style(), { "color": this.color() }));
-        }
-        color() {
-            return "black";
-        }
-    }
-    $.$mol_plot_graph_sample = $mol_plot_graph_sample;
-})($ || ($ = {}));
-//graph.view.tree.js.map
+//hor.view.tree.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -8551,50 +8644,34 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        class $mol_plot_graph extends $.$mol_plot_graph {
-            points_raw() {
-                const series = this.series();
-                return Object.keys(series).map((key, index) => [
-                    isNaN(Number(key)) ? index : Number(key),
-                    series[key],
-                ]);
-            }
-            dimensions() {
-                const points = this.points_raw();
-                const next = [
-                    [Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY],
-                    [Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY],
-                ];
-                for (let point of points) {
-                    if (point[0] < next[0][0])
-                        next[0][0] = point[0];
-                    if (point[1] < next[0][1])
-                        next[0][1] = point[1];
-                    if (point[0] > next[1][0])
-                        next[1][0] = point[0];
-                    if (point[1] > next[1][1])
-                        next[1][1] = point[1];
+        class $mol_plot_mark_hor extends $.$mol_plot_mark_hor {
+            points() {
+                const [start, end] = this.viewport_dimensions();
+                const step = this.step();
+                const points_raw = this.points_raw();
+                let current = start;
+                const next = [];
+                next.push(points_raw[0][0]);
+                for (let point of points_raw) {
+                    const [point_x] = point;
+                    if (point_x >= current) {
+                        next.push(point_x);
+                        current += step;
+                        if (current > end)
+                            break;
+                    }
                 }
+                next.push(points_raw[points_raw.length - 1][0]);
                 return next;
-            }
-            color() {
-                const hue = this.hue();
-                return hue ? `hsl( ${hue} , 100% , 35% )` : '';
-            }
-            front() {
-                return [this];
             }
         }
         __decorate([
             $.$mol_mem
-        ], $mol_plot_graph.prototype, "points_raw", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_graph.prototype, "dimensions", null);
-        $$.$mol_plot_graph = $mol_plot_graph;
+        ], $mol_plot_mark_hor.prototype, "points", null);
+        $$.$mol_plot_mark_hor = $mol_plot_mark_hor;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-//graph.view.js.map
+//hor.view.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -8697,9 +8774,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var $;
 (function ($) {
     class $mol_plot_dot extends $.$mol_plot_graph {
-        spacing() {
-            return this.diameter();
-        }
         style() {
             return (Object.assign({}, super.style(), { "stroke-width": this.diameter() }));
         }
@@ -8751,43 +8825,52 @@ var $;
                 return new Set();
             }
             points() {
+                const diameter = this.diameter();
+                const threshold = diameter / 2;
+                const points_max = 1000;
                 const [[viewport_left, viewport_bottom], [viewport_right, viewport_top]] = this.viewport();
                 const [shift_x, shift_y] = this.shift();
                 const [scale_x, scale_y] = this.scale();
                 const points_raw = this.points_raw();
-                const points_scaled = [];
                 let last = [Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY];
-                const radius = this.diameter() / 2;
-                const spacing_x = this.spacing() / scale_x;
-                const spacing_y = this.spacing() / scale_y;
-                const filled = spacing_x ? this.filled() : null;
-                for (let point of points_raw) {
-                    const scaled = [
-                        Math.round(shift_x + point[0] * scale_x),
-                        Math.round(shift_y + point[1] * scale_y),
-                    ];
-                    if (Math.abs(scaled[0] - last[0]) < radius
-                        && Math.abs(scaled[1] - last[1]) < radius)
-                        continue;
-                    last = scaled;
-                    if (scaled[0] < viewport_left)
-                        continue;
-                    if (scaled[1] < viewport_bottom)
-                        continue;
-                    if (scaled[0] > viewport_right)
-                        continue;
-                    if (scaled[1] > viewport_top)
-                        continue;
-                    if (filled) {
-                        const key = Math.round(Math.round(point[0] / spacing_x) * spacing_x)
-                            + (Math.round(Math.round(point[1] / spacing_y) * spacing_y) << 14);
-                        if (filled.has(key))
+                let spacing_x = 0;
+                let spacing_y = 0;
+                let filled = this.filled();
+                let points_scaled;
+                do {
+                    points_scaled = [];
+                    for (let point of points_raw) {
+                        const scaled = [
+                            Math.round(shift_x + point[0] * scale_x),
+                            Math.round(shift_y + point[1] * scale_y),
+                        ];
+                        if (Math.abs(scaled[0] - last[0]) < threshold
+                            && Math.abs(scaled[1] - last[1]) < threshold)
                             continue;
-                        filled.add(key);
+                        last = scaled;
+                        if (scaled[0] < viewport_left)
+                            continue;
+                        if (scaled[1] < viewport_bottom)
+                            continue;
+                        if (scaled[0] > viewport_right)
+                            continue;
+                        if (scaled[1] > viewport_top)
+                            continue;
+                        if (spacing_x !== 0) {
+                            const key = Math.round(Math.round(point[0] / spacing_x) * spacing_x)
+                                + (Math.round(Math.round(point[1] / spacing_y) * spacing_y) << 14);
+                            if (filled.has(key))
+                                continue;
+                            filled.add(key);
+                        }
+                        points_scaled.push(scaled);
+                        if (points_scaled.length > points_max)
+                            break;
                     }
-                    points_scaled.push(scaled);
-                }
-                filled && filled.clear();
+                    spacing_x += threshold / scale_x;
+                    spacing_y += threshold / scale_y;
+                    filled.clear();
+                } while (points_scaled.length > points_max);
                 return points_scaled;
             }
             curve() {
@@ -8847,9 +8930,13 @@ var $;
         }
         Hor_ruler() {
             return ((obj) => {
+                obj.series = () => this.forces_left();
                 obj.title = () => this.hor_title();
                 return obj;
-            })(new this.$.$mol_plot_ruler_hor);
+            })(new this.$.$mol_plot_mark_hor);
+        }
+        forces_left() {
+            return ({});
         }
         hor_title() {
             return this.$.$mol_locale.text("$mpk_tss_reports_axle_chart_hor_title");
@@ -8865,12 +8952,9 @@ var $;
         forces_left_title() {
             return this.$.$mol_locale.text("$mpk_tss_reports_axle_chart_forces_left_title");
         }
-        forces_left() {
-            return ({});
-        }
         Left_fill() {
             return ((obj) => {
-                obj.spacing = () => 16;
+                obj.diameter = () => 16;
                 return obj;
             })(new this.$.$mol_plot_dot);
         }
@@ -8890,7 +8974,7 @@ var $;
         }
         Right_fill() {
             return ((obj) => {
-                obj.spacing = () => 16;
+                obj.diameter = () => 16;
                 return obj;
             })(new this.$.$mol_plot_dot);
         }

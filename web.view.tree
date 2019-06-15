@@ -834,6 +834,28 @@ $mol_chart $mol_view
 		<= Legend $mol_chart_legend
 			graphs <= graphs /
 
+$mol_plot_graph $mol_plot_base
+	series *
+	points_raw /readonly[number,number]
+	-
+	attr *
+		^
+		mol_plot_graph_type <= type \solid
+	-
+	style *
+		^
+		color <= color \
+	-
+	Sample null
+
+$mol_plot_graph_sample $mol_view
+	attr *
+		^
+		mol_plot_graph_type <= type \solid
+	style *
+		^
+		color <= color \black
+
 $mol_svg_circle $mol_svg
 	dom_name \circle
 	pos /
@@ -854,13 +876,14 @@ $mol_svg_text $mol_svg
 	sub /
 		<= text \
 
-$mol_plot_ruler $mol_plot_base
+$mol_plot_ruler $mol_plot_graph
 	step 0
 	scale_axle 1
 	scale_step 1
 	shift_axle 1
 	dimensions_axle /number
 	viewport_axle /number
+	viewport_dimensions /number
 	points /number
 	normalize?val 0
 	sub /
@@ -902,27 +925,8 @@ $mol_plot_ruler_hor $mol_plot_ruler
 	title_pos_y \100%
 	box_pos_y \calc(100% - 0.5rem)
 
-$mol_plot_graph $mol_plot_base
-	series *
-	points_raw /readonly[number,number]
-	-
-	attr *
-		^
-		mol_plot_graph_type <= type \solid
-	-
-	style *
-		^
-		color <= color \
-	-
-	Sample null
-
-$mol_plot_graph_sample $mol_view
-	attr *
-		^
-		mol_plot_graph_type <= type \solid
-	style *
-		^
-		color <= color \black
+$mol_plot_mark_hor $mol_plot_ruler_hor
+	visible_marks 10
 
 $mol_plot_group $mol_plot_graph
 	sub <= graphs_enriched <= graphs /$mol_plot_graph
@@ -930,7 +934,6 @@ $mol_plot_group $mol_plot_graph
 		sub <= graph_samples /$mol_view
 
 $mol_plot_dot $mol_plot_graph
-	spacing <= diameter
 	style *
 		^
 		stroke-width <= diameter 8
@@ -949,20 +952,21 @@ $mpk_tss_reports_axle_chart $mol_chart
 	graphs /
 		<= Vert_ruler $mol_plot_ruler_vert
 			title <= vert_title @ \kN
-		<= Hor_ruler $mol_plot_ruler_hor
+		<= Hor_ruler $mol_plot_mark_hor
+			series <= forces_left *
 			title <= hor_title @ \cm
 		<= Forces_left $mol_plot_group
 			title <= forces_left_title @ \Left wheel
 			series <= forces_left *
 			graphs /
 				<= Left_fill $mol_plot_dot
-					spacing 16
+					diameter 16
 		<= Forces_right $mol_plot_group
 			title <= forces_right_title @ \Right wheel
 			series <= forces_right *
 			graphs /
 				<= Right_fill $mol_plot_dot
-					spacing 16
+					diameter 16
 
 $mpk_tss_reports_axle_chart_pane $mol_plot_pane
 	minimal_width 800

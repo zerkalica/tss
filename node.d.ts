@@ -2052,6 +2052,9 @@ declare namespace $ {
         multed1(this: $mol_vector<number, Length>, mults: readonly number[] & {
             length: Length;
         }): this;
+        expanded1(this: $mol_vector<$mol_vector_range<number>, Length>, point: readonly number[] & {
+            length: Length;
+        }): this;
     }
     class $mol_vector_1d<Value> extends $mol_vector<Value, 1> {
         [0]: Value;
@@ -2076,7 +2079,10 @@ declare namespace $ {
         [1]: Value;
         readonly min: Value;
         readonly max: Value;
+        readonly inversed: $mol_vector_range<Value>;
+        expanded0(value: Value): $mol_vector_range<Value>;
     }
+    let $mol_vector_range_full: $mol_vector_range<number>;
     class $mol_vector_matrix<Width extends number, Height extends number> extends $mol_vector<readonly number[] & {
         length: Width;
     }, Height> {
@@ -2180,6 +2186,41 @@ declare namespace $ {
     }
 }
 declare namespace $ {
+    class $mol_plot_graph extends $mol_plot_base {
+        series(): {};
+        points_raw(): readonly (readonly [number, number])[];
+        attr(): {
+            "mol_plot_graph_type": string;
+        };
+        type(): string;
+        style(): {
+            "color": string;
+        };
+        color(): string;
+        Sample(): any;
+    }
+}
+declare namespace $ {
+    class $mol_plot_graph_sample extends $mol_view {
+        attr(): {
+            "mol_plot_graph_type": string;
+        };
+        type(): string;
+        style(): {
+            "color": string;
+        };
+        color(): string;
+    }
+}
+declare namespace $.$$ {
+    class $mol_plot_graph extends $.$mol_plot_graph {
+        points_raw(): [number, number][];
+        dimensions(): [[number, number], [number, number]];
+        color(): string;
+        front(): this[];
+    }
+}
+declare namespace $ {
     class $mol_svg_circle extends $mol_svg {
         dom_name(): string;
         pos(): readonly any[];
@@ -2225,13 +2266,14 @@ declare namespace $ {
     function $mol_math_round_expand(val: number, gap?: number): number;
 }
 declare namespace $ {
-    class $mol_plot_ruler extends $mol_plot_base {
+    class $mol_plot_ruler extends $mol_plot_graph {
         step(): number;
         scale_axle(): number;
         scale_step(): number;
         shift_axle(): number;
         dimensions_axle(): readonly number[];
         viewport_axle(): readonly number[];
+        viewport_dimensions(): readonly number[];
         points(): readonly number[];
         normalize(val?: any, force?: $mol_atom_force): any;
         sub(): readonly any[];
@@ -2261,7 +2303,8 @@ declare namespace $.$$ {
         labels(): $.$mol_svg_text[];
         step(): number;
         box_radius(): string;
-        normalize(val: number): number;
+        normalize(coord: number): number;
+        viewport_dimensions(): number[];
         points(): number[];
         precision(): number;
         label_text(index: number): string;
@@ -2315,38 +2358,13 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
-    class $mol_plot_graph extends $mol_plot_base {
-        series(): {};
-        points_raw(): readonly (readonly [number, number])[];
-        attr(): {
-            "mol_plot_graph_type": string;
-        };
-        type(): string;
-        style(): {
-            "color": string;
-        };
-        color(): string;
-        Sample(): any;
-    }
-}
-declare namespace $ {
-    class $mol_plot_graph_sample extends $mol_view {
-        attr(): {
-            "mol_plot_graph_type": string;
-        };
-        type(): string;
-        style(): {
-            "color": string;
-        };
-        color(): string;
+    class $mol_plot_mark_hor extends $mol_plot_ruler_hor {
+        visible_marks(): number;
     }
 }
 declare namespace $.$$ {
-    class $mol_plot_graph extends $.$mol_plot_graph {
-        points_raw(): [number, number][];
-        dimensions(): [[number, number], [number, number]];
-        color(): string;
-        front(): this[];
+    class $mol_plot_mark_hor extends $.$mol_plot_mark_hor {
+        points(): number[];
     }
 }
 declare namespace $ {
@@ -2368,7 +2386,6 @@ declare namespace $.$$ {
 }
 declare namespace $ {
     class $mol_plot_dot extends $mol_plot_graph {
-        spacing(): number;
         style(): {
             "stroke-width": number;
             "color": string;
@@ -2395,11 +2412,11 @@ declare namespace $ {
         graphs(): readonly any[];
         Vert_ruler(): $mol_plot_ruler_vert;
         vert_title(): string;
-        Hor_ruler(): $mol_plot_ruler_hor;
+        Hor_ruler(): $mol_plot_mark_hor;
+        forces_left(): {};
         hor_title(): string;
         Forces_left(): $mol_plot_group;
         forces_left_title(): string;
-        forces_left(): {};
         Left_fill(): $mol_plot_dot;
         Forces_right(): $mol_plot_group;
         forces_right_title(): string;
