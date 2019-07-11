@@ -265,23 +265,25 @@ namespace $ {
 		}
 
 		@$mpk_tss_stub_mem
-		forces(): Record<number, number> {
+		forces(): readonly [readonly number[], readonly number[]] {
 			const samples_count = 10000
 
 			const max_x = 600
 			const base_y = 80
 			const amplitude = 5
 			const freq = 50
-			const result: Record<number, number> = {}
+			const series_x = [] as number[]
+			const series_y = [] as number[]
 			const ratio = max_x / samples_count
 
 			for (let i = 0; i < samples_count; i++) {
 				const deviation = Math.random() > 0.6 ? (Math.random() * 3) : Math.random()
 				const value = Number((base_y + Math.sin((freq / samples_count) * i) * amplitude * deviation).toFixed(3))
-				result[Number(i * ratio).toFixed(3)] = value
+				series_x.push(Number(Number(i * ratio).toFixed(3)))
+				series_y.push(value)
 			}
 
-			return result
+			return [series_x, series_y] as const
 		}
 	}
 
