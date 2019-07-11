@@ -21,7 +21,7 @@ $mpk_tss_main $mol_book
 		sub /
 			<= User_email $mol_view
 				sub /
-					<= logged_email
+					<= logged_email \
 			<= User_signout $mpk_tss_icon_exit_to_app
 	Menu_item!id $mol_link
 		arg <= menu_page_arg!id *
@@ -55,8 +55,7 @@ $mpk_tss_main $mol_book
 			minimal_width 230
 			body / <= sidebar_items /
 				<= Login $mpk_tss_login
-					entered?val <=> entered?val false
-					login?v <=> logged_email?v \
+					submit?v <=> login_submit?v false
 				<= Menu $mol_list
 					rows /
 						<= menu_items /

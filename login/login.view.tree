@@ -1,5 +1,5 @@
 $mpk_tss_login $mol_list
-	entered?val false
+	submit?v false
 	sub / <= Form $mol_form
 		form_fields /
 			<= Login_field $mol_form_field

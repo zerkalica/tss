@@ -22,6 +22,7 @@ namespace $.$$ {
 		context_sub() {
 			return this.$.$mol_ambient({
 				$mol_locale: $mpk_tss_locale,
+				$mpk_tss_domain_user: $mpk_tss_domain_user_mock,
 				$mpk_tss_pereferial_domain_units: $mpk_tss_pereferial_domain_mock_units,
 				$mpk_tss_reports_domain_trains: $mpk_tss_reports_domain_mock_trains,
 			})
@@ -47,8 +48,20 @@ namespace $.$$ {
 			return super.copyright().replace('%year', '' + new Date().getFullYear())
 		}
 
-		entered( next? : boolean ) {
-			return this.$.$mol_state_session.value( `${ this }.entered()` , next ) || false
+		current_user() {
+			return this.$.$mpk_tss_domain_user.current()
+		}
+
+		login_submit(next?: boolean) {
+			const form = this.Login()
+			const user = this.current_user()
+			user.email(form.login())
+			user.password(form.password())
+			user.login()
+		}
+
+		entered() {
+			return this.current_user().logged()
 		}
 
 		Logged_user() {
@@ -58,8 +71,7 @@ namespace $.$$ {
 		}
 
 		logout_click() {
-			this.logged_email(null)
-			this.entered(false)
+			return this.current_user().logout()
 		}
 
 		menu_items() {
@@ -70,9 +82,8 @@ namespace $.$$ {
 			return {page: id}
 		}
 
-		@$mol_mem
-		logged_email(next?: string) {
-			return this.$.$mol_state_session.value( this.state_key( 'user' ) , next ) || ''
+		logged_email() {
+			return this.current_user().email()
 		}
 
 		menu_page_title(id: string) {
