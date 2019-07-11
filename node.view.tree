@@ -1,7 +1,7 @@
 $mol_string $mol_view
 	dom_name \input
 	enabled true
-	debounce 200
+	debounce 0
 	minimal_height 40
 	field *
 		^
@@ -16,12 +16,14 @@ $mol_string $mol_view
 	event *
 		^
 		input?event <=> event_change?event null
-		keypress?event <=> event_key_press?event null
+		keydown?event <=> event_key_press?event null
 
 $mol_svg $mol_view
 	dom_name \svg
 	dom_name_space \http://www.w3.org/2000/svg
-
+	text_width?text 0
+	font_size 16
+	font_family \
 
 $mol_svg_root $mol_svg
 	dom_name \svg
@@ -98,6 +100,9 @@ $mol_touch $mol_plugin
 	pan?val /
 		0
 		0
+	pos?val /
+		NaN
+		NaN
 	-
 	start_pos?val null
 	swipe_precision 16
@@ -125,6 +130,7 @@ $mol_touch $mol_plugin
 		mousedown?event <=> event_start?event null
 		mousemove?event <=> event_move?event null
 		mouseup?event <=> event_end?event null
+		mouseleave?event <=> event_leave?event null
 	event_async *
 		wheel?event <=> event_wheel?event null
 
@@ -725,30 +731,70 @@ $mpk_tss_reports_axle_list $mol_list
 $mol_svg_group $mol_svg
 	dom_name \g
 
-$mol_plot_base $mol_svg_group
-	viewport /readonly[number,number]
-		/number
-		/number
+$mol_plot_graph $mol_svg_group
+	series_x /number
+	series_y /number
+	-
+	attr *
+		^
+		mol_plot_graph_type <= type \solid
+	-
+	style *
+		^
+		color <= color \
+	-
+	viewport $mol_vector_2d /
+		$mol_vector_range /
+			Infinity
+			-Infinity
+		$mol_vector_range /
+			Infinity
+			-Infinity
 	shift /number
 		0
 		0
 	scale /number
 		1
 		1
-	dimensions_pane /readonly[number,number]
-		/number
-		/number
-	dimensions /readonly[number,number]
-		/number
-		/number
-	size_real /number
+	cursor_position $mol_vector_2d /
+		NaN
+		NaN
+	dimensions_pane $mol_vector_2d /
+		$mol_vector_range /
+			Infinity
+			-Infinity
+		$mol_vector_range /
+			Infinity
+			-Infinity
+	dimensions $mol_vector_2d /
+		$mol_vector_range /
+			Infinity
+			-Infinity
+		$mol_vector_range /
+			Infinity
+			-Infinity
+	size_real $mol_vector_2d /
 		0
 		0
-	front /
-	back /
+	gap $mol_vector_2d /
+		$mol_vector_range /
+			0
+			0
+		$mol_vector_range /
+			0
+			0
+	front /$mol_svg
+	back /$mol_svg
 	hue NaN
 	Sample null
 
+$mol_plot_graph_sample $mol_view
+	attr *
+		^
+		mol_plot_graph_type <= type \solid
+	style *
+		^
+		color <= color \black
 
 $mol_plot_pane $mol_svg_root
 	aspect \none
@@ -756,19 +802,25 @@ $mol_plot_pane $mol_svg_root
 	hue_base?val NaN
 	hue_shift?val 111
 	-
-	gap 24
-	gap_hor <= gap
-	gap_vert <= gap
+	gap_hor 48
+	gap_vert 24
 	gap_left <= gap_hor
 	gap_right <= gap_hor
 	gap_top <= gap_vert
 	gap_bottom <= gap_vert
+	gap $mol_vector_2d /
+		$mol_vector_range /
+			<= gap_left
+			<= gap_right
+		$mol_vector_range /
+			<= gap_bottom
+			<= gap_top
 	-
-	shift_limit /readonly[number,number]
-		<= shift_limit_x /number
+	shift_limit $mol_vector_2d /
+		$mol_vector_range /
 			0
 			0
-		<= shift_limit_y /number
+		$mol_vector_range /
 			0
 			0
 	shift_default /number
@@ -777,11 +829,11 @@ $mol_plot_pane $mol_svg_root
 	shift?val /number
 		0
 		0
-	scale_limit /readonly[number,number]
-		<= scale_limit_x /number
+	scale_limit $mol_vector_2d /
+		$mol_vector_range /
 			0
 			Infinity
-		<= scale_limit_y /number
+		$mol_vector_range /
 			0
 			Infinity
 	scale_default /number
@@ -790,29 +842,50 @@ $mol_plot_pane $mol_svg_root
 	scale?val /number
 		1
 		1
-	size /number
+	scale_x?val 0
+	scale_y?val 0
+	size $mol_vector_2d /
 		0
 		0
-	size_real /number
+	size_real $mol_vector_2d /
 		1
 		1
-	dimensions_viewport /readonly[number,number]
-		/number
-		/number
-	dimensions /readonly[number,number]
-		/number
-		/number
+	dimensions_viewport $mol_vector_2d /
+		$mol_vector_range /
+			Infinity
+			-Infinity
+		$mol_vector_range /
+			Infinity
+			-Infinity
+	dimensions $mol_vector_2d /
+		$mol_vector_range /
+			Infinity
+			-Infinity
+		$mol_vector_range /
+			Infinity
+			-Infinity
 	-
-	sub <= graphs_sorted <= graphs_colored <= graphs_positioned <= graphs /$mol_plot_base
+	sub <= graphs_sorted /$mol_svg
+	graphs_colored <= graphs_positioned <= graphs /$mol_plot_graph
+	cursor_position?val $mol_vector_2d /
+		NaN
+		NaN
 	-
 	plugins /
 		<= Meter $mol_meter
 			width => width
 			height => height
+		<= Touch $mol_touch
+			zoom?val <=> scale_x?val
+			pan?val <=> shift?val
+			pos?val <=> cursor_position?val
+	event *
+		^
+		dblclick?event <=> reset?event null
 
 $mol_chart_legend $mol_scroll
-	graphs /
-	sub <= graph_legends /
+	graphs /$mol_plot_graph
+	sub <= graph_legends /$mol_view
 	-
 	Graph_legend!id $mol_view
 		sub /
@@ -824,46 +897,51 @@ $mol_chart_legend $mol_scroll
 					<= graph_title!id \
 
 $mol_chart $mol_view
+	gap_hor 48
+	gap_vert 24
+	gap_left <= gap_hor
+	gap_right <= gap_hor
+	gap_bottom <= gap_vert
+	gap_top <= gap_vert
+	graphs /$mol_plot_graph
 	sub /
 		<= Plot $mol_plot_pane
-			graphs <= graphs /
-			gap_hor 48
-			gap_vert 24
+			gap_left <= gap_left
+			gap_right <= gap_right
+			gap_bottom <= gap_bottom
+			gap_top <= gap_top
+			graphs <= graphs
 			hue_base?val <= hue_base 140
 			hue_shift?val <= hue_shift 111
 		<= Legend $mol_chart_legend
-			graphs <= graphs /
+			graphs <= graphs
 
-$mol_plot_graph $mol_plot_base
-	series *
-	points_raw /readonly[number,number]
-	-
-	attr *
-		^
-		mol_plot_graph_type <= type \solid
-	-
+$mol_plot_group $mol_plot_graph
+	sub <= graphs_enriched <= graphs /$mol_plot_graph
+	Sample $mol_plot_graph_sample
+		sub <= graph_samples /$mol_view
+
+$mol_plot_dot $mol_plot_graph
+	points_max Infinity
 	style *
 		^
-		color <= color \
+		stroke-width <= diameter 8
+	sub /
+		<= Curve $mol_svg_path
+			geometry <= curve \
 	-
-	Sample null
+	Sample $mol_plot_graph_sample
+		color <= color
 
-$mol_plot_graph_sample $mol_view
-	attr *
-		^
-		mol_plot_graph_type <= type \solid
-	style *
-		^
-		color <= color \black
-
-$mol_svg_circle $mol_svg
-	dom_name \circle
+$mol_svg_rect $mol_svg
+	dom_name \rect
 	pos /
 	attr *
 		^
-		r <= radius \.5%
-		cx <= pos_x \
-		cy <= pos_y \
+		width <= width \0
+		height <= height \0
+		x <= pos_x \
+		y <= pos_y \
 
 $mol_svg_text $mol_svg
 	dom_name \text
@@ -876,32 +954,51 @@ $mol_svg_text $mol_svg
 	sub /
 		<= text \
 
+$mol_svg_text_box $mol_svg_group
+	font_size 16
+	sub /
+		<= Back $mol_svg_rect
+			width <= box_width \0.5rem
+			height <= box_height \1rem
+			pos /
+				<= box_pos_x <= pos_x
+				<= box_pos_y \0
+		<= Text $mol_svg_text
+			pos /
+				<= pos_x \0
+				<= pos_y \100%
+			align <= align \start
+			sub /
+				<= text \
+
 $mol_plot_ruler $mol_plot_graph
 	step 0
-	scale_axle 1
+	scale_axis 1
 	scale_step 1
-	shift_axle 1
-	dimensions_axle /number
-	viewport_axle /number
-	viewport_dimensions /number
+	shift_axis 1
+	dimensions_axis $mol_vector_range /
+		Infinity
+		-Infinity
+	viewport_axis $mol_vector_range /
+		Infinity
+		-Infinity
 	points /number
 	normalize?val 0
+	precision 1
 	sub /
+		<= Background $mol_svg_rect
+			pos_x <= background_x \0
+			pos_y <= background_y \0
+			width <= background_width \100%
+			height <= background_height \14
 		<= Curve $mol_svg_path
 			geometry <= curve \
-		<= labels /
-		<= Title_box $mol_svg_circle
-			radius <= box_radius \0.5rem
-			pos <= box_pos /
-				<= box_pos_x \0
-				<= box_pos_y \100%
-		<= Title $mol_svg_text
-			pos <= title_pos /
-				<= title_pos_x \0
-				<= title_pos_y \100%
+		<= labels_formatted /
+		<= Title $mol_svg_text_box
+			pos_x <= title_pos_x \0
+			pos_y <= title_pos_y \100%
 			align <= title_align \start
-			sub /
-				<= title
+			text <= title
 	Label!index $mol_svg_text
 		pos <= label_pos!index /
 			<= label_pos_x!index \
@@ -910,77 +1007,84 @@ $mol_plot_ruler $mol_plot_graph
 		align <= label_align \
 
 $mol_plot_ruler_vert $mol_plot_ruler
-	gap_top 28
 	title_align \end
 	label_align \end
-	title_pos_x \36px
-	title_pos_y \14px
-	box_pos_y \0.5rem
+	title_pos_y \14
+	label_pos_x!v <= title_pos_x
+	background_height \100%
+	background_width <= title_pos_x
 
 $mol_plot_ruler_hor $mol_plot_ruler
-	gap_left 28
 	title_align \start
 	label_align \middle
 	title_pos_x \0
 	title_pos_y \100%
-	box_pos_y \calc(100% - 0.5rem)
+	label_pos_y!v <= title_pos_y
+	background_width \100%
 
-$mol_plot_mark_hor $mol_plot_ruler_hor
-	visible_marks 10
-
-$mol_plot_group $mol_plot_graph
-	sub <= graphs_enriched <= graphs /$mol_plot_graph
-	Sample $mol_plot_graph_sample
-		sub <= graph_samples /$mol_view
-
-$mol_plot_dot $mol_plot_graph
-	style *
-		^
-		stroke-width <= diameter 8
+$mol_plot_mark_cross $mol_plot_graph
+	labels /string
+	title_x_gap 4
+	threshold 16
+	nearest_index -1
+	nearest_delta Infinity
+	dimensions $mol_vector_2d /
+		$mol_vector_range /
+			Infinity
+			-Infinity
+		$mol_vector_range /
+			Infinity
+			-Infinity
 	sub /
 		<= Curve $mol_svg_path
 			geometry <= curve \
-	-
-	Sample $mol_plot_graph_sample
-		color <= color
+		<= Label_x $mol_svg_text_box
+			pos_x <= title_x_pos_x \0
+			pos_y <= title_x_pos_y \100%
+			text <= title_x \
+		<= Label_y $mol_svg_text_box
+			pos_x <= title_y_pos_x \0
+			pos_y <= title_y_pos_y \0
+			text <= title_y \
+
+$mol_plot_mark_cross_group $mol_plot_graph
+	graphs /$mol_plot_mark_cross
 
 $mpk_tss_reports_axle_chart $mol_chart
 	axle null
 	carriage null
-	Plot $mpk_tss_reports_axle_chart_pane
-		graphs <= graphs
+	gap_left 48
+	gap_right 16
+	gap_bottom 24
+	gap_top 0
 	graphs /
-		<= Vert_ruler $mol_plot_ruler_vert
-			title <= vert_title @ \kN
-		<= Hor_ruler $mol_plot_mark_hor
-			series <= forces_left *
-			title <= hor_title @ \cm
 		<= Forces_left $mol_plot_group
 			title <= forces_left_title @ \Left wheel
-			series <= forces_left *
+			series_x <= forces_left_x /number
+			series_y <= forces_left_y /number
 			graphs /
 				<= Left_fill $mol_plot_dot
-					diameter 16
+					points_max <= points_max 600
 		<= Forces_right $mol_plot_group
 			title <= forces_right_title @ \Right wheel
-			series <= forces_right *
+			series_x <= forces_right_x /number
+			series_y <= forces_right_y /number
 			graphs /
 				<= Right_fill $mol_plot_dot
-					diameter 16
-
-$mpk_tss_reports_axle_chart_pane $mol_plot_pane
-	minimal_width 800
-	minimal_height 300
-	gap_hor 48
-	gap_vert 24
-	gap_right 0
-	hue_base?val <= hue_base 140
-	hue_shift?val <= hue_shift 111
-	scale_x?val 0
-	plugins /
-		<= Touch $mol_touch
-			zoom?val <=> scale_x?val
-			pan?val <=> shift?val
+					points_max <= points_max
+		<= Vert_ruler $mol_plot_ruler_vert
+			title <= vert_title @ \kN
+		<= Hor_ruler $mol_plot_ruler_hor
+			title <= hor_title @ \cm
+			series_x <= forces_left_x
+		<= Cross $mol_plot_mark_cross_group
+			graphs /
+				<= Cross_left $mol_plot_mark_cross
+					series_x <= forces_left_x
+					series_y <= forces_left_y
+				<= Cross_right $mol_plot_mark_cross
+					series_x <= forces_right_x
+					series_y <= forces_right_y
 
 $mpk_tss_reports_carriage_details $mol_page
 	carriage null
@@ -1120,6 +1224,10 @@ $mol_image $mol_view
 
 $mol_form $mol_view
 	submit_blocked false
+	event *
+		^
+		keydown?event <=> keydown?event null
+	submit?event null
 	sub /
 		<= Bar_fields $mol_view
 			sub <= form_fields /
@@ -1134,7 +1242,7 @@ $mol_form_field $mol_labeler
 	Content <= control null
 
 $mpk_tss_login $mol_list
-	entered?val false
+	submit?v false
 	sub / <= Form $mol_form
 		form_fields /
 			<= Login_field $mol_form_field
@@ -1175,7 +1283,7 @@ $mpk_tss_main $mol_book
 		sub /
 			<= User_email $mol_view
 				sub /
-					<= logged_email
+					<= logged_email \
 			<= User_signout $mpk_tss_icon_exit_to_app
 	Menu_item!id $mol_link
 		arg <= menu_page_arg!id *
@@ -1209,8 +1317,7 @@ $mpk_tss_main $mol_book
 			minimal_width 230
 			body / <= sidebar_items /
 				<= Login $mpk_tss_login
-					entered?val <=> entered?val false
-					login?v <=> logged_email?v \
+					submit?v <=> login_submit?v false
 				<= Menu $mol_list
 					rows /
 						<= menu_items /

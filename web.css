@@ -262,6 +262,11 @@
 	pointer-events: none;
 }
 
+[mol_button_major] {
+	box-shadow: 0 0 0 1px var(--mol_theme_back);
+	box-shadow: 0 0 0 1px var(--mol_theme_back);
+}
+
 [mol_button_minor] {
 	color: var(--mol_theme_control);
 	color: var(--mol_theme_control);
@@ -1143,6 +1148,20 @@
 	--mol_theme_control: var(--mol_theme_field);
 }
 
+[mol_plot_graph] {
+	stroke: currentColor;
+}
+
+[mol_plot_graph_sample] {
+	border-width: 0;
+	border-style: solid;
+}
+
+[mol_plot_graph_type="dashed"] {
+	stroke-dasharray: 4 4;
+	border-style: dashed;
+}
+
 [mol_plot_pane] {
 	flex: 1 1 auto;
 	align-self: stretch;
@@ -1188,82 +1207,6 @@
 	margin: .5rem;
 }
 
-[mol_plot_graph] {
-	stroke: currentColor;
-}
-
-[mol_plot_graph_sample] {
-	border-width: 0;
-	border-style: solid;
-}
-
-[mol_plot_graph_type="dashed"] {
-	stroke-dasharray: 4 4;
-	border-style: dashed;
-}
-
-[mol_svg_text] {
-	fill: currentColor;
-	stroke: none;
-}
-
-[mol_plot_ruler_curve] {
-	color: var(--mol_theme_line);
-	color: var(--mol_theme_line);
-	stroke-width: .1%;
-	stroke: currentColor;
-}
-
-[mol_plot_ruler_label] {
-	color: var(--mol_theme_text);
-	color: var(--mol_theme_text);
-}
-
-[mol_plot_ruler_title] {
-	color: var(--mol_theme_shade);
-	color: var(--mol_theme_shade);
-	background-color: var(--mol_theme_back);
-	background-color: var(--mol_theme_back);
-}
-
-[mol_plot_ruler_title_box] {
-
-	/* fill: aqua; */
-	fill: var(--mol_theme_field);
-	fill: var(--mol_theme_field);
-}
-
-[mol_plot_ruler_vert_label] {
-	transform: translateY( 4px );
-}
-
-[mol_plot_ruler_hor_label] {
-	transform: translateY( -4px );
-}
-
-[mol_plot_ruler_hor_title] {
-	transform: translateY( -4px );
-}
-
-[mol_plot_mark_hor_curve] {
-	color: var(--mol_theme_line);
-	color: var(--mol_theme_line);
-	stroke-width: .1%;
-	stroke: currentColor;
-}
-
-[mol_plot_mark_hor_label] {
-	color: var(--mol_theme_text);
-	color: var(--mol_theme_text);
-	transform: translateY( -4px );
-}
-
-[mol_plot_mark_hor_title] {
-	color: var(--mol_theme_shade);
-	color: var(--mol_theme_shade);
-	transform: translateY( -4px );
-}
-
 [mol_plot_dot] {
 	color: #3a8ccb;
 	color: var(--mol_skin_base);
@@ -1282,10 +1225,75 @@
 	transform: translate(-50%, -50%);
 }
 
+[mol_svg_text] {
+	fill: currentColor;
+	stroke: none;
+}
+
+[mol_svg_text_box_back] {
+	stroke: none;
+	fill: var(--mol_theme_back);
+	fill: var(--mol_theme_back);
+}
+
+[mol_plot_ruler_curve] {
+	color: var(--mol_theme_line);
+	color: var(--mol_theme_line);
+	stroke-width: 1px;
+	stroke: currentColor;
+}
+
+[mol_plot_ruler_label] {
+	color: var(--mol_theme_text);
+	color: var(--mol_theme_text);
+}
+
+[mol_plot_ruler_title] {
+	color: var(--mol_theme_shade);
+	color: var(--mol_theme_shade);
+	background-color: var(--mol_theme_back);
+	background-color: var(--mol_theme_back);
+}
+
+[mol_plot_ruler_background] {
+	stroke: none;
+	fill: var(--mol_theme_back);
+	fill: var(--mol_theme_back);
+	opacity: 0.8;
+}
+
+[mol_plot_ruler_vert_label] {
+	transform: translateY( 4px );
+}
+
+[mol_plot_ruler_hor_label] {
+	transform: translateY( -4px );
+}
+
+[mol_plot_ruler_hor_title] {
+	transform: translateY( -4px );
+}
+
+[mol_plot_mark_cross_curve] {
+	color: var(--mol_theme_focus);
+	color: var(--mol_theme_focus);
+	stroke-width: 1px;
+	stroke: currentColor;
+}
+
+[mol_plot_mark_cross_label_x], [mol_plot_mark_cross_label_y] {
+	color: var(--mol_theme_focus);
+	color: var(--mol_theme_focus);
+	font-weight: bold;
+	pointer-events: none;
+}
+
+[mol_plot_mark_cross_label_y] {
+	transform: translateY( 4px );
+}
+
 [mpk_tss_reports_axle_chart] {
 	height: 60%;
-	background-color: var(--mol_theme_field);
-	background-color: var(--mol_theme_field);
 }
 
 [mpk_tss_reports_carriage_details] {
@@ -1381,7 +1389,6 @@
 }
 
 [mol_form_bar_fields] {
-	padding: .5rem .5rem 0;
 	display: flex;
 	flex-direction: column;
 }
@@ -1392,6 +1399,7 @@
 
 [mol_form_bar_buttons] {
 	box-shadow: none;
+	padding: 0;
 }
 
 [mol_form_bar_buttons] > * {

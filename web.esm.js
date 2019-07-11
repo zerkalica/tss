@@ -30,16 +30,22 @@ $.$mol = $  // deprecated
 "use strict";
 var $;
 (function ($) {
-    function $mol_fail_hidden(error) {
-        throw error;
-    }
-    $.$mol_fail_hidden = $mol_fail_hidden;
     function $mol_fail(error) {
         throw error;
     }
     $.$mol_fail = $mol_fail;
 })($ || ($ = {}));
 //fail.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_fail_hidden(error) {
+        throw error;
+    }
+    $.$mol_fail_hidden = $mol_fail_hidden;
+})($ || ($ = {}));
+//hidden.js.map
 ;
 "use strict";
 var $;
@@ -462,6 +468,17 @@ var $;
         $mol_atom_status["pulling"] = "pulling";
         $mol_atom_status["actual"] = "actual";
     })($mol_atom_status = $.$mol_atom_status || ($.$mol_atom_status = {}));
+    function $mol_atom_fence(task) {
+        const slave = $mol_atom.stack[0];
+        $mol_atom.stack[0] = null;
+        try {
+            return task();
+        }
+        finally {
+            $mol_atom.stack[0] = slave;
+        }
+    }
+    $.$mol_atom_fence = $mol_atom_fence;
     class $mol_atom extends $.$mol_object {
         constructor(id, handler = next => next) {
             super();
@@ -546,7 +563,7 @@ var $;
                     return error;
                 console.error(error.stack || error);
                 if (!(error instanceof Error)) {
-                    error = new Error(error.stack || error);
+                    error = new Error(error.message || error);
                 }
                 error['$mol_atom_catched'] = true;
                 return error;
@@ -724,7 +741,7 @@ var $;
                         if (val instanceof $mol_atom_wait)
                             return val;
                         if (val)
-                            val.valueOf();
+                            val['valueOf']();
                         prev = val;
                     }
                     if (next == undefined) {
@@ -732,7 +749,7 @@ var $;
                         if (val instanceof $mol_atom_wait)
                             return val;
                         if (val)
-                            val.valueOf();
+                            val['valueOf']();
                         next = val;
                     }
                     return next;
@@ -1542,7 +1559,7 @@ var $;
             return true;
         }
         debounce() {
-            return 200;
+            return 0;
         }
         minimal_height() {
             return 40;
@@ -1575,7 +1592,7 @@ var $;
             return Infinity;
         }
         event() {
-            return (Object.assign({}, super.event(), { "input": (event) => this.event_change(event), "keypress": (event) => this.event_key_press(event) }));
+            return (Object.assign({}, super.event(), { "input": (event) => this.event_change(event), "keydown": (event) => this.event_key_press(event) }));
         }
         event_change(event, force) {
             return (event !== void 0) ? event : null;
@@ -1638,6 +1655,70 @@ var $;
 //string.view.js.map
 ;
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mol_state_time extends $.$mol_object {
+        static now(precision, next, force) {
+            const atom = $.$mol_atom_current();
+            const handler = () => {
+                atom['value()'] = Date.now();
+                atom.obsolete_slaves();
+                if (precision > 0) {
+                    setTimeout(handler, precision);
+                }
+                else {
+                    requestAnimationFrame(handler);
+                }
+            };
+            handler();
+            return Date.now();
+        }
+    }
+    __decorate([
+        $.$mol_mem_key
+    ], $mol_state_time, "now", null);
+    $.$mol_state_time = $mol_state_time;
+})($ || ($ = {}));
+//time.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    let canvas;
+    function $mol_font_canvas(next = canvas) {
+        if (!next)
+            next = $.$mol_dom_context.document.createElement('canvas').getContext('2d');
+        return canvas = next;
+    }
+    $.$mol_font_canvas = $mol_font_canvas;
+})($ || ($ = {}));
+//canvas.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_font_measure(size, face, text) {
+        const canvas = $.$mol_font_canvas();
+        canvas.font = size + 'px ' + face;
+        return Math.ceil(canvas.measureText(text).width);
+    }
+    $.$mol_font_measure = $mol_font_measure;
+})($ || ($ = {}));
+//measure.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 var $;
 (function ($) {
     class $mol_svg extends $.$mol_view {
@@ -1647,10 +1728,65 @@ var $;
         dom_name_space() {
             return "http://www.w3.org/2000/svg";
         }
+        text_width(text, force) {
+            return (text !== void 0) ? text : 0;
+        }
+        font_size() {
+            return 16;
+        }
+        font_family() {
+            return "";
+        }
     }
+    __decorate([
+        $.$mol_mem
+    ], $mol_svg.prototype, "text_width", null);
     $.$mol_svg = $mol_svg;
 })($ || ($ = {}));
 //svg.view.tree.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_svg extends $.$mol_svg {
+            computed_style() {
+                const win = this.$.$mol_dom_context;
+                const style = win.getComputedStyle(this.dom_node());
+                if (!style['font-size'])
+                    $.$mol_state_time.now();
+                return style;
+            }
+            font_size() {
+                return parseInt(this.computed_style()['font-size']) || 16;
+            }
+            font_family() {
+                return this.computed_style()['font-family'];
+            }
+            text_width(text) {
+                return $.$mol_font_measure(this.font_size(), this.font_family(), text);
+            }
+        }
+        __decorate([
+            $.$mol_mem
+        ], $mol_svg.prototype, "computed_style", null);
+        __decorate([
+            $.$mol_mem
+        ], $mol_svg.prototype, "font_size", null);
+        __decorate([
+            $.$mol_mem
+        ], $mol_svg.prototype, "font_family", null);
+        $$.$mol_svg = $mol_svg;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//svg.view.js.map
 ;
 "use strict";
 var $;
@@ -1711,7 +1847,7 @@ var $;
             return ((obj) => {
                 obj.geometry = () => this.path();
                 return obj;
-            })(new this.$.$mol_svg_path);
+            })(new this.$.$mol_svg_path());
         }
         path() {
             return "";
@@ -2255,39 +2391,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var $;
 (function ($) {
-    class $mol_state_time extends $.$mol_object {
-        static now(precision, next, force) {
-            const atom = $.$mol_atom_current();
-            const handler = () => {
-                atom['value()'] = Date.now();
-                atom.obsolete_slaves();
-                if (precision > 0) {
-                    setTimeout(handler, precision);
-                }
-                else {
-                    requestAnimationFrame(handler);
-                }
-            };
-            handler();
-            return Date.now();
-        }
-    }
-    __decorate([
-        $.$mol_mem_key
-    ], $mol_state_time, "now", null);
-    $.$mol_state_time = $mol_state_time;
-})($ || ($ = {}));
-//time.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
     class $mol_meter extends $.$mol_plugin {
         zoom() {
             return 1;
@@ -2347,18 +2450,19 @@ var $;
         class $mol_meter extends $.$mol_meter {
             rect() {
                 const node = this.dom_node();
+                const win = this.$.$mol_dom_context;
                 if (node !== $.$mol_dom_context.document.body) {
                     $.$mol_state_time.now();
                     try {
                         const { left, top, right, bottom, width, height } = node.getBoundingClientRect();
-                        return { left, top, right, bottom, width, height, zoom: window.devicePixelRatio || 1 };
+                        return { left, top, right, bottom, width, height, zoom: win.devicePixelRatio || 1 };
                     }
                     catch (error) {
                     }
                 }
                 const size = $.$mol_window.size();
                 return {
-                    zoom: window.devicePixelRatio || 1,
+                    zoom: win.devicePixelRatio || 1,
                     left: 0,
                     top: 0,
                     right: size.width,
@@ -2443,6 +2547,9 @@ var $;
         pan(val, force) {
             return (val !== void 0) ? val : [].concat(0, 0);
         }
+        pos(val, force) {
+            return (val !== void 0) ? val : [].concat(NaN, NaN);
+        }
         start_pos(val, force) {
             return (val !== void 0) ? val : null;
         }
@@ -2486,7 +2593,7 @@ var $;
             return (val !== void 0) ? val : null;
         }
         event() {
-            return (Object.assign({}, super.event(), { "touchstart": (event) => this.event_start(event), "touchmove": (event) => this.event_move(event), "touchend": (event) => this.event_end(event), "mousedown": (event) => this.event_start(event), "mousemove": (event) => this.event_move(event), "mouseup": (event) => this.event_end(event) }));
+            return (Object.assign({}, super.event(), { "touchstart": (event) => this.event_start(event), "touchmove": (event) => this.event_move(event), "touchend": (event) => this.event_end(event), "mousedown": (event) => this.event_start(event), "mousemove": (event) => this.event_move(event), "mouseup": (event) => this.event_end(event), "mouseleave": (event) => this.event_leave(event) }));
         }
         event_start(event, force) {
             return (event !== void 0) ? event : null;
@@ -2495,6 +2602,9 @@ var $;
             return (event !== void 0) ? event : null;
         }
         event_end(event, force) {
+            return (event !== void 0) ? event : null;
+        }
+        event_leave(event, force) {
             return (event !== void 0) ? event : null;
         }
         event_async() {
@@ -2521,6 +2631,9 @@ var $;
     __decorate([
         $.$mol_mem
     ], $mol_touch.prototype, "pan", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_touch.prototype, "pos", null);
     __decorate([
         $.$mol_mem
     ], $mol_touch.prototype, "start_pos", null);
@@ -2571,6 +2684,9 @@ var $;
     ], $mol_touch.prototype, "event_end", null);
     __decorate([
         $.$mol_mem
+    ], $mol_touch.prototype, "event_leave", null);
+    __decorate([
+        $.$mol_mem
     ], $mol_touch.prototype, "event_wheel", null);
     $.$mol_touch = $mol_touch;
 })($ || ($ = {}));
@@ -2582,19 +2698,23 @@ var $;
     var $$;
     (function ($$) {
         class $mol_touch extends $.$mol_touch {
+            rect() {
+                return this.dom_node().getBoundingClientRect();
+            }
             event_start(event) {
                 if (event.defaultPrevented)
                     return;
                 this.start_pan(this.pan());
+                let pos;
                 if (event instanceof MouseEvent) {
                     if (event.buttons === 1) {
-                        const pos = [event.pageX, event.pageY];
+                        pos = [event.pageX, event.pageY];
                         this.start_pos(pos);
                     }
                 }
                 else if (event instanceof TouchEvent) {
                     if (event.touches.length === 1) {
-                        const pos = [event.touches[0].pageX, event.touches[0].pageY];
+                        pos = [event.touches[0].pageX, event.touches[0].pageY];
                         this.start_pos(pos);
                     }
                     if (event.touches.length === 2) {
@@ -2604,22 +2724,38 @@ var $;
                     }
                 }
             }
+            event_leave(event) {
+                if (event.defaultPrevented)
+                    return;
+                if (event instanceof MouseEvent)
+                    this.pos(super.pos());
+            }
             event_move(event) {
                 if (event.defaultPrevented)
                     return;
                 const start_pan = this.start_pan();
                 let pos;
+                let cursor_pos;
                 if (event instanceof MouseEvent) {
+                    cursor_pos = [event.pageX, event.pageY];
                     if (event.buttons === 1)
-                        pos = [event.pageX, event.pageY];
+                        pos = cursor_pos;
                     else
                         this.start_pos(null);
                 }
                 else if (event instanceof TouchEvent) {
+                    cursor_pos = [event.touches[0].pageX, event.touches[0].pageY];
                     if (event.touches.length === 1)
-                        pos = [event.touches[0].pageX, event.touches[0].pageY];
+                        pos = cursor_pos;
                     else
                         this.start_pos(null);
+                }
+                if (cursor_pos) {
+                    const { left, top } = this.rect();
+                    this.pos([
+                        Math.max(0, Math.round(cursor_pos[0] - left)),
+                        Math.max(0, Math.round(cursor_pos[1] - top)),
+                    ]);
                 }
                 if (pos) {
                     const start_pos = this.start_pos();
@@ -2679,25 +2815,25 @@ var $;
                 }
             }
             swipe_left(event) {
-                if (this.dom_node().getBoundingClientRect().right - this.start_pos()[0] < this.swipe_precision() * 2)
+                if (this.rect().right - this.start_pos()[0] < this.swipe_precision() * 2)
                     this.swipe_from_right(event);
                 else
                     this.swipe_to_left(event);
             }
             swipe_right(event) {
-                if (this.start_pos()[0] - this.dom_node().getBoundingClientRect().left < this.swipe_precision() * 2)
+                if (this.start_pos()[0] - this.rect().left < this.swipe_precision() * 2)
                     this.swipe_from_left(event);
                 else
                     this.swipe_to_right(event);
             }
             swipe_top(event) {
-                if (this.dom_node().getBoundingClientRect().bottom - this.start_pos()[1] < this.swipe_precision() * 2)
+                if (this.rect().bottom - this.start_pos()[1] < this.swipe_precision() * 2)
                     this.swipe_from_bottom(event);
                 else
                     this.swipe_to_top(event);
             }
             swipe_bottom(event) {
-                if (this.start_pos()[1] - this.dom_node().getBoundingClientRect().top < this.swipe_precision() * 2)
+                if (this.start_pos()[1] - this.rect().top < this.swipe_precision() * 2)
                     this.swipe_from_top(event);
                 else
                     this.swipe_to_bottom(event);
@@ -2706,7 +2842,7 @@ var $;
                 this.start_pos(null);
             }
             event_wheel(event) {
-                const zoom_prev = this.zoom();
+                const zoom_prev = this.zoom() || 0.001;
                 const zoom_next = zoom_prev * (1 - .1 * Math.sign(event.deltaY));
                 const mult = zoom_next / zoom_prev;
                 this.zoom(zoom_next);
@@ -2734,7 +2870,7 @@ var $;
         Sub() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
     }
     __decorate([
@@ -2808,14 +2944,14 @@ var $;
         Meter() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mol_meter);
+            })(new this.$.$mol_meter());
         }
         Touch() {
             return ((obj) => {
                 obj.swipe_from_left = (val) => this.event_front_up(val);
                 obj.swipe_to_left = (val) => this.event_front_down(val);
                 return obj;
-            })(new this.$.$mol_touch);
+            })(new this.$.$mol_touch());
         }
         event_front_up(val, force) {
             return (val !== void 0) ? val : null;
@@ -2828,7 +2964,7 @@ var $;
                 obj.Sub = () => this.page(index);
                 obj.visible = () => this.page_visible(index);
                 return obj;
-            })(new this.$.$mol_book_page);
+            })(new this.$.$mol_book_page());
         }
         page(index) {
             return null;
@@ -2840,7 +2976,7 @@ var $;
             return ((obj) => {
                 obj.title = () => this.title();
                 return obj;
-            })(new this.$.$mol_book_placeholder);
+            })(new this.$.$mol_book_placeholder());
         }
     }
     __decorate([
@@ -3275,6 +3411,8 @@ var $;
                 return true;
             }
             event_click(event) {
+                if (!event || event.defaultPrevented)
+                    return;
                 setTimeout($.$mol_log_group(`${this}.event_click()`, () => this.focused(false)), 50);
             }
             file_name() {
@@ -3338,7 +3476,7 @@ var $;
                     "transform": this.strut_transform(),
                 });
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         strut_transform() {
             return "";
@@ -3577,7 +3715,7 @@ var $;
                 });
                 obj.sub = () => this.head();
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         head() {
             return [].concat(this.Title(), this.Tools());
@@ -3587,7 +3725,7 @@ var $;
                 obj.sub = () => [].concat(this.title());
                 obj.event_click = (val) => this.event_top(val);
                 return obj;
-            })(new this.$.$mol_button);
+            })(new this.$.$mol_button());
         }
         event_top(val, force) {
             return (val !== void 0) ? val : null;
@@ -3596,7 +3734,7 @@ var $;
             return ((obj) => {
                 obj.sub = () => this.tools();
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         tools() {
             return [].concat();
@@ -3606,7 +3744,7 @@ var $;
                 obj.scroll_top = (val) => this.body_scroll_top(val);
                 obj.sub = () => this.body();
                 return obj;
-            })(new this.$.$mol_scroll);
+            })(new this.$.$mol_scroll());
         }
         body_scroll_top(val, force) {
             return (val !== void 0) ? val : 0;
@@ -3621,7 +3759,7 @@ var $;
                 });
                 obj.sub = () => this.foot();
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         foot() {
             return [].concat();
@@ -3701,7 +3839,7 @@ var $;
         Content() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mol_filler);
+            })(new this.$.$mol_filler());
         }
     }
     __decorate([
@@ -3943,7 +4081,7 @@ var $;
             return ((obj) => {
                 obj.sub = () => this.label();
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         label() {
             return [].concat(this.title());
@@ -3952,7 +4090,7 @@ var $;
             return ((obj) => {
                 obj.sub = () => [].concat(this.content());
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         content() {
             return null;
@@ -4499,12 +4637,12 @@ var $;
         Unknown_value() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mpk_tss_parameter_unknown);
+            })(new this.$.$mpk_tss_parameter_unknown());
         }
         Unknown_updated() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mpk_tss_parameter_unknown);
+            })(new this.$.$mpk_tss_parameter_unknown());
         }
         value() {
             return null;
@@ -4521,9 +4659,9 @@ var $;
                 obj.Content = () => ((obj) => {
                     obj.sub = () => [].concat(this.name());
                     return obj;
-                })(new this.$.$mol_view);
+                })(new this.$.$mol_view());
                 return obj;
-            })(new this.$.$mol_labeler);
+            })(new this.$.$mol_labeler());
         }
         name_title() {
             return this.$.$mol_locale.text("$mpk_tss_parameter_name_title");
@@ -4536,7 +4674,7 @@ var $;
                 obj.title = () => this.value_title();
                 obj.Content = () => this.Value_content();
                 return obj;
-            })(new this.$.$mol_labeler);
+            })(new this.$.$mol_labeler());
         }
         value_title() {
             return this.$.$mol_locale.text("$mpk_tss_parameter_value_title");
@@ -4549,7 +4687,7 @@ var $;
                 obj.title = () => this.updated_title();
                 obj.Content = () => this.Updated_value();
                 return obj;
-            })(new this.$.$mol_labeler);
+            })(new this.$.$mol_labeler());
         }
         updated_title() {
             return this.$.$mol_locale.text("$mpk_tss_parameter_updated_title");
@@ -4561,7 +4699,7 @@ var $;
             return ((obj) => {
                 obj.date = () => this.updated();
                 return obj;
-            })(new this.$.$mpk_tss_parameter_date);
+            })(new this.$.$mpk_tss_parameter_date());
         }
     }
     __decorate([
@@ -4867,7 +5005,7 @@ var $;
                 obj.value = () => this.status();
                 obj.updated = () => this.updated();
                 return obj;
-            })(new this.$.$mpk_tss_parameter);
+            })(new this.$.$mpk_tss_parameter());
         }
         status_title() {
             return this.$.$mol_locale.text("$mpk_tss_pereferial_ups_status_title");
@@ -4884,7 +5022,7 @@ var $;
                 obj.value = () => this.power_source();
                 obj.updated = () => this.updated();
                 return obj;
-            })(new this.$.$mpk_tss_parameter);
+            })(new this.$.$mpk_tss_parameter());
         }
         power_title() {
             return this.$.$mol_locale.text("$mpk_tss_pereferial_ups_power_title");
@@ -4898,7 +5036,7 @@ var $;
                 obj.value = () => this.voltage();
                 obj.updated = () => this.updated();
                 return obj;
-            })(new this.$.$mpk_tss_parameter);
+            })(new this.$.$mpk_tss_parameter());
         }
         voltage_title() {
             return this.$.$mol_locale.text("$mpk_tss_pereferial_ups_voltage_title");
@@ -4912,7 +5050,7 @@ var $;
                 obj.value = () => this.battery_level();
                 obj.updated = () => this.updated();
                 return obj;
-            })(new this.$.$mpk_tss_parameter);
+            })(new this.$.$mpk_tss_parameter());
         }
         bat_level_title() {
             return this.$.$mol_locale.text("$mpk_tss_pereferial_ups_bat_level_title");
@@ -4926,7 +5064,7 @@ var $;
                 obj.value = () => this.battery_time();
                 obj.updated = () => this.updated();
                 return obj;
-            })(new this.$.$mpk_tss_parameter);
+            })(new this.$.$mpk_tss_parameter());
         }
         bat_time_title() {
             return this.$.$mol_locale.text("$mpk_tss_pereferial_ups_bat_time_title");
@@ -5028,12 +5166,12 @@ var $;
                 });
                 obj.sub = () => [].concat(this.Details_close_icon());
                 return obj;
-            })(new this.$.$mol_link);
+            })(new this.$.$mol_link());
         }
         Details_close_icon() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mol_icon_cross);
+            })(new this.$.$mol_icon_cross());
         }
         body() {
             return [].concat(this.unit_details());
@@ -5045,7 +5183,7 @@ var $;
             return ((obj) => {
                 obj.unit = () => this.unit();
                 return obj;
-            })(new this.$.$mpk_tss_pereferial_ups);
+            })(new this.$.$mpk_tss_pereferial_ups());
         }
     }
     __decorate([
@@ -5110,7 +5248,7 @@ var $;
             return ((obj) => {
                 obj.sub = () => this.content();
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         content() {
             return [].concat();
@@ -5120,7 +5258,7 @@ var $;
                 obj.minimal_height = () => 30;
                 obj.sub = () => [].concat(this.status_text());
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         status_text() {
             return this.status();
@@ -5176,7 +5314,7 @@ var $;
                 obj.Status = () => this.Status();
                 obj.Content = () => this.Content();
                 return obj;
-            })(new this.$.$mol_card);
+            })(new this.$.$mol_card());
         }
         status() {
             return "";
@@ -5185,7 +5323,7 @@ var $;
             return ((obj) => {
                 obj.sub = () => [].concat(this.Status_text(), this.Tools());
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         Status_text() {
             return null;
@@ -5194,7 +5332,7 @@ var $;
             return ((obj) => {
                 obj.sub = () => [].concat(this.tools(), this.Status_action());
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         tools() {
             return [].concat();
@@ -5204,7 +5342,7 @@ var $;
                 obj.event_click = (event) => this.status_click(event);
                 obj.sub = () => [].concat(this.Status_icon());
                 return obj;
-            })(new this.$.$mol_button_minor);
+            })(new this.$.$mol_button_minor());
         }
         status_click(event, force) {
             return (event !== void 0) ? event : null;
@@ -5212,13 +5350,13 @@ var $;
         Status_icon() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mpk_tss_icon_cloud_download);
+            })(new this.$.$mpk_tss_icon_cloud_download());
         }
         Content() {
             return ((obj) => {
                 obj.sub = () => [].concat(this.items());
                 return obj;
-            })(new this.$.$mol_row);
+            })(new this.$.$mol_row());
         }
         items() {
             return [].concat();
@@ -5281,12 +5419,12 @@ var $;
                 obj.colors = () => false;
                 obj.status = () => this.unit_status();
                 return obj;
-            })(new this.$.$mpk_tss_pereferial_status);
+            })(new this.$.$mpk_tss_pereferial_status());
         }
         Status_icon() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mpk_tss_icon_autorenew);
+            })(new this.$.$mpk_tss_icon_autorenew());
         }
         status_click(event, force) {
             return this.unit_status_click(event);
@@ -5302,7 +5440,7 @@ var $;
                 obj.title = () => this.type_title();
                 obj.content = () => this.type();
                 return obj;
-            })(new this.$.$mol_labeler);
+            })(new this.$.$mol_labeler());
         }
         type_title() {
             return this.$.$mol_locale.text("$mpk_tss_pereferial_link_type_title");
@@ -5315,7 +5453,7 @@ var $;
                 obj.title = () => this.name_title();
                 obj.content = () => this.name();
                 return obj;
-            })(new this.$.$mol_labeler);
+            })(new this.$.$mol_labeler());
         }
         name_title() {
             return this.$.$mol_locale.text("$mpk_tss_pereferial_link_name_title");
@@ -5418,7 +5556,7 @@ var $;
         Meter() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mol_meter);
+            })(new this.$.$mol_meter());
         }
         sub() {
             return [].concat(this.Anchor(), this.Bubble());
@@ -5432,7 +5570,7 @@ var $;
                 obj.content = () => this.bubble_content();
                 obj.height_max = () => this.height_max();
                 return obj;
-            })(new this.$.$mol_pop_bubble);
+            })(new this.$.$mol_pop_bubble());
         }
         align() {
             return "bottom_center";
@@ -5533,7 +5671,7 @@ var $;
             return ((obj) => {
                 obj.sub = () => [].concat(this.string(id));
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         string(id) {
             return "";
@@ -5818,7 +5956,7 @@ var $;
                 obj.event_click = (event) => this.event_select(id, event);
                 obj.sub = () => this.option_content(id);
                 return obj;
-            })(new this.$.$mol_button_minor);
+            })(new this.$.$mol_button_minor());
         }
         event_select(id, event, force) {
             return (event !== void 0) ? event : null;
@@ -5832,7 +5970,7 @@ var $;
                 obj.haystack = () => this.option_label(id);
                 obj.needle = () => this.filter_pattern();
                 return obj;
-            })(new this.$.$mol_dimmer);
+            })(new this.$.$mol_dimmer());
         }
         option_label(id) {
             return "";
@@ -5844,7 +5982,7 @@ var $;
             return ((obj) => {
                 obj.sub = () => [].concat(this.no_options_message());
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         no_options_message() {
             return this.$.$mol_locale.text("$mol_select_no_options_message");
@@ -5858,7 +5996,7 @@ var $;
                 obj.current_y = (component) => this.option_focused(component);
                 obj.cycle = (val) => this.nav_cycle(val);
                 return obj;
-            })(new this.$.$mol_nav);
+            })(new this.$.$mol_nav());
         }
         nav_components() {
             return [].concat(this.Filter(), this.option_rows());
@@ -5882,7 +6020,7 @@ var $;
             return ((obj) => {
                 obj.sub = () => this.trigger_content();
                 return obj;
-            })(new this.$.$mol_button_minor);
+            })(new this.$.$mol_button_minor());
         }
         trigger_content() {
             return [].concat(this.option_content_current(), this.Filter(), this.Trigger_icon());
@@ -5896,7 +6034,7 @@ var $;
                 obj.hint = () => this.filter_hint();
                 obj.debounce = () => this.debounce();
                 return obj;
-            })(new this.$.$mol_string);
+            })(new this.$.$mol_string());
         }
         filter_hint() {
             return this.hint();
@@ -5910,7 +6048,7 @@ var $;
         Trigger_icon() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mol_icon_chevron);
+            })(new this.$.$mol_icon_chevron());
         }
         bubble_content() {
             return [].concat(this.Menu());
@@ -5919,7 +6057,7 @@ var $;
             return ((obj) => {
                 obj.rows = () => this.menu_content();
                 return obj;
-            })(new this.$.$mol_list);
+            })(new this.$.$mol_list());
         }
         menu_content() {
             return [].concat(this.Filter(), this.option_rows());
@@ -6096,7 +6234,7 @@ var $;
                 obj.Trigger_icon = () => null;
                 obj.debounce = () => this.debounce();
                 return obj;
-            })(new this.$.$mol_select);
+            })(new this.$.$mol_select());
         }
         suggest_selected(val, force) {
             return (val !== void 0) ? val : "";
@@ -6118,12 +6256,12 @@ var $;
                 obj.sub = () => [].concat(this.Clear_icon());
                 obj.event_click = (val) => this.event_clear(val);
                 return obj;
-            })(new this.$.$mol_button_minor);
+            })(new this.$.$mol_button_minor());
         }
         Clear_icon() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mol_icon_cross);
+            })(new this.$.$mol_icon_cross());
         }
         event_clear(val, force) {
             return (val !== void 0) ? val : null;
@@ -6209,7 +6347,7 @@ var $;
                 obj.filter_value = (val) => this.filter_value(val);
                 obj.body = () => [].concat(this.List());
                 return obj;
-            })(new this.$.$mpk_tss_pereferial_list_page);
+            })(new this.$.$mpk_tss_pereferial_list_page());
         }
         event_top(e, force) {
             return (e !== void 0) ? e : null;
@@ -6227,7 +6365,7 @@ var $;
             return ((obj) => {
                 obj.rows = () => this.unit_links();
                 return obj;
-            })(new this.$.$mol_list);
+            })(new this.$.$mol_list());
         }
         unit_links() {
             return [].concat();
@@ -6240,7 +6378,7 @@ var $;
                 obj.event_top = (e) => this.details_event_top(e);
                 obj.unit = () => this.unit(id);
                 return obj;
-            })(new this.$.$mpk_tss_pereferial_details);
+            })(new this.$.$mpk_tss_pereferial_details());
         }
         details_event_top(e, force) {
             return (e !== void 0) ? e : null;
@@ -6252,7 +6390,7 @@ var $;
             return ((obj) => {
                 obj.unit = () => this.unit(id);
                 return obj;
-            })(new this.$.$mpk_tss_pereferial_link);
+            })(new this.$.$mpk_tss_pereferial_link());
         }
     }
     __decorate([
@@ -6294,7 +6432,7 @@ var $;
                 obj.hint = () => this.filter_hint();
                 obj.query = (val) => this.filter_value(val);
                 return obj;
-            })(new this.$.$mol_search);
+            })(new this.$.$mol_search());
         }
         filter_hint() {
             return this.$.$mol_locale.text("$mpk_tss_pereferial_list_page_filter_hint");
@@ -6392,7 +6530,7 @@ var $;
         Content() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mol_filler);
+            })(new this.$.$mol_filler());
         }
     }
     __decorate([
@@ -6614,12 +6752,12 @@ var $;
         Success() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mpk_tss_icon_circle_outline);
+            })(new this.$.$mpk_tss_icon_circle_outline());
         }
         Warning() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mpk_tss_icon_round_warning);
+            })(new this.$.$mpk_tss_icon_round_warning());
         }
         sub() {
             return [].concat(this.Text());
@@ -6628,7 +6766,7 @@ var $;
             return ((obj) => {
                 obj.sub = () => [].concat(this.status_text());
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         status_text() {
             return "";
@@ -6734,22 +6872,22 @@ var $;
         Preparing() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mpk_tss_icon_sync);
+            })(new this.$.$mpk_tss_icon_sync());
         }
         Sending() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mpk_tss_icon_sync);
+            })(new this.$.$mpk_tss_icon_sync());
         }
         Sent() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mpk_tss_icon_done);
+            })(new this.$.$mpk_tss_icon_done());
         }
         Error() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mpk_tss_icon_clear);
+            })(new this.$.$mpk_tss_icon_clear());
         }
         sub() {
             return [].concat(this.Icon(), this.Text());
@@ -6761,7 +6899,7 @@ var $;
             return ((obj) => {
                 obj.sub = () => [].concat(this.status_text());
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         status_text() {
             return "";
@@ -6833,7 +6971,7 @@ var $;
             return ((obj) => {
                 obj.status = () => this.resolution();
                 return obj;
-            })(new this.$.$mpk_tss_reports_resolution);
+            })(new this.$.$mpk_tss_reports_resolution());
         }
         resolution() {
             return "";
@@ -6852,7 +6990,7 @@ var $;
                 obj.title = () => this.id_title();
                 obj.content = () => this.report_id();
                 return obj;
-            })(new this.$.$mol_labeler);
+            })(new this.$.$mol_labeler());
         }
         id_title() {
             return this.$.$mol_locale.text("$mpk_tss_reports_train_link_id_title");
@@ -6862,7 +7000,7 @@ var $;
                 obj.title = () => this.started_title();
                 obj.content = () => this.started();
                 return obj;
-            })(new this.$.$mol_labeler);
+            })(new this.$.$mol_labeler());
         }
         started_title() {
             return this.$.$mol_locale.text("$mpk_tss_reports_train_link_started_title");
@@ -6875,7 +7013,7 @@ var $;
                 obj.title = () => this.average_speed_title();
                 obj.content = () => this.Average_speed_formatted();
                 return obj;
-            })(new this.$.$mol_labeler);
+            })(new this.$.$mol_labeler());
         }
         average_speed_title() {
             return this.$.$mol_locale.text("$mpk_tss_reports_train_link_average_speed_title");
@@ -6884,7 +7022,7 @@ var $;
             return ((obj) => {
                 obj.value = () => this.average_speed();
                 return obj;
-            })(new this.$.$mpk_tss_parameter_speed);
+            })(new this.$.$mpk_tss_parameter_speed());
         }
         average_speed() {
             return 0;
@@ -6894,7 +7032,7 @@ var $;
                 obj.title = () => this.delivery_title();
                 obj.Content = () => this.Delivery_value();
                 return obj;
-            })(new this.$.$mol_labeler);
+            })(new this.$.$mol_labeler());
         }
         delivery_title() {
             return this.$.$mol_locale.text("$mpk_tss_reports_train_link_delivery_title");
@@ -6903,7 +7041,7 @@ var $;
             return ((obj) => {
                 obj.status = () => this.delivery();
                 return obj;
-            })(new this.$.$mpk_tss_reports_delivery);
+            })(new this.$.$mpk_tss_reports_delivery());
         }
         delivery() {
             return "";
@@ -6913,7 +7051,7 @@ var $;
                 obj.title = () => this.train_number_title();
                 obj.content = () => this.train_number();
                 return obj;
-            })(new this.$.$mol_labeler);
+            })(new this.$.$mol_labeler());
         }
         train_number_title() {
             return this.$.$mol_locale.text("$mpk_tss_reports_train_link_train_number_title");
@@ -7146,19 +7284,19 @@ var $;
             return ((obj) => {
                 obj.sub = () => [].concat(this.Status_main(), this.Violation());
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         Status_main() {
             return ((obj) => {
                 obj.status = () => this.resolution();
                 return obj;
-            })(new this.$.$mpk_tss_reports_resolution);
+            })(new this.$.$mpk_tss_reports_resolution());
         }
         Violation() {
             return ((obj) => {
                 obj.status = () => this.violation();
                 return obj;
-            })(new this.$.$mpk_tss_reports_carriage_link_violation);
+            })(new this.$.$mpk_tss_reports_carriage_link_violation());
         }
         violation() {
             return "";
@@ -7166,7 +7304,7 @@ var $;
         Status_icon() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mpk_tss_icon_cloud_download);
+            })(new this.$.$mpk_tss_icon_cloud_download());
         }
         status_click(event, force) {
             return this.carriage_status_click(event);
@@ -7182,7 +7320,7 @@ var $;
                 obj.title = () => this.place_title();
                 obj.content = () => this.place();
                 return obj;
-            })(new this.$.$mol_labeler);
+            })(new this.$.$mol_labeler());
         }
         place_title() {
             return this.$.$mol_locale.text("$mpk_tss_reports_carriage_link_place_title");
@@ -7195,7 +7333,7 @@ var $;
                 obj.title = () => this.carriage_number_title();
                 obj.content = () => this.carriage_number();
                 return obj;
-            })(new this.$.$mol_labeler);
+            })(new this.$.$mol_labeler());
         }
         carriage_number_title() {
             return this.$.$mol_locale.text("$mpk_tss_reports_carriage_link_carriage_number_title");
@@ -7208,7 +7346,7 @@ var $;
                 obj.title = () => this.load_title();
                 obj.content = () => this.Load_text();
                 return obj;
-            })(new this.$.$mol_labeler);
+            })(new this.$.$mol_labeler());
         }
         load_title() {
             return this.$.$mol_locale.text("$mpk_tss_reports_carriage_link_load_title");
@@ -7217,7 +7355,7 @@ var $;
             return ((obj) => {
                 obj.status = () => this.load();
                 return obj;
-            })(new this.$.$mpk_tss_reports_carriage_load);
+            })(new this.$.$mpk_tss_reports_carriage_load());
         }
         load() {
             return "";
@@ -7227,7 +7365,7 @@ var $;
                 obj.title = () => this.speed_title();
                 obj.content = () => this.Speed_formatted();
                 return obj;
-            })(new this.$.$mol_labeler);
+            })(new this.$.$mol_labeler());
         }
         speed_title() {
             return this.$.$mol_locale.text("$mpk_tss_reports_carriage_link_speed_title");
@@ -7236,7 +7374,7 @@ var $;
             return ((obj) => {
                 obj.value = () => this.speed();
                 return obj;
-            })(new this.$.$mpk_tss_parameter_speed);
+            })(new this.$.$mpk_tss_parameter_speed());
         }
         speed() {
             return 0;
@@ -7461,7 +7599,7 @@ var $;
             return ((obj) => {
                 obj.rows = () => [].concat(this.wheels());
                 return obj;
-            })(new this.$.$mol_list);
+            })(new this.$.$mol_list());
         }
         wheels() {
             return [].concat();
@@ -7471,7 +7609,7 @@ var $;
                 obj.wheel = () => this.wheel(id);
                 obj.axle_id = () => this.axle_id();
                 return obj;
-            })(new this.$.$mpk_tss_reports_axle_link_wheel);
+            })(new this.$.$mpk_tss_reports_axle_link_wheel());
         }
         wheel(id) {
             return null;
@@ -7585,7 +7723,7 @@ var $;
                 obj.axle = () => this.axle(id);
                 obj.current = () => this.current(id);
                 return obj;
-            })(new this.$.$mpk_tss_reports_axle_link);
+            })(new this.$.$mpk_tss_reports_axle_link());
         }
         axle(id) {
             return null;
@@ -7658,67 +7796,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_plot_base extends $.$mol_svg_group {
-        viewport() {
-            return [].concat([].concat(), [].concat());
-        }
-        shift() {
-            return [].concat(0, 0);
-        }
-        scale() {
-            return [].concat(1, 1);
-        }
-        dimensions_pane() {
-            return [].concat([].concat(), [].concat());
-        }
-        dimensions() {
-            return [].concat([].concat(), [].concat());
-        }
-        size_real() {
-            return [].concat(0, 0);
-        }
-        front() {
-            return [].concat();
-        }
-        back() {
-            return [].concat();
-        }
-        hue() {
-            return NaN;
-        }
-        Sample() {
-            return null;
-        }
-    }
-    $.$mol_plot_base = $mol_plot_base;
-})($ || ($ = {}));
-//base.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_plot_base extends $.$mol_plot_base {
-            dimensions() {
-                return [
-                    [Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY],
-                    [Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY],
-                ];
-            }
-            viewport() {
-                const size = this.size_real();
-                return [[0, size[0]], [0, size[1]]];
-            }
-        }
-        $$.$mol_plot_base = $mol_plot_base;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//base.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
     class $mol_vector extends Array {
         constructor(...values) { super(...values); }
         merged(patches, combine) {
@@ -7741,6 +7818,17 @@ var $;
         }
         expanded1(point) {
             return this.merged(point, (range, value) => range.expanded0(value));
+        }
+        expanded2(point) {
+            return this.merged(point, (range1, range2) => {
+                let next = range1;
+                const Range = range1.constructor;
+                if (range1[0] > range2[0])
+                    next = new Range(range2[0], next.max);
+                if (range1[1] < range2[1])
+                    next = new Range(next.min, range2[1]);
+                return next;
+            });
         }
     }
     $.$mol_vector = $mol_vector;
@@ -7798,6 +7886,185 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var $;
 (function ($) {
+    class $mol_plot_graph extends $.$mol_svg_group {
+        series_x() {
+            return [].concat();
+        }
+        series_y() {
+            return [].concat();
+        }
+        attr() {
+            return (Object.assign({}, super.attr(), { "mol_plot_graph_type": this.type() }));
+        }
+        type() {
+            return "solid";
+        }
+        style() {
+            return (Object.assign({}, super.style(), { "color": this.color() }));
+        }
+        color() {
+            return "";
+        }
+        viewport() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_2d(((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_range(Infinity, -Infinity)), ((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_range(Infinity, -Infinity))));
+        }
+        shift() {
+            return [].concat(0, 0);
+        }
+        scale() {
+            return [].concat(1, 1);
+        }
+        cursor_position() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_2d(NaN, NaN));
+        }
+        dimensions_pane() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_2d(((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_range(Infinity, -Infinity)), ((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_range(Infinity, -Infinity))));
+        }
+        dimensions() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_2d(((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_range(Infinity, -Infinity)), ((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_range(Infinity, -Infinity))));
+        }
+        size_real() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_2d(0, 0));
+        }
+        gap() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_2d(((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_range(0, 0)), ((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_range(0, 0))));
+        }
+        front() {
+            return [].concat();
+        }
+        back() {
+            return [].concat();
+        }
+        hue() {
+            return NaN;
+        }
+        Sample() {
+            return null;
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_plot_graph.prototype, "viewport", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_plot_graph.prototype, "cursor_position", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_plot_graph.prototype, "dimensions_pane", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_plot_graph.prototype, "dimensions", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_plot_graph.prototype, "size_real", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_plot_graph.prototype, "gap", null);
+    $.$mol_plot_graph = $mol_plot_graph;
+})($ || ($ = {}));
+(function ($) {
+    class $mol_plot_graph_sample extends $.$mol_view {
+        attr() {
+            return (Object.assign({}, super.attr(), { "mol_plot_graph_type": this.type() }));
+        }
+        type() {
+            return "solid";
+        }
+        style() {
+            return (Object.assign({}, super.style(), { "color": this.color() }));
+        }
+        color() {
+            return "black";
+        }
+    }
+    $.$mol_plot_graph_sample = $mol_plot_graph_sample;
+})($ || ($ = {}));
+//graph.view.tree.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_plot_graph extends $.$mol_plot_graph {
+            viewport() {
+                const size = this.size_real();
+                return new this.$.$mol_vector_2d(new this.$.$mol_vector_range(0, size.x), new this.$.$mol_vector_range(0, size.y));
+            }
+            series_x() {
+                return this.series_y().map((val, index) => index);
+            }
+            dimensions() {
+                let next = new this.$.$mol_vector_2d($.$mol_vector_range_full.inversed, $.$mol_vector_range_full.inversed);
+                const series_x = this.series_x();
+                const series_y = this.series_y();
+                for (let i = 0; i < series_x.length; i++) {
+                    next = next.expanded1([series_x[i], series_y[i]]);
+                }
+                return next;
+            }
+            color() {
+                const hue = this.hue();
+                return hue ? `hsl( ${hue} , 100% , 35% )` : '';
+            }
+            front() {
+                return [this];
+            }
+        }
+        __decorate([
+            $.$mol_mem
+        ], $mol_plot_graph.prototype, "series_x", null);
+        __decorate([
+            $.$mol_mem
+        ], $mol_plot_graph.prototype, "dimensions", null);
+        $$.$mol_plot_graph = $mol_plot_graph;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//graph.view.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
     class $mol_plot_pane extends $.$mol_svg_root {
         aspect() {
             return "none";
@@ -7808,14 +8075,11 @@ var $;
         hue_shift(val, force) {
             return (val !== void 0) ? val : 111;
         }
-        gap() {
-            return 24;
-        }
         gap_hor() {
-            return this.gap();
+            return 48;
         }
         gap_vert() {
-            return this.gap();
+            return 24;
         }
         gap_left() {
             return this.gap_hor();
@@ -7829,14 +8093,23 @@ var $;
         gap_bottom() {
             return this.gap_vert();
         }
+        gap() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_2d(((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_range(this.gap_left(), this.gap_right())), ((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_range(this.gap_bottom(), this.gap_top()))));
+        }
         shift_limit() {
-            return [].concat(this.shift_limit_x(), this.shift_limit_y());
-        }
-        shift_limit_x() {
-            return [].concat(0, 0);
-        }
-        shift_limit_y() {
-            return [].concat(0, 0);
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_2d(((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_range(0, 0)), ((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_range(0, 0))));
         }
         shift_default() {
             return [].concat(0, 0);
@@ -7845,13 +8118,13 @@ var $;
             return (val !== void 0) ? val : [].concat(0, 0);
         }
         scale_limit() {
-            return [].concat(this.scale_limit_x(), this.scale_limit_y());
-        }
-        scale_limit_x() {
-            return [].concat(0, Infinity);
-        }
-        scale_limit_y() {
-            return [].concat(0, Infinity);
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_2d(((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_range(0, Infinity)), ((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_range(0, Infinity))));
         }
         scale_default() {
             return [].concat(0, 0);
@@ -7859,23 +8132,45 @@ var $;
         scale(val, force) {
             return (val !== void 0) ? val : [].concat(1, 1);
         }
+        scale_x(val, force) {
+            return (val !== void 0) ? val : 0;
+        }
+        scale_y(val, force) {
+            return (val !== void 0) ? val : 0;
+        }
         size() {
-            return [].concat(0, 0);
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_2d(0, 0));
         }
         size_real() {
-            return [].concat(1, 1);
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_2d(1, 1));
         }
         dimensions_viewport() {
-            return [].concat([].concat(), [].concat());
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_2d(((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_range(Infinity, -Infinity)), ((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_range(Infinity, -Infinity))));
         }
         dimensions() {
-            return [].concat([].concat(), [].concat());
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_2d(((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_range(Infinity, -Infinity)), ((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_range(Infinity, -Infinity))));
         }
         sub() {
             return this.graphs_sorted();
         }
         graphs_sorted() {
-            return this.graphs_colored();
+            return [].concat();
         }
         graphs_colored() {
             return this.graphs_positioned();
@@ -7886,8 +8181,13 @@ var $;
         graphs() {
             return [].concat();
         }
+        cursor_position(val, force) {
+            return (val !== void 0) ? val : ((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_2d(NaN, NaN));
+        }
         plugins() {
-            return [].concat(this.Meter());
+            return [].concat(this.Meter(), this.Touch());
         }
         width() {
             return this.Meter().width();
@@ -7898,7 +8198,21 @@ var $;
         Meter() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mol_meter);
+            })(new this.$.$mol_meter());
+        }
+        Touch() {
+            return ((obj) => {
+                obj.zoom = (val) => this.scale_x(val);
+                obj.pan = (val) => this.shift(val);
+                obj.pos = (val) => this.cursor_position(val);
+                return obj;
+            })(new this.$.$mol_touch());
+        }
+        event() {
+            return (Object.assign({}, super.event(), { "dblclick": (event) => this.reset(event) }));
+        }
+        reset(event, force) {
+            return (event !== void 0) ? event : null;
         }
     }
     __decorate([
@@ -7909,13 +8223,49 @@ var $;
     ], $mol_plot_pane.prototype, "hue_shift", null);
     __decorate([
         $.$mol_mem
+    ], $mol_plot_pane.prototype, "gap", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_plot_pane.prototype, "shift_limit", null);
+    __decorate([
+        $.$mol_mem
     ], $mol_plot_pane.prototype, "shift", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_plot_pane.prototype, "scale_limit", null);
     __decorate([
         $.$mol_mem
     ], $mol_plot_pane.prototype, "scale", null);
     __decorate([
         $.$mol_mem
+    ], $mol_plot_pane.prototype, "scale_x", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_plot_pane.prototype, "scale_y", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_plot_pane.prototype, "size", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_plot_pane.prototype, "size_real", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_plot_pane.prototype, "dimensions_viewport", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_plot_pane.prototype, "dimensions", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_plot_pane.prototype, "cursor_position", null);
+    __decorate([
+        $.$mol_mem
     ], $mol_plot_pane.prototype, "Meter", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_plot_pane.prototype, "Touch", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_plot_pane.prototype, "reset", null);
     $.$mol_plot_pane = $mol_plot_pane;
 })($ || ($ = {}));
 //pane.view.tree.js.map
@@ -7934,33 +8284,19 @@ var $;
         class $mol_plot_pane extends $.$mol_plot_pane {
             constructor() {
                 super(...arguments);
-                this.shift_changed = false;
+                this.graph_touched = false;
             }
             dimensions() {
                 const graphs = this.graphs();
-                const next = [
-                    [Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY],
-                    [Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY],
-                ];
+                let next = new this.$.$mol_vector_2d($.$mol_vector_range_full.inversed, $.$mol_vector_range_full.inversed);
                 for (let graph of graphs) {
-                    const dims = graph.dimensions();
-                    if (dims[0][0] < next[0][0])
-                        next[0][0] = dims[0][0];
-                    if (dims[0][1] < next[0][1])
-                        next[0][1] = dims[0][1];
-                    if (dims[1][0] > next[1][0])
-                        next[1][0] = dims[1][0];
-                    if (dims[1][1] > next[1][1])
-                        next[1][1] = dims[1][1];
+                    next = next.expanded2(graph.dimensions());
                 }
                 return next;
             }
             size() {
                 const dims = this.dimensions();
-                return [
-                    (dims[1][0] - dims[0][0]) || 1,
-                    (dims[1][1] - dims[0][1]) || 1,
-                ];
+                return new this.$.$mol_vector_2d((dims.x.max - dims.x.min) || 1, (dims.y.max - dims.y.min) || 1);
             }
             graph_hue(index) {
                 return (360 + (this.hue_base() + this.hue_shift() * index) % 360) % 360;
@@ -7973,55 +8309,68 @@ var $;
                 return graphs;
             }
             size_real() {
-                return [this.width(), this.height()];
+                return new this.$.$mol_vector_2d(this.width(), this.height());
             }
             view_box() {
                 const size = this.size_real();
-                return `0 0 ${size[0]} ${size[1]}`;
+                return `0 0 ${size.x} ${size.y}`;
             }
             scale_limit() {
-                const [, right, , top,] = super.scale_limit();
+                const { x: { max: right }, y: { max: top } } = super.scale_limit();
+                const gap = this.gap();
                 const size = this.size();
                 const real = this.size_real();
-                const left = +(real[0] - this.gap_left() - this.gap_right()) / size[0];
-                const bottom = -(real[1] - this.gap_top() - this.gap_bottom()) / size[1];
-                return [[left, right], [bottom, top]];
+                const left = +(real.x - gap.x.min - gap.x.max) / size.x;
+                const bottom = -(real.y - gap.y.max - gap.y.min) / size.y;
+                return new this.$.$mol_vector_2d(new this.$.$mol_vector_range(left, right), new this.$.$mol_vector_range(bottom, top));
             }
             scale_default() {
                 const limits = this.scale_limit();
-                return [limits[0][0], limits[1][0]];
+                return [limits.x.min, limits.y.min];
             }
-            scale(next) {
-                if (next === undefined)
-                    next = this.scale_default();
-                return new $.$mol_vector_2d(...next).limited(this.scale_limit());
+            scale(next, force) {
+                if (next === undefined) {
+                    if (!this.graph_touched)
+                        return this.scale_default();
+                    next = $.$mol_atom_current()['value()'] || this.scale_default();
+                }
+                this.graph_touched = true;
+                return new this.$.$mol_vector_2d(...next).limited(this.scale_limit());
+            }
+            scale_x(next) {
+                return this.scale(next && [next, this.scale()[1]])[0];
+            }
+            scale_y(next) {
+                return this.scale(next && [this.scale()[0], next])[1];
             }
             shift_limit() {
-                const [min, max] = this.dimensions();
+                const dims = this.dimensions();
                 const [scale_x, scale_y] = this.scale();
-                const [size_x, size_y] = this.size_real();
-                const left = -max[0] * scale_x + size_x - this.gap_left();
-                const right = -min[0] * scale_x + this.gap_right();
-                const bottom = -min[1] * scale_y + size_y - this.gap_bottom();
-                const top = -max[1] * scale_y + this.gap_top();
-                return [[left, right], [bottom, top]];
+                const size = this.size_real();
+                const gap = this.gap();
+                const left = gap.x.min - dims.x.min * scale_x;
+                const right = size.x - gap.x.max - dims.x.max * scale_x;
+                const top = gap.y.max - dims.y.max * scale_y;
+                const bottom = size.y - gap.y.min - dims.y.min * scale_y;
+                return new this.$.$mol_vector_2d(new this.$.$mol_vector_range(right, left), new this.$.$mol_vector_range(bottom, top));
             }
             shift_default() {
-                const dims = this.dimensions();
-                const scale = this.scale();
-                return [
-                    Math.round(this.gap_left() - dims[0][0] * scale[0]),
-                    Math.round(this.gap_top() - dims[1][1] * scale[1]),
-                ];
+                const limits = this.shift_limit();
+                return [limits.x.min, limits.y.min];
             }
-            shift(next) {
+            shift(next, force) {
                 if (next === undefined) {
-                    if (!this.shift_changed)
+                    if (!this.graph_touched)
                         return this.shift_default();
                     next = $.$mol_atom_current()['value()'] || this.shift_default();
                 }
-                this.shift_changed = true;
-                return new $.$mol_vector_2d(...next).limited(this.shift_limit());
+                this.graph_touched = true;
+                return new this.$.$mol_vector_2d(...next).limited(this.shift_limit());
+            }
+            reset(event) {
+                this.graph_touched = false;
+                this.scale(this.scale_default(), $.$mol_atom_force_cache);
+                this.shift(this.shift_default(), $.$mol_atom_force_cache);
             }
             graphs_positioned() {
                 const graphs = this.graphs();
@@ -8031,15 +8380,14 @@ var $;
                     graph.dimensions_pane = () => this.dimensions();
                     graph.viewport = () => this.viewport();
                     graph.size_real = () => this.size_real();
+                    graph.cursor_position = () => this.cursor_position();
+                    graph.gap = () => this.gap();
                 }
                 return graphs;
             }
             viewport() {
                 const size = this.size_real();
-                return [
-                    [this.gap_left(), this.gap_bottom()],
-                    [size[0] - this.gap_right(), size[1] - this.gap_top()]
-                ];
+                return new this.$.$mol_vector_2d(new this.$.$mol_vector_range(0, size.x), new this.$.$mol_vector_range(0, size.y));
             }
             graphs_sorted() {
                 const graphs = this.graphs_colored();
@@ -8080,6 +8428,9 @@ var $;
         ], $mol_plot_pane.prototype, "graphs_positioned", null);
         __decorate([
             $.$mol_mem
+        ], $mol_plot_pane.prototype, "viewport", null);
+        __decorate([
+            $.$mol_mem
         ], $mol_plot_pane.prototype, "graphs_sorted", null);
         $$.$mol_plot_pane = $mol_plot_pane;
     })($$ = $.$$ || ($.$$ = {}));
@@ -8109,13 +8460,13 @@ var $;
             return ((obj) => {
                 obj.sub = () => [].concat(this.Graph_sample_box(id), this.Graph_title(id));
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         Graph_sample_box(id) {
             return ((obj) => {
                 obj.sub = () => [].concat(this.Graph_sample(id));
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         Graph_sample(id) {
             return null;
@@ -8124,7 +8475,7 @@ var $;
             return ((obj) => {
                 obj.sub = () => [].concat(this.graph_title(id));
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         graph_title(id) {
             return "";
@@ -8186,21 +8537,41 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var $;
 (function ($) {
     class $mol_chart extends $.$mol_view {
+        gap_hor() {
+            return 48;
+        }
+        gap_vert() {
+            return 24;
+        }
+        gap_left() {
+            return this.gap_hor();
+        }
+        gap_right() {
+            return this.gap_hor();
+        }
+        gap_bottom() {
+            return this.gap_vert();
+        }
+        gap_top() {
+            return this.gap_vert();
+        }
+        graphs() {
+            return [].concat();
+        }
         sub() {
             return [].concat(this.Plot(), this.Legend());
         }
         Plot() {
             return ((obj) => {
+                obj.gap_left = () => this.gap_left();
+                obj.gap_right = () => this.gap_right();
+                obj.gap_bottom = () => this.gap_bottom();
+                obj.gap_top = () => this.gap_top();
                 obj.graphs = () => this.graphs();
-                obj.gap_hor = () => 48;
-                obj.gap_vert = () => 24;
                 obj.hue_base = (val) => this.hue_base();
                 obj.hue_shift = (val) => this.hue_shift();
                 return obj;
-            })(new this.$.$mol_plot_pane);
-        }
-        graphs() {
-            return [].concat();
+            })(new this.$.$mol_plot_pane());
         }
         hue_base() {
             return 140;
@@ -8212,7 +8583,7 @@ var $;
             return ((obj) => {
                 obj.graphs = () => this.graphs();
                 return obj;
-            })(new this.$.$mol_chart_legend);
+            })(new this.$.$mol_chart_legend());
         }
     }
     __decorate([
@@ -8226,51 +8597,40 @@ var $;
 //chart.view.tree.js.map
 ;
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 var $;
 (function ($) {
-    class $mol_plot_graph extends $.$mol_plot_base {
-        series() {
-            return ({});
+    class $mol_plot_group extends $.$mol_plot_graph {
+        sub() {
+            return this.graphs_enriched();
         }
-        points_raw() {
+        graphs_enriched() {
+            return this.graphs();
+        }
+        graphs() {
             return [].concat();
         }
-        attr() {
-            return (Object.assign({}, super.attr(), { "mol_plot_graph_type": this.type() }));
-        }
-        type() {
-            return "solid";
-        }
-        style() {
-            return (Object.assign({}, super.style(), { "color": this.color() }));
-        }
-        color() {
-            return "";
-        }
         Sample() {
-            return null;
+            return ((obj) => {
+                obj.sub = () => this.graph_samples();
+                return obj;
+            })(new this.$.$mol_plot_graph_sample());
+        }
+        graph_samples() {
+            return [].concat();
         }
     }
-    $.$mol_plot_graph = $mol_plot_graph;
+    __decorate([
+        $.$mol_mem
+    ], $mol_plot_group.prototype, "Sample", null);
+    $.$mol_plot_group = $mol_plot_group;
 })($ || ($ = {}));
-(function ($) {
-    class $mol_plot_graph_sample extends $.$mol_view {
-        attr() {
-            return (Object.assign({}, super.attr(), { "mol_plot_graph_type": this.type() }));
-        }
-        type() {
-            return "solid";
-        }
-        style() {
-            return (Object.assign({}, super.style(), { "color": this.color() }));
-        }
-        color() {
-            return "black";
-        }
-    }
-    $.$mol_plot_graph_sample = $mol_plot_graph_sample;
-})($ || ($ = {}));
-//graph.view.tree.js.map
+//group.view.tree.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -8283,66 +8643,235 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        class $mol_plot_graph extends $.$mol_plot_graph {
-            points_raw() {
-                const series = this.series();
-                return Object.keys(series).map((key, index) => [
-                    isNaN(Number(key)) ? index : Number(key),
-                    series[key],
-                ]);
+        class $mol_plot_group extends $.$mol_plot_group {
+            graphs_enriched() {
+                const graphs = this.graphs();
+                for (let graph of graphs) {
+                    graph.shift = () => this.shift();
+                    graph.scale = () => this.scale();
+                    graph.size_real = () => this.size_real();
+                    graph.hue = () => this.hue();
+                    graph.series_x = () => this.series_x();
+                    graph.series_y = () => this.series_y();
+                    graph.dimensions_pane = () => this.dimensions_pane();
+                    graph.viewport = () => this.viewport();
+                    graph.cursor_position = () => this.cursor_position();
+                    graph.gap = () => this.gap();
+                }
+                return graphs;
             }
             dimensions() {
-                const points = this.points_raw();
-                const next = [
-                    [Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY],
-                    [Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY],
-                ];
-                for (let point of points) {
-                    if (point[0] < next[0][0])
-                        next[0][0] = point[0];
-                    if (point[1] < next[0][1])
-                        next[0][1] = point[1];
-                    if (point[0] > next[1][0])
-                        next[1][0] = point[0];
-                    if (point[1] > next[1][1])
-                        next[1][1] = point[1];
+                const graphs = this.graphs();
+                let next = new this.$.$mol_vector_2d($.$mol_vector_range_full.inversed, $.$mol_vector_range_full.inversed);
+                for (let graph of graphs) {
+                    next = next.expanded2(graph.dimensions());
                 }
                 return next;
             }
-            color() {
-                const hue = this.hue();
-                return hue ? `hsl( ${hue} , 100% , 35% )` : '';
+            graph_samples() {
+                return this.graphs().map(graph => graph.Sample());
+            }
+            back() {
+                const graphs = this.graphs_enriched();
+                const next = [];
+                for (let graph of graphs)
+                    next.push(...graph.back());
+                return next;
             }
             front() {
-                return [this];
+                const graphs = this.graphs_enriched();
+                const next = [];
+                for (let graph of graphs)
+                    next.push(...graph.front());
+                return next;
             }
         }
         __decorate([
             $.$mol_mem
-        ], $mol_plot_graph.prototype, "points_raw", null);
+        ], $mol_plot_group.prototype, "graphs_enriched", null);
         __decorate([
             $.$mol_mem
-        ], $mol_plot_graph.prototype, "dimensions", null);
-        $$.$mol_plot_graph = $mol_plot_graph;
+        ], $mol_plot_group.prototype, "dimensions", null);
+        __decorate([
+            $.$mol_mem
+        ], $mol_plot_group.prototype, "graph_samples", null);
+        $$.$mol_plot_group = $mol_plot_group;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-//graph.view.js.map
+//group.view.js.map
 ;
 "use strict";
 var $;
 (function ($) {
-    class $mol_svg_circle extends $.$mol_svg {
+    function $mol_coord_pack(a, b) {
+        return a << 16 | b & 0xFFFF;
+    }
+    $.$mol_coord_pack = $mol_coord_pack;
+    function $mol_coord_high(key) {
+        return key >> 16;
+    }
+    $.$mol_coord_high = $mol_coord_high;
+    function $mol_coord_low(key) {
+        return (key & 0xFFFF) << 16 >> 16;
+    }
+    $.$mol_coord_low = $mol_coord_low;
+})($ || ($ = {}));
+//coord.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mol_plot_dot extends $.$mol_plot_graph {
+        points_max() {
+            return Infinity;
+        }
+        style() {
+            return (Object.assign({}, super.style(), { "stroke-width": this.diameter() }));
+        }
+        diameter() {
+            return 8;
+        }
+        sub() {
+            return [].concat(this.Curve());
+        }
+        Curve() {
+            return ((obj) => {
+                obj.geometry = () => this.curve();
+                return obj;
+            })(new this.$.$mol_svg_path());
+        }
+        curve() {
+            return "";
+        }
+        Sample() {
+            return ((obj) => {
+                obj.color = () => this.color();
+                return obj;
+            })(new this.$.$mol_plot_graph_sample());
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_plot_dot.prototype, "Curve", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_plot_dot.prototype, "Sample", null);
+    $.$mol_plot_dot = $mol_plot_dot;
+})($ || ($ = {}));
+//dot.view.tree.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_plot_dot extends $.$mol_plot_dot {
+            filled() {
+                return new Set();
+            }
+            points() {
+                const radius = this.diameter() / 2;
+                const points_max = this.points_max();
+                const viewport = this.viewport();
+                const viewport_left = viewport.x.min - radius;
+                const viewport_right = viewport.x.max + radius;
+                const viewport_bottom = viewport.y.min - radius;
+                const viewport_top = viewport.y.max + radius;
+                const [shift_x, shift_y] = this.shift();
+                const [scale_x, scale_y] = this.scale();
+                let last_x = Number.NEGATIVE_INFINITY;
+                let last_y = Number.NEGATIVE_INFINITY;
+                let spacing = 0;
+                let filled = this.filled();
+                let points_scaled;
+                const series_x = this.series_x();
+                const series_y = this.series_y();
+                do {
+                    points_scaled = [];
+                    for (let i = 0; i < series_x.length; i++) {
+                        const point_x = series_x[i];
+                        const point_y = series_y[i];
+                        const scaled_x = Math.round(shift_x + point_x * scale_x);
+                        const scaled_y = Math.round(shift_y + point_y * scale_y);
+                        if (Math.abs(scaled_x - last_x) < radius
+                            && Math.abs(scaled_y - last_y) < radius)
+                            continue;
+                        last_x = scaled_x;
+                        last_y = scaled_y;
+                        if (scaled_x < viewport_left)
+                            continue;
+                        if (scaled_y < viewport_bottom)
+                            continue;
+                        if (scaled_x > viewport_right)
+                            continue;
+                        if (scaled_y > viewport_top)
+                            continue;
+                        if (spacing !== 0) {
+                            const key = $.$mol_coord_pack(Math.round(point_x * scale_x / spacing) * spacing, Math.round(point_y * scale_y / spacing) * spacing);
+                            if (filled.has(key))
+                                continue;
+                            filled.add(key);
+                        }
+                        points_scaled.push([scaled_x, scaled_y]);
+                        if (points_scaled.length > points_max)
+                            break;
+                    }
+                    spacing += Math.ceil(radius);
+                    filled.clear();
+                } while (points_scaled.length > points_max);
+                return points_scaled;
+            }
+            curve() {
+                const points = this.points();
+                if (points.length === 0)
+                    return '';
+                return this.points().map(point => 'M ' + point.join(' ') + ' v 0').join(' ');
+            }
+        }
+        __decorate([
+            $.$mol_mem
+        ], $mol_plot_dot.prototype, "filled", null);
+        __decorate([
+            $.$mol_mem
+        ], $mol_plot_dot.prototype, "points", null);
+        __decorate([
+            $.$mol_mem
+        ], $mol_plot_dot.prototype, "curve", null);
+        $$.$mol_plot_dot = $mol_plot_dot;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//dot.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_svg_rect extends $.$mol_svg {
         dom_name() {
-            return "circle";
+            return "rect";
         }
         pos() {
             return [].concat();
         }
         attr() {
-            return (Object.assign({}, super.attr(), { "r": this.radius(), "cx": this.pos_x(), "cy": this.pos_y() }));
+            return (Object.assign({}, super.attr(), { "width": this.width(), "height": this.height(), "x": this.pos_x(), "y": this.pos_y() }));
         }
-        radius() {
-            return ".5%";
+        width() {
+            return "0";
+        }
+        height() {
+            return "0";
         }
         pos_x() {
             return "";
@@ -8351,16 +8880,16 @@ var $;
             return "";
         }
     }
-    $.$mol_svg_circle = $mol_svg_circle;
+    $.$mol_svg_rect = $mol_svg_rect;
 })($ || ($ = {}));
-//circle.view.tree.js.map
+//rect.view.tree.js.map
 ;
 "use strict";
 var $;
 (function ($) {
     var $$;
     (function ($$) {
-        class $mol_svg_circle extends $.$mol_svg_circle {
+        class $mol_svg_rect extends $.$mol_svg_rect {
             pos_x() {
                 return this.pos()[0];
             }
@@ -8368,10 +8897,10 @@ var $;
                 return this.pos()[1];
             }
         }
-        $$.$mol_svg_circle = $mol_svg_circle;
+        $$.$mol_svg_rect = $mol_svg_rect;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-//circle.view.js.map
+//rect.view.js.map
 ;
 "use strict";
 var $;
@@ -8425,6 +8954,108 @@ var $;
 //text.view.js.map
 ;
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mol_svg_text_box extends $.$mol_svg_group {
+        font_size() {
+            return 16;
+        }
+        sub() {
+            return [].concat(this.Back(), this.Text());
+        }
+        Back() {
+            return ((obj) => {
+                obj.width = () => this.box_width();
+                obj.height = () => this.box_height();
+                obj.pos = () => [].concat(this.box_pos_x(), this.box_pos_y());
+                return obj;
+            })(new this.$.$mol_svg_rect());
+        }
+        box_width() {
+            return "0.5rem";
+        }
+        box_height() {
+            return "1rem";
+        }
+        box_pos_x() {
+            return this.pos_x();
+        }
+        box_pos_y() {
+            return "0";
+        }
+        Text() {
+            return ((obj) => {
+                obj.pos = () => [].concat(this.pos_x(), this.pos_y());
+                obj.align = () => this.align();
+                obj.sub = () => [].concat(this.text());
+                return obj;
+            })(new this.$.$mol_svg_text());
+        }
+        pos_x() {
+            return "0";
+        }
+        pos_y() {
+            return "100%";
+        }
+        align() {
+            return "start";
+        }
+        text() {
+            return "";
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_svg_text_box.prototype, "Back", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_svg_text_box.prototype, "Text", null);
+    $.$mol_svg_text_box = $mol_svg_text_box;
+})($ || ($ = {}));
+//box.view.tree.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_svg_text_box extends $.$mol_svg_text_box {
+            box_width() {
+                return this.text_width(this.text());
+            }
+            box_pos_x() {
+                const align = this.align();
+                if (align === 'end')
+                    return `calc(${this.pos_x()} - ${this.box_width()})`;
+                if (align === 'middle')
+                    return `calc(${this.pos_x()} - ${Math.round(this.box_width() / 2)})`;
+                return this.pos_x();
+            }
+            box_pos_y() {
+                return `calc(${this.pos_y()} - ${this.font_size() - 2})`;
+            }
+        }
+        __decorate([
+            $.$mol_mem
+        ], $mol_svg_text_box.prototype, "box_width", null);
+        $$.$mol_svg_text_box = $mol_svg_text_box;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//box.view.js.map
+;
+"use strict";
 var $;
 (function ($) {
     function $mol_math_round_expand(val, gap = 1) {
@@ -8454,23 +9085,24 @@ var $;
         step() {
             return 0;
         }
-        scale_axle() {
+        scale_axis() {
             return 1;
         }
         scale_step() {
             return 1;
         }
-        shift_axle() {
+        shift_axis() {
             return 1;
         }
-        dimensions_axle() {
-            return [].concat();
+        dimensions_axis() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_range(Infinity, -Infinity));
         }
-        viewport_axle() {
-            return [].concat();
-        }
-        viewport_dimensions() {
-            return [].concat();
+        viewport_axis() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_range(Infinity, -Infinity));
         }
         points() {
             return [].concat();
@@ -8478,50 +9110,53 @@ var $;
         normalize(val, force) {
             return (val !== void 0) ? val : 0;
         }
+        precision() {
+            return 1;
+        }
         sub() {
-            return [].concat(this.Curve(), this.labels(), this.Title_box(), this.Title());
+            return [].concat(this.Background(), this.Curve(), this.labels_formatted(), this.Title());
+        }
+        Background() {
+            return ((obj) => {
+                obj.pos_x = () => this.background_x();
+                obj.pos_y = () => this.background_y();
+                obj.width = () => this.background_width();
+                obj.height = () => this.background_height();
+                return obj;
+            })(new this.$.$mol_svg_rect());
+        }
+        background_x() {
+            return "0";
+        }
+        background_y() {
+            return "0";
+        }
+        background_width() {
+            return "100%";
+        }
+        background_height() {
+            return "14";
         }
         Curve() {
             return ((obj) => {
                 obj.geometry = () => this.curve();
                 return obj;
-            })(new this.$.$mol_svg_path);
+            })(new this.$.$mol_svg_path());
         }
         curve() {
             return "";
         }
-        labels() {
+        labels_formatted() {
             return [].concat();
-        }
-        Title_box() {
-            return ((obj) => {
-                obj.radius = () => this.box_radius();
-                obj.pos = () => this.box_pos();
-                return obj;
-            })(new this.$.$mol_svg_circle);
-        }
-        box_radius() {
-            return "0.5rem";
-        }
-        box_pos() {
-            return [].concat(this.box_pos_x(), this.box_pos_y());
-        }
-        box_pos_x() {
-            return "0";
-        }
-        box_pos_y() {
-            return "100%";
         }
         Title() {
             return ((obj) => {
-                obj.pos = () => this.title_pos();
+                obj.pos_x = () => this.title_pos_x();
+                obj.pos_y = () => this.title_pos_y();
                 obj.align = () => this.title_align();
-                obj.sub = () => [].concat(this.title());
+                obj.text = () => this.title();
                 return obj;
-            })(new this.$.$mol_svg_text);
-        }
-        title_pos() {
-            return [].concat(this.title_pos_x(), this.title_pos_y());
+            })(new this.$.$mol_svg_text_box());
         }
         title_pos_x() {
             return "0";
@@ -8538,7 +9173,7 @@ var $;
                 obj.text = () => this.label_text(index);
                 obj.align = () => this.label_align();
                 return obj;
-            })(new this.$.$mol_svg_text);
+            })(new this.$.$mol_svg_text());
         }
         label_pos(index) {
             return [].concat(this.label_pos_x(index), this.label_pos_y(index));
@@ -8558,13 +9193,19 @@ var $;
     }
     __decorate([
         $.$mol_mem
+    ], $mol_plot_ruler.prototype, "dimensions_axis", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_plot_ruler.prototype, "viewport_axis", null);
+    __decorate([
+        $.$mol_mem
     ], $mol_plot_ruler.prototype, "normalize", null);
     __decorate([
         $.$mol_mem
-    ], $mol_plot_ruler.prototype, "Curve", null);
+    ], $mol_plot_ruler.prototype, "Background", null);
     __decorate([
         $.$mol_mem
-    ], $mol_plot_ruler.prototype, "Title_box", null);
+    ], $mol_plot_ruler.prototype, "Curve", null);
     __decorate([
         $.$mol_mem
     ], $mol_plot_ruler.prototype, "Title", null);
@@ -8587,13 +9228,13 @@ var $;
     var $$;
     (function ($$) {
         class $mol_plot_ruler extends $.$mol_plot_ruler {
-            labels() {
+            labels_formatted() {
                 return this.points().map((point, index) => this.Label(index));
             }
             step() {
                 const scale = this.scale_step();
-                const [first, last] = this.dimensions_axle();
-                const range = last - first;
+                const dims = this.dimensions_axis();
+                const range = dims.max - dims.min;
                 const min_width = (Math.abs(Math.log10(range)) + 2) * 15;
                 const size = $.$mol_math_round_expand(range, -1);
                 const count = Math.max(1, Math.pow(10, Math.floor(Math.log(size * scale / min_width) / Math.log(10))));
@@ -8605,13 +9246,10 @@ var $;
                     step /= 2;
                 return step;
             }
-            box_radius() {
-                return this.title().length / 2 + 'rem';
-            }
-            normalize(coord) {
-                const [first, last] = this.viewport_axle();
-                const scale = this.scale_axle();
-                const shift = this.shift_axle();
+            snap_to_grid(coord) {
+                const viewport = this.viewport_axis();
+                const scale = this.scale_axis();
+                const shift = this.shift_axis();
                 const step = this.step();
                 const val = Math.round(coord / step) * step;
                 if (scale == 0)
@@ -8619,21 +9257,16 @@ var $;
                 const step_scaled = step * scale;
                 const scaled = val * scale + shift;
                 let count = 0;
-                if (scaled < first)
-                    count = (scaled - first) / step_scaled;
-                if (scaled > last)
-                    count = (scaled - last) / step_scaled;
+                if (scaled < viewport.min)
+                    count = (scaled - viewport.min) / step_scaled;
+                if (scaled > viewport.max)
+                    count = (scaled - viewport.max) / step_scaled;
                 return val - Math.floor(count) * step;
             }
-            viewport_dimensions() {
-                const dims = this.dimensions_axle();
-                return [
-                    this.normalize(dims[0]),
-                    this.normalize(dims[1]),
-                ];
-            }
             points() {
-                const [start, end] = this.viewport_dimensions();
+                const dims = this.dimensions_axis();
+                const start = this.snap_to_grid(dims.min);
+                const end = this.snap_to_grid(dims.max);
                 const step = this.step();
                 const next = [];
                 for (let val = start; val <= end; val += step) {
@@ -8649,8 +9282,14 @@ var $;
                 const point = this.points()[index];
                 return point.toFixed(this.precision());
             }
+            font_size() {
+                return this.Background().font_size();
+            }
+            back() {
+                return [this.Curve()];
+            }
             front() {
-                return [this];
+                return [this.Background(), ...this.labels_formatted(), this.Title()];
             }
         }
         __decorate([
@@ -8659,6 +9298,9 @@ var $;
         __decorate([
             $.$mol_mem
         ], $mol_plot_ruler.prototype, "points", null);
+        __decorate([
+            $.$mol_mem
+        ], $mol_plot_ruler.prototype, "precision", null);
         $$.$mol_plot_ruler = $mol_plot_ruler;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -8668,23 +9310,23 @@ var $;
 var $;
 (function ($) {
     class $mol_plot_ruler_vert extends $.$mol_plot_ruler {
-        gap_top() {
-            return 28;
-        }
         title_align() {
             return "end";
         }
         label_align() {
             return "end";
         }
-        title_pos_x() {
-            return "36px";
-        }
         title_pos_y() {
-            return "14px";
+            return "14";
         }
-        box_pos_y() {
-            return "0.5rem";
+        label_pos_x(v) {
+            return this.title_pos_x();
+        }
+        background_height() {
+            return "100%";
+        }
+        background_width() {
+            return this.title_pos_x();
         }
     }
     $.$mol_plot_ruler_vert = $mol_plot_ruler_vert;
@@ -8697,35 +9339,34 @@ var $;
     var $$;
     (function ($$) {
         class $mol_plot_ruler_vert extends $.$mol_plot_ruler_vert {
-            dimensions_axle() {
-                const dims = this.dimensions_pane();
-                return [dims[0][1], dims[1][1]];
+            dimensions_axis() {
+                return this.dimensions_pane().y;
             }
-            box_pos_x() {
-                return `calc(${this.title_pos_x()} - ${Math.max(0, (this.title().length / 4))}rem`;
+            viewport_axis() {
+                return new this.$.$mol_vector_range(0, this.size_real().y);
             }
-            viewport_axle() {
-                return [0, this.size_real()[1]];
-            }
-            scale_axle() {
+            scale_axis() {
                 return this.scale()[1];
             }
             scale_step() {
                 return -this.scale()[1];
             }
-            shift_axle() {
+            shift_axis() {
                 return this.shift()[1];
             }
             curve() {
                 const [, shift] = this.shift();
                 const [, scale] = this.scale();
-                return this.points().map(point => `M 0 ${(point * scale + shift).toFixed(3)} H 2000`).join(' ') || '';
+                return this.points().map(point => {
+                    const scaled = point * scale + shift;
+                    return `M 0 ${scaled.toFixed(3)} H 2000`;
+                }).join(' ');
             }
-            label_pos_x(index) {
-                return this.title_pos_x();
+            title_pos_x() {
+                return String(this.gap().x.min);
             }
             label_pos_y(index) {
-                return (this.points()[index] * this.scale()[1] + this.shift()[1]).toFixed(3) + 'px';
+                return (this.points()[index] * this.scale()[1] + this.shift()[1]).toFixed(3);
             }
         }
         $$.$mol_plot_ruler_vert = $mol_plot_ruler_vert;
@@ -8737,9 +9378,6 @@ var $;
 var $;
 (function ($) {
     class $mol_plot_ruler_hor extends $.$mol_plot_ruler {
-        gap_left() {
-            return 28;
-        }
         title_align() {
             return "start";
         }
@@ -8752,8 +9390,11 @@ var $;
         title_pos_y() {
             return "100%";
         }
-        box_pos_y() {
-            return "calc(100% - 0.5rem)";
+        label_pos_y(v) {
+            return this.title_pos_y();
+        }
+        background_width() {
+            return "100%";
         }
     }
     $.$mol_plot_ruler_hor = $mol_plot_ruler_hor;
@@ -8766,35 +9407,37 @@ var $;
     var $$;
     (function ($$) {
         class $mol_plot_ruler_hor extends $.$mol_plot_ruler_hor {
-            dimensions_axle() {
-                const dims = this.dimensions_pane();
-                return [dims[0][0], dims[1][0]];
+            dimensions_axis() {
+                return this.dimensions_pane().x;
             }
-            viewport_axle() {
-                return [0, this.size_real()[0]];
+            viewport_axis() {
+                return new this.$.$mol_vector_range(0, this.size_real().x);
             }
-            scale_axle() {
+            scale_axis() {
                 return this.scale()[0];
-            }
-            box_pos_x() {
-                return Math.max(0, (this.title().length / 4)) + 'rem';
             }
             scale_step() {
                 return this.scale()[0];
             }
-            shift_axle() {
+            shift_axis() {
                 return this.shift()[0];
             }
             curve() {
                 const [shift] = this.shift();
                 const [scale] = this.scale();
-                return this.points().map(point => `M ${(point * scale + shift).toFixed(3)} 1000 V 0`).join(' ') || '';
+                return this.points().map(point => {
+                    const scaled = point * scale + shift;
+                    return `M ${scaled.toFixed(3)} 1000 V 0`;
+                }).join(' ');
             }
             label_pos_x(index) {
-                return (this.points()[index] * this.scale()[0] + this.shift()[0]).toFixed(3) + 'px';
+                return (this.points()[index] * this.scale()[0] + this.shift()[0]).toFixed(3);
             }
-            label_pos_y(index) {
-                return this.title_pos_y();
+            background_y() {
+                return String(this.size_real()[1] - this.font_size());
+            }
+            background_height() {
+                return String(this.font_size());
             }
         }
         $$.$mol_plot_ruler_hor = $mol_plot_ruler_hor;
@@ -8803,16 +9446,101 @@ var $;
 //hor.view.js.map
 ;
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 var $;
 (function ($) {
-    class $mol_plot_mark_hor extends $.$mol_plot_ruler_hor {
-        visible_marks() {
-            return 10;
+    class $mol_plot_mark_cross extends $.$mol_plot_graph {
+        labels() {
+            return [].concat();
+        }
+        title_x_gap() {
+            return 4;
+        }
+        threshold() {
+            return 16;
+        }
+        nearest_index() {
+            return -1;
+        }
+        nearest_delta() {
+            return Infinity;
+        }
+        dimensions() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_2d(((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_range(Infinity, -Infinity)), ((obj) => {
+                return obj;
+            })(new this.$.$mol_vector_range(Infinity, -Infinity))));
+        }
+        sub() {
+            return [].concat(this.Curve(), this.Label_x(), this.Label_y());
+        }
+        Curve() {
+            return ((obj) => {
+                obj.geometry = () => this.curve();
+                return obj;
+            })(new this.$.$mol_svg_path());
+        }
+        curve() {
+            return "";
+        }
+        Label_x() {
+            return ((obj) => {
+                obj.pos_x = () => this.title_x_pos_x();
+                obj.pos_y = () => this.title_x_pos_y();
+                obj.text = () => this.title_x();
+                return obj;
+            })(new this.$.$mol_svg_text_box());
+        }
+        title_x_pos_x() {
+            return "0";
+        }
+        title_x_pos_y() {
+            return "100%";
+        }
+        title_x() {
+            return "";
+        }
+        Label_y() {
+            return ((obj) => {
+                obj.pos_x = () => this.title_y_pos_x();
+                obj.pos_y = () => this.title_y_pos_y();
+                obj.text = () => this.title_y();
+                return obj;
+            })(new this.$.$mol_svg_text_box());
+        }
+        title_y_pos_x() {
+            return "0";
+        }
+        title_y_pos_y() {
+            return "0";
+        }
+        title_y() {
+            return "";
         }
     }
-    $.$mol_plot_mark_hor = $mol_plot_mark_hor;
+    __decorate([
+        $.$mol_mem
+    ], $mol_plot_mark_cross.prototype, "dimensions", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_plot_mark_cross.prototype, "Curve", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_plot_mark_cross.prototype, "Label_x", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_plot_mark_cross.prototype, "Label_y", null);
+    $.$mol_plot_mark_cross = $mol_plot_mark_cross;
 })($ || ($ = {}));
-//hor.view.tree.js.map
+//cross.view.tree.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -8825,68 +9553,108 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        class $mol_plot_mark_hor extends $.$mol_plot_mark_hor {
-            points() {
-                const [start, end] = this.viewport_dimensions();
-                const step = this.step();
-                const points_raw = this.points_raw();
-                let current = start;
-                const next = [];
-                next.push(points_raw[0][0]);
-                for (let point of points_raw) {
-                    const [point_x] = point;
-                    if (point_x >= current) {
-                        next.push(point_x);
-                        current += step;
-                        if (current > end)
-                            break;
+        class $mol_plot_mark_cross extends $.$mol_plot_mark_cross {
+            nearest() {
+                let delta = Math.pow(this.threshold(), 2);
+                let index = -1;
+                const [cursor_x, cursor_y] = this.cursor_position();
+                if (Number.isNaN(cursor_x) || Number.isNaN(cursor_y))
+                    return [index, delta];
+                const series_x = this.series_x();
+                const series_y = this.series_y();
+                const [scale_x, scale_y] = this.scale();
+                const [shift_x, shift_y] = this.shift();
+                const [[viewport_left, viewport_right], [viewport_bottom, viewport_top]] = this.viewport();
+                for (let i = 0; i < series_x.length; i++) {
+                    const scaled_x = Math.round(shift_x + series_x[i] * scale_x);
+                    const scaled_y = Math.round(shift_y + series_y[i] * scale_y);
+                    if (scaled_x < viewport_left)
+                        continue;
+                    if (scaled_x > viewport_right)
+                        continue;
+                    if (scaled_y < viewport_bottom)
+                        continue;
+                    if (scaled_y > viewport_top)
+                        continue;
+                    const diff = Math.pow(scaled_x - cursor_x, 2) + Math.pow(scaled_y - cursor_y, 2);
+                    if (diff < delta) {
+                        delta = diff;
+                        index = i;
                     }
                 }
-                next.push(points_raw[points_raw.length - 1][0]);
-                return next;
+                return [index, delta];
+            }
+            nearest_delta() {
+                return this.nearest()[1];
+            }
+            nearest_index() {
+                return this.nearest()[0];
+            }
+            curve() {
+                const index = this.nearest_index();
+                if (index < 0)
+                    return '';
+                const [scale_x, scale_y] = this.scale();
+                const [shift_x, shift_y] = this.shift();
+                const point_x = (shift_x + this.series_x()[index] * scale_x).toFixed(3);
+                const point_y = (shift_y + this.series_y()[index] * scale_y).toFixed(3);
+                return `M ${point_x} 1000 V 0 M 0 ${point_y} H 2000`;
+            }
+            title_x() {
+                const index = this.nearest_index();
+                if (index < 0)
+                    return '';
+                const labels = this.labels();
+                if (labels.length > index)
+                    return labels[index];
+                return String(this.series_x()[index]);
+            }
+            title_x_pos_x() {
+                const index = this.nearest_index();
+                if (index < 0)
+                    return '0';
+                const center = this.shift()[0] + this.series_x()[index] * this.scale()[0];
+                const width = this.text_width(this.title_x());
+                return (center - width / 2).toFixed(3);
+            }
+            title_x_pos_y() {
+                const index = this.nearest_index();
+                if (index < 0)
+                    return '0';
+                const pos = this.size_real()[1] - this.title_x_gap();
+                return pos.toFixed(3);
+            }
+            title_y() {
+                const index = this.nearest_index();
+                if (index < 0)
+                    return '';
+                return String(this.series_y()[index]);
+            }
+            title_y_pos_y() {
+                const index = this.nearest_index();
+                if (index < 0)
+                    return '0';
+                const center = this.shift()[1] + this.series_y()[index] * this.scale()[1];
+                return center.toFixed(3);
             }
         }
         __decorate([
             $.$mol_mem
-        ], $mol_plot_mark_hor.prototype, "points", null);
-        $$.$mol_plot_mark_hor = $mol_plot_mark_hor;
+        ], $mol_plot_mark_cross.prototype, "nearest", null);
+        $$.$mol_plot_mark_cross = $mol_plot_mark_cross;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-//hor.view.js.map
+//cross.view.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
-    class $mol_plot_group extends $.$mol_plot_graph {
-        sub() {
-            return this.graphs_enriched();
-        }
-        graphs_enriched() {
-            return this.graphs();
-        }
+    class $mol_plot_mark_cross_group extends $.$mol_plot_graph {
         graphs() {
             return [].concat();
         }
-        Sample() {
-            return ((obj) => {
-                obj.sub = () => this.graph_samples();
-                return obj;
-            })(new this.$.$mol_plot_graph_sample);
-        }
-        graph_samples() {
-            return [].concat();
-        }
     }
-    __decorate([
-        $.$mol_mem
-    ], $mol_plot_group.prototype, "Sample", null);
-    $.$mol_plot_group = $mol_plot_group;
+    $.$mol_plot_mark_cross_group = $mol_plot_mark_cross_group;
 })($ || ($ = {}));
 //group.view.tree.js.map
 ;
@@ -8901,7 +9669,7 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        class $mol_plot_group extends $.$mol_plot_group {
+        class $mol_plot_mark_cross_group extends $.$mol_plot_mark_cross_group {
             graphs_enriched() {
                 const graphs = this.graphs();
                 for (let graph of graphs) {
@@ -8909,171 +9677,45 @@ var $;
                     graph.scale = () => this.scale();
                     graph.size_real = () => this.size_real();
                     graph.hue = () => this.hue();
-                    graph.points_raw = () => this.points_raw();
                     graph.dimensions_pane = () => this.dimensions_pane();
-                    graph.dimensions = () => this.dimensions();
                     graph.viewport = () => this.viewport();
+                    graph.cursor_position = () => this.cursor_position();
+                    graph.gap = () => this.gap();
                 }
                 return graphs;
             }
-            graph_samples() {
-                return this.graphs().map(graph => graph.Sample());
+            filtered() {
+                const graphs = this.graphs_enriched();
+                let filtered = null;
+                let delta = Number.POSITIVE_INFINITY;
+                for (let graph of graphs) {
+                    const diff = graph.nearest_delta();
+                    if (diff > delta)
+                        continue;
+                    filtered = graph;
+                    delta = diff;
+                }
+                return filtered;
             }
             back() {
-                const graphs = this.graphs_enriched();
-                const next = [];
-                for (let graph of graphs)
-                    next.push(...graph.back());
-                return next;
+                const graph = this.filtered();
+                return graph ? graph.back() : [];
             }
             front() {
-                const graphs = this.graphs_enriched();
-                const next = [];
-                for (let graph of graphs)
-                    next.push(...graph.front());
-                return next;
+                const graph = this.filtered();
+                return graph ? graph.front() : [];
             }
         }
         __decorate([
             $.$mol_mem
-        ], $mol_plot_group.prototype, "graphs_enriched", null);
+        ], $mol_plot_mark_cross_group.prototype, "graphs_enriched", null);
         __decorate([
             $.$mol_mem
-        ], $mol_plot_group.prototype, "graph_samples", null);
-        $$.$mol_plot_group = $mol_plot_group;
+        ], $mol_plot_mark_cross_group.prototype, "filtered", null);
+        $$.$mol_plot_mark_cross_group = $mol_plot_mark_cross_group;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //group.view.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_plot_dot extends $.$mol_plot_graph {
-        style() {
-            return (Object.assign({}, super.style(), { "stroke-width": this.diameter() }));
-        }
-        diameter() {
-            return 8;
-        }
-        sub() {
-            return [].concat(this.Curve());
-        }
-        Curve() {
-            return ((obj) => {
-                obj.geometry = () => this.curve();
-                return obj;
-            })(new this.$.$mol_svg_path);
-        }
-        curve() {
-            return "";
-        }
-        Sample() {
-            return ((obj) => {
-                obj.color = () => this.color();
-                return obj;
-            })(new this.$.$mol_plot_graph_sample);
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_plot_dot.prototype, "Curve", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_plot_dot.prototype, "Sample", null);
-    $.$mol_plot_dot = $mol_plot_dot;
-})($ || ($ = {}));
-//dot.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_plot_dot extends $.$mol_plot_dot {
-            filled() {
-                return new Set();
-            }
-            points() {
-                const diameter = this.diameter();
-                const threshold = diameter / 2;
-                const points_max = 1000;
-                const [[viewport_left, viewport_bottom], [viewport_right, viewport_top]] = this.viewport();
-                const [shift_x, shift_y] = this.shift();
-                const [scale_x, scale_y] = this.scale();
-                const points_raw = this.points_raw();
-                let last = [Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY];
-                let spacing_x = 0;
-                let spacing_y = 0;
-                let filled = this.filled();
-                let points_scaled;
-                do {
-                    points_scaled = [];
-                    for (let point of points_raw) {
-                        const scaled = [
-                            Math.round(shift_x + point[0] * scale_x),
-                            Math.round(shift_y + point[1] * scale_y),
-                        ];
-                        if (Math.abs(scaled[0] - last[0]) < threshold
-                            && Math.abs(scaled[1] - last[1]) < threshold)
-                            continue;
-                        last = scaled;
-                        if (scaled[0] < viewport_left)
-                            continue;
-                        if (scaled[1] < viewport_bottom)
-                            continue;
-                        if (scaled[0] > viewport_right)
-                            continue;
-                        if (scaled[1] > viewport_top)
-                            continue;
-                        if (spacing_x !== 0) {
-                            const key = Math.round(Math.round(point[0] / spacing_x) * spacing_x)
-                                + (Math.round(Math.round(point[1] / spacing_y) * spacing_y) << 14);
-                            if (filled.has(key))
-                                continue;
-                            filled.add(key);
-                        }
-                        points_scaled.push(scaled);
-                        if (points_scaled.length > points_max)
-                            break;
-                    }
-                    spacing_x += threshold / scale_x;
-                    spacing_y += threshold / scale_y;
-                    filled.clear();
-                } while (points_scaled.length > points_max);
-                return points_scaled;
-            }
-            curve() {
-                const points = this.points();
-                if (points.length === 0)
-                    return '';
-                return this.points().map(point => 'M ' + point.join(' ') + ' v 0').join(' ') || '';
-            }
-        }
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_dot.prototype, "filled", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_dot.prototype, "points", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_dot.prototype, "curve", null);
-        $$.$mol_plot_dot = $mol_plot_dot;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//dot.view.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -9091,84 +9733,112 @@ var $;
         carriage() {
             return null;
         }
-        Plot() {
-            return ((obj) => {
-                obj.graphs = () => this.graphs();
-                return obj;
-            })(new this.$.$mpk_tss_reports_axle_chart_pane);
+        gap_left() {
+            return 48;
+        }
+        gap_right() {
+            return 16;
+        }
+        gap_bottom() {
+            return 24;
+        }
+        gap_top() {
+            return 0;
         }
         graphs() {
-            return [].concat(this.Vert_ruler(), this.Hor_ruler(), this.Forces_left(), this.Forces_right());
+            return [].concat(this.Forces_left(), this.Forces_right(), this.Vert_ruler(), this.Hor_ruler(), this.Cross());
+        }
+        Forces_left() {
+            return ((obj) => {
+                obj.title = () => this.forces_left_title();
+                obj.series_x = () => this.forces_left_x();
+                obj.series_y = () => this.forces_left_y();
+                obj.graphs = () => [].concat(this.Left_fill());
+                return obj;
+            })(new this.$.$mol_plot_group());
+        }
+        forces_left_title() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_axle_chart_forces_left_title");
+        }
+        forces_left_x() {
+            return [].concat();
+        }
+        forces_left_y() {
+            return [].concat();
+        }
+        Left_fill() {
+            return ((obj) => {
+                obj.points_max = () => this.points_max();
+                return obj;
+            })(new this.$.$mol_plot_dot());
+        }
+        points_max() {
+            return 600;
+        }
+        Forces_right() {
+            return ((obj) => {
+                obj.title = () => this.forces_right_title();
+                obj.series_x = () => this.forces_right_x();
+                obj.series_y = () => this.forces_right_y();
+                obj.graphs = () => [].concat(this.Right_fill());
+                return obj;
+            })(new this.$.$mol_plot_group());
+        }
+        forces_right_title() {
+            return this.$.$mol_locale.text("$mpk_tss_reports_axle_chart_forces_right_title");
+        }
+        forces_right_x() {
+            return [].concat();
+        }
+        forces_right_y() {
+            return [].concat();
+        }
+        Right_fill() {
+            return ((obj) => {
+                obj.points_max = () => this.points_max();
+                return obj;
+            })(new this.$.$mol_plot_dot());
         }
         Vert_ruler() {
             return ((obj) => {
                 obj.title = () => this.vert_title();
                 return obj;
-            })(new this.$.$mol_plot_ruler_vert);
+            })(new this.$.$mol_plot_ruler_vert());
         }
         vert_title() {
             return this.$.$mol_locale.text("$mpk_tss_reports_axle_chart_vert_title");
         }
         Hor_ruler() {
             return ((obj) => {
-                obj.series = () => this.forces_left();
                 obj.title = () => this.hor_title();
+                obj.series_x = () => this.forces_left_x();
                 return obj;
-            })(new this.$.$mol_plot_mark_hor);
-        }
-        forces_left() {
-            return ({});
+            })(new this.$.$mol_plot_ruler_hor());
         }
         hor_title() {
             return this.$.$mol_locale.text("$mpk_tss_reports_axle_chart_hor_title");
         }
-        Forces_left() {
+        Cross() {
             return ((obj) => {
-                obj.title = () => this.forces_left_title();
-                obj.series = () => this.forces_left();
-                obj.graphs = () => [].concat(this.Left_fill());
+                obj.graphs = () => [].concat(this.Cross_left(), this.Cross_right());
                 return obj;
-            })(new this.$.$mol_plot_group);
+            })(new this.$.$mol_plot_mark_cross_group());
         }
-        forces_left_title() {
-            return this.$.$mol_locale.text("$mpk_tss_reports_axle_chart_forces_left_title");
-        }
-        Left_fill() {
+        Cross_left() {
             return ((obj) => {
-                obj.diameter = () => 16;
+                obj.series_x = () => this.forces_left_x();
+                obj.series_y = () => this.forces_left_y();
                 return obj;
-            })(new this.$.$mol_plot_dot);
+            })(new this.$.$mol_plot_mark_cross());
         }
-        Forces_right() {
+        Cross_right() {
             return ((obj) => {
-                obj.title = () => this.forces_right_title();
-                obj.series = () => this.forces_right();
-                obj.graphs = () => [].concat(this.Right_fill());
+                obj.series_x = () => this.forces_right_x();
+                obj.series_y = () => this.forces_right_y();
                 return obj;
-            })(new this.$.$mol_plot_group);
-        }
-        forces_right_title() {
-            return this.$.$mol_locale.text("$mpk_tss_reports_axle_chart_forces_right_title");
-        }
-        forces_right() {
-            return ({});
-        }
-        Right_fill() {
-            return ((obj) => {
-                obj.diameter = () => 16;
-                return obj;
-            })(new this.$.$mol_plot_dot);
+            })(new this.$.$mol_plot_mark_cross());
         }
     }
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_axle_chart.prototype, "Plot", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_axle_chart.prototype, "Vert_ruler", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_axle_chart.prototype, "Hor_ruler", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports_axle_chart.prototype, "Forces_left", null);
@@ -9181,52 +9851,22 @@ var $;
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports_axle_chart.prototype, "Right_fill", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_axle_chart.prototype, "Vert_ruler", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_axle_chart.prototype, "Hor_ruler", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_axle_chart.prototype, "Cross", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_axle_chart.prototype, "Cross_left", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_reports_axle_chart.prototype, "Cross_right", null);
     $.$mpk_tss_reports_axle_chart = $mpk_tss_reports_axle_chart;
-})($ || ($ = {}));
-(function ($) {
-    class $mpk_tss_reports_axle_chart_pane extends $.$mol_plot_pane {
-        minimal_width() {
-            return 800;
-        }
-        minimal_height() {
-            return 300;
-        }
-        gap_hor() {
-            return 48;
-        }
-        gap_vert() {
-            return 24;
-        }
-        gap_right() {
-            return 0;
-        }
-        hue_base() {
-            return 140;
-        }
-        hue_shift() {
-            return 111;
-        }
-        scale_x(val, force) {
-            return (val !== void 0) ? val : 0;
-        }
-        plugins() {
-            return [].concat(this.Touch());
-        }
-        Touch() {
-            return ((obj) => {
-                obj.zoom = (val) => this.scale_x(val);
-                obj.pan = (val) => this.shift(val);
-                return obj;
-            })(new this.$.$mol_touch);
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_axle_chart_pane.prototype, "scale_x", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_axle_chart_pane.prototype, "Touch", null);
-    $.$mpk_tss_reports_axle_chart_pane = $mpk_tss_reports_axle_chart_pane;
 })($ || ($ = {}));
 //chart.view.tree.js.map
 ;
@@ -9250,11 +9890,17 @@ var $;
             wheel_right() {
                 return this.axle().wheels()[1];
             }
-            forces_left() {
-                return this.wheel_left().forces();
+            forces_left_x() {
+                return this.wheel_left().forces()[0];
             }
-            forces_right() {
-                return this.wheel_right().forces();
+            forces_right_x() {
+                return this.wheel_right().forces()[0];
+            }
+            forces_left_y() {
+                return this.wheel_left().forces()[1];
+            }
+            forces_right_y() {
+                return this.wheel_right().forces()[1];
             }
         }
         __decorate([
@@ -9263,19 +9909,7 @@ var $;
         __decorate([
             $.$mol_mem
         ], $mpk_tss_reports_axle_chart.prototype, "wheel_right", null);
-        __decorate([
-            $.$mol_mem
-        ], $mpk_tss_reports_axle_chart.prototype, "forces_left", null);
-        __decorate([
-            $.$mol_mem
-        ], $mpk_tss_reports_axle_chart.prototype, "forces_right", null);
         $$.$mpk_tss_reports_axle_chart = $mpk_tss_reports_axle_chart;
-        class $mpk_tss_reports_axle_chart_pane extends $.$mpk_tss_reports_axle_chart_pane {
-            scale_x(next) {
-                return this.scale(next && [next, this.scale()[1]])[0];
-            }
-        }
-        $$.$mpk_tss_reports_axle_chart_pane = $mpk_tss_reports_axle_chart_pane;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //chart.view.js.map
@@ -9309,12 +9943,12 @@ var $;
                 });
                 obj.sub = () => [].concat(this.Close_icon());
                 return obj;
-            })(new this.$.$mol_link);
+            })(new this.$.$mol_link());
         }
         Close_icon() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mol_icon_cross);
+            })(new this.$.$mol_icon_cross());
         }
         body() {
             return [].concat(this.Main(), this.Axle_chart());
@@ -9323,7 +9957,7 @@ var $;
             return ((obj) => {
                 obj.sub = () => [].concat(this.Info(), this.Axle_list());
                 return obj;
-            })(new this.$.$mol_row);
+            })(new this.$.$mol_row());
         }
         Info() {
             return ((obj) => {
@@ -9331,14 +9965,14 @@ var $;
                 obj.arg = () => null;
                 obj.additional = () => [].concat(this.Weight(), this.Type(), this.Length(), this.Violation());
                 return obj;
-            })(new this.$.$mpk_tss_reports_carriage_link);
+            })(new this.$.$mpk_tss_reports_carriage_link());
         }
         Weight() {
             return ((obj) => {
                 obj.title = () => this.total_weight_title();
                 obj.content = () => this.Weight_content();
                 return obj;
-            })(new this.$.$mol_labeler);
+            })(new this.$.$mol_labeler());
         }
         total_weight_title() {
             return this.$.$mol_locale.text("$mpk_tss_reports_carriage_details_total_weight_title");
@@ -9347,7 +9981,7 @@ var $;
             return ((obj) => {
                 obj.value = () => this.total_weight();
                 return obj;
-            })(new this.$.$mpk_tss_parameter_weight);
+            })(new this.$.$mpk_tss_parameter_weight());
         }
         total_weight() {
             return 0;
@@ -9357,7 +9991,7 @@ var $;
                 obj.title = () => this.type_title();
                 obj.content = () => this.Type_content();
                 return obj;
-            })(new this.$.$mol_labeler);
+            })(new this.$.$mol_labeler());
         }
         type_title() {
             return this.$.$mol_locale.text("$mpk_tss_reports_carriage_details_type_title");
@@ -9366,7 +10000,7 @@ var $;
             return ((obj) => {
                 obj.value = () => this.type();
                 return obj;
-            })(new this.$.$mpk_tss_reports_carriage_type);
+            })(new this.$.$mpk_tss_reports_carriage_type());
         }
         type() {
             return "";
@@ -9376,7 +10010,7 @@ var $;
                 obj.title = () => this.length_title();
                 obj.content = () => this.Length_content();
                 return obj;
-            })(new this.$.$mol_labeler);
+            })(new this.$.$mol_labeler());
         }
         length_title() {
             return this.$.$mol_locale.text("$mpk_tss_reports_carriage_details_length_title");
@@ -9385,7 +10019,7 @@ var $;
             return ((obj) => {
                 obj.value = () => this.length();
                 return obj;
-            })(new this.$.$mpk_tss_parameter_length);
+            })(new this.$.$mpk_tss_parameter_length());
         }
         length() {
             return 0;
@@ -9395,7 +10029,7 @@ var $;
                 obj.title = () => this.violation_title();
                 obj.content = () => this.Violation_content();
                 return obj;
-            })(new this.$.$mol_labeler);
+            })(new this.$.$mol_labeler());
         }
         violation_title() {
             return this.$.$mol_locale.text("$mpk_tss_reports_carriage_details_violation_title");
@@ -9405,7 +10039,7 @@ var $;
                 obj.empty = () => true;
                 obj.status = () => this.violation();
                 return obj;
-            })(new this.$.$mpk_tss_reports_violation);
+            })(new this.$.$mpk_tss_reports_violation());
         }
         violation() {
             return "";
@@ -9417,14 +10051,14 @@ var $;
             return ((obj) => {
                 obj.carriage = () => this.carriage();
                 return obj;
-            })(new this.$.$mpk_tss_reports_axle_list);
+            })(new this.$.$mpk_tss_reports_axle_list());
         }
         Axle_chart() {
             return ((obj) => {
                 obj.carriage = () => this.carriage();
                 obj.axle = () => this.axle_current();
                 return obj;
-            })(new this.$.$mpk_tss_reports_axle_chart);
+            })(new this.$.$mpk_tss_reports_axle_chart());
         }
     }
     __decorate([
@@ -9532,7 +10166,7 @@ var $;
             return ((obj) => {
                 obj.sub = () => [].concat(this.title());
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         title() {
             return "";
@@ -9593,7 +10227,7 @@ var $;
         Icon() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mpk_tss_icon_round_warning);
+            })(new this.$.$mpk_tss_icon_round_warning());
         }
     }
     __decorate([
@@ -9637,7 +10271,7 @@ var $;
                 obj.tools = () => [].concat(this.Details_close());
                 obj.body = () => [].concat(this.Carriages());
                 return obj;
-            })(new this.$.$mpk_tss_reports_carriage_list_page);
+            })(new this.$.$mpk_tss_reports_carriage_list_page());
         }
         filter_number(val, force) {
             return (val !== void 0) ? val : "";
@@ -9655,18 +10289,18 @@ var $;
                 });
                 obj.sub = () => [].concat(this.Details_close_icon());
                 return obj;
-            })(new this.$.$mol_link);
+            })(new this.$.$mol_link());
         }
         Details_close_icon() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mol_icon_cross);
+            })(new this.$.$mol_icon_cross());
         }
         Carriages() {
             return ((obj) => {
                 obj.rows = () => this.carriage_links();
                 return obj;
-            })(new this.$.$mol_list);
+            })(new this.$.$mol_list());
         }
         carriage_links() {
             return [].concat();
@@ -9679,7 +10313,7 @@ var $;
                 obj.carriage = () => this.carriage(id);
                 obj.event_top = (e) => this.focus_main(e);
                 return obj;
-            })(new this.$.$mpk_tss_reports_carriage_details);
+            })(new this.$.$mpk_tss_reports_carriage_details());
         }
         carriage(id) {
             return null;
@@ -9691,7 +10325,7 @@ var $;
             return ((obj) => {
                 obj.carriage = () => this.carriage(id);
                 return obj;
-            })(new this.$.$mpk_tss_reports_carriage_link);
+            })(new this.$.$mpk_tss_reports_carriage_link());
         }
     }
     __decorate([
@@ -9738,14 +10372,14 @@ var $;
             return ((obj) => {
                 obj.sub = () => [].concat(this.Filter_number(), this.Filter_warning());
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         Filter_number() {
             return ((obj) => {
                 obj.hint = () => this.hint();
                 obj.query = (val) => this.filter_number(val);
                 return obj;
-            })(new this.$.$mol_search);
+            })(new this.$.$mol_search());
         }
         hint() {
             return this.$.$mol_locale.text("$mpk_tss_reports_carriage_list_page_hint");
@@ -9757,7 +10391,7 @@ var $;
             return ((obj) => {
                 obj.checked = (val) => this.filter_warning(val);
                 return obj;
-            })(new this.$.$mpk_tss_reports_check_warning);
+            })(new this.$.$mpk_tss_reports_check_warning());
         }
         filter_warning(val, force) {
             return (val !== void 0) ? val : true;
@@ -9880,7 +10514,7 @@ var $;
                 obj.filter_warning = (val) => this.filter_warning(val);
                 obj.body = () => [].concat(this.Reports());
                 return obj;
-            })(new this.$.$mpk_tss_reports_train_list_page);
+            })(new this.$.$mpk_tss_reports_train_list_page());
         }
         event_top(e, force) {
             return (e !== void 0) ? e : null;
@@ -9903,7 +10537,7 @@ var $;
                 obj.minimal_width = () => 300;
                 obj.rows = () => this.report_links();
                 return obj;
-            })(new this.$.$mpk_tss_card_list);
+            })(new this.$.$mpk_tss_card_list());
         }
         report_links() {
             return [].concat();
@@ -9916,7 +10550,7 @@ var $;
                 obj.minimal_height = () => 100;
                 obj.report = () => this.report(id);
                 return obj;
-            })(new this.$.$mpk_tss_reports_train_link);
+            })(new this.$.$mpk_tss_reports_train_link());
         }
         report(id) {
             return null;
@@ -9926,7 +10560,7 @@ var $;
                 obj.report = () => this.report(id);
                 obj.event_top = (e) => this.focus_main(e);
                 return obj;
-            })(new this.$.$mpk_tss_reports_carriage_list);
+            })(new this.$.$mpk_tss_reports_carriage_list());
         }
         focus_main(e, force) {
             return (e !== void 0) ? e : null;
@@ -9976,14 +10610,14 @@ var $;
             return ((obj) => {
                 obj.sub = () => [].concat(this.Filter_number(), this.Filter_warning());
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         Filter_number() {
             return ((obj) => {
                 obj.hint = () => this.hint();
                 obj.query = (val) => this.filter_number(val);
                 return obj;
-            })(new this.$.$mol_search);
+            })(new this.$.$mol_search());
         }
         hint() {
             return this.$.$mol_locale.text("$mpk_tss_reports_train_list_page_hint");
@@ -9995,7 +10629,7 @@ var $;
             return ((obj) => {
                 obj.checked = (val) => this.filter_warning(val);
                 return obj;
-            })(new this.$.$mpk_tss_reports_check_warning);
+            })(new this.$.$mpk_tss_reports_check_warning());
         }
         filter_warning(val, force) {
             return (val !== void 0) ? val : true;
@@ -10125,6 +10759,15 @@ var $;
         submit_blocked() {
             return false;
         }
+        event() {
+            return (Object.assign({}, super.event(), { "keydown": (event) => this.keydown(event) }));
+        }
+        keydown(event, force) {
+            return (event !== void 0) ? event : null;
+        }
+        submit(event, force) {
+            return (event !== void 0) ? event : null;
+        }
         sub() {
             return [].concat(this.Bar_fields(), this.Bar_buttons());
         }
@@ -10132,7 +10775,7 @@ var $;
             return ((obj) => {
                 obj.sub = () => this.form_fields();
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         form_fields() {
             return [].concat();
@@ -10141,12 +10784,18 @@ var $;
             return ((obj) => {
                 obj.sub = () => this.buttons();
                 return obj;
-            })(new this.$.$mol_row);
+            })(new this.$.$mol_row());
         }
         buttons() {
             return [].concat();
         }
     }
+    __decorate([
+        $.$mol_mem
+    ], $mol_form.prototype, "keydown", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_form.prototype, "submit", null);
     __decorate([
         $.$mol_mem
     ], $mol_form.prototype, "Bar_fields", null);
@@ -10171,6 +10820,10 @@ var $;
         class $mol_form extends $.$mol_form {
             submit_blocked() {
                 return this.form_fields().some(field => field.bid());
+            }
+            keydown(next) {
+                if (next.ctrlKey && next.keyCode === 13 && !this.submit_blocked())
+                    this.submit(event);
             }
         }
         __decorate([
@@ -10201,7 +10854,7 @@ var $;
             return ((obj) => {
                 obj.sub = () => [].concat(this.bid());
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         bid() {
             return "";
@@ -10230,8 +10883,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var $;
 (function ($) {
     class $mpk_tss_login extends $.$mol_list {
-        entered(val, force) {
-            return (val !== void 0) ? val : false;
+        submit(v, force) {
+            return (v !== void 0) ? v : false;
         }
         sub() {
             return [].concat(this.Form());
@@ -10241,14 +10894,14 @@ var $;
                 obj.form_fields = () => [].concat(this.Login_field(), this.Password_field());
                 obj.buttons = () => [].concat(this.Submit());
                 return obj;
-            })(new this.$.$mol_form);
+            })(new this.$.$mol_form());
         }
         Login_field() {
             return ((obj) => {
                 obj.name = () => this.login_label();
                 obj.control = () => this.Login();
                 return obj;
-            })(new this.$.$mol_form_field);
+            })(new this.$.$mol_form_field());
         }
         login_label() {
             return this.$.$mol_locale.text("$mpk_tss_login_login_label");
@@ -10257,7 +10910,7 @@ var $;
             return ((obj) => {
                 obj.value = (val) => this.login(val);
                 return obj;
-            })(new this.$.$mol_string);
+            })(new this.$.$mol_string());
         }
         login(val, force) {
             return (val !== void 0) ? val : "";
@@ -10267,7 +10920,7 @@ var $;
                 obj.name = () => this.password_label();
                 obj.control = () => this.Password();
                 return obj;
-            })(new this.$.$mol_form_field);
+            })(new this.$.$mol_form_field());
         }
         password_label() {
             return this.$.$mol_locale.text("$mpk_tss_login_password_label");
@@ -10277,7 +10930,7 @@ var $;
                 obj.value = (val) => this.password(val);
                 obj.type = () => "password";
                 return obj;
-            })(new this.$.$mol_string);
+            })(new this.$.$mol_string());
         }
         password(val, force) {
             return (val !== void 0) ? val : "";
@@ -10288,7 +10941,7 @@ var $;
                 obj.event_click = (val) => this.event_submit(val);
                 obj.disabled = () => this.submit_blocked();
                 return obj;
-            })(new this.$.$mol_button_major);
+            })(new this.$.$mol_button_major());
         }
         submit_label() {
             return this.$.$mol_locale.text("$mpk_tss_login_submit_label");
@@ -10302,7 +10955,7 @@ var $;
     }
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_login.prototype, "entered", null);
+    ], $mpk_tss_login.prototype, "submit", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_login.prototype, "Form", null);
@@ -10341,13 +10994,81 @@ var $;
     (function ($$) {
         class $mpk_tss_login extends $.$mpk_tss_login {
             event_submit() {
-                this.entered(true);
+                this.submit(true);
             }
         }
         $$.$mpk_tss_login = $mpk_tss_login;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //login.view.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mpk_tss_domain_user extends $.$mol_object {
+        static current() { return new this; }
+        email(next) { throw new $.$mpk_tss_todo; }
+        password(next) { throw new $.$mpk_tss_todo; }
+        logged() { throw new $.$mpk_tss_todo; }
+        login() { throw new $.$mpk_tss_todo; }
+        logout() { throw new $.$mpk_tss_todo; }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_domain_user, "current", null);
+    $.$mpk_tss_domain_user = $mpk_tss_domain_user;
+})($ || ($ = {}));
+//user.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mpk_tss_domain_user_mock extends $.$mpk_tss_domain_user {
+        server_data(next) {
+            return this.$.$mol_state_arg.value('login', next) || '';
+        }
+        email(next) {
+            if (next !== undefined)
+                return next;
+            return this.server_data();
+        }
+        password(next) {
+            return '';
+        }
+        logged() {
+            return this.server_data() !== '';
+        }
+        login() {
+            this.server_data(this.email());
+            this.password('');
+        }
+        logout() {
+            this.server_data(null);
+            this.email('');
+            this.password('');
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_domain_user_mock.prototype, "email", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_domain_user_mock.prototype, "password", null);
+    $.$mpk_tss_domain_user_mock = $mpk_tss_domain_user_mock;
+})($ || ($ = {}));
+//mock.js.map
 ;
 "use strict";
 var $;
@@ -10932,14 +11653,16 @@ var $;
             const base_y = 80;
             const amplitude = 5;
             const freq = 50;
-            const result = {};
+            const series_x = [];
+            const series_y = [];
             const ratio = max_x / samples_count;
             for (let i = 0; i < samples_count; i++) {
                 const deviation = Math.random() > 0.6 ? (Math.random() * 3) : Math.random();
                 const value = Number((base_y + Math.sin((freq / samples_count) * i) * amplitude * deviation).toFixed(3));
-                result[Number(i * ratio).toFixed(3)] = value;
+                series_x.push(Number(Number(i * ratio).toFixed(3)));
+                series_y.push(value);
             }
-            return result;
+            return [series_x, series_y];
         }
     }
     __decorate([
@@ -11015,14 +11738,14 @@ var $;
             return ((obj) => {
                 obj.sub = () => [].concat(this.Terminal_link(), this.Logged_user());
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         Terminal_link() {
             return ((obj) => {
                 obj.enabled = () => false;
                 obj.sub = () => [].concat(this.terminal_formatted_label());
                 return obj;
-            })(new this.$.$mol_button_minor);
+            })(new this.$.$mol_button_minor());
         }
         terminal_formatted_label() {
             return "";
@@ -11033,7 +11756,7 @@ var $;
         Body() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mpk_tss_main);
+            })(new this.$.$mpk_tss_main());
         }
     }
     __decorate([
@@ -11057,7 +11780,7 @@ var $;
                 obj.event_click = (event) => this.logout_click(event);
                 obj.sub = () => [].concat(this.User_email(), this.User_signout());
                 return obj;
-            })(new this.$.$mol_button_minor);
+            })(new this.$.$mol_button_minor());
         }
         logout_click(event, force) {
             return (event !== void 0) ? event : null;
@@ -11066,19 +11789,22 @@ var $;
             return ((obj) => {
                 obj.sub = () => [].concat(this.logged_email());
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
+        }
+        logged_email() {
+            return "";
         }
         User_signout() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mpk_tss_icon_exit_to_app);
+            })(new this.$.$mpk_tss_icon_exit_to_app());
         }
         Menu_item(id) {
             return ((obj) => {
                 obj.arg = () => this.menu_page_arg(id);
                 obj.title = () => this.menu_page_title(id);
                 return obj;
-            })(new this.$.$mol_link);
+            })(new this.$.$mol_link());
         }
         menu_page_arg(id) {
             return ({});
@@ -11099,35 +11825,35 @@ var $;
             return ((obj) => {
                 obj.event_top = (event) => this.event_front_up(event);
                 return obj;
-            })(new this.$.$mpk_tss_summary);
+            })(new this.$.$mpk_tss_summary());
         }
         Software() {
             return ((obj) => {
                 obj.tools = () => this.common_tools();
                 obj.event_top = (event) => this.event_front_up(event);
                 return obj;
-            })(new this.$.$mpk_tss_software);
+            })(new this.$.$mpk_tss_software());
         }
         Pereferial() {
             return ((obj) => {
                 obj.tools = () => this.common_tools();
                 obj.event_top = (event) => this.event_front_up(event);
                 return obj;
-            })(new this.$.$mpk_tss_pereferial_list);
+            })(new this.$.$mpk_tss_pereferial_list());
         }
         Sensors() {
             return ((obj) => {
                 obj.tools = () => this.common_tools();
                 obj.event_top = (event) => this.event_front_up(event);
                 return obj;
-            })(new this.$.$mpk_tss_sensors);
+            })(new this.$.$mpk_tss_sensors());
         }
         Reports() {
             return ((obj) => {
                 obj.tools = () => this.common_tools();
                 obj.event_top = (event) => this.event_front_up(event);
                 return obj;
-            })(new this.$.$mpk_tss_reports_train_list);
+            })(new this.$.$mpk_tss_reports_train_list());
         }
         common_tools() {
             return [].concat(this.Details_close());
@@ -11139,12 +11865,12 @@ var $;
                 });
                 obj.sub = () => [].concat(this.Details_close_icon());
                 return obj;
-            })(new this.$.$mol_link);
+            })(new this.$.$mol_link());
         }
         Details_close_icon() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mol_icon_cross);
+            })(new this.$.$mol_icon_cross());
         }
         pages() {
             return [].concat(this.Sidebar(), this.Summary(), this.menu_pages(), this.details());
@@ -11157,7 +11883,7 @@ var $;
                 obj.body = () => [].concat(this.sidebar_items());
                 obj.foot = () => [].concat(this.Foot_content());
                 return obj;
-            })(new this.$.$mol_page);
+            })(new this.$.$mol_page());
         }
         Logo() {
             return ((obj) => {
@@ -11166,7 +11892,7 @@ var $;
                     "click": (val) => this.event_top(val),
                 });
                 return obj;
-            })(new this.$.$mol_image);
+            })(new this.$.$mol_image());
         }
         event_top(val, force) {
             return (val !== void 0) ? val : null;
@@ -11179,22 +11905,18 @@ var $;
         }
         Login() {
             return ((obj) => {
-                obj.entered = (val) => this.entered(val);
-                obj.login = (v) => this.logged_email(v);
+                obj.submit = (v) => this.login_submit(v);
                 return obj;
-            })(new this.$.$mpk_tss_login);
+            })(new this.$.$mpk_tss_login());
         }
-        entered(val, force) {
-            return (val !== void 0) ? val : false;
-        }
-        logged_email(v, force) {
-            return (v !== void 0) ? v : "";
+        login_submit(v, force) {
+            return (v !== void 0) ? v : false;
         }
         Menu() {
             return ((obj) => {
                 obj.rows = () => [].concat(this.menu_items());
                 return obj;
-            })(new this.$.$mol_list);
+            })(new this.$.$mol_list());
         }
         menu_items() {
             return [].concat();
@@ -11203,13 +11925,13 @@ var $;
             return ((obj) => {
                 obj.sub = () => [].concat(this.Foot_text());
                 return obj;
-            })(new this.$.$mol_row);
+            })(new this.$.$mol_row());
         }
         Foot_text() {
             return ((obj) => {
                 obj.sub = () => [].concat(this.copyright());
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         copyright() {
             return this.$.$mol_locale.text("$mpk_tss_main_copyright");
@@ -11221,7 +11943,7 @@ var $;
             return ((obj) => {
                 obj.title = () => "";
                 return obj;
-            })(new this.$.$mpk_tss_placeholder);
+            })(new this.$.$mpk_tss_placeholder());
         }
     }
     __decorate([
@@ -11274,10 +11996,7 @@ var $;
     ], $mpk_tss_main.prototype, "Login", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_main.prototype, "entered", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_main.prototype, "logged_email", null);
+    ], $mpk_tss_main.prototype, "login_submit", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_main.prototype, "Menu", null);
@@ -11310,7 +12029,7 @@ var $;
             return ((obj) => {
                 obj.uri = () => "mpk/tss/placeholder.svg";
                 return obj;
-            })(new this.$.$mol_image);
+            })(new this.$.$mol_image());
         }
     }
     __decorate([
@@ -11352,6 +12071,7 @@ var $;
             context_sub() {
                 return this.$.$mol_ambient({
                     $mol_locale: $mpk_tss_locale,
+                    $mpk_tss_domain_user: $.$mpk_tss_domain_user_mock,
                     $mpk_tss_pereferial_domain_units: $.$mpk_tss_pereferial_domain_mock_units,
                     $mpk_tss_reports_domain_trains: $.$mpk_tss_reports_domain_mock_trains,
                 });
@@ -11372,8 +12092,18 @@ var $;
             copyright() {
                 return super.copyright().replace('%year', '' + new Date().getFullYear());
             }
-            entered(next) {
-                return this.$.$mol_state_session.value(`${this}.entered()`, next) || false;
+            current_user() {
+                return this.$.$mpk_tss_domain_user.current();
+            }
+            login_submit(next) {
+                const form = this.Login();
+                const user = this.current_user();
+                user.email(form.login());
+                user.password(form.password());
+                user.login();
+            }
+            entered() {
+                return this.current_user().logged();
             }
             Logged_user() {
                 if (!this.entered())
@@ -11381,8 +12111,7 @@ var $;
                 return this.User_link();
             }
             logout_click() {
-                this.logged_email(null);
-                this.entered(false);
+                return this.current_user().logout();
             }
             menu_items() {
                 return Object.keys(this.menu_pages()).map(id => this.Menu_item(id));
@@ -11390,8 +12119,8 @@ var $;
             menu_page_arg(id) {
                 return { page: id };
             }
-            logged_email(next) {
-                return this.$.$mol_state_session.value(this.state_key('user'), next) || '';
+            logged_email() {
+                return this.current_user().email();
             }
             menu_page_title(id) {
                 return this.menu_pages()[id].title();
@@ -11416,9 +12145,6 @@ var $;
                 ];
             }
         }
-        __decorate([
-            $.$mol_mem
-        ], $mpk_tss_main.prototype, "logged_email", null);
         $$.$mpk_tss_main = $mpk_tss_main;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -11441,7 +12167,7 @@ var $;
             return ((obj) => {
                 obj.sub = () => [].concat(this.head());
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         head() {
             return null;
@@ -11556,7 +12282,7 @@ var $;
         Icon() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mol_icon_tick);
+            })(new this.$.$mol_icon_tick());
         }
     }
     __decorate([
@@ -11582,7 +12308,7 @@ var $;
         Icon() {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mol_icon_chevron);
+            })(new this.$.$mol_icon_chevron());
         }
         level() {
             return 0;
@@ -11676,7 +12402,7 @@ var $;
                 obj.offset = () => this.gap_top();
                 obj.sub = () => [].concat(this.rows_visible());
                 return obj;
-            })(new this.$.$mol_grid_table);
+            })(new this.$.$mol_grid_table());
         }
         gap_top() {
             return 0;
@@ -11692,7 +12418,7 @@ var $;
                 obj.height = () => this.row_height();
                 obj.cells = () => this.head_cells();
                 return obj;
-            })(new this.$.$mol_grid_row);
+            })(new this.$.$mol_grid_row());
         }
         row_height() {
             return 40;
@@ -11705,7 +12431,7 @@ var $;
                 obj.height = () => this.row_height();
                 obj.cells = () => this.cells(id);
                 return obj;
-            })(new this.$.$mol_grid_row);
+            })(new this.$.$mol_grid_row());
         }
         cells(id) {
             return [].concat();
@@ -11713,7 +12439,7 @@ var $;
         Cell(id) {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         cell(id) {
             return null;
@@ -11722,7 +12448,7 @@ var $;
             return ((obj) => {
                 obj.sub = () => [].concat(this.cell_content_text(id));
                 return obj;
-            })(new this.$.$mol_grid_cell);
+            })(new this.$.$mol_grid_cell());
         }
         cell_content_text(id) {
             return this.cell_content(id);
@@ -11734,7 +12460,7 @@ var $;
             return ((obj) => {
                 obj.sub = () => [].concat(this.cell_content_number(id));
                 return obj;
-            })(new this.$.$mol_grid_number);
+            })(new this.$.$mol_grid_number());
         }
         cell_content_number(id) {
             return this.cell_content(id);
@@ -11744,7 +12470,7 @@ var $;
                 obj.dom_name = () => "th";
                 obj.sub = () => [].concat(this.col_head_content(id));
                 return obj;
-            })(new this.$.$mol_float);
+            })(new this.$.$mol_float());
         }
         col_head_content(id) {
             return [].concat();
@@ -11755,7 +12481,7 @@ var $;
                 obj.label = () => this.cell_content(id);
                 obj.expanded = (val) => this.cell_expanded(id, val);
                 return obj;
-            })(new this.$.$mol_check_expand);
+            })(new this.$.$mol_check_expand());
         }
         cell_level(id) {
             return 0;
@@ -11771,7 +12497,7 @@ var $;
                 obj.needle = () => this.needle();
                 obj.haystack = () => this.cell_value(id);
                 return obj;
-            })(new this.$.$mol_dimmer);
+            })(new this.$.$mol_dimmer());
         }
         needle() {
             return "";
@@ -12199,7 +12925,7 @@ var $;
             return ((obj) => {
                 obj.text = () => this.quote_text(id);
                 return obj;
-            })(new this.$.$mol_text);
+            })(new this.$.$mol_text());
         }
         quote_text(id) {
             return "";
@@ -12209,7 +12935,7 @@ var $;
                 obj.sub = () => this.block_content(id);
                 obj.type = () => this.block_type(id);
                 return obj;
-            })(new this.$.$mol_text_row);
+            })(new this.$.$mol_text_row());
         }
         block_content(id) {
             return [].concat();
@@ -12220,24 +12946,24 @@ var $;
         Span(id) {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mol_text_span);
+            })(new this.$.$mol_text_span());
         }
         Link(id) {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mol_text_link);
+            })(new this.$.$mol_text_link());
         }
         Image(id) {
             return ((obj) => {
                 return obj;
-            })(new this.$.$mol_text_image);
+            })(new this.$.$mol_text_image());
         }
         Header(id) {
             return ((obj) => {
                 obj.level = () => this.header_level(id);
                 obj.content = () => this.header_content(id);
                 return obj;
-            })(new this.$.$mol_text_header);
+            })(new this.$.$mol_text_header());
         }
         header_level(id) {
             return 0;
@@ -12250,7 +12976,7 @@ var $;
                 obj.head_cells = () => this.table_head_cells(id);
                 obj.rows = () => this.table_rows(id);
                 return obj;
-            })(new this.$.$mol_grid);
+            })(new this.$.$mol_grid());
         }
         table_head_cells(id) {
             return [].concat();
@@ -12262,7 +12988,7 @@ var $;
             return ((obj) => {
                 obj.cells = () => this.table_cells(id);
                 return obj;
-            })(new this.$.$mol_grid_row);
+            })(new this.$.$mol_grid_row());
         }
         table_cells(id) {
             return [].concat();
@@ -12271,7 +12997,7 @@ var $;
             return ((obj) => {
                 obj.sub = () => this.table_cell_content(id);
                 return obj;
-            })(new this.$.$mol_grid_cell);
+            })(new this.$.$mol_grid_cell());
         }
         table_cell_content(id) {
             return [].concat();
@@ -12280,7 +13006,7 @@ var $;
             return ((obj) => {
                 obj.sub = () => this.table_cell_content(id);
                 return obj;
-            })(new this.$.$mol_float);
+            })(new this.$.$mol_float());
         }
     }
     __decorate([
@@ -12618,14 +13344,14 @@ var $;
             return ((obj) => {
                 obj.sub = () => [].concat(this.Trigger(), this.tools());
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         Trigger() {
             return ((obj) => {
                 obj.checked = (val) => this.expanded(val);
                 obj.label = () => this.label();
                 return obj;
-            })(new this.$.$mol_check_expand);
+            })(new this.$.$mol_check_expand());
         }
         expanded(val, force) {
             return (val !== void 0) ? val : false;
@@ -12640,7 +13366,7 @@ var $;
             return ((obj) => {
                 obj.sub = () => this.content();
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         content() {
             return [].concat();
@@ -12703,13 +13429,13 @@ var $;
             return ((obj) => {
                 obj.Content = () => [].concat(this.All(), this.Software(), this.Sensors(), this.Pereferials());
                 return obj;
-            })(new this.$.$mpk_tss_summary_section);
+            })(new this.$.$mpk_tss_summary_section());
         }
         All() {
             return ((obj) => {
                 obj.type = () => "warning";
                 return obj;
-            })(new this.$.$mpk_tss_summary_status);
+            })(new this.$.$mpk_tss_summary_status());
         }
         Software() {
             return ((obj) => {
@@ -12719,7 +13445,7 @@ var $;
                     "page": "software",
                 });
                 return obj;
-            })(new this.$.$mpk_tss_summary_item);
+            })(new this.$.$mpk_tss_summary_item());
         }
         software_title() {
             return this.$.$mol_locale.text("$mpk_tss_summary_software_title");
@@ -12732,7 +13458,7 @@ var $;
                     "page": "sensors",
                 });
                 return obj;
-            })(new this.$.$mpk_tss_summary_item);
+            })(new this.$.$mpk_tss_summary_item());
         }
         sensors_title() {
             return this.$.$mol_locale.text("$mpk_tss_summary_sensors_title");
@@ -12745,7 +13471,7 @@ var $;
                     "page": "pereferial",
                 });
                 return obj;
-            })(new this.$.$mpk_tss_summary_item);
+            })(new this.$.$mpk_tss_summary_item());
         }
         pereferial_title() {
             return this.$.$mol_locale.text("$mpk_tss_summary_pereferial_title");
@@ -12756,9 +13482,9 @@ var $;
                 obj.Content = () => ((obj) => {
                     obj.text = () => " Wed 24 Apr 2019 02:33:14 PM MSK: Report was successfully sent\n Wed 24 Apr 2019 02:32:24 PM MSK: Connection to SKAT server (10.32.35.11) established\n Wed 24 Apr 2019 02:32:09 PM MSK: Connecting to SKAT server (10.32.35.11), attempt 1...\n Wed 24 Apr 2019 02:31:49 PM MSK: Violation report prepared to sending\n Wed 24 Apr 2019 02:31:45 PM MSK: Violation report successfully created\n Wed 24 Apr 2019 02:31:40 PM MSK: Values processing finished. Violation detected\n Wed 24 Apr 2019 02:31:35 PM MSK: Values processing finished. Violation detected\n Wed 24 Apr 2019 02:30:05 PM MSK: Values processing started";
                     return obj;
-                })(new this.$.$mol_text);
+                })(new this.$.$mol_text());
                 return obj;
-            })(new this.$.$mol_expander);
+            })(new this.$.$mol_expander());
         }
         log_title() {
             return this.$.$mol_locale.text("$mpk_tss_summary_log_title");
@@ -12796,13 +13522,13 @@ var $;
             return ((obj) => {
                 obj.sub = () => [].concat(this.title());
                 return obj;
-            })(new this.$.$mol_view);
+            })(new this.$.$mol_view());
         }
         Status() {
             return ((obj) => {
                 obj.type = () => this.type();
                 return obj;
-            })(new this.$.$mpk_tss_summary_status);
+            })(new this.$.$mpk_tss_summary_status());
         }
     }
     __decorate([
