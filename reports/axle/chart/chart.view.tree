@@ -4,32 +4,24 @@ $mpk_tss_reports_axle_chart $mol_chart
 	gap_left 48
 	gap_right 16
 	gap_bottom 24
-	gap_top 0
+	gap_top 16
 	graphs /
-		<= Forces_left $mol_plot_group
+		<= Forces_left $mol_plot_dot
 			title <= forces_left_title @ \Left wheel
 			series_x <= forces_left_x /number
 			series_y <= forces_left_y /number
-			graphs /
-				<= Left_fill $mol_plot_dot
-					points_max <= points_max 600
-		<= Forces_right $mol_plot_group
+			points_max <= points_max 600
+		<= Forces_right $mol_plot_dot
 			title <= forces_right_title @ \Right wheel
 			series_x <= forces_right_x /number
 			series_y <= forces_right_y /number
-			graphs /
-				<= Right_fill $mol_plot_dot
-					points_max <= points_max
+			points_max <= points_max
 		<= Vert_ruler $mol_plot_ruler_vert
 			title <= vert_title @ \kN
 		<= Hor_ruler $mol_plot_ruler_hor
 			title <= hor_title @ \cm
 			series_x <= forces_left_x
-		<= Cross $mol_plot_mark_cross_group
+		<= Cross $mol_plot_mark_cross
 			graphs /
-				<= Cross_left $mol_plot_mark_cross
-					series_x <= forces_left_x
-					series_y <= forces_left_y
-				<= Cross_right $mol_plot_mark_cross
-					series_x <= forces_right_x
-					series_y <= forces_right_y
+				<= Forces_left
+				<= Forces_right

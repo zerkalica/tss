@@ -7,20 +7,22 @@ namespace $.$$ {
 	}
 
 	export class $mpk_tss extends $.$mpk_tss {
-		title() {
-			return super.title().replace('%terminal_number', this.terminal_number())
+		terminal() {
+			return this.$.$mpk_tss_domain_terminal.current()
 		}
 
-		terminal_number() {
-			return '123'
+		title() {
+			return super.title().replace('%terminal_number', this.terminal().id())
 		}
 
 		terminal_formatted_label() {
-			return this.terminal_text().replace('%terminal_number', this.terminal_number())
+			return this.terminal_text().replace('%terminal_number', this.terminal().id())
 		}
 
-		context_sub() {
-			return this.$.$mol_ambient({
+		@ $mol_mem
+		context( next? : $mol_ambient_context ) {
+			return next || ($ as $mol_ambient_context).$mol_ambient({
+				$mpk_tss_domain_terminal: $mpk_tss_domain_terminal_mock,
 				$mol_locale: $mpk_tss_locale,
 				$mpk_tss_domain_user: $mpk_tss_domain_user_mock,
 				$mpk_tss_pereferial_domain_units: $mpk_tss_pereferial_domain_mock_units,
