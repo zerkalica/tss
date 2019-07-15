@@ -2166,6 +2166,8 @@ declare namespace $ {
         dimensions(): $mol_vector_2d<$mol_vector_range<number>>;
         size_real(): $mol_vector_2d<number>;
         gap(): $mol_vector_2d<$mol_vector_range<number>>;
+        indexes(): readonly number[];
+        points(): readonly (readonly [number, number])[];
         front(): readonly $mol_svg[];
         back(): readonly $mol_svg[];
         hue(): number;
@@ -2187,6 +2189,7 @@ declare namespace $ {
 declare namespace $.$$ {
     class $mol_plot_graph extends $.$mol_plot_graph {
         viewport(): $mol_vector_2d<$mol_vector_range<number>>;
+        points(): (readonly [number, number])[];
         series_x(): number[];
         dimensions(): $mol_vector_2d<$mol_vector_range<number>>;
         color(): string;
@@ -2295,24 +2298,6 @@ declare namespace $ {
     }
 }
 declare namespace $ {
-    class $mol_plot_group extends $mol_plot_graph {
-        sub(): readonly $mol_plot_graph[];
-        graphs_enriched(): readonly $mol_plot_graph[];
-        graphs(): readonly $mol_plot_graph[];
-        Sample(): $mol_plot_graph_sample;
-        graph_samples(): readonly $mol_view[];
-    }
-}
-declare namespace $.$$ {
-    class $mol_plot_group extends $.$mol_plot_group {
-        graphs_enriched(): readonly $.$mol_plot_graph[];
-        dimensions(): $mol_vector_2d<$mol_vector_range<number>>;
-        graph_samples(): any[];
-        back(): $mol_plot_graph[];
-        front(): $mol_plot_graph[];
-    }
-}
-declare namespace $ {
     function $mol_coord_pack(a: number, b: number): number;
     function $mol_coord_high(key: number): number;
     function $mol_coord_low(key: number): number;
@@ -2334,7 +2319,7 @@ declare namespace $ {
 declare namespace $.$$ {
     class $mol_plot_dot extends $.$mol_plot_dot {
         filled(): Set<number>;
-        points(): (readonly [number, number])[];
+        indexes(): number[];
         curve(): string;
     }
 }
@@ -2416,7 +2401,7 @@ declare namespace $ {
         shift_axis(): number;
         dimensions_axis(): $mol_vector_range<number>;
         viewport_axis(): $mol_vector_range<number>;
-        points(): readonly number[];
+        axis_points(): readonly number[];
         normalize(val?: any, force?: $mol_atom_force): any;
         precision(): number;
         sub(): any[];
@@ -2445,7 +2430,7 @@ declare namespace $.$$ {
         labels_formatted(): $.$mol_svg_text[];
         step(): number;
         snap_to_grid(coord: number): number;
-        points(): number[];
+        axis_points(): number[];
         precision(): number;
         label_text(index: number): string;
         font_size(): number;
@@ -2503,8 +2488,7 @@ declare namespace $ {
         labels(): readonly string[];
         title_x_gap(): number;
         threshold(): number;
-        nearest_index(): number;
-        nearest_delta(): number;
+        graphs(): readonly $mol_plot_graph[];
         dimensions(): $mol_vector_2d<$mol_vector_range<number>>;
         sub(): any[];
         Curve(): $mol_svg_path;
@@ -2521,28 +2505,17 @@ declare namespace $ {
 }
 declare namespace $.$$ {
     class $mol_plot_mark_cross extends $.$mol_plot_mark_cross {
-        nearest(): readonly [number, number];
-        nearest_delta(): number;
-        nearest_index(): number;
+        nearest(): {
+            value: $mol_vector_2d<number>;
+            scaled: $mol_vector_2d<number>;
+            index: number;
+        };
         curve(): string;
         title_x(): string;
         title_x_pos_x(): string;
         title_x_pos_y(): string;
         title_y(): string;
         title_y_pos_y(): string;
-    }
-}
-declare namespace $ {
-    class $mol_plot_mark_cross_group extends $mol_plot_graph {
-        graphs(): readonly $mol_plot_mark_cross[];
-    }
-}
-declare namespace $.$$ {
-    class $mol_plot_mark_cross_group extends $.$mol_plot_mark_cross_group {
-        graphs_enriched(): readonly $.$mol_plot_mark_cross[];
-        filtered(): $.$mol_plot_mark_cross | null;
-        back(): readonly $.$mol_svg[];
-        front(): readonly $.$mol_svg[];
     }
 }
 declare namespace $ {
@@ -2554,24 +2527,20 @@ declare namespace $ {
         gap_bottom(): number;
         gap_top(): number;
         graphs(): any[];
-        Forces_left(): $mol_plot_group;
+        Forces_left(): $mol_plot_dot;
         forces_left_title(): string;
         forces_left_x(): readonly number[];
         forces_left_y(): readonly number[];
-        Left_fill(): $mol_plot_dot;
         points_max(): number;
-        Forces_right(): $mol_plot_group;
+        Forces_right(): $mol_plot_dot;
         forces_right_title(): string;
         forces_right_x(): readonly number[];
         forces_right_y(): readonly number[];
-        Right_fill(): $mol_plot_dot;
         Vert_ruler(): $mol_plot_ruler_vert;
         vert_title(): string;
         Hor_ruler(): $mol_plot_ruler_hor;
         hor_title(): string;
-        Cross(): $mol_plot_mark_cross_group;
-        Cross_left(): $mol_plot_mark_cross;
-        Cross_right(): $mol_plot_mark_cross;
+        Cross(): $mol_plot_mark_cross;
     }
 }
 declare namespace $.$$ {
@@ -2823,23 +2792,9 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
-    class $mpk_tss_domain_user extends $mol_object {
-        static current(): $mpk_tss_domain_user;
-        email(next?: string): string;
-        password(next?: string): string;
-        logged(): boolean;
-        login(): void;
-        logout(): void;
-    }
-}
-declare namespace $ {
-    class $mpk_tss_domain_user_mock extends $mpk_tss_domain_user {
-        protected server_data(next?: string): string;
-        email(next?: string): string;
-        password(next?: string): string;
-        logged(): boolean;
-        login(): void;
-        logout(): void;
+    class $mpk_tss_domain_terminal {
+        static current(): $mpk_tss_domain_terminal;
+        id(): string;
     }
 }
 declare namespace $ {
@@ -2884,6 +2839,31 @@ declare namespace $ {
     function $mpk_tss_stub_ids(max?: number): string[];
     function $mpk_tss_stub_number(min?: number, max?: number): number;
     function $mpk_tss_stub_mem<Host, Value>(obj: Host, name: string, descr: TypedPropertyDescriptor<(id?: string | Object) => Value>): void;
+}
+declare namespace $ {
+    class $mpk_tss_domain_terminal_mock extends $mpk_tss_domain_terminal {
+        id(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_domain_user extends $mol_object {
+        static current(): $mpk_tss_domain_user;
+        email(next?: string): string;
+        password(next?: string): string;
+        logged(): boolean;
+        login(): void;
+        logout(): void;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_domain_user_mock extends $mpk_tss_domain_user {
+        protected server_data(next?: string): string;
+        email(next?: string): string;
+        password(next?: string): string;
+        logged(): boolean;
+        login(): void;
+        logout(): void;
+    }
 }
 declare namespace $ {
     class $mpk_tss_pereferial_domain_mock_units extends $mpk_tss_pereferial_domain_units {
@@ -2973,10 +2953,10 @@ declare namespace $ {
 }
 declare namespace $.$$ {
     class $mpk_tss extends $.$mpk_tss {
+        terminal(): $mpk_tss_domain_terminal;
         title(): string;
-        terminal_number(): string;
         terminal_formatted_label(): string;
-        context_sub(): $mol_ambient_context;
+        context(next?: $mol_ambient_context): $mol_ambient_context;
     }
     class $mpk_tss_main extends $.$mpk_tss_main {
         Pereferial(): $.$mpk_tss_pereferial_list;

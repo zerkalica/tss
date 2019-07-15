@@ -783,6 +783,8 @@ $mol_plot_graph $mol_svg_group
 		$mol_vector_range /
 			0
 			0
+	indexes /number
+	points /readonly[number,number]
 	front /$mol_svg
 	back /$mol_svg
 	hue NaN
@@ -916,11 +918,6 @@ $mol_chart $mol_view
 		<= Legend $mol_chart_legend
 			graphs <= graphs
 
-$mol_plot_group $mol_plot_graph
-	sub <= graphs_enriched <= graphs /$mol_plot_graph
-	Sample $mol_plot_graph_sample
-		sub <= graph_samples /$mol_view
-
 $mol_plot_dot $mol_plot_graph
 	points_max Infinity
 	style *
@@ -982,7 +979,7 @@ $mol_plot_ruler $mol_plot_graph
 	viewport_axis $mol_vector_range /
 		Infinity
 		-Infinity
-	points /number
+	axis_points /number
 	normalize?val 0
 	precision 1
 	sub /
@@ -1026,8 +1023,7 @@ $mol_plot_mark_cross $mol_plot_graph
 	labels /string
 	title_x_gap 4
 	threshold 16
-	nearest_index -1
-	nearest_delta Infinity
+	graphs /$mol_plot_graph
 	dimensions $mol_vector_2d /
 		$mol_vector_range /
 			Infinity
@@ -1047,44 +1043,33 @@ $mol_plot_mark_cross $mol_plot_graph
 			pos_y <= title_y_pos_y \0
 			text <= title_y \
 
-$mol_plot_mark_cross_group $mol_plot_graph
-	graphs /$mol_plot_mark_cross
-
 $mpk_tss_reports_axle_chart $mol_chart
 	axle null
 	carriage null
 	gap_left 48
 	gap_right 16
 	gap_bottom 24
-	gap_top 0
+	gap_top 16
 	graphs /
-		<= Forces_left $mol_plot_group
+		<= Forces_left $mol_plot_dot
 			title <= forces_left_title @ \Left wheel
 			series_x <= forces_left_x /number
 			series_y <= forces_left_y /number
-			graphs /
-				<= Left_fill $mol_plot_dot
-					points_max <= points_max 600
-		<= Forces_right $mol_plot_group
+			points_max <= points_max 600
+		<= Forces_right $mol_plot_dot
 			title <= forces_right_title @ \Right wheel
 			series_x <= forces_right_x /number
 			series_y <= forces_right_y /number
-			graphs /
-				<= Right_fill $mol_plot_dot
-					points_max <= points_max
+			points_max <= points_max
 		<= Vert_ruler $mol_plot_ruler_vert
 			title <= vert_title @ \kN
 		<= Hor_ruler $mol_plot_ruler_hor
 			title <= hor_title @ \cm
 			series_x <= forces_left_x
-		<= Cross $mol_plot_mark_cross_group
+		<= Cross $mol_plot_mark_cross
 			graphs /
-				<= Cross_left $mol_plot_mark_cross
-					series_x <= forces_left_x
-					series_y <= forces_left_y
-				<= Cross_right $mol_plot_mark_cross
-					series_x <= forces_right_x
-					series_y <= forces_right_y
+				<= Forces_left
+				<= Forces_right
 
 $mpk_tss_reports_carriage_details $mol_page
 	carriage null

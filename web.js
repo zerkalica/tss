@@ -7957,6 +7957,12 @@ var $;
                 return obj;
             })(new this.$.$mol_vector_range(0, 0))));
         }
+        indexes() {
+            return [].concat();
+        }
+        points() {
+            return [].concat();
+        }
         front() {
             return [].concat();
         }
@@ -8024,6 +8030,17 @@ var $;
             viewport() {
                 const size = this.size_real();
                 return new this.$.$mol_vector_2d(new this.$.$mol_vector_range(0, size.x), new this.$.$mol_vector_range(0, size.y));
+            }
+            points() {
+                const [shift_x, shift_y] = this.shift();
+                const [scale_x, scale_y] = this.scale();
+                const series_x = this.series_x();
+                const series_y = this.series_y();
+                return this.indexes().map(index => {
+                    const point_x = Math.round(shift_x + series_x[index] * scale_x);
+                    const point_y = Math.round(shift_y + series_y[index] * scale_y);
+                    return [point_x, point_y];
+                });
             }
             series_x() {
                 return this.series_y().map((val, index) => index);
@@ -8597,110 +8614,6 @@ var $;
 //chart.view.tree.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mol_plot_group extends $.$mol_plot_graph {
-        sub() {
-            return this.graphs_enriched();
-        }
-        graphs_enriched() {
-            return this.graphs();
-        }
-        graphs() {
-            return [].concat();
-        }
-        Sample() {
-            return ((obj) => {
-                obj.sub = () => this.graph_samples();
-                return obj;
-            })(new this.$.$mol_plot_graph_sample());
-        }
-        graph_samples() {
-            return [].concat();
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_plot_group.prototype, "Sample", null);
-    $.$mol_plot_group = $mol_plot_group;
-})($ || ($ = {}));
-//group.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_plot_group extends $.$mol_plot_group {
-            graphs_enriched() {
-                const graphs = this.graphs();
-                for (let graph of graphs) {
-                    graph.shift = () => this.shift();
-                    graph.scale = () => this.scale();
-                    graph.size_real = () => this.size_real();
-                    graph.hue = () => this.hue();
-                    graph.series_x = () => this.series_x();
-                    graph.series_y = () => this.series_y();
-                    graph.dimensions_pane = () => this.dimensions_pane();
-                    graph.viewport = () => this.viewport();
-                    graph.cursor_position = () => this.cursor_position();
-                    graph.gap = () => this.gap();
-                }
-                return graphs;
-            }
-            dimensions() {
-                const graphs = this.graphs();
-                let next = new this.$.$mol_vector_2d($.$mol_vector_range_full.inversed, $.$mol_vector_range_full.inversed);
-                for (let graph of graphs) {
-                    next = next.expanded2(graph.dimensions());
-                }
-                return next;
-            }
-            graph_samples() {
-                return this.graphs().map(graph => graph.Sample());
-            }
-            back() {
-                const graphs = this.graphs_enriched();
-                const next = [];
-                for (let graph of graphs)
-                    next.push(...graph.back());
-                return next;
-            }
-            front() {
-                const graphs = this.graphs_enriched();
-                const next = [];
-                for (let graph of graphs)
-                    next.push(...graph.front());
-                return next;
-            }
-        }
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_group.prototype, "graphs_enriched", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_group.prototype, "dimensions", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_group.prototype, "graph_samples", null);
-        $$.$mol_plot_group = $mol_plot_group;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//group.view.js.map
-;
-"use strict";
 var $;
 (function ($) {
     function $mol_coord_pack(a, b) {
@@ -8781,7 +8694,7 @@ var $;
             filled() {
                 return new Set();
             }
-            points() {
+            indexes() {
                 const radius = this.diameter() / 2;
                 const points_max = this.points_max();
                 const viewport = this.viewport();
@@ -8795,11 +8708,11 @@ var $;
                 let last_y = Number.NEGATIVE_INFINITY;
                 let spacing = 0;
                 let filled = this.filled();
-                let points_scaled;
+                let indexes;
                 const series_x = this.series_x();
                 const series_y = this.series_y();
                 do {
-                    points_scaled = [];
+                    indexes = [];
                     for (let i = 0; i < series_x.length; i++) {
                         const point_x = series_x[i];
                         const point_y = series_y[i];
@@ -8824,20 +8737,20 @@ var $;
                                 continue;
                             filled.add(key);
                         }
-                        points_scaled.push([scaled_x, scaled_y]);
-                        if (points_scaled.length > points_max)
+                        indexes.push(i);
+                        if (indexes.length > points_max)
                             break;
                     }
                     spacing += Math.ceil(radius);
                     filled.clear();
-                } while (points_scaled.length > points_max);
-                return points_scaled;
+                } while (indexes.length > points_max);
+                return indexes;
             }
             curve() {
                 const points = this.points();
                 if (points.length === 0)
                     return '';
-                return this.points().map(point => 'M ' + point.join(' ') + ' v 0').join(' ');
+                return points.map(point => `M ${point.join(' ')} v 0`).join(' ');
             }
         }
         __decorate([
@@ -8845,10 +8758,7 @@ var $;
         ], $mol_plot_dot.prototype, "filled", null);
         __decorate([
             $.$mol_mem
-        ], $mol_plot_dot.prototype, "points", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_dot.prototype, "curve", null);
+        ], $mol_plot_dot.prototype, "indexes", null);
         $$.$mol_plot_dot = $mol_plot_dot;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -9104,7 +9014,7 @@ var $;
                 return obj;
             })(new this.$.$mol_vector_range(Infinity, -Infinity));
         }
-        points() {
+        axis_points() {
             return [].concat();
         }
         normalize(val, force) {
@@ -9229,7 +9139,7 @@ var $;
     (function ($$) {
         class $mol_plot_ruler extends $.$mol_plot_ruler {
             labels_formatted() {
-                return this.points().map((point, index) => this.Label(index));
+                return this.axis_points().map((point, index) => this.Label(index));
             }
             step() {
                 const scale = this.scale_step();
@@ -9263,7 +9173,7 @@ var $;
                     count = (scaled - viewport.max) / step_scaled;
                 return val - Math.floor(count) * step;
             }
-            points() {
+            axis_points() {
                 const dims = this.dimensions_axis();
                 const start = this.snap_to_grid(dims.min);
                 const end = this.snap_to_grid(dims.max);
@@ -9279,7 +9189,7 @@ var $;
                 return Math.max(0, Math.min(15, (step - Math.floor(step)).toString().length - 2));
             }
             label_text(index) {
-                const point = this.points()[index];
+                const point = this.axis_points()[index];
                 return point.toFixed(this.precision());
             }
             font_size() {
@@ -9297,7 +9207,7 @@ var $;
         ], $mol_plot_ruler.prototype, "step", null);
         __decorate([
             $.$mol_mem
-        ], $mol_plot_ruler.prototype, "points", null);
+        ], $mol_plot_ruler.prototype, "axis_points", null);
         __decorate([
             $.$mol_mem
         ], $mol_plot_ruler.prototype, "precision", null);
@@ -9357,7 +9267,7 @@ var $;
             curve() {
                 const [, shift] = this.shift();
                 const [, scale] = this.scale();
-                return this.points().map(point => {
+                return this.axis_points().map(point => {
                     const scaled = point * scale + shift;
                     return `M 0 ${scaled.toFixed(3)} H 2000`;
                 }).join(' ');
@@ -9366,7 +9276,7 @@ var $;
                 return String(this.gap().x.min);
             }
             label_pos_y(index) {
-                return (this.points()[index] * this.scale()[1] + this.shift()[1]).toFixed(3);
+                return (this.axis_points()[index] * this.scale()[1] + this.shift()[1]).toFixed(3);
             }
         }
         $$.$mol_plot_ruler_vert = $mol_plot_ruler_vert;
@@ -9425,13 +9335,13 @@ var $;
             curve() {
                 const [shift] = this.shift();
                 const [scale] = this.scale();
-                return this.points().map(point => {
+                return this.axis_points().map(point => {
                     const scaled = point * scale + shift;
                     return `M ${scaled.toFixed(3)} 1000 V 0`;
                 }).join(' ');
             }
             label_pos_x(index) {
-                return (this.points()[index] * this.scale()[0] + this.shift()[0]).toFixed(3);
+                return (this.axis_points()[index] * this.scale()[0] + this.shift()[0]).toFixed(3);
             }
             background_y() {
                 return String(this.size_real()[1] - this.font_size());
@@ -9464,11 +9374,8 @@ var $;
         threshold() {
             return 16;
         }
-        nearest_index() {
-            return -1;
-        }
-        nearest_delta() {
-            return Infinity;
+        graphs() {
+            return [].concat();
         }
         dimensions() {
             return ((obj) => {
@@ -9555,87 +9462,76 @@ var $;
     (function ($$) {
         class $mol_plot_mark_cross extends $.$mol_plot_mark_cross {
             nearest() {
-                let delta = Math.pow(this.threshold(), 2);
-                let index = -1;
+                let delta = this.threshold() ** 2;
                 const [cursor_x, cursor_y] = this.cursor_position();
                 if (Number.isNaN(cursor_x) || Number.isNaN(cursor_y))
-                    return [index, delta];
-                const series_x = this.series_x();
-                const series_y = this.series_y();
-                const [scale_x, scale_y] = this.scale();
+                    return null;
+                const graphs = this.graphs();
+                let index = 0;
+                let graph = null;
                 const [shift_x, shift_y] = this.shift();
-                const [[viewport_left, viewport_right], [viewport_bottom, viewport_top]] = this.viewport();
-                for (let i = 0; i < series_x.length; i++) {
-                    const scaled_x = Math.round(shift_x + series_x[i] * scale_x);
-                    const scaled_y = Math.round(shift_y + series_y[i] * scale_y);
-                    if (scaled_x < viewport_left)
-                        continue;
-                    if (scaled_x > viewport_right)
-                        continue;
-                    if (scaled_y < viewport_bottom)
-                        continue;
-                    if (scaled_y > viewport_top)
-                        continue;
-                    const diff = Math.pow(scaled_x - cursor_x, 2) + Math.pow(scaled_y - cursor_y, 2);
-                    if (diff < delta) {
-                        delta = diff;
-                        index = i;
+                const [scale_x, scale_y] = this.scale();
+                for (let current of graphs) {
+                    const indexes = current.indexes();
+                    const series_x = current.series_x();
+                    const series_y = current.series_y();
+                    for (let i of indexes) {
+                        const point_x = shift_x + series_x[i] * scale_x;
+                        const point_y = shift_y + series_y[i] * scale_y;
+                        const diff = (point_x - cursor_x) ** 2 + (point_y - cursor_y) ** 2;
+                        if (diff < delta) {
+                            delta = diff;
+                            index = i;
+                            graph = current;
+                        }
                     }
                 }
-                return [index, delta];
-            }
-            nearest_delta() {
-                return this.nearest()[1];
-            }
-            nearest_index() {
-                return this.nearest()[0];
+                if (!graph)
+                    return null;
+                const value = new $.$mol_vector_2d(graph.series_x()[index], graph.series_y()[index]);
+                const scaled = new $.$mol_vector_2d(shift_x + value.x * scale_x, shift_y + value.y * scale_y);
+                return { value, scaled, index };
             }
             curve() {
-                const index = this.nearest_index();
-                if (index < 0)
+                const nearest = this.nearest();
+                if (!nearest)
                     return '';
-                const [scale_x, scale_y] = this.scale();
-                const [shift_x, shift_y] = this.shift();
-                const point_x = (shift_x + this.series_x()[index] * scale_x).toFixed(3);
-                const point_y = (shift_y + this.series_y()[index] * scale_y).toFixed(3);
-                return `M ${point_x} 1000 V 0 M 0 ${point_y} H 2000`;
+                return `M ${nearest.scaled.x.toFixed(3)} 1000 V 0 M 0 ${nearest.scaled.y.toFixed(3)} H 2000`;
             }
             title_x() {
-                const index = this.nearest_index();
-                if (index < 0)
+                const nearest = this.nearest();
+                if (!nearest)
                     return '';
                 const labels = this.labels();
-                if (labels.length > index)
-                    return labels[index];
-                return String(this.series_x()[index]);
+                if (labels.length > nearest.index)
+                    return labels[nearest.index];
+                return String(nearest.value.x);
             }
             title_x_pos_x() {
-                const index = this.nearest_index();
-                if (index < 0)
+                const nearest = this.nearest();
+                if (!nearest)
                     return '0';
-                const center = this.shift()[0] + this.series_x()[index] * this.scale()[0];
                 const width = this.text_width(this.title_x());
-                return (center - width / 2).toFixed(3);
+                return (nearest.scaled.x - width / 2).toFixed(3);
             }
             title_x_pos_y() {
-                const index = this.nearest_index();
-                if (index < 0)
+                const nearest = this.nearest();
+                if (!nearest)
                     return '0';
-                const pos = this.size_real()[1] - this.title_x_gap();
+                const pos = this.size_real().y - this.title_x_gap();
                 return pos.toFixed(3);
             }
             title_y() {
-                const index = this.nearest_index();
-                if (index < 0)
+                const nearest = this.nearest();
+                if (!nearest)
                     return '';
-                return String(this.series_y()[index]);
+                return String(nearest.value.y);
             }
             title_y_pos_y() {
-                const index = this.nearest_index();
-                if (index < 0)
+                const nearest = this.nearest();
+                if (!nearest)
                     return '0';
-                const center = this.shift()[1] + this.series_y()[index] * this.scale()[1];
-                return center.toFixed(3);
+                return nearest.scaled.y.toFixed(3);
             }
         }
         __decorate([
@@ -9645,77 +9541,6 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //cross.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_plot_mark_cross_group extends $.$mol_plot_graph {
-        graphs() {
-            return [].concat();
-        }
-    }
-    $.$mol_plot_mark_cross_group = $mol_plot_mark_cross_group;
-})($ || ($ = {}));
-//group.view.tree.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_plot_mark_cross_group extends $.$mol_plot_mark_cross_group {
-            graphs_enriched() {
-                const graphs = this.graphs();
-                for (let graph of graphs) {
-                    graph.shift = () => this.shift();
-                    graph.scale = () => this.scale();
-                    graph.size_real = () => this.size_real();
-                    graph.hue = () => this.hue();
-                    graph.dimensions_pane = () => this.dimensions_pane();
-                    graph.viewport = () => this.viewport();
-                    graph.cursor_position = () => this.cursor_position();
-                    graph.gap = () => this.gap();
-                }
-                return graphs;
-            }
-            filtered() {
-                const graphs = this.graphs_enriched();
-                let filtered = null;
-                let delta = Number.POSITIVE_INFINITY;
-                for (let graph of graphs) {
-                    const diff = graph.nearest_delta();
-                    if (diff > delta)
-                        continue;
-                    filtered = graph;
-                    delta = diff;
-                }
-                return filtered;
-            }
-            back() {
-                const graph = this.filtered();
-                return graph ? graph.back() : [];
-            }
-            front() {
-                const graph = this.filtered();
-                return graph ? graph.front() : [];
-            }
-        }
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_mark_cross_group.prototype, "graphs_enriched", null);
-        __decorate([
-            $.$mol_mem
-        ], $mol_plot_mark_cross_group.prototype, "filtered", null);
-        $$.$mol_plot_mark_cross_group = $mol_plot_mark_cross_group;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//group.view.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -9743,7 +9568,7 @@ var $;
             return 24;
         }
         gap_top() {
-            return 0;
+            return 16;
         }
         graphs() {
             return [].concat(this.Forces_left(), this.Forces_right(), this.Vert_ruler(), this.Hor_ruler(), this.Cross());
@@ -9753,9 +9578,9 @@ var $;
                 obj.title = () => this.forces_left_title();
                 obj.series_x = () => this.forces_left_x();
                 obj.series_y = () => this.forces_left_y();
-                obj.graphs = () => [].concat(this.Left_fill());
+                obj.points_max = () => this.points_max();
                 return obj;
-            })(new this.$.$mol_plot_group());
+            })(new this.$.$mol_plot_dot());
         }
         forces_left_title() {
             return this.$.$mol_locale.text("$mpk_tss_reports_axle_chart_forces_left_title");
@@ -9766,12 +9591,6 @@ var $;
         forces_left_y() {
             return [].concat();
         }
-        Left_fill() {
-            return ((obj) => {
-                obj.points_max = () => this.points_max();
-                return obj;
-            })(new this.$.$mol_plot_dot());
-        }
         points_max() {
             return 600;
         }
@@ -9780,9 +9599,9 @@ var $;
                 obj.title = () => this.forces_right_title();
                 obj.series_x = () => this.forces_right_x();
                 obj.series_y = () => this.forces_right_y();
-                obj.graphs = () => [].concat(this.Right_fill());
+                obj.points_max = () => this.points_max();
                 return obj;
-            })(new this.$.$mol_plot_group());
+            })(new this.$.$mol_plot_dot());
         }
         forces_right_title() {
             return this.$.$mol_locale.text("$mpk_tss_reports_axle_chart_forces_right_title");
@@ -9792,12 +9611,6 @@ var $;
         }
         forces_right_y() {
             return [].concat();
-        }
-        Right_fill() {
-            return ((obj) => {
-                obj.points_max = () => this.points_max();
-                return obj;
-            })(new this.$.$mol_plot_dot());
         }
         Vert_ruler() {
             return ((obj) => {
@@ -9820,21 +9633,7 @@ var $;
         }
         Cross() {
             return ((obj) => {
-                obj.graphs = () => [].concat(this.Cross_left(), this.Cross_right());
-                return obj;
-            })(new this.$.$mol_plot_mark_cross_group());
-        }
-        Cross_left() {
-            return ((obj) => {
-                obj.series_x = () => this.forces_left_x();
-                obj.series_y = () => this.forces_left_y();
-                return obj;
-            })(new this.$.$mol_plot_mark_cross());
-        }
-        Cross_right() {
-            return ((obj) => {
-                obj.series_x = () => this.forces_right_x();
-                obj.series_y = () => this.forces_right_y();
+                obj.graphs = () => [].concat(this.Forces_left(), this.Forces_right());
                 return obj;
             })(new this.$.$mol_plot_mark_cross());
         }
@@ -9844,13 +9643,7 @@ var $;
     ], $mpk_tss_reports_axle_chart.prototype, "Forces_left", null);
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_reports_axle_chart.prototype, "Left_fill", null);
-    __decorate([
-        $.$mol_mem
     ], $mpk_tss_reports_axle_chart.prototype, "Forces_right", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_axle_chart.prototype, "Right_fill", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports_axle_chart.prototype, "Vert_ruler", null);
@@ -9860,12 +9653,6 @@ var $;
     __decorate([
         $.$mol_mem
     ], $mpk_tss_reports_axle_chart.prototype, "Cross", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_axle_chart.prototype, "Cross_left", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_reports_axle_chart.prototype, "Cross_right", null);
     $.$mpk_tss_reports_axle_chart = $mpk_tss_reports_axle_chart;
 })($ || ($ = {}));
 //chart.view.tree.js.map
@@ -11011,64 +10798,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var $;
 (function ($) {
-    class $mpk_tss_domain_user extends $.$mol_object {
+    class $mpk_tss_domain_terminal {
         static current() { return new this; }
-        email(next) { throw new $.$mpk_tss_todo; }
-        password(next) { throw new $.$mpk_tss_todo; }
-        logged() { throw new $.$mpk_tss_todo; }
-        login() { throw new $.$mpk_tss_todo; }
-        logout() { throw new $.$mpk_tss_todo; }
+        id() { throw new $.$mpk_tss_todo; }
     }
     __decorate([
         $.$mol_mem
-    ], $mpk_tss_domain_user, "current", null);
-    $.$mpk_tss_domain_user = $mpk_tss_domain_user;
+    ], $mpk_tss_domain_terminal, "current", null);
+    $.$mpk_tss_domain_terminal = $mpk_tss_domain_terminal;
 })($ || ($ = {}));
-//user.js.map
-;
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var $;
-(function ($) {
-    class $mpk_tss_domain_user_mock extends $.$mpk_tss_domain_user {
-        server_data(next) {
-            return this.$.$mol_state_arg.value('login', next) || '';
-        }
-        email(next) {
-            if (next !== undefined)
-                return next;
-            return this.server_data();
-        }
-        password(next) {
-            return '';
-        }
-        logged() {
-            return this.server_data() !== '';
-        }
-        login() {
-            this.server_data(this.email());
-            this.password('');
-        }
-        logout() {
-            this.server_data(null);
-            this.email('');
-            this.password('');
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_domain_user_mock.prototype, "email", null);
-    __decorate([
-        $.$mol_mem
-    ], $mpk_tss_domain_user_mock.prototype, "password", null);
-    $.$mpk_tss_domain_user_mock = $mpk_tss_domain_user_mock;
-})($ || ($ = {}));
-//mock.js.map
+//terminal.js.map
 ;
 "use strict";
 var $;
@@ -11252,6 +10991,95 @@ var $;
     $.$mpk_tss_stub_mem = $mpk_tss_stub_mem;
 })($ || ($ = {}));
 //stub.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mpk_tss_domain_terminal_mock extends $.$mpk_tss_domain_terminal {
+        id() {
+            return String($.$mpk_tss_stub_number(1000, 9000));
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_domain_terminal_mock.prototype, "id", null);
+    $.$mpk_tss_domain_terminal_mock = $mpk_tss_domain_terminal_mock;
+})($ || ($ = {}));
+//mock.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mpk_tss_domain_user extends $.$mol_object {
+        static current() { return new this; }
+        email(next) { throw new $.$mpk_tss_todo; }
+        password(next) { throw new $.$mpk_tss_todo; }
+        logged() { throw new $.$mpk_tss_todo; }
+        login() { throw new $.$mpk_tss_todo; }
+        logout() { throw new $.$mpk_tss_todo; }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_domain_user, "current", null);
+    $.$mpk_tss_domain_user = $mpk_tss_domain_user;
+})($ || ($ = {}));
+//user.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    class $mpk_tss_domain_user_mock extends $.$mpk_tss_domain_user {
+        server_data(next) {
+            return this.$.$mol_state_arg.value('login', next) || '';
+        }
+        email(next) {
+            if (next !== undefined)
+                return next;
+            return this.server_data();
+        }
+        password(next) {
+            return '';
+        }
+        logged() {
+            return this.server_data() !== '';
+        }
+        login() {
+            this.server_data(this.email());
+            this.password('');
+        }
+        logout() {
+            this.server_data(null);
+            this.email('');
+            this.password('');
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_domain_user_mock.prototype, "email", null);
+    __decorate([
+        $.$mol_mem
+    ], $mpk_tss_domain_user_mock.prototype, "password", null);
+    $.$mpk_tss_domain_user_mock = $mpk_tss_domain_user_mock;
+})($ || ($ = {}));
+//mock.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -12059,17 +11887,18 @@ var $;
             $.$mol_mem
         ], $mpk_tss_locale, "lang_default", null);
         class $mpk_tss extends $.$mpk_tss {
-            title() {
-                return super.title().replace('%terminal_number', this.terminal_number());
+            terminal() {
+                return this.$.$mpk_tss_domain_terminal.current();
             }
-            terminal_number() {
-                return '123';
+            title() {
+                return super.title().replace('%terminal_number', this.terminal().id());
             }
             terminal_formatted_label() {
-                return this.terminal_text().replace('%terminal_number', this.terminal_number());
+                return this.terminal_text().replace('%terminal_number', this.terminal().id());
             }
-            context_sub() {
-                return this.$.$mol_ambient({
+            context(next) {
+                return next || $.$mol_ambient({
+                    $mpk_tss_domain_terminal: $.$mpk_tss_domain_terminal_mock,
                     $mol_locale: $mpk_tss_locale,
                     $mpk_tss_domain_user: $.$mpk_tss_domain_user_mock,
                     $mpk_tss_pereferial_domain_units: $.$mpk_tss_pereferial_domain_mock_units,
@@ -12077,6 +11906,9 @@ var $;
                 });
             }
         }
+        __decorate([
+            $.$mol_mem
+        ], $mpk_tss.prototype, "context", null);
         $$.$mpk_tss = $mpk_tss;
         class $mpk_tss_main extends $.$mpk_tss_main {
             Pereferial() {
