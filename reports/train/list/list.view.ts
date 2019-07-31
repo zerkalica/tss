@@ -27,7 +27,7 @@ namespace $.$$ {
 		}
 
 		filter_number( next? : string ) {
-			return $mol_state_arg.value( this.state_key( 'trains' ) , next === '' ? null : next) || ''
+			return this.$.$mol_state_arg.value( this.state_key( 'trains' ) , next === '' ? null : next) || ''
 		}
 
 		@$mol_mem
@@ -41,7 +41,7 @@ namespace $.$$ {
 		}
 
 		report_current_id( next? : string ) {
-			return $mol_state_arg.value( this.state_key( 'report' ) , next ) || ''
+			return this.$.$mol_state_arg.value( this.state_key( 'report' ) , next ) || ''
 		}
 
 		Details_pages() {
@@ -54,10 +54,10 @@ namespace $.$$ {
 		}
 	}
 
-	export class $mpk_tss_reports_train_list_page extends $.$mpk_tss_reports_train_list_page {
-		destructor() {
-			this.report_current_id(null)
-			this.filter_number(null)
-		}
-	}
+	// export class $mpk_tss_reports_train_list_page extends $.$mpk_tss_reports_train_list_page {
+	// 	destructor() {
+	// 		this.report_current_id(null)
+	// 		this.filter_number(null)
+	// 	}
+	// }
 }

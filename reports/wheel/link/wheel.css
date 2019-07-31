@@ -1,0 +1,18 @@
+[mpk_tss_reports_wheel_link] {
+	width: 4rem;
+	padding: 0.3rem;
+	display: flex;
+	justify-content: center;
+	background-color: var(--mol_theme_line);
+	/* box-shadow: 0 0 0 1px var(--mol_theme_line); */
+}
+
+[mpk_tss_reports_wheel_type="success"] {
+	--mol_theme_line: var(--mpk_theme_status_bg_success);
+	--mol_theme_control: var(--mol_theme_field);
+}
+
+[mpk_tss_reports_wheel_type="warning"] {
+	--mol_theme_line: var(--mpk_theme_status_bg_warning);
+	--mol_theme_control: var(--mol_theme_field);
+}

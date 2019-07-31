@@ -2,7 +2,7 @@ $mpk_tss_reports_carriage_list $mol_view
 	report null
 	title @ \Train № %train_number
 	pages /
-		<= Main $mpk_tss_reports_carriage_list_page
+		<= Main $mpk_tss_reports_carriage_page
 			title <= title
 			filter_number?val <=> filter_number?val \
 			filter_warning?val <=> filter_warning?val true
@@ -20,16 +20,3 @@ $mpk_tss_reports_carriage_list $mol_view
 		event_top?e <=> focus_main?e null
 	Carriage_link!id $mpk_tss_reports_carriage_link
 		carriage <= carriage!id null
-
-$mpk_tss_reports_carriage_list_page $mol_page
-	minimal_width 337
-	sub /
-		<= Head
-		<= Search $mol_view
-			sub /
-				<= Filter_number $mol_search
-					hint <= hint @ \Carriage number
-					query?val <=> filter_number?val \
-				<= Filter_warning $mpk_tss_reports_check_warning
-					checked?val <=> filter_warning?val true
-		<= Body

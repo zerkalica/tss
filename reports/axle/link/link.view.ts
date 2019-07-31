@@ -26,25 +26,4 @@ namespace $.$$ {
 			return this.axle().wheels().map(wheel => this.Wheel(wheel.id()))
 		}
 	}
-
-	export class $mpk_tss_reports_axle_link_wheel extends $.$mpk_tss_reports_axle_link_wheel {
-		wheel(): $mpk_tss_reports_domain_wheel { throw new $mpk_tss_todo }
-
-		id() {
-			return this.wheel().id()
-		}
-
-		resolution() {
-			return this.wheel().resolution()
-		}
-
-		violation() {
-			return this.wheel().violation()
-		}
-
-		name() {
-			const side = this.wheel().id() === '1' ? 'L' : 'R'
-			return `${this.axle_id()}.${side}`
-		}
-	}
 }

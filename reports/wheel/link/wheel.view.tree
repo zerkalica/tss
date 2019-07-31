@@ -1,0 +1,8 @@
+$mpk_tss_reports_wheel_link $mol_view
+	wheel null
+	axle_id \
+	attr *
+		^
+		mpk_tss_reports_wheel_type <= resolution \
+	sub /
+		<= name \

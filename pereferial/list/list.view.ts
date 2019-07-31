@@ -18,11 +18,11 @@ namespace $.$$ {
 
 		@$mol_mem
 		filter_value(next?: string) {
-			return $mol_state_arg.value( this.state_key( 'units' ) , next ? next : null) || ''
+			return this.$.$mol_state_arg.value( this.state_key( 'units' ) , next ? next : null) || ''
 		}
 
 		unit_current_id( next? : string ) {
-			return $mol_state_arg.value( this.state_key( 'unit' ) , next ) || ''
+			return this.$.$mol_state_arg.value( this.state_key( 'unit' ) , next ) || ''
 		}
 
 		Unit_current() {

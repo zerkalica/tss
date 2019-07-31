@@ -1,0 +1,8 @@
+[mpk_tss_reports_train_page_body] {
+	overflow-y: scroll;
+}
+
+[mpk_tss_reports_train_page_search] {
+	display: inline-flex;
+	align-items: baseline;
+}

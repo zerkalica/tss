@@ -6,6 +6,13 @@ namespace $.$$ {
 		}
 	}
 
+	class $mpk_tss_state_arg extends $mol_state_arg {
+		// static link( next : { [ key : string ] : string } ) {
+		// 	const prev = this.dict()
+		// 	return this.make_link({page: prev.page, ...next})
+		// }
+	}
+
 	export class $mpk_tss extends $.$mpk_tss {
 		terminal() {
 			return this.$.$mpk_tss_domain_terminal.current()
@@ -22,6 +29,7 @@ namespace $.$$ {
 		@ $mol_mem
 		context( next? : $mol_ambient_context ) {
 			return next || ($ as $mol_ambient_context).$mol_ambient({
+				$mol_state_arg: $mpk_tss_state_arg,
 				$mpk_tss_domain_terminal: $mpk_tss_domain_terminal_mock,
 				$mol_locale: $mpk_tss_locale,
 				$mpk_tss_domain_user: $mpk_tss_domain_user_mock,

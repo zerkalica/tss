@@ -1,12 +1,3 @@
 [mpk_tss_reports_train_list_main] {
 	flex: 1 1 35rem;
 }
-
-[mpk_tss_reports_train_list_page_body] {
-	overflow-y: scroll;
-}
-
-[mpk_tss_reports_train_list_page_search] {
-	display: inline-flex;
-	align-items: baseline;
-}

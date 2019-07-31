@@ -1,0 +1,13 @@
+$mpk_tss_reports_train_page $mol_page
+	minimal_width 520
+	report_current_id?uri \
+	sub /
+		<= Head
+		<= Search $mol_view
+			sub /
+				<= Filter_number $mol_search
+					hint <= hint @ \Train number or report id
+					query?val <=> filter_number?val \
+				<= Filter_warning $mpk_tss_reports_check_warning
+					checked?val <=> filter_warning?val true
+		<= Body

@@ -7,7 +7,7 @@ $mpk_tss_reports_carriage_link $mpk_tss_card
 	Status_text $mol_view
 		sub /
 			<= Status_main $mpk_tss_reports_resolution status <= resolution \
-			<= Violation $mpk_tss_reports_carriage_link_violation status <= violation \
+			<= Violation $mpk_tss_reports_carriage_violation status <= violation \
 	Status_icon $mpk_tss_icon_cloud_download
 	status_click?event <=> carriage_status_click?event null
 	items /
@@ -25,9 +25,3 @@ $mpk_tss_reports_carriage_link $mpk_tss_card
 			title <= speed_title @ \Speed
 			content <= Speed_formatted $mpk_tss_parameter_speed value <= speed 0
 		<= additional /
-
-$mpk_tss_reports_carriage_link_violation $mpk_tss_reports_violation
-	group /
-		<= before \(
-		<= status_text
-		<= after \)
