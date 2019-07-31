@@ -174,12 +174,7 @@ declare namespace $ {
     }
 }
 declare namespace $ {
-    var $mol_dom_context: Window & {
-        Node: typeof Node;
-        Element: typeof Element;
-        HTMLElement: typeof HTMLElement;
-        XMLHttpRequest: typeof XMLHttpRequest;
-    };
+    var $mol_dom_context: Window & Pick<typeof globalThis, 'Node' | 'Element' | 'HTMLElement' | 'XMLHttpRequest' | 'DOMParser' | 'XMLSerializer'>;
 }
 declare namespace $ {
 }
@@ -481,6 +476,8 @@ declare namespace $ {
 declare namespace $ {
     class $mol_icon extends $mol_svg_root {
         view_box(): string;
+        minimal_width(): number;
+        minimal_height(): number;
         sub(): any[];
         Path(): $mol_svg_path;
         path(): string;
@@ -777,6 +774,7 @@ declare namespace $.$$ {
         title(): string;
         event_front_up(event?: Event): void;
         event_front_down(event?: Event): void;
+        minimal_width(): any;
     }
 }
 declare namespace $ {
@@ -1653,6 +1651,53 @@ declare namespace $ {
     }
 }
 declare namespace $ {
+    class $mol_check extends $mol_button_minor {
+        attr(): {
+            "mol_check_checked": any;
+            "aria-checked": any;
+            "role": string;
+            "disabled": boolean;
+            "tabindex": number;
+            "title": string;
+        };
+        checked(val?: any, force?: $mol_atom_force): any;
+        sub(): any[];
+        Icon(): any;
+        label(): any[];
+        Title(): $mol_view;
+        title(): string;
+    }
+}
+declare namespace $.$$ {
+    class $mol_check extends $.$mol_check {
+        event_click(next?: Event): void;
+    }
+}
+declare namespace $ {
+    class $mol_check_icon extends $mol_check {
+    }
+}
+declare namespace $ {
+    class $mpk_tss_reports_check_warning extends $mol_check_icon {
+        checked(val?: any, force?: $mol_atom_force): any;
+        filter_warning(val?: any, force?: $mol_atom_force): any;
+        Icon(): $mpk_tss_icon_round_warning;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_reports_train_page extends $mol_page {
+        minimal_width(): number;
+        report_current_id(uri?: any, force?: $mol_atom_force): any;
+        sub(): any[];
+        Search(): $mol_view;
+        Filter_number(): $mol_search;
+        hint(): string;
+        filter_number(val?: any, force?: $mol_atom_force): any;
+        Filter_warning(): $mpk_tss_reports_check_warning;
+        filter_warning(val?: any, force?: $mol_atom_force): any;
+    }
+}
+declare namespace $ {
     class $mpk_tss_card_list extends $mol_list {
         minimal_width(): number;
         current_id(): string;
@@ -1868,21 +1913,15 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
-    class $mpk_tss_reports_carriage_load extends $mol_view {
-        status(): any;
-        statuses(): {
-            "free": string;
-            "full": string;
-        };
-        free(): string;
-        full(): string;
+    class $mpk_tss_reports_carriage_page extends $mol_page {
+        minimal_width(): number;
         sub(): any[];
-        status_text(): string;
-    }
-}
-declare namespace $.$$ {
-    class $mpk_tss_reports_carriage_load extends $.$mpk_tss_reports_carriage_load {
-        status_text(): any;
+        Search(): $mol_view;
+        Filter_number(): $mol_search;
+        hint(): string;
+        filter_number(val?: any, force?: $mol_atom_force): any;
+        Filter_warning(): $mpk_tss_reports_check_warning;
+        filter_warning(val?: any, force?: $mol_atom_force): any;
     }
 }
 declare namespace $ {
@@ -1912,6 +1951,31 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
+    class $mpk_tss_reports_carriage_violation extends $mpk_tss_reports_violation {
+        group(): any[];
+        before(): string;
+        after(): string;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_reports_carriage_load extends $mol_view {
+        status(): any;
+        statuses(): {
+            "free": string;
+            "full": string;
+        };
+        free(): string;
+        full(): string;
+        sub(): any[];
+        status_text(): string;
+    }
+}
+declare namespace $.$$ {
+    class $mpk_tss_reports_carriage_load extends $.$mpk_tss_reports_carriage_load {
+        status_text(): any;
+    }
+}
+declare namespace $ {
     class $mpk_tss_reports_carriage_link extends $mpk_tss_card {
         minimal_height(): number;
         carriage(): any;
@@ -1924,7 +1988,7 @@ declare namespace $ {
         resolution(): string;
         Status_text(): $mol_view;
         Status_main(): $mpk_tss_reports_resolution;
-        Violation(): $mpk_tss_reports_carriage_link_violation;
+        Violation(): $mpk_tss_reports_carriage_violation;
         violation(): string;
         Status_icon(): $mpk_tss_icon_cloud_download;
         status_click(event?: any, force?: $mol_atom_force): any;
@@ -1945,13 +2009,6 @@ declare namespace $ {
         Speed_formatted(): $mpk_tss_parameter_speed;
         speed(): number;
         additional(): any[];
-    }
-}
-declare namespace $ {
-    class $mpk_tss_reports_carriage_link_violation extends $mpk_tss_reports_violation {
-        group(): any[];
-        before(): string;
-        after(): string;
     }
 }
 declare namespace $.$$ {
@@ -2006,6 +2063,27 @@ declare namespace $ {
     }
 }
 declare namespace $ {
+    class $mpk_tss_reports_wheel_link extends $mol_view {
+        wheel(): any;
+        axle_id(): string;
+        attr(): {
+            "mpk_tss_reports_wheel_type": string;
+        };
+        resolution(): string;
+        sub(): any[];
+        name(): string;
+    }
+}
+declare namespace $.$$ {
+    class $mpk_tss_reports_wheel_link extends $.$mpk_tss_reports_wheel_link {
+        wheel(): $mpk_tss_reports_domain_wheel;
+        id(): string;
+        resolution(): $mpk_tss_reports_domain_resolution;
+        violation(): $mpk_tss_reports_domain_violation;
+        name(): string;
+    }
+}
+declare namespace $ {
     class $mpk_tss_reports_axle_link extends $mol_link {
         axle(): any;
         arg(): {
@@ -2015,20 +2093,8 @@ declare namespace $ {
         sub(): any[];
         Wheels(): $mol_list;
         wheels(): any[];
-        Wheel(id: any): $mpk_tss_reports_axle_link_wheel;
+        Wheel(id: any): $mpk_tss_reports_wheel_link;
         wheel(id: any): any;
-    }
-}
-declare namespace $ {
-    class $mpk_tss_reports_axle_link_wheel extends $mol_view {
-        wheel(): any;
-        axle_id(): string;
-        attr(): {
-            "mpk_tss_reports_axle_link_wheel_type": string;
-        };
-        resolution(): string;
-        sub(): any[];
-        name(): string;
     }
 }
 declare namespace $.$$ {
@@ -2039,14 +2105,7 @@ declare namespace $.$$ {
         resolution(): $mpk_tss_reports_domain_resolution;
         violation(): $mpk_tss_reports_domain_violation;
         wheel(id: string): $mpk_tss_reports_domain_wheel;
-        wheels(): $.$mpk_tss_reports_axle_link_wheel[];
-    }
-    class $mpk_tss_reports_axle_link_wheel extends $.$mpk_tss_reports_axle_link_wheel {
-        wheel(): $mpk_tss_reports_domain_wheel;
-        id(): string;
-        resolution(): $mpk_tss_reports_domain_resolution;
-        violation(): $mpk_tss_reports_domain_violation;
-        name(): string;
+        wheels(): $.$mpk_tss_reports_wheel_link[];
     }
 }
 declare namespace $ {
@@ -2598,45 +2657,11 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
-    class $mol_check extends $mol_button_minor {
-        attr(): {
-            "mol_check_checked": any;
-            "aria-checked": any;
-            "role": string;
-            "disabled": boolean;
-            "tabindex": number;
-            "title": string;
-        };
-        checked(val?: any, force?: $mol_atom_force): any;
-        sub(): any[];
-        Icon(): any;
-        label(): any[];
-        Title(): $mol_view;
-        title(): string;
-    }
-}
-declare namespace $.$$ {
-    class $mol_check extends $.$mol_check {
-        event_click(next?: Event): void;
-    }
-}
-declare namespace $ {
-    class $mol_check_icon extends $mol_check {
-    }
-}
-declare namespace $ {
-    class $mpk_tss_reports_check_warning extends $mol_check_icon {
-        checked(val?: any, force?: $mol_atom_force): any;
-        filter_warning(val?: any, force?: $mol_atom_force): any;
-        Icon(): $mpk_tss_icon_round_warning;
-    }
-}
-declare namespace $ {
     class $mpk_tss_reports_carriage_list extends $mol_view {
         report(): any;
         title(): string;
         pages(): any[];
-        Main(): $mpk_tss_reports_carriage_list_page;
+        Main(): $mpk_tss_reports_carriage_page;
         filter_number(val?: any, force?: $mol_atom_force): any;
         filter_warning(val?: any, force?: $mol_atom_force): any;
         event_top(e?: any, force?: $mol_atom_force): any;
@@ -2649,18 +2674,6 @@ declare namespace $ {
         carriage(id: any): any;
         focus_main(e?: any, force?: $mol_atom_force): any;
         Carriage_link(id: any): $mpk_tss_reports_carriage_link;
-    }
-}
-declare namespace $ {
-    class $mpk_tss_reports_carriage_list_page extends $mol_page {
-        minimal_width(): number;
-        sub(): any[];
-        Search(): $mol_view;
-        Filter_number(): $mol_search;
-        hint(): string;
-        filter_number(val?: any, force?: $mol_atom_force): any;
-        Filter_warning(): $mpk_tss_reports_check_warning;
-        filter_warning(val?: any, force?: $mol_atom_force): any;
     }
 }
 declare namespace $.$$ {
@@ -2682,7 +2695,7 @@ declare namespace $ {
     class $mpk_tss_reports_train_list extends $mol_view {
         title(): string;
         pages(): any[];
-        Main(): $mpk_tss_reports_train_list_page;
+        Main(): $mpk_tss_reports_train_page;
         event_top(e?: any, force?: $mol_atom_force): any;
         tools(): any[];
         report_current_id(id?: any, force?: $mol_atom_force): any;
@@ -2697,19 +2710,6 @@ declare namespace $ {
         focus_main(e?: any, force?: $mol_atom_force): any;
     }
 }
-declare namespace $ {
-    class $mpk_tss_reports_train_list_page extends $mol_page {
-        minimal_width(): number;
-        report_current_id(uri?: any, force?: $mol_atom_force): any;
-        sub(): any[];
-        Search(): $mol_view;
-        Filter_number(): $mol_search;
-        hint(): string;
-        filter_number(val?: any, force?: $mol_atom_force): any;
-        Filter_warning(): $mpk_tss_reports_check_warning;
-        filter_warning(val?: any, force?: $mol_atom_force): any;
-    }
-}
 declare namespace $.$$ {
     class $mpk_tss_reports_train_list extends $.$mpk_tss_reports_train_list {
         domain(): $mpk_tss_reports_domain_trains;
@@ -2721,9 +2721,6 @@ declare namespace $.$$ {
         report_current_id(next?: string): string;
         Details_pages(): any[];
         focus_main(): void;
-    }
-    class $mpk_tss_reports_train_list_page extends $.$mpk_tss_reports_train_list_page {
-        destructor(): void;
     }
 }
 declare namespace $ {
@@ -3016,10 +3013,6 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
-    class $mol_float extends $mol_view {
-    }
-}
-declare namespace $ {
     class $mol_icon_tick extends $mol_icon {
         path(): string;
     }
@@ -3048,6 +3041,27 @@ declare namespace $.$$ {
     class $mol_check_expand extends $.$mol_check_expand {
         level_style(): string;
         expandable(): boolean;
+    }
+}
+declare namespace $ {
+    class $mol_expander extends $mol_list {
+        rows(): any[];
+        Label(): $mol_view;
+        Trigger(): $mol_check_expand;
+        expanded(val?: any, force?: $mol_atom_force): any;
+        label(): any[];
+        tools(): any[];
+        Content(): $mol_view;
+        content(): any[];
+    }
+}
+declare namespace $.$$ {
+    class $mol_expander extends $.$mol_expander {
+        rows(): $mol_view[];
+    }
+}
+declare namespace $ {
+    class $mol_float extends $mol_view {
     }
 }
 declare namespace $ {
@@ -3324,23 +3338,6 @@ declare namespace $.$$ {
         text2spans(prefix: string, text: string): ($mol_text_span | $mol_text_link | $mol_text_image)[];
         code2spans(prefix: string, text: string): $mol_text_span[];
         block_content(indexBlock: number): ($mol_view | string)[];
-    }
-}
-declare namespace $ {
-    class $mol_expander extends $mol_list {
-        rows(): any[];
-        Label(): $mol_view;
-        Trigger(): $mol_check_expand;
-        expanded(val?: any, force?: $mol_atom_force): any;
-        label(): any[];
-        tools(): any[];
-        Content(): $mol_view;
-        content(): any[];
-    }
-}
-declare namespace $.$$ {
-    class $mol_expander extends $.$mol_expander {
-        rows(): $mol_view[];
     }
 }
 declare namespace $ {

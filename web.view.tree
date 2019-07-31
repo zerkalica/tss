@@ -41,6 +41,8 @@ $mol_svg_path $mol_svg
 
 $mol_icon $mol_svg_root
 	view_box \0 0 24 24
+	minimal_width 16
+	minimal_height 16
 	sub /
 		<= Path $mol_svg_path
 			geometry <= path \
@@ -554,6 +556,39 @@ $mpk_tss_sensors $mol_page
 	body /
 		<= Content $mol_filler
 
+$mol_check $mol_button_minor
+	attr *
+		^
+		mol_check_checked <= checked?val false
+		aria-checked <= checked?val false
+		role \checkbox
+	sub /
+		<= Icon null
+		<= label /
+			<= Title $mol_view
+				sub /
+					<= title \
+
+$mol_check_icon $mol_check
+
+$mpk_tss_reports_check_warning $mol_check_icon
+	checked?val <=> filter_warning?val true
+	Icon $mpk_tss_icon_round_warning
+
+$mpk_tss_reports_train_page $mol_page
+	minimal_width 520
+	report_current_id?uri \
+	sub /
+		<= Head
+		<= Search $mol_view
+			sub /
+				<= Filter_number $mol_search
+					hint <= hint @ \Train number or report id
+					query?val <=> filter_number?val \
+				<= Filter_warning $mpk_tss_reports_check_warning
+					checked?val <=> filter_warning?val true
+		<= Body
+
 $mpk_tss_card_list $mol_list
 	minimal_width 300
 	current_id \
@@ -623,12 +658,18 @@ $mpk_tss_reports_train_link $mpk_tss_card
 			title <= train_number_title @ \Train
 			content <= train_number \
 
-$mpk_tss_reports_carriage_load $mol_view
-	status null
-	statuses *
-		free <= free @ \Free
-		full <= full @ \Full
-	sub / <= status_text \
+$mpk_tss_reports_carriage_page $mol_page
+	minimal_width 337
+	sub /
+		<= Head
+		<= Search $mol_view
+			sub /
+				<= Filter_number $mol_search
+					hint <= hint @ \Carriage number
+					query?val <=> filter_number?val \
+				<= Filter_warning $mpk_tss_reports_check_warning
+					checked?val <=> filter_warning?val true
+		<= Body
 
 $mpk_tss_reports_violation $mol_view
 	status null
@@ -643,6 +684,19 @@ $mpk_tss_reports_violation $mol_view
 		<= status_text \
 	sub <= group
 
+$mpk_tss_reports_carriage_violation $mpk_tss_reports_violation
+	group /
+		<= before \(
+		<= status_text
+		<= after \)
+
+$mpk_tss_reports_carriage_load $mol_view
+	status null
+	statuses *
+		free <= free @ \Free
+		full <= full @ \Full
+	sub / <= status_text \
+
 $mpk_tss_reports_carriage_link $mpk_tss_card
 	minimal_height 100
 	carriage null
@@ -652,7 +706,7 @@ $mpk_tss_reports_carriage_link $mpk_tss_card
 	Status_text $mol_view
 		sub /
 			<= Status_main $mpk_tss_reports_resolution status <= resolution \
-			<= Violation $mpk_tss_reports_carriage_link_violation status <= violation \
+			<= Violation $mpk_tss_reports_carriage_violation status <= violation \
 	Status_icon $mpk_tss_icon_cloud_download
 	status_click?event <=> carriage_status_click?event null
 	items /
@@ -670,12 +724,6 @@ $mpk_tss_reports_carriage_link $mpk_tss_card
 			title <= speed_title @ \Speed
 			content <= Speed_formatted $mpk_tss_parameter_speed value <= speed 0
 		<= additional /
-
-$mpk_tss_reports_carriage_link_violation $mpk_tss_reports_violation
-	group /
-		<= before \(
-		<= status_text
-		<= after \)
 
 $mpk_tss_parameter_weight $mol_view
 	sub /
@@ -699,6 +747,15 @@ $mpk_tss_parameter_length $mol_view
 		<= spacer \ 
 		<= unit @ \m
 
+$mpk_tss_reports_wheel_link $mol_view
+	wheel null
+	axle_id \
+	attr *
+		^
+		mpk_tss_reports_wheel_type <= resolution \
+	sub /
+		<= name \
+
 $mpk_tss_reports_axle_link $mol_link
 	axle null
 	arg * axle <= axle_id \
@@ -706,18 +763,9 @@ $mpk_tss_reports_axle_link $mol_link
 		<= Wheels $mol_list
 			rows /
 				<= wheels /
-	Wheel!id $mpk_tss_reports_axle_link_wheel
+	Wheel!id $mpk_tss_reports_wheel_link
 		wheel <= wheel!id null
 		axle_id <= axle_id
-
-$mpk_tss_reports_axle_link_wheel $mol_view
-	wheel null
-	axle_id \
-	attr *
-		^
-		mpk_tss_reports_axle_link_wheel_type <= resolution \
-	sub /
-		<= name \
 
 $mpk_tss_reports_axle_list $mol_list
 	carriage null
@@ -1106,30 +1154,11 @@ $mpk_tss_reports_carriage_details $mol_page
 			carriage <= carriage null
 			axle <= axle_current
 
-$mol_check $mol_button_minor
-	attr *
-		^
-		mol_check_checked <= checked?val false
-		aria-checked <= checked?val false
-		role \checkbox
-	sub /
-		<= Icon null
-		<= label /
-			<= Title $mol_view
-				sub /
-					<= title \
-
-$mol_check_icon $mol_check
-
-$mpk_tss_reports_check_warning $mol_check_icon
-	checked?val <=> filter_warning?val true
-	Icon $mpk_tss_icon_round_warning
-
 $mpk_tss_reports_carriage_list $mol_view
 	report null
 	title @ \Train № %train_number
 	pages /
-		<= Main $mpk_tss_reports_carriage_list_page
+		<= Main $mpk_tss_reports_carriage_page
 			title <= title
 			filter_number?val <=> filter_number?val \
 			filter_warning?val <=> filter_warning?val true
@@ -1148,23 +1177,10 @@ $mpk_tss_reports_carriage_list $mol_view
 	Carriage_link!id $mpk_tss_reports_carriage_link
 		carriage <= carriage!id null
 
-$mpk_tss_reports_carriage_list_page $mol_page
-	minimal_width 337
-	sub /
-		<= Head
-		<= Search $mol_view
-			sub /
-				<= Filter_number $mol_search
-					hint <= hint @ \Carriage number
-					query?val <=> filter_number?val \
-				<= Filter_warning $mpk_tss_reports_check_warning
-					checked?val <=> filter_warning?val true
-		<= Body
-
 $mpk_tss_reports_train_list $mol_view
 	title @ \Reports
 	pages /
-		<= Main $mpk_tss_reports_train_list_page
+		<= Main $mpk_tss_reports_train_page
 			event_top?e <=> event_top?e null
 			tools <= tools /
 			title <= title
@@ -1185,20 +1201,6 @@ $mpk_tss_reports_train_list $mol_view
 	Report_details!id $mpk_tss_reports_carriage_list
 		report <= report!id null
 		event_top?e <=> focus_main?e null
-
-$mpk_tss_reports_train_list_page $mol_page
-	minimal_width 520
-	report_current_id?uri \
-	sub /
-		<= Head
-		<= Search $mol_view
-			sub /
-				<= Filter_number $mol_search
-					hint <= hint @ \Train number or report id
-					query?val <=> filter_number?val \
-				<= Filter_warning $mpk_tss_reports_check_warning
-					checked?val <=> filter_warning?val true
-		<= Body
 
 $mol_image $mol_view
 	dom_name \img
@@ -1348,8 +1350,6 @@ $mpk_tss_summary_status $mol_view
 		^
 		mpk_tss_summary_status_type <= type \success
 
-$mol_float $mol_view
-
 $mol_icon_tick $mol_icon path \M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z
 
 $mol_check_box $mol_check
@@ -1364,6 +1364,20 @@ $mol_check_expand $mol_check
 		paddingLeft <= level_style \0px
 	checked?val <=> expanded?val false
 	enabled <= expandable false
+
+$mol_expander $mol_list
+	rows /
+		<= Label $mol_view
+			sub /
+				<= Trigger $mol_check_expand
+					checked?val <=> expanded?val false
+					label <= label /
+						<= title
+				<= tools /
+		<= Content $mol_view
+			sub <= content /
+
+$mol_float $mol_view
 
 $mol_grid $mol_scroll
 	row_ids /
@@ -1494,18 +1508,6 @@ $mol_text_image $mol_view
 		data <= link?val \
 	sub /
 		<= title?val \
-
-$mol_expander $mol_list
-	rows /
-		<= Label $mol_view
-			sub /
-				<= Trigger $mol_check_expand
-					checked?val <=> expanded?val false
-					label <= label /
-						<= title
-				<= tools /
-		<= Content $mol_view
-			sub <= content /
 
 $mpk_tss_summary $mol_page
 	title @ \Summary
