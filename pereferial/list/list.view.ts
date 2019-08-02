@@ -33,11 +33,4 @@ namespace $.$$ {
 			this.Main().focused(true)
 		}
 	}
-
-	export class $mpk_tss_pereferial_list_page extends $.$mpk_tss_pereferial_list_page {
-		destructor() {
-			this.unit_current_id(null)
-			this.filter_value(null)
-		}
-	}
 }

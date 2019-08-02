@@ -12,7 +12,6 @@ namespace $.$$ {
 			})
 		}
 		
-
 		main_blended() {
 			return !!this.report_current_id()
 		}
@@ -53,11 +52,4 @@ namespace $.$$ {
 			this.Main().focused(true)
 		}
 	}
-
-	// export class $mpk_tss_reports_train_list_page extends $.$mpk_tss_reports_train_list_page {
-	// 	destructor() {
-	// 		this.report_current_id(null)
-	// 		this.filter_number(null)
-	// 	}
-	// }
 }
