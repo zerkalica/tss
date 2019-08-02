@@ -848,7 +848,7 @@ declare namespace $ {
 declare namespace $ {
     class $mol_state_arg extends $mol_object {
         prefix: string;
-        static href(next?: string, force?: $mol_atom_force): string;
+        static href(next?: string): string;
         static dict(next?: {
             [key: string]: string;
         }): {
@@ -861,6 +861,7 @@ declare namespace $ {
         static link(next: {
             [key: string]: string;
         }): string;
+        static allowed_keys(next?: string[]): string[];
         static make_link(next: {
             [key: string]: string;
         }): string;
@@ -996,6 +997,102 @@ declare namespace $ {
     }
 }
 declare namespace $ {
+    class $mol_bar extends $mol_view {
+    }
+}
+declare namespace $ {
+    class $mol_pop extends $mol_view {
+        showed(val?: any, force?: $mol_atom_force): any;
+        plugins(): any[];
+        top(): any;
+        bottom(): any;
+        left(): any;
+        right(): any;
+        Meter(): $mol_meter;
+        sub(): any[];
+        Anchor(): any;
+        Bubble(): $mol_pop_bubble;
+        align(): string;
+        bubble_content(): any[];
+        height_max(): number;
+    }
+}
+declare namespace $ {
+    class $mol_pop_bubble extends $mol_scroll {
+        sub(): any[];
+        content(): any[];
+        style(): {
+            "maxHeight": number;
+        };
+        height_max(): number;
+        attr(): {
+            "mol_pop_align": string;
+            "tabindex": number;
+        };
+        align(): string;
+    }
+}
+declare namespace $.$$ {
+    class $mol_pop extends $.$mol_pop {
+        sub(): any[];
+        height_max(): number;
+        align(): string;
+    }
+}
+declare namespace $ {
+    class $mol_dimmer extends $mol_view {
+        haystack(): string;
+        needle(): string;
+        sub(): any[];
+        parts(): any[];
+        Low(id: any): $mol_view;
+        string(id: any): string;
+    }
+}
+declare namespace $.$$ {
+    class $mol_dimmer extends $.$mol_dimmer {
+        parts(): any[];
+        strings(): string[];
+        string(index: number): string;
+    }
+}
+declare namespace $ {
+    class $mol_nav extends $mol_plugin {
+        cycle(val?: any, force?: $mol_atom_force): any;
+        mod_ctrl(): boolean;
+        mod_shift(): boolean;
+        mod_alt(): boolean;
+        keys_x(val?: any, force?: $mol_atom_force): any;
+        keys_y(val?: any, force?: $mol_atom_force): any;
+        current_x(val?: any, force?: $mol_atom_force): any;
+        current_y(val?: any, force?: $mol_atom_force): any;
+        event_up(event?: any, force?: $mol_atom_force): any;
+        event_down(event?: any, force?: $mol_atom_force): any;
+        event_left(event?: any, force?: $mol_atom_force): any;
+        event_right(event?: any, force?: $mol_atom_force): any;
+        event(): {
+            "keydown": (event?: any) => any;
+        };
+        event_key(event?: any, force?: $mol_atom_force): any;
+    }
+}
+declare namespace $.$$ {
+    class $mol_nav extends $.$mol_nav {
+        event_key(event?: KeyboardEvent): void;
+        event_up(event?: KeyboardEvent): void;
+        event_down(event?: KeyboardEvent): void;
+        event_left(event?: KeyboardEvent): void;
+        event_right(event?: KeyboardEvent): void;
+        index_y(): any;
+        index_x(): any;
+    }
+}
+declare namespace $ {
+    class $mol_icon_chevron extends $mol_icon {
+        path(): string;
+    }
+}
+declare namespace $ {
     class $mol_list extends $mol_view {
         sub(): any[];
         rows(): any[];
@@ -1012,8 +1109,100 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
+    function $mol_match_text<Variant>(query: string, values: (variant: Variant) => string[]): (variant: Variant) => boolean;
+}
+declare namespace $ {
+    class $mol_select extends $mol_pop {
+        dictionary(): {};
+        options(): any[];
+        value(val?: any, force?: $mol_atom_force): any;
+        minimal_height(): number;
+        Option_row(id: any): $mol_button_minor;
+        event_select(id: any, event?: any, force?: $mol_atom_force): any;
+        option_content(id: any): any[];
+        Option_label(id: any): $mol_dimmer;
+        option_label(id: any): string;
+        filter_pattern(val?: any, force?: $mol_atom_force): any;
+        No_options(): $mol_view;
+        no_options_message(): string;
+        plugins(): any[];
+        Nav(): $mol_nav;
+        nav_components(): any[];
+        option_focused(component?: any, force?: $mol_atom_force): any;
+        nav_cycle(val?: any, force?: $mol_atom_force): any;
+        showed(): boolean;
+        options_showed(): boolean;
+        Anchor(): $mol_button_minor;
+        Trigger(): $mol_button_minor;
+        trigger_content(): any[];
+        option_content_current(): any[];
+        Filter(): $mol_string;
+        filter_hint(): string;
+        hint(): string;
+        debounce(): number;
+        Trigger_icon(): $mol_icon_chevron;
+        bubble_content(): any[];
+        Menu(): $mol_list;
+        menu_content(): any[];
+        option_rows(): any[];
+    }
+}
+declare namespace $.$$ {
+    class $mol_select extends $.$mol_select {
+        filter_pattern(next?: string): string;
+        options_showed(): boolean;
+        options(): string[];
+        options_filtered(): string[];
+        option_label(id: string): any;
+        option_rows(): $mol_view[] | $mol_button_minor[];
+        option_focused(component?: $mol_view): $mol_view | $mol_button_minor;
+        event_select(id: string, event?: MouseEvent): void;
+        nav_components(): ($mol_view | $mol_button_minor)[];
+        option_content_current(): any[];
+        trigger_content(): any[];
+        menu_content(): ($mol_view | $mol_button_minor)[];
+    }
+}
+declare namespace $ {
     class $mol_icon_cross extends $mol_icon {
         path(): string;
+    }
+}
+declare namespace $ {
+    class $mol_search extends $mol_bar {
+        query(val?: any, force?: $mol_atom_force): any;
+        sub(): any[];
+        Suggest(): $mol_select;
+        suggest_selected(val?: any, force?: $mol_atom_force): any;
+        hint(): string;
+        suggests_showed(): boolean;
+        suggests(): any[];
+        debounce(): number;
+        Clear(): $mol_button_minor;
+        Clear_icon(): $mol_icon_cross;
+        event_clear(val?: any, force?: $mol_atom_force): any;
+    }
+}
+declare namespace $.$$ {
+    class $mol_search extends $.$mol_search {
+        suggests_showed(): boolean;
+        suggest_selected(next?: string): void;
+        sub(): ($mol_button_minor | $.$mol_select)[];
+        event_clear(event?: Event): void;
+    }
+}
+declare namespace $ {
+    class $mpk_tss_pereferial_page extends $mol_page {
+        unit_current_id(v?: any, force?: $mol_atom_force): any;
+        sub(): any[];
+        Filter_value(): $mol_search;
+        filter_hint(): string;
+        filter_value(val?: any, force?: $mol_atom_force): any;
+    }
+}
+declare namespace $.$$ {
+    class $mpk_tss_pereferial_page extends $.$mpk_tss_pereferial_page {
+        context_sub(): $mol_ambient_context;
     }
 }
 declare namespace $ {
@@ -1429,184 +1618,10 @@ declare namespace $.$$ {
     }
 }
 declare namespace $ {
-    class $mol_bar extends $mol_view {
-    }
-}
-declare namespace $ {
-    class $mol_pop extends $mol_view {
-        showed(val?: any, force?: $mol_atom_force): any;
-        plugins(): any[];
-        top(): any;
-        bottom(): any;
-        left(): any;
-        right(): any;
-        Meter(): $mol_meter;
-        sub(): any[];
-        Anchor(): any;
-        Bubble(): $mol_pop_bubble;
-        align(): string;
-        bubble_content(): any[];
-        height_max(): number;
-    }
-}
-declare namespace $ {
-    class $mol_pop_bubble extends $mol_scroll {
-        sub(): any[];
-        content(): any[];
-        style(): {
-            "maxHeight": number;
-        };
-        height_max(): number;
-        attr(): {
-            "mol_pop_align": string;
-            "tabindex": number;
-        };
-        align(): string;
-    }
-}
-declare namespace $.$$ {
-    class $mol_pop extends $.$mol_pop {
-        sub(): any[];
-        height_max(): number;
-        align(): string;
-    }
-}
-declare namespace $ {
-    class $mol_dimmer extends $mol_view {
-        haystack(): string;
-        needle(): string;
-        sub(): any[];
-        parts(): any[];
-        Low(id: any): $mol_view;
-        string(id: any): string;
-    }
-}
-declare namespace $.$$ {
-    class $mol_dimmer extends $.$mol_dimmer {
-        parts(): any[];
-        strings(): string[];
-        string(index: number): string;
-    }
-}
-declare namespace $ {
-    class $mol_nav extends $mol_plugin {
-        cycle(val?: any, force?: $mol_atom_force): any;
-        mod_ctrl(): boolean;
-        mod_shift(): boolean;
-        mod_alt(): boolean;
-        keys_x(val?: any, force?: $mol_atom_force): any;
-        keys_y(val?: any, force?: $mol_atom_force): any;
-        current_x(val?: any, force?: $mol_atom_force): any;
-        current_y(val?: any, force?: $mol_atom_force): any;
-        event_up(event?: any, force?: $mol_atom_force): any;
-        event_down(event?: any, force?: $mol_atom_force): any;
-        event_left(event?: any, force?: $mol_atom_force): any;
-        event_right(event?: any, force?: $mol_atom_force): any;
-        event(): {
-            "keydown": (event?: any) => any;
-        };
-        event_key(event?: any, force?: $mol_atom_force): any;
-    }
-}
-declare namespace $.$$ {
-    class $mol_nav extends $.$mol_nav {
-        event_key(event?: KeyboardEvent): void;
-        event_up(event?: KeyboardEvent): void;
-        event_down(event?: KeyboardEvent): void;
-        event_left(event?: KeyboardEvent): void;
-        event_right(event?: KeyboardEvent): void;
-        index_y(): any;
-        index_x(): any;
-    }
-}
-declare namespace $ {
-    class $mol_icon_chevron extends $mol_icon {
-        path(): string;
-    }
-}
-declare namespace $ {
-    function $mol_match_text<Variant>(query: string, values: (variant: Variant) => string[]): (variant: Variant) => boolean;
-}
-declare namespace $ {
-    class $mol_select extends $mol_pop {
-        dictionary(): {};
-        options(): any[];
-        value(val?: any, force?: $mol_atom_force): any;
-        minimal_height(): number;
-        Option_row(id: any): $mol_button_minor;
-        event_select(id: any, event?: any, force?: $mol_atom_force): any;
-        option_content(id: any): any[];
-        Option_label(id: any): $mol_dimmer;
-        option_label(id: any): string;
-        filter_pattern(val?: any, force?: $mol_atom_force): any;
-        No_options(): $mol_view;
-        no_options_message(): string;
-        plugins(): any[];
-        Nav(): $mol_nav;
-        nav_components(): any[];
-        option_focused(component?: any, force?: $mol_atom_force): any;
-        nav_cycle(val?: any, force?: $mol_atom_force): any;
-        showed(): boolean;
-        options_showed(): boolean;
-        Anchor(): $mol_button_minor;
-        Trigger(): $mol_button_minor;
-        trigger_content(): any[];
-        option_content_current(): any[];
-        Filter(): $mol_string;
-        filter_hint(): string;
-        hint(): string;
-        debounce(): number;
-        Trigger_icon(): $mol_icon_chevron;
-        bubble_content(): any[];
-        Menu(): $mol_list;
-        menu_content(): any[];
-        option_rows(): any[];
-    }
-}
-declare namespace $.$$ {
-    class $mol_select extends $.$mol_select {
-        filter_pattern(next?: string): string;
-        options_showed(): boolean;
-        options(): string[];
-        options_filtered(): string[];
-        option_label(id: string): any;
-        option_rows(): $mol_view[] | $mol_button_minor[];
-        option_focused(component?: $mol_view): $mol_view | $mol_button_minor;
-        event_select(id: string, event?: MouseEvent): void;
-        nav_components(): ($mol_view | $mol_button_minor)[];
-        option_content_current(): any[];
-        trigger_content(): any[];
-        menu_content(): ($mol_view | $mol_button_minor)[];
-    }
-}
-declare namespace $ {
-    class $mol_search extends $mol_bar {
-        query(val?: any, force?: $mol_atom_force): any;
-        sub(): any[];
-        Suggest(): $mol_select;
-        suggest_selected(val?: any, force?: $mol_atom_force): any;
-        hint(): string;
-        suggests_showed(): boolean;
-        suggests(): any[];
-        debounce(): number;
-        Clear(): $mol_button_minor;
-        Clear_icon(): $mol_icon_cross;
-        event_clear(val?: any, force?: $mol_atom_force): any;
-    }
-}
-declare namespace $.$$ {
-    class $mol_search extends $.$mol_search {
-        suggests_showed(): boolean;
-        suggest_selected(next?: string): void;
-        sub(): ($mol_button_minor | $.$mol_select)[];
-        event_clear(event?: Event): void;
-    }
-}
-declare namespace $ {
     class $mpk_tss_pereferial_list extends $mol_view {
         title(): string;
         pages(): any[];
-        Main(): $mpk_tss_pereferial_list_page;
+        Main(): $mpk_tss_pereferial_page;
         event_top(e?: any, force?: $mol_atom_force): any;
         tools(): any[];
         unit_current_id(v?: any, force?: $mol_atom_force): any;
@@ -1620,15 +1635,6 @@ declare namespace $ {
         Unit_link(id: any): $mpk_tss_pereferial_link;
     }
 }
-declare namespace $ {
-    class $mpk_tss_pereferial_list_page extends $mol_page {
-        unit_current_id(v?: any, force?: $mol_atom_force): any;
-        sub(): any[];
-        Filter_value(): $mol_search;
-        filter_hint(): string;
-        filter_value(val?: any, force?: $mol_atom_force): any;
-    }
-}
 declare namespace $.$$ {
     class $mpk_tss_pereferial_list extends $.$mpk_tss_pereferial_list {
         domain(): $mpk_tss_pereferial_domain_units;
@@ -1638,9 +1644,6 @@ declare namespace $.$$ {
         unit_current_id(next?: string): string;
         Unit_current(): $.$mpk_tss_pereferial_details;
         details_event_top(event?: Event): void;
-    }
-    class $mpk_tss_pereferial_list_page extends $.$mpk_tss_pereferial_list_page {
-        destructor(): void;
     }
 }
 declare namespace $ {
@@ -1695,6 +1698,11 @@ declare namespace $ {
         filter_number(val?: any, force?: $mol_atom_force): any;
         Filter_warning(): $mpk_tss_reports_check_warning;
         filter_warning(val?: any, force?: $mol_atom_force): any;
+    }
+}
+declare namespace $.$$ {
+    class $mpk_tss_reports_train_page extends $.$mpk_tss_reports_train_page {
+        context_sub(): $mol_ambient_context;
     }
 }
 declare namespace $ {
@@ -2956,6 +2964,7 @@ declare namespace $.$$ {
         context(next?: $mol_ambient_context): $mol_ambient_context;
     }
     class $mpk_tss_main extends $.$mpk_tss_main {
+        context_sub(): $mol_ambient_context;
         Pereferial(): $.$mpk_tss_pereferial_list;
         Reports(): $.$mpk_tss_reports_train_list;
         copyright(): string;

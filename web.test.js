@@ -1088,18 +1088,51 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var $;
-(function ($) {
-    $.$mol_test_mocks.push(context => {
-        class $mol_state_arg_mock extends $.$mol_state_arg {
+(function ($_1) {
+    $_1.$mol_test_mocks.push(context => {
+        class $mol_state_arg_mock extends $_1.$mol_state_arg {
             static href(next) { return next || ''; }
         }
         __decorate([
-            $.$mol_mem
+            $_1.$mol_mem
         ], $mol_state_arg_mock, "href", null);
         context.$mol_state_arg = $mol_state_arg_mock;
     });
+    $_1.$mol_test({
+        'args as dictionary'($) {
+            $.$mol_state_arg.href('#foo=bar/xxx');
+            $_1.$mol_assert_like($.$mol_state_arg.dict(), { foo: 'bar', xxx: '' });
+            $.$mol_state_arg.dict({ foo: null, yyy: '', lol: '123' });
+            $_1.$mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#yyy/lol=123');
+        },
+        'one value from args'($) {
+            $.$mol_state_arg.href('#foo=bar/xxx');
+            $_1.$mol_assert_equal($.$mol_state_arg.value('foo'), 'bar');
+            $_1.$mol_assert_equal($.$mol_state_arg.value('xxx'), '');
+            $.$mol_state_arg.value('foo', 'lol');
+            $_1.$mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#foo=lol/xxx');
+            $.$mol_state_arg.value('foo', '');
+            $_1.$mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#foo/xxx');
+            $.$mol_state_arg.value('foo', null);
+            $_1.$mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#xxx');
+        },
+        'nested args'($) {
+            const base = new $.$mol_state_arg('nested.');
+            class Nested extends $_1.$mol_state_arg {
+                constructor(prefix) {
+                    super(base.prefix + prefix);
+                }
+            }
+            Nested.value = (key, next) => base.value(key, next);
+            $.$mol_state_arg.href('#foo=bar/nested.xxx=123');
+            $_1.$mol_assert_equal(Nested.value('foo'), null);
+            $_1.$mol_assert_equal(Nested.value('xxx'), '123');
+            Nested.value('foo', 'lol');
+            $_1.$mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#foo=bar/nested.xxx=123/nested.foo=lol');
+        },
+    });
 })($ || ($ = {}));
-//arg.mock.test.js.map
+//arg.test.js.map
 ;
 "use strict";
 var $;
@@ -1751,9 +1784,15 @@ var $;
         }
     }
     $.$mol_fiber_fence = $mol_fiber_fence;
-    function $mol_fiber_unlimit(func) {
-        console.warn('$mol_fiber_unlimit is deprecated. Use $mol_fiber_solid.run instead.');
-        return $mol_fiber_solid.run(func);
+    function $mol_fiber_unlimit(task) {
+        const deadline = $mol_fiber.deadline;
+        try {
+            $mol_fiber.deadline = Number.POSITIVE_INFINITY;
+            return task();
+        }
+        finally {
+            $mol_fiber.deadline = deadline;
+        }
     }
     $.$mol_fiber_unlimit = $mol_fiber_unlimit;
     let $mol_fiber_solid = class $mol_fiber_solid extends $.$mol_wrapper {
@@ -1826,7 +1865,7 @@ var $;
             return promise;
         }
         schedule() {
-            $mol_fiber_1.schedule().then(this.wake.bind(this));
+            $mol_fiber_1.schedule().then($.$mol_log_group('$mol_fiber_scheduled', this.wake.bind(this)));
         }
         wake() {
             this.$.$mol_log(this, '⏰');
