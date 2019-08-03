@@ -2899,9 +2899,7 @@ var $;
     (function ($$) {
         class $mol_ghost extends $.$mol_ghost {
             dom_node() {
-                const Sub = this.Sub();
-                Sub.$ = this.$;
-                const node = Sub.dom_node();
+                const node = this.Sub().dom_node();
                 $.$mol_dom_render_attributes(node, this.attr_static());
                 $.$mol_dom_render_events(node, this.event());
                 $.$mol_dom_render_events_async(node, this.event_async());
@@ -3290,15 +3288,9 @@ var $;
         static link(next) {
             return this.make_link($.$mol_merge_dict(this.dict_cut(Object.keys(next)), next));
         }
-        static allowed_keys(next) {
-            return [];
-        }
         static make_link(next) {
             const chunks = [];
-            const allowed_keys = this.allowed_keys();
             for (let key in next) {
-                if (allowed_keys.length && allowed_keys.indexOf(key) === -1)
-                    continue;
                 if (null == next[key])
                     continue;
                 chunks.push([key].concat(next[key] ? next[key] : []).map(this.encode).join('='));
@@ -3453,6 +3445,48 @@ var $;
             $.$mol_mem
         ], $mol_link.prototype, "current", null);
         $$.$mol_link = $mol_link;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//link.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mpk_tss_link extends $.$mol_link {
+        copy_params() {
+            return [].concat();
+        }
+    }
+    $.$mpk_tss_link = $mpk_tss_link;
+})($ || ($ = {}));
+//link.view.tree.js.map
+;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mpk_tss_link extends $.$mpk_tss_link {
+            uri() {
+                const arg = this.$.$mol_state_arg;
+                const dict = arg.dict();
+                const params = this.copy_params();
+                const href_args = Object.assign({}, this.arg());
+                for (let key of params)
+                    href_args[key] = dict[key];
+                return arg.make_link(href_args);
+            }
+        }
+        __decorate([
+            $.$mol_mem
+        ], $mpk_tss_link.prototype, "uri", null);
+        $$.$mpk_tss_link = $mpk_tss_link;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //link.view.js.map
@@ -4839,31 +4873,12 @@ var $;
 //page.view.tree.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     var $$;
     (function ($$) {
         class $mpk_tss_pereferial_page extends $.$mpk_tss_pereferial_page {
-            context_sub() {
-                class $mpk_tss_pereferial_state_arg extends this.$.$mol_state_arg {
-                    static allowed_keys() {
-                        return [...super.allowed_keys(), 'unit'];
-                    }
-                }
-                return this.$.$mol_ambient({
-                    $mol_state_arg: $mpk_tss_pereferial_state_arg,
-                });
-            }
         }
-        __decorate([
-            $.$mol_mem
-        ], $mpk_tss_pereferial_page.prototype, "context_sub", null);
         $$.$mpk_tss_pereferial_page = $mpk_tss_pereferial_page;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -6071,8 +6086,9 @@ var $;
                     "unit": null,
                 });
                 obj.sub = () => [].concat(this.Details_close_icon());
+                obj.copy_params = () => [].concat("login", "page");
                 return obj;
-            })(new this.$.$mol_link());
+            })(new this.$.$mpk_tss_link());
         }
         Details_close_icon() {
             return ((obj) => {
@@ -6207,7 +6223,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var $;
 (function ($) {
-    class $mpk_tss_card extends $.$mol_link {
+    class $mpk_tss_card extends $.$mpk_tss_link {
         minimal_height() {
             return 32;
         }
@@ -6313,6 +6329,9 @@ var $;
         }
         unit_id() {
             return "";
+        }
+        copy_params() {
+            return [].concat("login", "page", "units");
         }
         status() {
             return this.unit_status();
@@ -6778,28 +6797,12 @@ var $;
 //page.view.tree.js.map
 ;
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var $;
 (function ($) {
     var $$;
     (function ($$) {
         class $mpk_tss_reports_train_page extends $.$mpk_tss_reports_train_page {
-            context_sub() {
-                class $mpk_tss_train_state_arg extends this.$.$mol_state_arg {
-                }
-                return this.$.$mol_ambient({
-                    $mol_state_arg: $mpk_tss_train_state_arg,
-                });
-            }
         }
-        __decorate([
-            $.$mol_mem
-        ], $mpk_tss_reports_train_page.prototype, "context_sub", null);
         $$.$mpk_tss_reports_train_page = $mpk_tss_reports_train_page;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -7229,6 +7232,9 @@ var $;
         report_id() {
             return "";
         }
+        copy_params() {
+            return [].concat("login", "page", "trains", "carriages", "train_warning", "carriage_warning");
+        }
         status() {
             return this.resolution();
         }
@@ -7618,6 +7624,9 @@ var $;
         carriage_id() {
             return "";
         }
+        copy_params() {
+            return [].concat("login", "page", "report", "carriages", "trains", "train_warning", "carriage_warning");
+        }
         title() {
             return this.$.$mol_locale.text("$mpk_tss_reports_carriage_link_title");
         }
@@ -7966,7 +7975,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var $;
 (function ($) {
-    class $mpk_tss_reports_axle_link extends $.$mol_link {
+    class $mpk_tss_reports_axle_link extends $.$mpk_tss_link {
         axle() {
             return null;
         }
@@ -7977,6 +7986,9 @@ var $;
         }
         axle_id() {
             return "";
+        }
+        copy_params() {
+            return [].concat("login", "page", "report", "carriage", "trains", "carriages", "train_warining", "carriage_warining");
         }
         sub() {
             return [].concat(this.Wheels());
@@ -10075,8 +10087,9 @@ var $;
                     "carriage": null,
                 });
                 obj.sub = () => [].concat(this.Close_icon());
+                obj.copy_params = () => [].concat("page", "login", "report", "carriages", "trains", "train_warning", "carriage_warning");
                 return obj;
-            })(new this.$.$mol_link());
+            })(new this.$.$mpk_tss_link());
         }
         Close_icon() {
             return ((obj) => {
@@ -10095,7 +10108,6 @@ var $;
         Info() {
             return ((obj) => {
                 obj.carriage = () => this.carriage();
-                obj.arg = () => null;
                 obj.additional = () => [].concat(this.Weight(), this.Type(), this.Length(), this.Violation());
                 return obj;
             })(new this.$.$mpk_tss_reports_carriage_link());
@@ -10315,8 +10327,9 @@ var $;
                     "report": null,
                 });
                 obj.sub = () => [].concat(this.Details_close_icon());
+                obj.copy_params = () => [].concat("login", "page", "trains", "carriages", "train_warining", "carriage_warining");
                 return obj;
-            })(new this.$.$mol_link());
+            })(new this.$.$mpk_tss_link());
         }
         Details_close_icon() {
             return ((obj) => {
@@ -11750,8 +11763,9 @@ var $;
             return ((obj) => {
                 obj.arg = () => this.menu_page_arg(id);
                 obj.title = () => this.menu_page_title(id);
+                obj.copy_params = () => [].concat("login");
                 return obj;
-            })(new this.$.$mol_link());
+            })(new this.$.$mpk_tss_link());
         }
         menu_page_arg(id) {
             return ({});
@@ -11811,8 +11825,9 @@ var $;
                     "page": null,
                 });
                 obj.sub = () => [].concat(this.Details_close_icon());
+                obj.copy_params = () => [].concat("login");
                 return obj;
-            })(new this.$.$mol_link());
+            })(new this.$.$mpk_tss_link());
         }
         Details_close_icon() {
             return ((obj) => {
@@ -12030,13 +12045,6 @@ var $;
         ], $mpk_tss.prototype, "context", null);
         $$.$mpk_tss = $mpk_tss;
         class $mpk_tss_main extends $.$mpk_tss_main {
-            context_sub() {
-                class $mpk_tss_state_arg extends this.$.$mol_state_arg {
-                }
-                return this.$.$mol_ambient({
-                    $mol_state_arg: $mpk_tss_state_arg,
-                });
-            }
             Pereferial() {
                 const Pereferial = super.Pereferial();
                 Pereferial.$ = this.$;
@@ -12103,9 +12111,6 @@ var $;
                 ];
             }
         }
-        __decorate([
-            $.$mol_mem
-        ], $mpk_tss_main.prototype, "context_sub", null);
         __decorate([
             $.$mol_mem
         ], $mpk_tss_main.prototype, "page_id", null);
@@ -13475,7 +13480,10 @@ var $;
     $.$mpk_tss_summary = $mpk_tss_summary;
 })($ || ($ = {}));
 (function ($) {
-    class $mpk_tss_summary_item extends $.$mol_link {
+    class $mpk_tss_summary_item extends $.$mpk_tss_link {
+        copy_params() {
+            return [].concat("login");
+        }
         type() {
             return "";
         }

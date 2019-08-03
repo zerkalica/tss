@@ -197,6 +197,10 @@ $mol_link $mol_view
 		^
 		click?event <=> click?event <=> event_click?event null
 
+$mpk_tss_link $mol_link
+	copy_params /string
+
+
 $mol_scroll $mol_view
 	minimal_height 0
 	moving_hor?val false
@@ -478,9 +482,12 @@ $mpk_tss_pereferial_details $mol_page
 	unit null
 	minimal_width 400
 	tools /
-		<= Details_close $mol_link
+		<= Details_close $mpk_tss_link
 			arg * unit null
 			sub / <= Details_close_icon $mol_icon_cross
+			copy_params /
+				\login
+				\page
 	body /
 		<= unit_details null
 	Ups $mpk_tss_pereferial_ups
@@ -498,7 +505,7 @@ $mol_card $mol_list
 			sub /
 				<= status_text <= status \
 
-$mpk_tss_card $mol_link
+$mpk_tss_card $mpk_tss_link
 	minimal_height 32
 	sub /
 		<= Card $mol_card
@@ -517,6 +524,10 @@ $mpk_tss_card $mol_link
 $mpk_tss_pereferial_link $mpk_tss_card
 	unit null
 	arg * unit <= unit_id \
+	copy_params /
+		\login
+		\page
+		\units
 	status <= unit_status \
 	Status_text $mpk_tss_pereferial_status
 		colors false
@@ -636,6 +647,13 @@ $mpk_tss_reports_delivery $mol_view
 $mpk_tss_reports_train_link $mpk_tss_card
 	report null
 	arg * report <= report_id \
+	copy_params /
+		\login
+		\page
+		\trains
+		\carriages
+		\train_warning
+		\carriage_warning
 	status <= resolution
 	Status_text $mpk_tss_reports_resolution
 		status <= resolution \
@@ -701,6 +719,14 @@ $mpk_tss_reports_carriage_link $mpk_tss_card
 	minimal_height 100
 	carriage null
 	arg * carriage <= carriage_id \
+	copy_params /
+		\login
+		\page
+		\report
+		\carriages
+		\trains
+		\train_warning
+		\carriage_warning
 	title @ \Train %train_number | Carriage %carriage_number
 	status <= resolution \
 	Status_text $mol_view
@@ -756,9 +782,18 @@ $mpk_tss_reports_wheel_link $mol_view
 	sub /
 		<= name \
 
-$mpk_tss_reports_axle_link $mol_link
+$mpk_tss_reports_axle_link $mpk_tss_link
 	axle null
 	arg * axle <= axle_id \
+	copy_params /
+		\login
+		\page
+		\report
+		\carriage
+		\trains
+		\carriages
+		\train_warining
+		\carriage_warining
 	sub /
 		<= Wheels $mol_list
 			rows /
@@ -1124,14 +1159,21 @@ $mpk_tss_reports_carriage_details $mol_page
 	title @ \Train %train_number | Carriage %carriage_number
 	minimal_width 1400
 	tools /
-		<= Close $mol_link
+		<= Close $mpk_tss_link
 			arg * carriage null
 			sub / <= Close_icon $mol_icon_cross
+			copy_params /
+				\page
+				\login
+				\report
+				\carriages
+				\trains
+				\train_warning
+				\carriage_warning
 	body /
 		<= Main $mol_row sub /
 			<= Info $mpk_tss_reports_carriage_link
 				carriage <= carriage
-				arg null
 				additional /
 					<= Weight $mol_labeler
 						title <= total_weight_title @ \Total weight
@@ -1164,9 +1206,16 @@ $mpk_tss_reports_carriage_list $mol_view
 			filter_warning?val <=> filter_warning?val true
 			event_top?e <=> event_top?e null
 			tools /
-				<= Details_close $mol_link
+				<= Details_close $mpk_tss_link
 					arg * report null
 					sub / <= Details_close_icon $mol_icon_cross
+					copy_params /
+						\login
+						\page
+						\trains
+						\carriages
+						\train_warining
+						\carriage_warining
 			body /
 				<= Carriages $mol_list
 					rows <= carriage_links /
@@ -1272,9 +1321,11 @@ $mpk_tss_main $mol_book
 				sub /
 					<= logged_email \
 			<= User_signout $mpk_tss_icon_exit_to_app
-	Menu_item!id $mol_link
+	Menu_item!id $mpk_tss_link
 		arg <= menu_page_arg!id *
 		title <= menu_page_title!id \
+		copy_params /
+			\login
 	menu_pages *
 		summary <= Summary $mpk_tss_summary
 			event_top?event <=> event_front_up?event
@@ -1291,9 +1342,11 @@ $mpk_tss_main $mol_book
 			tools <= common_tools
 			event_top?event <=> event_front_up?event
 	common_tools /
-		<= Details_close $mol_link
+		<= Details_close $mpk_tss_link
 			arg * page null
 			sub / <= Details_close_icon $mol_icon_cross
+			copy_params /
+				\login
 	pages /
 		<= Sidebar $mol_page
 			head /
@@ -1542,7 +1595,9 @@ $mpk_tss_summary $mol_page
 					\ Wed 24 Apr 2019 02:31:35 PM MSK: Values processing finished. Violation detected
 					\ Wed 24 Apr 2019 02:30:05 PM MSK: Values processing started
 
-$mpk_tss_summary_item $mol_link
+$mpk_tss_summary_item $mpk_tss_link
+	copy_params /
+		\login
 	type \
 	sub /
 		<= Title $mol_view
