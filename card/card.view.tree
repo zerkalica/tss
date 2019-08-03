@@ -1,4 +1,4 @@
-$mpk_tss_card $mol_link
+$mpk_tss_card $mpk_tss_link
 	minimal_height 32
 	sub /
 		<= Card $mol_card

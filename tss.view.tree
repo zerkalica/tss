@@ -23,9 +23,11 @@ $mpk_tss_main $mol_book
 				sub /
 					<= logged_email \
 			<= User_signout $mpk_tss_icon_exit_to_app
-	Menu_item!id $mol_link
+	Menu_item!id $mpk_tss_link
 		arg <= menu_page_arg!id *
 		title <= menu_page_title!id \
+		copy_params /
+			\login
 	menu_pages *
 		summary <= Summary $mpk_tss_summary
 			event_top?event <=> event_front_up?event
@@ -42,9 +44,11 @@ $mpk_tss_main $mol_book
 			tools <= common_tools
 			event_top?event <=> event_front_up?event
 	common_tools /
-		<= Details_close $mol_link
+		<= Details_close $mpk_tss_link
 			arg * page null
 			sub / <= Details_close_icon $mol_icon_cross
+			copy_params /
+				\login
 	pages /
 		<= Sidebar $mol_page
 			head /

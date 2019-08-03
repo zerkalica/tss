@@ -3,14 +3,21 @@ $mpk_tss_reports_carriage_details $mol_page
 	title @ \Train %train_number | Carriage %carriage_number
 	minimal_width 1400
 	tools /
-		<= Close $mol_link
+		<= Close $mpk_tss_link
 			arg * carriage null
 			sub / <= Close_icon $mol_icon_cross
+			copy_params /
+				\page
+				\login
+				\report
+				\carriages
+				\trains
+				\train_warning
+				\carriage_warning
 	body /
 		<= Main $mol_row sub /
 			<= Info $mpk_tss_reports_carriage_link
 				carriage <= carriage
-				arg null
 				additional /
 					<= Weight $mol_labeler
 						title <= total_weight_title @ \Total weight

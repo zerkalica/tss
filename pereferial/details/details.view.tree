@@ -2,9 +2,12 @@ $mpk_tss_pereferial_details $mol_page
 	unit null
 	minimal_width 400
 	tools /
-		<= Details_close $mol_link
+		<= Details_close $mpk_tss_link
 			arg * unit null
 			sub / <= Details_close_icon $mol_icon_cross
+			copy_params /
+				\login
+				\page
 	body /
 		<= unit_details null
 	Ups $mpk_tss_pereferial_ups

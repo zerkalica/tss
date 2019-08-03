@@ -31,7 +31,9 @@ $mpk_tss_summary $mol_page
 					\ Wed 24 Apr 2019 02:31:35 PM MSK: Values processing finished. Violation detected
 					\ Wed 24 Apr 2019 02:30:05 PM MSK: Values processing started
 
-$mpk_tss_summary_item $mol_link
+$mpk_tss_summary_item $mpk_tss_link
+	copy_params /
+		\login
 	type \
 	sub /
 		<= Title $mol_view

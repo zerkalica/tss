@@ -1,6 +1,13 @@
 $mpk_tss_reports_train_link $mpk_tss_card
 	report null
 	arg * report <= report_id \
+	copy_params /
+		\login
+		\page
+		\trains
+		\carriages
+		\train_warning
+		\carriage_warning
 	status <= resolution
 	Status_text $mpk_tss_reports_resolution
 		status <= resolution \

@@ -2,6 +2,14 @@ $mpk_tss_reports_carriage_link $mpk_tss_card
 	minimal_height 100
 	carriage null
 	arg * carriage <= carriage_id \
+	copy_params /
+		\login
+		\page
+		\report
+		\carriages
+		\trains
+		\train_warning
+		\carriage_warning
 	title @ \Train %train_number | Carriage %carriage_number
 	status <= resolution \
 	Status_text $mol_view

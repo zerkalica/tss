@@ -32,19 +32,6 @@ namespace $.$$ {
 	}
 
 	export class $mpk_tss_main extends $.$mpk_tss_main {
-		@ $mol_mem
-		context_sub( ) {
-			class $mpk_tss_state_arg extends this.$.$mol_state_arg {
-				// static allowed_keys() {
-				// 	return [...super.allowed_keys(), 'page', 'login']
-				// }
-			}
-
-			return this.$.$mol_ambient({
-				$mol_state_arg: $mpk_tss_state_arg,
-			})
-		}
-
 		Pereferial() {
 			const Pereferial = super.Pereferial()
 			// see https://github.com/eigenmethod/mol/issues/324
@@ -95,7 +82,7 @@ namespace $.$$ {
 		}
 
 		menu_page_arg(id: string) {
-			return {page: id}
+			return { page: id }
 		}
 
 		logged_email() {

@@ -1,6 +1,15 @@
-$mpk_tss_reports_axle_link $mol_link
+$mpk_tss_reports_axle_link $mpk_tss_link
 	axle null
 	arg * axle <= axle_id \
+	copy_params /
+		\login
+		\page
+		\report
+		\carriage
+		\trains
+		\carriages
+		\train_warining
+		\carriage_warining
 	sub /
 		<= Wheels $mol_list
 			rows /

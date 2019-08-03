@@ -1,6 +1,10 @@
 $mpk_tss_pereferial_link $mpk_tss_card
 	unit null
 	arg * unit <= unit_id \
+	copy_params /
+		\login
+		\page
+		\units
 	status <= unit_status \
 	Status_text $mpk_tss_pereferial_status
 		colors false

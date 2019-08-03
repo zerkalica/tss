@@ -8,9 +8,16 @@ $mpk_tss_reports_carriage_list $mol_view
 			filter_warning?val <=> filter_warning?val true
 			event_top?e <=> event_top?e null
 			tools /
-				<= Details_close $mol_link
+				<= Details_close $mpk_tss_link
 					arg * report null
 					sub / <= Details_close_icon $mol_icon_cross
+					copy_params /
+						\login
+						\page
+						\trains
+						\carriages
+						\train_warining
+						\carriage_warining
 			body /
 				<= Carriages $mol_list
 					rows <= carriage_links /
