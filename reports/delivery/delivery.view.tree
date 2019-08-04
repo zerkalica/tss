@@ -1,7 +1,7 @@
 $mpk_tss_reports_delivery $mol_view
 	attr *
 		^
-		mpk_tss_reports_delivery_type <= status \
+		mpk_tss_reports_delivery_type <= status null
 	statuses *
 		preparing <= preparing @ \Preparing
 		sending <= sending @ \Sending

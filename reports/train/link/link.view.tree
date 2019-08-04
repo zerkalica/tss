@@ -10,7 +10,7 @@ $mpk_tss_reports_train_link $mpk_tss_card
 		\carriage_warning
 	status <= resolution
 	Status_text $mpk_tss_reports_resolution
-		status <= resolution \
+		status <= resolution null
 	status_click?event <=> report_status_click?event null
 	items /
 		<= Id $mol_labeler
@@ -25,7 +25,7 @@ $mpk_tss_reports_train_link $mpk_tss_card
 		<= Delivery $mol_labeler
 			title <= delivery_title @ \Delivery
 			Content <= Delivery_value $mpk_tss_reports_delivery
-				status <= delivery \
+				status <= delivery null
 		<= Train_number $mol_labeler
 			title <= train_number_title @ \Train
 			content <= train_number \

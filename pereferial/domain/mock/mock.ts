@@ -9,7 +9,7 @@ namespace $ {
 		}
 
 		@ $mol_mem
-		protected units_all() {
+		/* protected */ units_all() {
 			return $mpk_tss_stub_ids(this.max_units())
 				.map(id => this.unit(id))
 				.sort((unitA, unitB) => {
