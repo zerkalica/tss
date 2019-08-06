@@ -57,11 +57,12 @@ $mpk_tss_main $mol_book
 					event * click?val <=> event_top?val null
 			title <= sidebar_title @ \Menu
 			minimal_width 230
-			body / <= sidebar_items /
+			body
+				<= sidebar_items /
 				<= Login $mpk_tss_login
 					submit?v <=> login_submit?v false
 				<= Menu $mol_list
-					rows /
+					rows
 						<= menu_items /
 			foot /
 				<= Foot_content $mol_row

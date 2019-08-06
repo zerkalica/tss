@@ -43,8 +43,12 @@ namespace $.$$ {
 			return this.$.$mol_state_arg.value( this.state_key( 'report' ) , next ) || ''
 		}
 
+		pages() {
+			return super.pages().concat(this.Details_pages())
+		}
+
 		Details_pages() {
-			if (!this.report_current_id()) return null
+			if (!this.report_current_id()) return []
 			return this.Report_details(this.report_current_id()).pages()
 		}
 

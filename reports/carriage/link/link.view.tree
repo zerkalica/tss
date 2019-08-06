@@ -18,6 +18,7 @@ $mpk_tss_reports_carriage_link $mpk_tss_card
 			<= Violation $mpk_tss_reports_carriage_violation status <= violation \
 	Status_icon $mpk_tss_icon_cloud_download
 	status_click?event <=> carriage_status_click?event null
+	additional /
 	items /
 		<= Place $mol_labeler
 			title <= place_title @ \Place
@@ -32,4 +33,3 @@ $mpk_tss_reports_carriage_link $mpk_tss_card
 		<= Speed $mol_labeler
 			title <= speed_title @ \Speed
 			content <= Speed_formatted $mpk_tss_parameter_speed value <= speed 0
-		<= additional /

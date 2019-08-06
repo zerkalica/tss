@@ -13,7 +13,6 @@ $mpk_tss_reports_train_list $mol_view
 					current_id <= report_current_id?id \
 					minimal_width 300
 					rows <= report_links /
-		<= Details_pages null
 	-
 	Report_link!id $mpk_tss_reports_train_link
 		minimal_height 100

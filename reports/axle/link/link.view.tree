@@ -12,7 +12,7 @@ $mpk_tss_reports_axle_link $mpk_tss_link
 		\carriage_warining
 	sub /
 		<= Wheels $mol_list
-			rows /
+			rows
 				<= wheels /
 	Wheel!id $mpk_tss_reports_wheel_link
 		wheel <= wheel!id null

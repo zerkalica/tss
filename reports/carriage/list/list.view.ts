@@ -57,10 +57,5 @@ namespace $.$$ {
 		filter_number(next?: string) {
 			return this.$.$mol_state_arg.value( this.state_key( 'carriages' ) , next === '' ? null : next) || ''
 		}
-
-		destructor() {
-			this.filter_number(null)
-			this.carriage_id(null)
-		}
 	}
 }

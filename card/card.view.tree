@@ -6,10 +6,10 @@ $mpk_tss_card $mpk_tss_link
 			Status <= Status $mol_view
 				sub /
 					<= Status_text null
-					<= Tools $mol_view sub /
+					<= Tools $mol_view sub
 						<= tools /
 						<= Status_action $mol_button_minor
 							event_click?event <=> status_click?event null
 							sub / <= Status_icon $mpk_tss_icon_cloud_download
 			Content <= Content $mol_row
-				sub / <= items /
+				sub <= items /

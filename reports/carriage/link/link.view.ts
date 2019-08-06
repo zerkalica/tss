@@ -33,5 +33,9 @@ namespace $.$$ {
 		speed() {
 			return this.carriage().measured_speed()
 		}
+
+		items() {
+			return super.items().concat(this.additional())
+		}
 	}
 }

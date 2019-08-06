@@ -19,9 +19,9 @@ namespace $.$$ {
 			return this.terminal_text().replace('%terminal_number', this.terminal().id())
 		}
 
-		@ $mol_mem
-		context( next? : $mol_ambient_context ) {
-			return next || ($ as $mol_ambient_context).$mol_ambient({
+		@ $mol_atom2_field
+		get $(): $mol_ambient_context {
+			return (super.$ as $mol_ambient_context).$mol_ambient({
 				$mpk_tss_domain_terminal: $mpk_tss_domain_terminal_mock,
 				$mol_locale: $mpk_tss_locale,
 				$mpk_tss_domain_user: $mpk_tss_domain_user_mock,

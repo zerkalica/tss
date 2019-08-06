@@ -3,7 +3,7 @@ $mpk_tss_summary $mol_page
 	minimal_width 600
 	body /
 		<= Statuses $mpk_tss_summary_section
-			Content /
+			Content $mol_view sub /
 				<= All $mpk_tss_summary_status
 					type \warning
 				<= Software $mpk_tss_summary_item

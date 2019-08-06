@@ -1,7 +1,7 @@
 $mpk_tss_reports_axle_list $mol_list
 	carriage null
 	axle_current null
-	rows /
+	rows
 		<= axis /
 	Axle_link!id $mpk_tss_reports_axle_link
 		axle <= axle!id null
