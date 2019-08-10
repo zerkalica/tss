@@ -1132,7 +1132,7 @@ var $;
         },
     });
 })($ || ($ = {}));
-//arg.test.js.map
+//arg.web.test.js.map
 ;
 "use strict";
 var $;
@@ -1398,6 +1398,25 @@ var $;
     $.$mol_class = $mol_class;
 })($ || ($ = {}));
 //class.js.map
+;
+"use strict";
+globalThis['devtoolsFormatters'] = globalThis['devtoolsFormatters'] || [];
+//formatter.web.js.map
+;
+"use strict";
+globalThis['devtoolsFormatters'].push({
+    header: (val, config) => {
+        if (config)
+            return null;
+        if (!val)
+            return null;
+        if (!val[Symbol.toStringTag])
+            return null;
+        return ['object', { object: val, config: true }];
+    },
+    hasBody: () => false,
+});
+//simplify.web.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2696,9 +2715,11 @@ var $;
                         cache.obsolete(Number.NaN);
                     return cache.get();
                 }
-                if (force !== $.$mol_atom_force_cache)
-                    next = value.call(this, next);
-                return get_cache(this).push(next);
+                return $.$mol_fiber.run(() => {
+                    if (force !== $.$mol_atom_force_cache)
+                        next = value.call(this, next);
+                    return get_cache(this).put(next);
+                });
             }
         };
     }
