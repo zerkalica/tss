@@ -1657,7 +1657,7 @@ var $;
             $.$mol_dom_render_attributes(node, this.attr_static());
             const events = this.event();
             for (let event_name in events) {
-                node.addEventListener(event_name, $.$mol_fiber_root($.$mol_log_group(`${this} ${event_name}`, events[event_name])), { passive: false });
+                node.addEventListener(event_name, $.$mol_fiber_solid.func($.$mol_log_group(`${this} ${event_name}`, events[event_name])), { passive: false });
             }
             return node;
         }
@@ -1666,7 +1666,6 @@ var $;
             try {
                 for (let plugin of this.plugins()) {
                     if (plugin instanceof $.$mol_plugin) {
-                        plugin.dom_node(node);
                         plugin.render();
                     }
                 }
@@ -2668,7 +2667,7 @@ var $;
             $.$mol_dom_render_attributes(node, this.attr_static());
             const events = this.event();
             for (let event_name in events) {
-                node.addEventListener(event_name, $.$mol_fiber_root($.$mol_log_group(`${this} ${name}`, events[event_name])), { passive: false });
+                node.addEventListener(event_name, $.$mol_fiber_solid.func($.$mol_log_group(`${this} ${event_name}`, events[event_name])), { passive: false });
             }
             return node;
         }
@@ -2679,7 +2678,7 @@ var $;
             return {};
         }
         render() {
-            return this.dom_node();
+            return this.dom_node_actual();
         }
     }
     __decorate([
@@ -2898,6 +2897,9 @@ var $;
         }
         swipe_to_top(val, force) {
             return (val !== void 0) ? val : null;
+        }
+        style() {
+            return (Object.assign({}, super.style(), { "touch-action": "none" }));
         }
         event() {
             return (Object.assign({}, super.event(), { "touchstart": (event) => this.event_start(event), "touchmove": (event) => this.event_move(event), "touchend": (event) => this.event_end(event), "mousedown": (event) => this.event_start(event), "mousemove": (event) => this.event_move(event), "mouseup": (event) => this.event_end(event), "mouseleave": (event) => this.event_leave(event), "wheel": (event) => this.event_wheel(event) }));
