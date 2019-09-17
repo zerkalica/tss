@@ -3,6 +3,7 @@
 	display: block;
 	flex: 0 1 auto;
 	position: relative;
+	min-height: 110px;
 }
 
 [mpk_tss_card_content] {
