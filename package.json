@@ -1,14 +1,13 @@
 {
   "name": "mpk_tss",
-  "version": "0.0.86",
+  "version": "0.0.88",
   "main": "node.js",
   "module": "node.esm.js",
   "browser": "web.esm.js",
   "types": "web.d.ts",
   "dependencies": {
+    "colorette": "*",
     "jsdom": "*",
-    "path": "*",
-    "chokidar": "*",
-    "fs": "*"
+    "chokidar": "*"
   }
 }
