@@ -21,16 +21,21 @@ $mpk_tss_reports_carriage_details $mol_page
 				additional /
 					<= Weight $mol_labeler
 						title <= total_weight_title @ \Total weight
-						content <= Weight_content $mpk_tss_parameter_weight value <= total_weight 0
+						content /
+							<= Weight_content $mpk_tss_parameter_weight
+								value <= total_weight 0
 					<= Type $mol_labeler
 						title <= type_title @ \Type
-						content <= Type_content $mpk_tss_reports_carriage_type value <= type \
+						content /
+							<= Type_content $mpk_tss_reports_carriage_type
+								value <= type \
 					<= Length $mol_labeler
 						title <= length_title @ \Length
-						content <= Length_content $mpk_tss_parameter_length value <= length 0
+						content / <= Length_content $mpk_tss_parameter_length
+							value <= length 0
 					<= Violation $mol_labeler
 						title <= violation_title @ \Violation
-						content <= Violation_content $mpk_tss_reports_violation
+						content / <= Violation_content $mpk_tss_reports_violation
 							empty true
 							status <= violation \
 			<= Axle_list $mpk_tss_reports_axle_list

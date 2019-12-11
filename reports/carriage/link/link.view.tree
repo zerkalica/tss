@@ -15,21 +15,26 @@ $mpk_tss_reports_carriage_link $mpk_tss_card
 	Status_text $mol_view
 		sub /
 			<= Status_main $mpk_tss_reports_resolution status <= resolution null
-			<= Violation $mpk_tss_reports_carriage_violation status <= violation \
+			<= Violation $mpk_tss_reports_carriage_violation
+				status <= violation \
 	Status_icon $mpk_tss_icon_cloud_download
 	status_click?event <=> carriage_status_click?event null
 	additional /
 	items /
 		<= Place $mol_labeler
 			title <= place_title @ \Place
-			content <= place \
+			content /
+				<= place \
 		<= Carriage_number $mol_labeler
 			title <= carriage_number_title @ \Carriage
-			content <= carriage_number \
+			content /
+				<= carriage_number \
 		<= Load $mol_labeler
 			title <= load_title @ \Load
-			content <= Load_text $mpk_tss_reports_carriage_load
-				status <= load \
+			content /
+				<= Load_text $mpk_tss_reports_carriage_load
+					status <= load \
 		<= Speed $mol_labeler
 			title <= speed_title @ \Speed
-			content <= Speed_formatted $mpk_tss_parameter_speed value <= speed 0
+			content /
+				<= Speed_formatted $mpk_tss_parameter_speed value <= speed 0

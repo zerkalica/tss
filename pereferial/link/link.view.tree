@@ -14,7 +14,9 @@ $mpk_tss_pereferial_link $mpk_tss_card
 	items /
 		<= Type_item $mol_labeler
 			title <= type_title @ \Type
-			content <= type \
+			content /
+				<= type \
 		<= Name_item $mol_labeler
 			title <= name_title @ \Element
-			content <= name \
+			content /
+				<= name \
