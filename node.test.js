@@ -11950,7 +11950,7 @@ var $;
                 return this.report().train_number();
             }
             description() {
-                return $.$mol_stub_message(256);
+                return $.$mol_stub_message(1024);
             }
             resolution() {
                 return this.report().resolution();
