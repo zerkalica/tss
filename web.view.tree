@@ -165,6 +165,7 @@ $mol_button_minor $mol_button_typed
 
 $mol_book $mol_view
 	sub <= pages_wrapped /$mol_view
+	minimal_width 0
 	pages /$mol_view
 	plugins /$mol_plugin
 		<= Meter $mol_meter
@@ -275,7 +276,6 @@ $mpk_tss_link $mol_link
 
 
 $mol_link $mol_view
-	minimal_height 40
 	dom_name \a
 	attr *
 		^
@@ -315,8 +315,6 @@ $mol_scroll $mol_view
 		^
 		scrollTop <= scroll_top?val 0
 		scrollLeft <= scroll_left?val 0
-		scrollBottom <= scroll_bottom?val 0
-		scrollRight <= scroll_right?val 0
 	event *
 		^
 		scroll?event <=> event_scroll?event null
@@ -480,8 +478,11 @@ $mol_nav $mol_plugin
 		keydown?event <=> event_key?event null
 
 $mol_list $mol_view
+	over_render 1
 	sub <= rows /$mol_view
-	Empty null
+	Empty $mol_view
+	Gap_before $mol_view style * paddingTop <= gap_before 0
+	Gap_after $mol_view style * paddingTop <= gap_after 0
 
 $mol_icon_chevron $mol_icon path \M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z
 
@@ -571,12 +572,14 @@ $mol_row $mol_view
 
 $mol_row_sub $mol_view
 
-$mol_labeler $mol_view
-	sub /
+$mol_labeler $mol_list
+	rows /
 		<= Title $mol_view
+			minimal_height 21
 			sub <= label /$mol_view_content
 				<= title
 		<= Content $mol_view
+			minimal_height 24
 			sub <= content /
 
 $mpk_tss_parameter_date $mol_view
@@ -754,6 +757,10 @@ $mpk_tss_reports_train_link $mpk_tss_card
 			title <= train_number_title @ \Train
 			content /
 				<= train_number \
+		<= Description $mol_labeler
+			title <= description_title @ \Description
+			content /
+				<= description \
 
 $mpk_tss_reports_resolution $mol_view
 	attr *
@@ -1432,7 +1439,7 @@ $mol_expander $mol_list
 			sub <= content /
 
 $mol_check_expand $mol_check
-	minimal_height 32
+	minimal_height 40
 	Icon $mol_icon_chevron
 	level 0
 	style *
@@ -1510,6 +1517,7 @@ $mol_text_image $mol_view
 		<= title?val \
 
 $mol_grid $mol_scroll
+	row_height 40
 	row_ids /string[]
 	row_id!index null
 	col_ids /
@@ -1520,14 +1528,11 @@ $mol_grid $mol_scroll
 	-
 	sub /
 		<= Table $mol_grid_table
-			offset <= gap_top 0
-			sub <= rows_visible /$mol_view
-	rows /
+			sub <= rows /$mol_view
 	Head $mol_grid_row
-		height <= row_height 40
 		cells <= head_cells /$mol_view
 	Row!id $mol_grid_row
-		height <= row_height 40
+		minimal_height <= row_height
 		cells <= cells!id /$mol_view
 	-
 	Cell!id $mol_view
@@ -1548,26 +1553,16 @@ $mol_grid $mol_scroll
 			needle <= needle \
 			haystack <= cell_value!id \
 
-$mol_grid_table $mol_view
+$mol_grid_table $mol_list
 	dom_name \table
-	style *
-		^
-		top <= offset 0
-
-$mol_grid_gap $mol_view
-	style *
-		^
-		top <= offset 0
 
 $mol_grid_row $mol_view
 	dom_name \tr
-	style *
-		^
-		height <= height 40
 	sub <= cells /$mol_view
 
 $mol_grid_cell $mol_view
 	dom_name \td
+	minimal_height 40
 
 $mol_grid_number $mol_grid_cell
 

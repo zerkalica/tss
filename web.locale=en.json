@@ -62,6 +62,7 @@
 	"$mpk_tss_reports_resolution_warning": "Warning",
 	"$mpk_tss_reports_train_link_average_speed_title": "Speed",
 	"$mpk_tss_reports_train_link_delivery_title": "Delivery",
+	"$mpk_tss_reports_train_link_description_title": "Description",
 	"$mpk_tss_reports_train_link_id_title": "Id",
 	"$mpk_tss_reports_train_link_started_title": "Date",
 	"$mpk_tss_reports_train_link_train_number_title": "Train",

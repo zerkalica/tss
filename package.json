@@ -1,9 +1,9 @@
 {
   "name": "mpk_tss",
-  "version": "0.0.88",
+  "version": "0.0.1",
   "main": "node.js",
   "module": "node.esm.js",
-  "browser": "web.esm.js",
+  "browser": "web.js",
   "types": "web.d.ts",
   "dependencies": {
     "colorette": "*",
