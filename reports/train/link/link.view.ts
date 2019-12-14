@@ -12,6 +12,10 @@ namespace $.$$ {
 			return this.report().train_number()
 		}
 
+		description() {
+			return $mol_stub_message(256)
+		}
+
 		resolution() {
 			return this.report().resolution()
 		}

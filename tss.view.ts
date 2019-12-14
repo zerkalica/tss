@@ -19,9 +19,9 @@ namespace $.$$ {
 			return this.terminal_text().replace('%terminal_number', this.terminal().id())
 		}
 
-		@ $mol_atom2_field
-		get $(): $mol_ambient_context {
-			return (super.$ as $mol_ambient_context).$mol_ambient({
+		@ $mol_memo.field
+		get $() {
+			return super.$.$mol_ambient({
 				$mpk_tss_domain_terminal: $mpk_tss_domain_terminal_mock,
 				$mol_locale: $mpk_tss_locale,
 				$mpk_tss_domain_user: $mpk_tss_domain_user_mock,
@@ -32,21 +32,6 @@ namespace $.$$ {
 	}
 
 	export class $mpk_tss_main extends $.$mpk_tss_main {
-		Pereferial() {
-			const Pereferial = super.Pereferial()
-			// see https://github.com/eigenmethod/mol/issues/324
-
-			Pereferial.$ = this.$
-			return Pereferial
-		}
-
-		Reports() {
-			const Reports = super.Reports()
-			// see https://github.com/eigenmethod/mol/issues/324
-			Reports.$ = this.$
-			return Reports
-		}
-
 		copyright() {
 			return super.copyright().replace('%year', '' + new Date().getFullYear())
 		}
