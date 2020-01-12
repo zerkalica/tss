@@ -636,8 +636,8 @@ declare namespace $ {
 declare namespace $ {
     function $mpk_tss_stub_id(): string;
     function $mpk_tss_stub_ids(max?: number): string[];
+    function $mpk_tss_stub_pick_random<Value>(list: Value[], count_max?: number): Set<Value>;
     function $mpk_tss_stub_number(min?: number, max?: number): number;
-    function $mpk_tss_stub_mem<Host, Value>(obj: Host, name: string, descr: TypedPropertyDescriptor<(id?: string | Object) => Value>): void;
 }
 
 declare namespace $ {

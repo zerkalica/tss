@@ -2625,30 +2625,20 @@ var $;
         return ids;
     }
     $.$mpk_tss_stub_ids = $mpk_tss_stub_ids;
+    function $mpk_tss_stub_pick_random(list, count_max = 1) {
+        const result = new Set();
+        while (count_max > 0) {
+            const index = Math.floor(Math.random() * list.length);
+            result.add(list[index]);
+            count_max--;
+        }
+        return result;
+    }
+    $.$mpk_tss_stub_pick_random = $mpk_tss_stub_pick_random;
     function $mpk_tss_stub_number(min = 20, max = 80) {
         return min + Math.floor(Math.random() * (max - min));
     }
     $.$mpk_tss_stub_number = $mpk_tss_stub_number;
-    function $mpk_tss_stub_mem(obj, name, descr) {
-        const value = descr.value;
-        const store = new WeakMap();
-        descr.value = function $mpk_tss_stub_mem_value(id) {
-            let map = store.get(this);
-            if (!map) {
-                map = new Map();
-                store.set(this, map);
-            }
-            const key = JSON.stringify(id);
-            let result = map.get(key);
-            if (result === undefined) {
-                result = value.call(this, id);
-                map.set(key, result);
-            }
-            return result;
-        };
-        descr.value['value'] = value;
-    }
-    $.$mpk_tss_stub_mem = $mpk_tss_stub_mem;
 })($ || ($ = {}));
 //stub.js.map
 ;
@@ -3000,25 +2990,25 @@ var $;
         }
     }
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_pereferial_domain_mock_ups.prototype, "status", null);
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_pereferial_domain_mock_ups.prototype, "name", null);
     __decorate([
         $.$mol_mem
     ], $mpk_tss_pereferial_domain_mock_ups.prototype, "updated", null);
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_pereferial_domain_mock_ups.prototype, "power_source", null);
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_pereferial_domain_mock_ups.prototype, "voltage", null);
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_pereferial_domain_mock_ups.prototype, "battery_level", null);
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_pereferial_domain_mock_ups.prototype, "battery_time", null);
     function $mpk_tss_pereferial_domain_mock_stub_status() {
         return $.$mol_stub_select_random([
@@ -3199,7 +3189,7 @@ var $;
         reports() {
             const filter_number = this.filter_number().toUpperCase();
             const filter_resolution = this.filter_resolution();
-            return this.reports_all()
+            const result = this.reports_all()
                 .filter(report => {
                 if (filter_number && report.train_number().toUpperCase().indexOf(filter_number) === -1) {
                     return false;
@@ -3209,13 +3199,14 @@ var $;
                 }
                 return true;
             });
+            return result;
         }
     }
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_trains.prototype, "report", null);
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_trains.prototype, "reports_all", null);
     __decorate([
         $.$mol_mem
@@ -3229,11 +3220,10 @@ var $;
             return $.$mpk_tss_stub_number(0, 10);
         }
         resolution() {
-            return this.carriages_store().carriages_all().reduce((status, carriage) => {
-                if (carriage.resolution() === $.$mpk_tss_reports_domain_resolution.warning)
-                    return $.$mpk_tss_reports_domain_resolution.warning;
-                return status;
-            }, $.$mpk_tss_reports_domain_resolution.success);
+            return $.$mol_stub_select_random([
+                $.$mpk_tss_reports_domain_resolution.warning,
+                $.$mpk_tss_reports_domain_resolution.success
+            ]);
         }
         delivery() {
             return $mpk_tss_reports_domain_mock_stub_report_status();
@@ -3246,43 +3236,46 @@ var $;
         }
         carriages_store() {
             return $mpk_tss_reports_domain_mock_carriages.make({
+                parent_resolution: () => this.resolution(),
                 train: $.$mol_const(this),
             });
         }
         carriages(config) {
-            return $mpk_tss_reports_domain_mock_carriages.make(Object.assign(Object.assign({}, config), { carriages_all: () => this.carriages_store().carriages_all(), carriage: (id) => this.carriages_store().carriage(id) }));
+            return $mpk_tss_reports_domain_mock_carriages.make(Object.assign(Object.assign({}, config), { parent_resolution: () => this.carriages_store().parent_resolution(), carriages_all: () => this.carriages_store().carriages_all(), carriage: (id) => this.carriages_store().carriage(id) }));
         }
     }
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_report.prototype, "train_number", null);
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_report.prototype, "send_count", null);
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_report.prototype, "resolution", null);
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_report.prototype, "delivery", null);
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_report.prototype, "average_speed", null);
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_report.prototype, "started", null);
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_report.prototype, "carriages_store", null);
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_report.prototype, "carriages", null);
     class $mpk_tss_reports_domain_mock_carriages extends $.$mpk_tss_reports_domain_carriages {
+        parent_resolution() { throw new $.$mpk_tss_todo; }
         train() { throw new $.$mpk_tss_todo; }
         carriages_all() {
             return $.$mpk_tss_stub_ids($.$mpk_tss_stub_number(30, 45)).map((id, index) => {
                 return $mpk_tss_reports_domain_mock_carriage.make({
                     id: $.$mol_const(id),
+                    resolution: $.$mol_const(this.parent_resolution()),
                     train: $.$mol_const(this.train()),
                     place: $.$mol_const(index + 1),
                 });
@@ -3307,10 +3300,13 @@ var $;
         }
     }
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
+    ], $mpk_tss_reports_domain_mock_carriages.prototype, "parent_resolution", null);
+    __decorate([
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_carriages.prototype, "train", null);
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_carriages.prototype, "carriages_all", null);
     __decorate([
         $.$mol_mem
@@ -3320,12 +3316,7 @@ var $;
             return $.$mpk_tss_stub_number(1, 50);
         }
         resolution() {
-            return this.axis().reduce((resolution, axle) => {
-                if (axle.resolution() !== $.$mpk_tss_reports_domain_resolution.success) {
-                    return axle.resolution();
-                }
-                return resolution;
-            }, $.$mpk_tss_reports_domain_resolution.success);
+            throw new $.$mpk_tss_todo;
         }
         carriage_number() {
             return '' + $.$mpk_tss_stub_number(1000, 9000) + '-' + $.$mpk_tss_stub_number(1000, 9000);
@@ -3356,9 +3347,16 @@ var $;
             }, null);
         }
         axis() {
-            return [1, 2, 3, 4].map(index => {
+            const range = [1, 2, 3, 4];
+            const resolution = this.resolution();
+            const error_count = resolution !== $.$mpk_tss_reports_domain_resolution.success ? range.length : 0;
+            const error_items = $.$mpk_tss_stub_pick_random(range, error_count);
+            return range.map(index => {
                 return $mpk_tss_reports_domain_mock_axle.make({
                     id: $.$mol_const(String(index)),
+                    resolution: $.$mol_const(error_items.has(index)
+                        ? resolution
+                        : $.$mpk_tss_reports_domain_resolution.success),
                     axle_number: $.$mol_const(index),
                 });
             });
@@ -3368,46 +3366,41 @@ var $;
         }
     }
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_carriage.prototype, "place", null);
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_carriage.prototype, "resolution", null);
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_carriage.prototype, "carriage_number", null);
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_carriage.prototype, "load", null);
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_carriage.prototype, "type", null);
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_carriage.prototype, "length", null);
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_carriage.prototype, "total_weight", null);
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_carriage.prototype, "measured_speed", null);
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_carriage.prototype, "violation", null);
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_carriage.prototype, "axis", null);
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_carriage.prototype, "axle", null);
     class $mpk_tss_reports_domain_mock_axle extends $.$mpk_tss_reports_domain_axle {
         resolution() {
-            return this.wheels().reduce((resolution, wheel) => {
-                if (wheel.resolution() !== $.$mpk_tss_reports_domain_resolution.success) {
-                    return wheel.resolution();
-                }
-                return resolution;
-            }, $.$mpk_tss_reports_domain_resolution.success);
+            throw new $.$mpk_tss_todo;
         }
         violation() {
             if (this.resolution() === $.$mpk_tss_reports_domain_resolution.success)
@@ -3420,8 +3413,15 @@ var $;
             }, null);
         }
         wheels() {
-            return [1, 2].map(id => $mpk_tss_reports_domain_mock_wheel.make({
+            const range = [1, 2];
+            const resolution = this.resolution();
+            const error_count = resolution !== $.$mpk_tss_reports_domain_resolution.success ? range.length : 0;
+            const error_items = $.$mpk_tss_stub_pick_random(range, error_count);
+            return range.map(id => $mpk_tss_reports_domain_mock_wheel.make({
                 id: $.$mol_const('' + id),
+                resolution: $.$mol_const(error_items.has(id)
+                    ? resolution
+                    : $.$mpk_tss_reports_domain_resolution.success),
             }));
         }
         wheel(id) {
@@ -3429,22 +3429,20 @@ var $;
         }
     }
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_axle.prototype, "resolution", null);
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_axle.prototype, "violation", null);
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_axle.prototype, "wheels", null);
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_axle.prototype, "wheel", null);
     class $mpk_tss_reports_domain_mock_wheel extends $.$mpk_tss_reports_domain_wheel {
         resolution() {
-            if (Math.random() > 0.999)
-                return $.$mpk_tss_reports_domain_resolution.warning;
-            return $.$mpk_tss_reports_domain_resolution.success;
+            throw new $.$mpk_tss_todo;
         }
         violation() {
             if (this.resolution() === $.$mpk_tss_reports_domain_resolution.success)
@@ -3470,13 +3468,13 @@ var $;
         }
     }
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_wheel.prototype, "resolution", null);
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_wheel.prototype, "violation", null);
     __decorate([
-        $.$mpk_tss_stub_mem
+        $.$mol_memo.method
     ], $mpk_tss_reports_domain_mock_wheel.prototype, "forces", null);
     function $mpk_tss_reports_domain_mock_stub_carriage_type() {
         return $.$mol_stub_select_random([
