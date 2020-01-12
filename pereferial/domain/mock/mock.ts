@@ -36,12 +36,12 @@ namespace $ {
 	}
 
 	class $mpk_tss_pereferial_domain_mock_ups extends $mpk_tss_pereferial_domain_ups {
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		status() {
 			return $mpk_tss_pereferial_domain_mock_stub_status()
 		}
 
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		name() {
 			const firm = $mol_stub_select_random( [
 				'Shtil 1103L',
@@ -58,24 +58,24 @@ namespace $ {
 			return $mol_stub_time(-60)
 		}
 
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		power_source() {
 			if (this.status() === $mpk_tss_pereferial_domain_status.unknown) return null
 			return $mol_stub_select_random(['linein', 'internal'] as $mpk_tss_pereferial_domain_ups_power_source[])
 		}
 
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		voltage(): number {
 			if (this.status() === $mpk_tss_pereferial_domain_status.unknown) return null
 			return $mpk_tss_stub_number(0, 250)
 		}
 
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		battery_level(): number {
 			if (this.status() === $mpk_tss_pereferial_domain_status.unknown) return null
 			return $mpk_tss_stub_number(0, 100)
 		}
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		battery_time(): $mol_time_duration {
 			if (this.status() === $mpk_tss_pereferial_domain_status.unknown) return null
 			return new $mol_time_duration({minute: $mpk_tss_stub_number(0, 300)})

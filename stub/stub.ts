@@ -9,38 +9,21 @@ namespace $ {
 			ids.push($mpk_tss_stub_id())
 		}
 		return ids
-	} 
+	}
+	
+	export function $mpk_tss_stub_pick_random< Value >( list : Value[], count_max = 1 ) {
+		const result = new Set<Value>()
+		while (count_max > 0) {
+			const index = Math.floor( Math.random() * list.length )
+			result.add(list[index])
+			count_max--
+		}
+
+		return result
+	}
+	
 
 	export function $mpk_tss_stub_number(min = 20, max = 80) {
 		return min + Math.floor(Math.random() * (max - min))
 	}
-
-	export function $mpk_tss_stub_mem< Host , Value >(
-		obj : Host ,
-		name : string ,
-		descr : TypedPropertyDescriptor< ( id?: string | Object )=> Value >
-	) {
-
-		const value = descr.value!
-		const store = new WeakMap< Object , Map<string, Value> >()
-		
-		descr.value = function $mpk_tss_stub_mem_value( id?: string | Object ) {
-			let map = store.get(this)
-			if (!map) {
-				map = new Map()
-				store.set(this, map)
-			}
-
-			const key = JSON.stringify(id)
-			let result = map.get(key)
-			if (result === undefined) {
-				result = value.call(this, id)
-				map.set(key, result)
-			}
-			return result
-		}
-
-		descr.value[ 'value' ] = value
-	}
-
 }

@@ -13,7 +13,7 @@ namespace $.$$ {
 		}
 
 		description() {
-			return $mol_stub_message(256)
+			return $mol_stub_message(1024)
 		}
 
 		resolution() {

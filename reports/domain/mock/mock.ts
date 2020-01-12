@@ -2,12 +2,12 @@ namespace $ {
 	export class $mpk_tss_reports_domain_mock_trains extends $mpk_tss_reports_domain_trains {
 		max_reports() { return 10000 }
 
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		report(id: string): $mpk_tss_reports_domain_report {
 			return this.reports_all().find(report => report.id() === id) || this.reports_all()[0]
 		}
 
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		reports_all(): $mpk_tss_reports_domain_report[] {
 			return $mpk_tss_stub_ids(this.max_reports())
 				.map(id => $mpk_tss_reports_domain_mock_report.make({ id: $mol_const(id) }))
@@ -22,7 +22,7 @@ namespace $ {
 		reports(): $mpk_tss_reports_domain_report[] {
 			const filter_number = this.filter_number().toUpperCase()
 			const filter_resolution = this.filter_resolution()
-			return this.reports_all()
+			const result = this.reports_all()
 				.filter(report => {
 					if (filter_number && report.train_number().toUpperCase().indexOf(filter_number) === -1) {
 						return false
@@ -34,55 +34,58 @@ namespace $ {
 
 					return true
 				})
-			}
+
+			return result
+		}
 	}
 
 	class $mpk_tss_reports_domain_mock_report extends $mpk_tss_reports_domain_report {
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		train_number() {
 			return '' + $mpk_tss_stub_number(1000, 9000) + '-' + $mpk_tss_stub_number(1000, 9000)
 		}
 
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		send_count() {
 			return $mpk_tss_stub_number(0, 10)
 		}
 
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		resolution() {
-			return this.carriages_store().carriages_all().reduce((status, carriage) => {
-				if (carriage.resolution() === $mpk_tss_reports_domain_resolution.warning)
-					return $mpk_tss_reports_domain_resolution.warning
-				return status
-			}, $mpk_tss_reports_domain_resolution.success)
+			return $mol_stub_select_random([
+				$mpk_tss_reports_domain_resolution.warning,
+				$mpk_tss_reports_domain_resolution.success
+			] as $mpk_tss_reports_domain_resolution[])
 		}
 
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		delivery() {
 			return $mpk_tss_reports_domain_mock_stub_report_status()
 		}
 
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		average_speed() {
 			return $mpk_tss_stub_number(50, 55)
 		}
 
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		started() {
 			return $mol_stub_time(-10)
 		}
 
-		@$mpk_tss_stub_mem
-		protected carriages_store(): $mpk_tss_reports_domain_mock_carriages {
+		@$mol_memo.method
+		carriages_store(): $mpk_tss_reports_domain_mock_carriages {
 			return $mpk_tss_reports_domain_mock_carriages.make({
+				parent_resolution: () => this.resolution(),
 				train: $mol_const(this),
 			})
 		}
 
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		carriages(config?: Partial<$mpk_tss_reports_domain_carriages>): $mpk_tss_reports_domain_carriages {
 			return $mpk_tss_reports_domain_mock_carriages.make({
 				...config,
+				parent_resolution: () => this.carriages_store().parent_resolution(),
 				carriages_all: () => this.carriages_store().carriages_all(),
 				carriage: (id: string) => this.carriages_store().carriage(id),
 			})
@@ -90,14 +93,18 @@ namespace $ {
 	}
 
 	class $mpk_tss_reports_domain_mock_carriages extends $mpk_tss_reports_domain_carriages {
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
+		parent_resolution(): $mpk_tss_reports_domain_resolution { throw new $mpk_tss_todo }
+
+		@$mol_memo.method
 		train(): $mpk_tss_reports_domain_report { throw new $mpk_tss_todo }
 
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		carriages_all(): $mpk_tss_reports_domain_carriage[] {
 			return $mpk_tss_stub_ids($mpk_tss_stub_number(30, 45)).map((id, index) => {
 				return $mpk_tss_reports_domain_mock_carriage.make({
 					id : $mol_const(id),
+					resolution: $mol_const(this.parent_resolution()),
 					train: $mol_const(this.train()),
 					place: $mol_const(index + 1),
 				})
@@ -129,55 +136,48 @@ namespace $ {
 	}
 
 	class $mpk_tss_reports_domain_mock_carriage extends $mpk_tss_reports_domain_carriage {
-		@$mpk_tss_stub_mem
+
+		@$mol_memo.method
 		place() {
 			return $mpk_tss_stub_number(1, 50)
 		}
 
-		@$mpk_tss_stub_mem
-		resolution() {
-			return this.axis().reduce(
-				(resolution, axle) => {
-					if (axle.resolution() !== $mpk_tss_reports_domain_resolution.success) {
-						return axle.resolution()
-					}
-					return resolution
-				},
-				$mpk_tss_reports_domain_resolution.success
-			)
+		@$mol_memo.method
+		resolution(): $mpk_tss_reports_domain_resolution {
+			throw new $mpk_tss_todo
 		}
 	
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		carriage_number() {
 			return '' + $mpk_tss_stub_number(1000, 9000) + '-' + $mpk_tss_stub_number(1000, 9000)
 		}
 
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		load() {
 			return $mpk_tss_reports_domain_mock_stub_carriage_load()
 		}
 
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		type(): $mpk_tss_reports_domain_carriage_type {
 			return $mpk_tss_reports_domain_mock_stub_carriage_type()
 		}
 
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		length(): number {
 			return $mpk_tss_stub_number(65, 85)
 		}
 
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		total_weight(): number {
 			return $mpk_tss_stub_number(65, 85) * 1000
 		}
 
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		measured_speed() {
 			return $mpk_tss_stub_number(50, 55)
 		}
 
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		violation() {
 			if (this.resolution() == $mpk_tss_reports_domain_resolution.success) return null
 
@@ -192,37 +192,38 @@ namespace $ {
 			)
 		}
 
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		axis() {
-			return [1, 2, 3, 4].map(index => {
+			const range = [1, 2, 3, 4]
+			const resolution = this.resolution()
+			const error_count = resolution !== $mpk_tss_reports_domain_resolution.success ? range.length : 0
+			const error_items = $mpk_tss_stub_pick_random(range, error_count)
+
+			return range.map(index => {
 				return $mpk_tss_reports_domain_mock_axle.make({
 					id: $mol_const(String(index)),
+					resolution: $mol_const(error_items.has(index)
+						? resolution
+						: $mpk_tss_reports_domain_resolution.success
+					),
 					axle_number: $mol_const(index),
 				})
 			})
 		}
 
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		axle(id: string) {
 			return this.axis().find(axle => axle.id() === id)
 		}
 	}
 
 	class $mpk_tss_reports_domain_mock_axle extends $mpk_tss_reports_domain_axle {
-		@$mpk_tss_stub_mem
-		resolution() {
-			return this.wheels().reduce(
-				(resolution, wheel) => {
-					if (wheel.resolution() !== $mpk_tss_reports_domain_resolution.success) {
-						return wheel.resolution()
-					}
-					return resolution
-				},
-				$mpk_tss_reports_domain_resolution.success
-			)
+		@$mol_memo.method
+		resolution(): $mpk_tss_reports_domain_resolution {
+			throw new $mpk_tss_todo
 		}
 
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		violation() {
 			if (this.resolution() === $mpk_tss_reports_domain_resolution.success) return null
 
@@ -237,34 +238,42 @@ namespace $ {
 			)
 		}
 
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		wheels(): $mpk_tss_reports_domain_wheel[] {
-			return [1, 2].map(id => $mpk_tss_reports_domain_mock_wheel.make({
+			const range = [1, 2]
+			const resolution = this.resolution()
+			const error_count = resolution !== $mpk_tss_reports_domain_resolution.success ? range.length : 0
+			const error_items = $mpk_tss_stub_pick_random(range, error_count)
+
+			return range.map(id => $mpk_tss_reports_domain_mock_wheel.make({
 				id: $mol_const('' + id),
+				resolution: $mol_const(error_items.has(id)
+					? resolution
+					: $mpk_tss_reports_domain_resolution.success
+				),
 			}))
 		}
 
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		wheel(id: string) {
 			return this.wheels().find(wheel => wheel.id() === id) || this.wheels()[0]
 		}
 	}
 
 	class $mpk_tss_reports_domain_mock_wheel extends $mpk_tss_reports_domain_wheel {
-		@$mpk_tss_stub_mem
-		resolution() {
-			if (Math.random() > 0.999) return $mpk_tss_reports_domain_resolution.warning
-			return $mpk_tss_reports_domain_resolution.success
+		@$mol_memo.method
+		resolution(): $mpk_tss_reports_domain_resolution {
+			throw new $mpk_tss_todo
 		}
 
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		violation() {
 			if (this.resolution() === $mpk_tss_reports_domain_resolution.success) return null
 
 			return $mpk_tss_reports_domain_mock_stub_violation()
 		}
 
-		@$mpk_tss_stub_mem
+		@$mol_memo.method
 		forces(): readonly [readonly number[], readonly number[]] {
 			const samples_count = 10000
 
