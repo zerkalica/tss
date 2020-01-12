@@ -58,7 +58,7 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    var $mol_dom_context: Window & Pick<typeof globalThis, 'Node' | 'Element' | 'HTMLElement' | 'XMLHttpRequest' | 'DOMParser' | 'XMLSerializer'>;
+    var $mol_dom_context: typeof globalThis;
 }
 
 declare namespace $ {
@@ -92,21 +92,6 @@ declare namespace $ {
         static make<Instance>(this: {
             new (): Instance;
         }, config: Partial<Instance>): Instance;
-    }
-}
-
-declare namespace $ {
-    class $mol_mem_force extends Object {
-        constructor();
-        $mol_mem_force: boolean;
-        static $mol_mem_force: boolean;
-        static toString(): string;
-    }
-    class $mol_mem_force_cache extends $mol_mem_force {
-    }
-    class $mol_mem_force_update extends $mol_mem_force {
-    }
-    class $mol_mem_force_fail extends $mol_mem_force_cache {
     }
 }
 
@@ -228,15 +213,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_after_frame extends $mol_object2 {
-        task: () => void;
-        id: any;
-        constructor(task: () => void);
-        destructor(): void;
-    }
-}
-
-declare namespace $ {
     function $mol_compare_any(a: any, b: any): boolean;
 }
 
@@ -278,7 +254,7 @@ declare namespace $ {
         static deadline: number;
         static liveline: number;
         static current: $mol_fiber<any>;
-        static scheduled: $mol_after_frame;
+        static scheduled: $mol_after_tick;
         static queue: (() => PromiseLike<any>)[];
         static tick(): Promise<void>;
         static schedule(): Promise<any>;
@@ -362,6 +338,23 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_mem_force extends Object {
+        constructor();
+        $mol_mem_force: boolean;
+        static $mol_mem_force: boolean;
+        static toString(): string;
+    }
+    class $mol_mem_force_cache extends $mol_mem_force {
+    }
+    class $mol_mem_force_update extends $mol_mem_force {
+    }
+    class $mol_mem_force_fail extends $mol_mem_force_cache {
+    }
+}
+
+declare namespace $ {
+    let $mol_mem_cached: typeof $mol_atom2_value;
+    function $mol_mem_persist(): void;
     function $mol_mem<Host extends object, Field extends keyof Host, Value>(proto: Host, name: Field, descr?: TypedPropertyDescriptor<(next?: Value, force?: $mol_mem_force) => Value>): any;
 }
 
@@ -1034,6 +1027,15 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_after_frame extends $mol_object2 {
+        task: () => void;
+        id: any;
+        constructor(task: () => void);
+        destructor(): void;
+    }
+}
+
+declare namespace $ {
     /**
      * Extracts keys from `Input` which values extends `Upper`, but not extends `Lower`.
      *
@@ -1063,8 +1065,7 @@ declare namespace $ {
         minimal_width(): number;
         minimal_height(): number;
         static watchers: Set<$mol_view>;
-        view_rect(): ClientRect;
-        view_rect_cache(next?: ClientRect): ClientRect;
+        view_rect(next?: ClientRect): ClientRect;
         view_rect_watcher(): {
             destructor: () => boolean;
         };
@@ -1887,6 +1888,7 @@ declare namespace $ {
 declare namespace $.$$ {
     class $mol_ghost extends $.$mol_ghost {
         dom_node(): Element;
+        dom_node_actual(): Element;
         dom_tree(): Element;
         title(): string;
     }
@@ -2217,7 +2219,7 @@ declare namespace $ {
 
 declare namespace $ {
     type Elements<Obj extends $mol_view> = $mol_type_omit<{
-        [key in keyof Obj]: Obj[key] extends () => infer T ? (unknown extends T ? never : T extends $mol_view ? $mol_style_definition<T> : never) : never;
+        [key in keyof Obj]: Obj[key] extends (id?: any) => infer T ? (unknown extends T ? never : T extends $mol_view ? $mol_style_definition<T> : never) : never;
     }, unknown, never>;
     type Pseudos<Obj extends $mol_view> = {
         [key in $mol_style_pseudo_class | $mol_style_pseudo_element]: $mol_style_definition<Obj>;
@@ -2935,7 +2937,7 @@ declare namespace $ {
     class $mol_list extends $mol_view {
         /**
          *  ```
-         *  over_render 1
+         *  over_render 0.25
          *  ```
          **/
         over_render(): number;
@@ -2981,6 +2983,14 @@ declare namespace $ {
          *  ```
          **/
         gap_after(): number;
+        /**
+         *  ```
+         *  view_window /
+         *  	0
+         *  	0
+         *  ```
+         **/
+        view_window(): readonly any[];
     }
 }
 
@@ -2990,7 +3000,7 @@ declare namespace $.$$ {
         view_window(): [number, number];
         gap_before(): number;
         gap_after(): number;
-        sub_visible(): (string | number | boolean | Node | $mol_view)[];
+        sub_visible(): $mol_view[];
         minimal_height(): number;
     }
 }
@@ -9301,7 +9311,9 @@ declare namespace $ {
         hierarchy_col(): string;
         /**
          *  ```
-         *  sub / <= Table
+         *  sub /
+         *  	<= Head
+         *  	<= Table
          *  ```
          **/
         sub(): readonly any[];

@@ -478,11 +478,14 @@ $mol_nav $mol_plugin
 		keydown?event <=> event_key?event null
 
 $mol_list $mol_view
-	over_render 1
+	over_render 0.25
 	sub <= rows /$mol_view
 	Empty $mol_view
 	Gap_before $mol_view style * paddingTop <= gap_before 0
 	Gap_after $mol_view style * paddingTop <= gap_after 0
+	view_window /
+		0
+		0
 
 $mol_icon_chevron $mol_icon path \M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z
 
@@ -1527,6 +1530,7 @@ $mol_grid $mol_scroll
 	hierarchy_col \
 	-
 	sub /
+		<= Head
 		<= Table $mol_grid_table
 			sub <= rows /$mol_view
 	Head $mol_grid_row

@@ -798,15 +798,6 @@ var $;
 ;
 "use strict";
 var $;
-(function ($_1) {
-    $_1.$mol_test_mocks.push($ => {
-        $.$mol_after_frame = $_1.$mol_after_mock_commmon;
-    });
-})($ || ($ = {}));
-//frame.test.js.map
-;
-"use strict";
-var $;
 (function ($) {
     $.$mol_test({
         'objects by reference'() {
@@ -971,6 +962,15 @@ var $;
     });
 })($ || ($ = {}));
 //fiber.test.js.map
+;
+"use strict";
+var $;
+(function ($_1) {
+    $_1.$mol_test_mocks.push($ => {
+        $.$mol_after_frame = $_1.$mol_after_mock_commmon;
+    });
+})($ || ($ = {}));
+//frame.test.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1304,21 +1304,6 @@ var $;
 //atom2.test.js.map
 ;
 "use strict";
-var $;
-(function ($) {
-    console.warn('$mol_atom_wait is deprecated. Use $mol_fiber_sync instead.');
-    class $mol_atom_wait extends Promise {
-        constructor(message = 'Wait...') {
-            super(() => { });
-            this.message = message;
-        }
-    }
-    $.$mol_atom_wait = $mol_atom_wait;
-    $mol_atom_wait.prototype.constructor = Promise;
-})($ || ($ = {}));
-//wait.js.map
-;
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1416,13 +1401,10 @@ var $;
             $.$mol_defer.run();
             $.$mol_assert_unique(b.bar(), bar);
         },
-        'wait for data'() {
+        async 'wait for data'() {
             class Test extends $.$mol_object2 {
-                source(next, force) {
-                    new $.$mol_defer(() => {
-                        this.source('Jin', $.$mol_mem_force_cache);
-                    });
-                    return $.$mol_fail_hidden(new $.$mol_atom_wait('Wait for data!'));
+                source() {
+                    return $.$mol_fiber_sync(() => new Promise(done => done('Jin')))();
                 }
                 middle() {
                     return this.source();
@@ -1442,7 +1424,7 @@ var $;
             ], Test.prototype, "target", null);
             const t = new Test;
             $.$mol_assert_fail(() => t.target().valueOf(), Promise);
-            $.$mol_defer.run();
+            await $.$mol_fiber_warp();
             $.$mol_assert_equal(t.target(), 'Jin');
         },
     });
