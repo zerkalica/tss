@@ -3194,10 +3194,14 @@ var $;
         parent_resolution() { throw new $.$mpk_tss_todo; }
         train() { throw new $.$mpk_tss_todo; }
         carriages_all() {
-            return $.$mpk_tss_stub_ids($.$mpk_tss_stub_number(30, 45)).map((id, index) => {
+            const range = $.$mpk_tss_stub_ids($.$mpk_tss_stub_number(30, 45));
+            const resolution = this.parent_resolution();
+            const error_count = resolution !== $.$mpk_tss_reports_domain_resolution.success ? range.length : 0;
+            const error_items = $.$mpk_tss_stub_pick_random(range, error_count);
+            return range.map((id, index) => {
                 return $mpk_tss_reports_domain_mock_carriage.make({
                     id: $.$mol_const(id),
-                    resolution: $.$mol_const(this.parent_resolution()),
+                    resolution: $.$mol_const(error_items.has(id) ? this.parent_resolution() : $.$mpk_tss_reports_domain_resolution.success),
                     train: $.$mol_const(this.train()),
                     place: $.$mol_const(index + 1),
                 });
