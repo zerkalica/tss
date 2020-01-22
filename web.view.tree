@@ -311,6 +311,7 @@ $mol_page $mol_view
 
 $mol_scroll $mol_view
 	minimal_height 0
+	_event_scroll_timer?val null
 	field *
 		^
 		scrollTop <= scroll_top?val 0
@@ -318,9 +319,6 @@ $mol_scroll $mol_view
 	event *
 		^
 		scroll?event <=> event_scroll?event null
-	Strut $mol_view
-		style *
-			transform <= strut_transform \
 
 $mol_filler $mol_view
 	minimal_height 500
@@ -478,7 +476,8 @@ $mol_nav $mol_plugin
 		keydown?event <=> event_key?event null
 
 $mol_list $mol_view
-	over_render 0.25
+	render_visible_only true
+	render_over 0
 	sub <= rows /$mol_view
 	Empty $mol_view
 	Gap_before $mol_view style * paddingTop <= gap_before 0
@@ -572,8 +571,6 @@ $mpk_tss_parameter $mol_row
 		date <= updated
 
 $mol_row $mol_view
-
-$mol_row_sub $mol_view
 
 $mol_labeler $mol_list
 	rows /

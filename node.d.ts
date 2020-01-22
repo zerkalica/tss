@@ -57,11 +57,6 @@ declare namespace $ {
     }
 }
 
-/// <reference types="node" />
-declare namespace $ {
-    function $mol_exec(dir: string, command: string, ...args: string[]): import("child_process").SpawnSyncReturns<Buffer>;
-}
-
 interface $node {
     [key: string]: any;
 }
@@ -995,23 +990,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_after_timeout extends $mol_object2 {
-        delay: number;
-        task: () => void;
-        id: any;
-        constructor(delay: number, task: () => void);
-        destructor(): void;
-    }
-}
-
-declare namespace $ {
-    class $mol_after_frame extends $mol_after_timeout {
-        task: () => void;
-        constructor(task: () => void);
-    }
-}
-
-declare namespace $ {
     /**
      * Extracts keys from `Input` which values extends `Upper`, but not extends `Lower`.
      *
@@ -1226,6 +1204,23 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_after_timeout extends $mol_object2 {
+        delay: number;
+        task: () => void;
+        id: any;
+        constructor(delay: number, task: () => void);
+        destructor(): void;
+    }
+}
+
+declare namespace $ {
+    class $mol_after_frame extends $mol_after_timeout {
+        task: () => void;
+        constructor(task: () => void);
+    }
 }
 
 declare namespace $ {
@@ -2359,6 +2354,12 @@ declare namespace $ {
         minimal_height(): number;
         /**
          *  ```
+         *  _event_scroll_timer?val null
+         *  ```
+         **/
+        _event_scroll_timer(val?: any, force?: $mol_mem_force): any;
+        /**
+         *  ```
          *  field *
          *  	^
          *  	scrollTop <= scroll_top?val
@@ -2397,18 +2398,6 @@ declare namespace $ {
          *  ```
          **/
         event_scroll(event?: any, force?: $mol_mem_force): any;
-        /**
-         *  ```
-         *  Strut $mol_view style * transform <= strut_transform
-         *  ```
-         **/
-        Strut(): $mol_view;
-        /**
-         *  ```
-         *  strut_transform \
-         *  ```
-         **/
-        strut_transform(): string;
     }
 }
 
@@ -2416,6 +2405,7 @@ declare namespace $.$$ {
     class $mol_scroll extends $.$mol_scroll {
         scroll_top(next?: number): number;
         scroll_left(next?: number): number;
+        _event_scroll_timer(next?: $mol_after_frame | null): $mol_after_frame;
         event_scroll(next?: Event): void;
     }
 }
@@ -2897,10 +2887,16 @@ declare namespace $ {
     class $mol_list extends $mol_view {
         /**
          *  ```
-         *  over_render 0.25
+         *  render_visible_only true
          *  ```
          **/
-        over_render(): number;
+        render_visible_only(): boolean;
+        /**
+         *  ```
+         *  render_over 0
+         *  ```
+         **/
+        render_over(): number;
         /**
          *  ```
          *  sub <= rows
@@ -2957,6 +2953,7 @@ declare namespace $ {
 declare namespace $.$$ {
     class $mol_list extends $.$mol_list {
         sub(): readonly $mol_view[];
+        render_visible_only(): boolean;
         view_window(): [number, number];
         gap_before(): number;
         gap_after(): number;
@@ -3529,15 +3526,11 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_row extends $mol_view {
-    }
-}
-declare namespace $ {
-    class $mol_row_sub extends $mol_view {
-    }
 }
 
 declare namespace $ {
+    class $mol_row extends $mol_view {
+    }
 }
 
 declare namespace $ {
@@ -8882,6 +8875,11 @@ declare namespace $ {
 }
 
 declare namespace $ {
+}
+
+/// <reference types="node" />
+declare namespace $ {
+    function $mol_exec(dir: string, command: string, ...args: string[]): import("child_process").SpawnSyncReturns<Buffer>;
 }
 
 declare namespace $ {

@@ -181,36 +181,27 @@ var $;
 //tick.js.map
 ;
 "use strict";
-var $;
-(function ($) {
-    function $mol_exec(dir, command, ...args) {
-        let [app, ...args0] = command.split(' ');
-        args = [...args0, ...args];
-        console.info(`${$node.colorette.gray($node.path.relative('', dir))}> ${$node.colorette.blue(app)} ${$node.colorette.cyan(args.join(' '))}`);
-        var res = $node['child_process'].spawnSync(app, args, {
-            cwd: $node.path.resolve(dir),
-            shell: true,
-        });
-        if (res.status || res.error)
-            return $.$mol_fail(res.error || new Error(res.stderr.toString()));
-        if (!res.stdout)
-            res.stdout = new Buffer('');
-        return res;
-    }
-    $.$mol_exec = $mol_exec;
-})($ || ($ = {}));
-//exec.node.js.map
-;
-"use strict";
 var $node = new Proxy({}, { get(target, name, wrapper) {
-        if (require('module').builtinModules.indexOf(name) >= 0)
+        const path = require('path');
+        const fs = require('fs');
+        const mod = require('module');
+        if (mod.builtinModules.indexOf(name) >= 0)
             return require(name);
-        if (!require('fs').existsSync(`./node_modules/${name}`)) {
-            $.$mol_exec('.', 'npm', 'install', name);
-            try {
-                $.$mol_exec('.', 'npm', 'install', '@types/' + name);
+        let dir = path.resolve('.');
+        const suffix = `./node_modules/${name}`;
+        while (!fs.existsSync(path.join(dir, suffix))) {
+            const parent = path.resolve(dir, '..');
+            if (parent === dir) {
+                $.$mol_exec('.', 'npm', 'install', name);
+                try {
+                    $.$mol_exec('.', 'npm', 'install', '@types/' + name);
+                }
+                catch (_a) { }
+                break;
             }
-            catch (_a) { }
+            else {
+                dir = parent;
+            }
         }
         return require(name);
     } });
@@ -2237,9 +2228,7 @@ var $;
             this.hour = config.hour;
             this.minute = config.minute;
             this.second = config.second;
-            if (config.offset != null) {
-                this.offset = new $.$mol_time_duration(config.offset);
-            }
+            this.offset = config.offset && new $.$mol_time_duration(config.offset);
         }
         get weekday() {
             return (this.native.getDay() + 6) % 7;
@@ -3844,37 +3833,6 @@ var $;
 //deprecated.js.map
 ;
 "use strict";
-var $;
-(function ($) {
-    class $mol_after_timeout extends $.$mol_object2 {
-        constructor(delay, task) {
-            super();
-            this.delay = delay;
-            this.task = task;
-            this.id = setTimeout(task, delay);
-        }
-        destructor() {
-            clearTimeout(this.id);
-        }
-    }
-    $.$mol_after_timeout = $mol_after_timeout;
-})($ || ($ = {}));
-//timeout.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_after_frame extends $.$mol_after_timeout {
-        constructor(task) {
-            super(16, task);
-            this.task = task;
-        }
-    }
-    $.$mol_after_frame = $mol_after_frame;
-})($ || ($ = {}));
-//frame.node.js.map
-;
-"use strict";
 //extract.js.map
 ;
 "use strict";
@@ -4168,25 +4126,13 @@ var $;
         $.$mol_mem
     ], $mol_view, "view_classes", null);
     $.$mol_view = $mol_view;
-    function $mol_view_watch() {
-        $.$mol_fiber_unlimit(() => {
-            for (const view of $mol_view.watchers) {
-                const rect = view.dom_node().getBoundingClientRect().toJSON();
-                //if( rect.height ) 
-                view.view_rect(rect);
-            }
-            new $.$mol_after_frame($mol_view_watch);
-        });
-    }
-    if ($.$mol_dom_context.document)
-        $mol_view_watch();
 })($ || ($ = {}));
 //view.js.map
 ;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("mol/view/view.css", "[mol_view] {\n\ttransition-property: background-color, height, width, min-height, min-width, max-width, max-height, transform;\n\ttransition-duration: .2s;\n\ttransition-timing-function: ease-out;\n\t-webkit-appearance: none;\n\tword-break: break-word;\n\tbox-sizing: border-box;\n}\n\n[mol_view] > * {\n\tword-break: inherit;\n}\n\n[mol_view_root] {\n\tmargin: 0;\n\tpadding: 0;\n\twidth: 100%;\n\theight: 100%;\n\tbox-sizing: border-box;\n\tfont: var(--mol_skin_font);\n\tbackground: var(--mol_theme_back);\n\tcolor: var(--mol_theme_text);\n}\n\n[mol_view][mol_view_error]:not([mol_view_error=\"Promise\"]) {\n\tbackground-image: repeating-linear-gradient(\n\t\t135deg,\n\t\trgba(255,220,220,1),\n\t\trgba(255,220,220,1) 11px,\n\t\trgba(255,255,220,1) 10px,\n\t\trgba(255,255,220,1) 20px\n\t);\n\tbackground-size: 28px 28px;\n\tcolor: black;\n}\n/* [mol_view][mol_view_error] * {\n\tbackground: none;\n} */\n\n@keyframes mol_view_wait_move {\n\tfrom {\n\t\tbackground-position: 0 0;\n\t}\n\tto {\n\t\tbackground-position: 200vmax 0;\n\t}\n}\n\n@keyframes mol_view_wait_show {\n\tto {\n\t\tbackground-image: repeating-linear-gradient(\n\t\t\t45deg,\n\t\t\thsla( 0 , 0% , 50% , .1 ) 0% ,\n\t\t\thsla( 0 , 0% , 50% , 0 ) 5% ,\n\t\t\thsla( 0 , 0% , 50% , 0 ) 45% ,\n\t\t\thsla( 0 , 0% , 50% , .1 ) 50% ,\n\t\t\thsla( 0 , 0% , 50% , 0 ) 55% ,\n\t\t\thsla( 0 , 0% , 50% , 0 ) 95% ,\n\t\t\thsla( 0 , 0% , 50% , .1 ) 100%\n\t\t);\n\t\tbackground-size: 200vmax 200vmax;\n\t}\n}\n\n[mol_view][mol_view_error=\"Promise\"] {\n\tanimation: mol_view_wait_show .5s .5s linear forwards , mol_view_wait_move 1s linear infinite;\n}\n\n/* [mol_view][mol_view_error=\"Promise\"] * {\n\t\tbackground: none;\n} */\n");
+    $.$mol_style_attach("mol/view/view.css", "[mol_view] {\n\ttransition-property: background-color, height, width, min-height, min-width, max-width, max-height, transform;\n\ttransition-duration: .2s;\n\ttransition-timing-function: ease-out;\n\t-webkit-appearance: none;\n\tword-break: break-word;\n\tbox-sizing: border-box;\n}\n\n[mol_view] > * {\n\tword-break: inherit;\n}\n\n[mol_view_root] {\n\tmargin: 0;\n\tpadding: 0;\n\twidth: 100%;\n\theight: 100%;\n\tbox-sizing: border-box;\n\tfont: var(--mol_skin_font);\n\tbackground: var(--mol_theme_back);\n\tcolor: var(--mol_theme_text);\n}\n\n[mol_view][mol_view_error]:not([mol_view_error=\"Promise\"]) {\n\tbackground-image: repeating-linear-gradient(\n\t\t135deg,\n\t\trgba(255,220,220,1),\n\t\trgba(255,220,220,1) 11px,\n\t\trgba(255,255,220,1) 10px,\n\t\trgba(255,255,220,1) 20px\n\t);\n\tbackground-size: 28px 28px;\n\tcolor: black;\n}\n\n@keyframes mol_view_wait_move {\n\tfrom {\n\t\tbackground-position: 0 0;\n\t}\n\tto {\n\t\tbackground-position: 200vmax 0;\n\t}\n}\n\n@keyframes mol_view_wait_show {\n\tto {\n\t\tbackground-image: repeating-linear-gradient(\n\t\t\t45deg,\n\t\t\thsla( 0 , 0% , 50% , .1 ) 0% ,\n\t\t\thsla( 0 , 0% , 50% , 0 ) 5% ,\n\t\t\thsla( 0 , 0% , 50% , 0 ) 45% ,\n\t\t\thsla( 0 , 0% , 50% , .1 ) 50% ,\n\t\t\thsla( 0 , 0% , 50% , 0 ) 55% ,\n\t\t\thsla( 0 , 0% , 50% , 0 ) 95% ,\n\t\t\thsla( 0 , 0% , 50% , .1 ) 100%\n\t\t);\n\t\tbackground-size: 200vmax 200vmax;\n\t}\n}\n\n[mol_view][mol_view_error=\"Promise\"] {\n\tanimation: mol_view_wait_show .5s .5s linear forwards , mol_view_wait_move 1s linear infinite;\n}\n");
 })($ || ($ = {}));
 //view.css.js.map
 ;
@@ -4416,6 +4362,37 @@ var $;
     $.$mol_style_attach("mol/string/string.view.css", "[mol_string] {\n\tbox-sizing: border-box;\n\toutline-offset: 0;\n\tborder: none;\n\tborder-radius: var(--mol_skin_round);\n\twhite-space: nowrap;\n\toverflow: hidden;\n\tpadding: .5rem 1rem;\n\ttext-align: left;\n\tposition: relative;\n\tz-index: 0;\n\tfont: inherit;\n\tflex: 0 1 auto;\n\twidth: 100%;\n\tbackground: var(--mol_theme_field);\n\tcolor: var(--mol_theme_text);\n\tbox-shadow: inset 0 0 0 .5px var(--mol_theme_line);\n\tmargin: 0;\n}\n\n[mol_string]:disabled {\n\tbackground-color: transparent;\n}\n\n[mol_string]:focus {\n\toutline: none;\n\tz-index: 1;\n\tbox-shadow: inset 0 0 0 .5px var(--mol_theme_focus);\n}\n\n[mol_string]::-ms-clear {\n\tdisplay: none;\n}\n");
 })($ || ($ = {}));
 //string.view.css.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_after_timeout extends $.$mol_object2 {
+        constructor(delay, task) {
+            super();
+            this.delay = delay;
+            this.task = task;
+            this.id = setTimeout(task, delay);
+        }
+        destructor() {
+            clearTimeout(this.id);
+        }
+    }
+    $.$mol_after_timeout = $mol_after_timeout;
+})($ || ($ = {}));
+//timeout.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_after_frame extends $.$mol_after_timeout {
+        constructor(task) {
+            super(16, task);
+            this.task = task;
+        }
+    }
+    $.$mol_after_frame = $mol_after_frame;
+})($ || ($ = {}));
+//frame.node.js.map
 ;
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -6647,6 +6624,14 @@ var $;
         }
         /**
          *  ```
+         *  _event_scroll_timer?val null
+         *  ```
+         **/
+        _event_scroll_timer(val, force) {
+            return (val !== void 0) ? val : null;
+        }
+        /**
+         *  ```
          *  field *
          *  	^
          *  	scrollTop <= scroll_top?val
@@ -6690,28 +6675,10 @@ var $;
         event_scroll(event, force) {
             return (event !== void 0) ? event : null;
         }
-        /**
-         *  ```
-         *  Strut $mol_view style * transform <= strut_transform
-         *  ```
-         **/
-        Strut() {
-            return ((obj) => {
-                obj.style = () => ({
-                    "transform": this.strut_transform(),
-                });
-                return obj;
-            })(new this.$.$mol_view());
-        }
-        /**
-         *  ```
-         *  strut_transform \
-         *  ```
-         **/
-        strut_transform() {
-            return "";
-        }
     }
+    __decorate([
+        $.$mol_mem
+    ], $mol_scroll.prototype, "_event_scroll_timer", null);
     __decorate([
         $.$mol_mem
     ], $mol_scroll.prototype, "scroll_top", null);
@@ -6721,9 +6688,6 @@ var $;
     __decorate([
         $.$mol_mem
     ], $mol_scroll.prototype, "event_scroll", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_scroll.prototype, "Strut", null);
     $.$mol_scroll = $mol_scroll;
 })($ || ($ = {}));
 //scroll.view.tree.js.map
@@ -6746,14 +6710,17 @@ var $;
             scroll_left(next) {
                 return $.$mol_state_session.value(`${this}.scroll_left()`, next) || 0;
             }
+            _event_scroll_timer(next) {
+                return next;
+            }
             event_scroll(next) {
+                if (this._event_scroll_timer())
+                    this._event_scroll_timer().destructor();
                 const el = this.dom_node();
-                if (this['event_scroll_timer'])
-                    this['event_scroll_timer'].destructor();
-                this['event_scroll_timer'] = new $.$mol_after_frame($.$mol_fiber_solid.func(() => {
+                this._event_scroll_timer(new $.$mol_after_frame($.$mol_fiber_solid.func(() => {
                     this.scroll_top(Math.max(0, el.scrollTop));
                     this.scroll_left(Math.max(0, el.scrollLeft));
-                }));
+                })));
             }
         }
         __decorate([
@@ -6762,6 +6729,9 @@ var $;
         __decorate([
             $.$mol_mem
         ], $mol_scroll.prototype, "scroll_left", null);
+        __decorate([
+            $.$mol_memo.method
+        ], $mol_scroll.prototype, "_event_scroll_timer", null);
         $$.$mol_scroll = $mol_scroll;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -6796,15 +6766,6 @@ var $;
             },
             '::-webkit-scrollbar-thumb': {
                 background: "var(--mol_theme_control)" /* control */,
-            },
-            Strut: {
-                position: 'absolute',
-                top: '0',
-                display: 'block',
-                padding: '1px 1px 0 0',
-                margin: '-1px 0 0 0',
-                zIndex: '0',
-                transition: 'none',
             },
             '@media': {
                 'print': {
@@ -7032,7 +6993,7 @@ var $;
                 flex: '0 0 auto',
                 position: 'relative',
                 margin: '0',
-                minHeight: 'calc( 1.5em + 1rem )',
+                minHeight: 'calc( 1.5em + 2rem )',
                 padding: '.5rem',
             },
             Title: {
@@ -7806,11 +7767,19 @@ var $;
     class $mol_list extends $.$mol_view {
         /**
          *  ```
-         *  over_render 0.25
+         *  render_visible_only true
          *  ```
          **/
-        over_render() {
-            return 0.25;
+        render_visible_only() {
+            return true;
+        }
+        /**
+         *  ```
+         *  render_over 0
+         *  ```
+         **/
+        render_over() {
+            return 0;
         }
         /**
          *  ```
@@ -7915,11 +7884,15 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        const anchoring = $.$mol_dom_context.CSS.supports('overflow-anchor:auto');
         class $mol_list extends $.$mol_list {
             sub() {
                 const rows = this.rows();
                 return (rows.length === 0) ? [this.Empty()] : rows;
+            }
+            render_visible_only() {
+                if (!$.$mol_dom_context.CSS)
+                    return false;
+                return $.$mol_dom_context.CSS.supports('overflow-anchor:auto');
             }
             view_window() {
                 var _a, _b, _c, _d, _e, _f, _g, _h, _j;
@@ -7929,8 +7902,9 @@ var $;
                 let [min, max] = (_a = $.$mol_mem_cached(() => this.view_window()), (_a !== null && _a !== void 0 ? _a : [0, 0]));
                 let max2 = max = Math.min(max, kids.length);
                 let min2 = min = Math.max(0, Math.min(min, max - 1));
+                const anchoring = this.render_visible_only();
                 const window_height = this.$.$mol_window.size().height;
-                const over = Math.ceil(window_height * this.over_render());
+                const over = Math.ceil(window_height * this.render_over());
                 const limit_top = -over;
                 const limit_bottom = window_height + over;
                 const rect = this.view_rect();
@@ -7954,8 +7928,8 @@ var $;
                         ++min;
                     }
                     min2 = min;
-                    max2 = max = min + 1;
-                    bottom = 0;
+                    max2 = max = min;
+                    bottom = top;
                 }
                 let top2 = top;
                 let bottom2 = bottom;
@@ -7969,12 +7943,12 @@ var $;
                     max2 = min;
                     bottom2 = top;
                 }
-                // extend min to cover top limit
+                // extend max to cover bottom limit
                 while (bottom2 < limit_bottom && max2 < kids.length) {
                     bottom2 += kids[max2].minimal_height();
                     ++max2;
                 }
-                // extend max to cover bottom limit
+                // extend min to cover top limit
                 while (anchoring && ((top2 >= limit_top) && (min2 > 0))) {
                     --min2;
                     top2 -= kids[min2].minimal_height();
@@ -8029,7 +8003,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("mol/list/list.view.css", "[mol_list] {\n\twill-change: contents;\n\tdisplay: block;\n\t/* display: flex;\n\tflex-direction: column;\n\talign-items: stretch;\n\talign-content: stretch; */\n\ttransition: none;\n}\n\n[mol_list_gap_before] ,\n[mol_list_gap_after] {\n\tdisplay: block !important;\n\tflex: none;\n\ttransition: none;\n}\n\n[mol_list] > * {\n\tdisplay: block;\n}\n");
+    $.$mol_style_attach("mol/list/list.view.css", "[mol_list] {\n\twill-change: contents;\n\tdisplay: block;\n\t/* display: flex;\n\tflex-direction: column;\n\talign-items: stretch;\n\talign-content: stretch; */\n\ttransition: none;\n}\n\n[mol_list_gap_before] ,\n[mol_list_gap_after] {\n\tdisplay: block !important;\n\tflex: none;\n\ttransition: none;\n\toverflow-anchor: none;\n}\n\n[mol_list] > * {\n\tdisplay: block;\n}\n");
 })($ || ($ = {}));
 //list.view.css.js.map
 ;
@@ -9059,74 +9033,18 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_row extends $.$mol_view {
-    }
-    $.$mol_row = $mol_row;
+    $.$mol_style_attach("mol/row/row.view.css", "[mol_row] {\n\tdisplay: flex;\n\tflex-wrap: wrap;\n\talign-items: flex-start;\n\talign-content: flex-start;\n\tjustify-content: flex-start;\n\tpadding: .5rem;\n\tflex: 1 0 auto;\n\t/* box-shadow: 0 0 0 1px var(--mol_theme_line); */\n\t/* border-radius: var(--mol_skin_round); */\n\tbox-sizing: border-box;\n\tmax-width: 100%;\n}\n\n[mol_row] > * {\n\tmargin: .5rem;\n\tmax-width: 100%;\n}\n");
 })($ || ($ = {}));
-(function ($) {
-    class $mol_row_sub extends $.$mol_view {
-    }
-    $.$mol_row_sub = $mol_row_sub;
-})($ || ($ = {}));
-//row.view.tree.js.map
-;
-"use strict";
-// namespace $.$$ {
-// 	export class $mol_row extends $.$mol_row {
-// 		@ $mol_mem
-// 		item_offsets_top() : number[] {
-// 			let next : number[] = []
-// 			let sub = this.sub()
-// 			if( !sub ) return next
-// 			// const context = this.$
-// 			const widthLimit = 9000//context.$mol_view_visible_width()
-// 			let allHeight = 0
-// 			let rowWidth = 0
-// 			let row_height = 0
-// 			for( let child of sub ) {
-// 				next.push( allHeight )
-// 				if(!( child instanceof $mol_view )) continue
-// 				const width = child.minimal_width()
-// 				const height = child.minimal_height()
-// 				rowWidth += width
-// 				if( rowWidth > widthLimit ) {
-// 					allHeight += row_height
-// 					rowWidth = width
-// 					row_height = height
-// 				} else {
-// 					row_height = Math.max( row_height , height )
-// 				}
-// 			}
-// 			next.push( allHeight + row_height )
-// 			return next
-// 		}
-// 		// sub_visible() {
-// 		// 	const sub = this.sub()
-// 		// 	const visible = [] as (string | number | boolean | $mol_view | Node)[]
-// 		// 	const heightLimit = context.$mol_view_visible_height()
-// 		// 	const offsets = this.item_offsets_top()
-// 		// 	let height = 0
-// 		// 	for( let i = 0 ; i < offsets.length - 1 ; ++i ) {
-// 		// 		if( offsets[ i ] > heightLimit ) break
-// 		// 		const child = sub[ i ]
-// 		// 		visible.push( child )
-// 		// 	}
-// 		// 	return visible
-// 		// }
-// 		minimal_height() {
-// 			const offsets = this.item_offsets_top()
-// 			return offsets[ offsets.length - 1 ]
-// 		}
-// 	} 
-// }
-//row.view.js.map
+//row.view.css.js.map
 ;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("mol/row/row.view.css", "[mol_row] {\n\tdisplay: flex;\n\tflex-wrap: wrap;\n\talign-items: flex-start;\n\talign-content: flex-start;\n\tjustify-content: flex-start;\n\tpadding: .5rem;\n\tflex: 1 0 auto;\n\t/* box-shadow: 0 0 0 1px var(--mol_theme_line); */\n\t/* border-radius: var(--mol_skin_round); */\n\tbox-sizing: border-box;\n\tmax-width: 100%;\n}\n\n[mol_row] > * ,\n[mol_row_sub] > * {\n\tmargin: .5rem;\n\tmax-width: 100%;\n}\n\n[mol_row_sub] {\n\tmargin: 0;\n\tdisplay: flex;\n\tflex-wrap: wrap;\n\tflex: 1 1 auto;\n}\n");
+    class $mol_row extends $.$mol_view {
+    }
+    $.$mol_row = $mol_row;
 })($ || ($ = {}));
-//row.view.css.js.map
+//row.view.tree.js.map
 ;
 "use strict";
 var $;
@@ -18883,6 +18801,27 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    function $mol_exec(dir, command, ...args) {
+        let [app, ...args0] = command.split(' ');
+        args = [...args0, ...args];
+        console.info(`${$node.colorette.gray($node.path.relative('', dir))}> ${$node.colorette.blue(app)} ${$node.colorette.cyan(args.join(' '))}`);
+        var res = $node['child_process'].spawnSync(app, args, {
+            cwd: $node.path.resolve(dir),
+            shell: true,
+        });
+        if (res.status || res.error)
+            return $.$mol_fail(res.error || new Error(res.stderr.toString()));
+        if (!res.stdout)
+            res.stdout = new Buffer('');
+        return res;
+    }
+    $.$mol_exec = $mol_exec;
+})($ || ($ = {}));
+//exec.node.js.map
+;
+"use strict";
+var $;
+(function ($) {
     $.$mol_style_attach("mol/section/section.view.css", "[mol_section_head] {\n\tfont-size: 1.5rem;\n\tdisplay: flex;\n\tjustify-content: space-between;\n\talign-items: flex-end;\n\tflex-wrap: wrap;\n}\n");
 })($ || ($ = {}));
 //section.view.css.js.map
@@ -19928,15 +19867,6 @@ var $;
     var $$;
     (function ($$) {
         class $mol_grid extends $.$mol_grid {
-            // @ $mol_mem
-            // rows_visible() {
-            // 	const rows = this.rows()
-            // 	const view_window = this.view_window()
-            // 	return [
-            // 		this.Head() ,
-            // 		... rows.slice( view_window.top , view_window.bottom ) ,
-            // 	]
-            // }
             head_cells() {
                 return this.col_ids().map(colId => this.Col_head(colId));
             }
