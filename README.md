@@ -1,5 +1,7 @@
 # Tss draft
 
+Внутри mam надо создать папку mpk/tss и положить в нее содержимое гита
+
 ```mermaid
 graph LR
 
