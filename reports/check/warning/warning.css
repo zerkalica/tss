@@ -1,7 +1,10 @@
 [mpk_tss_reports_check_warning] {
 	--mol_theme_control: gray;
 	--mol_skin_accent: var(--mpk_theme_status_bg_warning);
-
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	margin-bottom: 1px;
 	box-shadow: 0 0 0 1px var(--mol_theme_line);
 }

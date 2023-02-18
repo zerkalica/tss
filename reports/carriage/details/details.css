@@ -1,5 +1,5 @@
 [mpk_tss_reports_carriage_details] {
-	flex: 1000 1 1200px;
+	flex-direction: column;
 }
 
 [mpk_tss_reports_carriage_details_weight] {
@@ -19,9 +19,12 @@
 }
 
 [mpk_tss_reports_carriage_details_info] {
-	flex: 1000 1 35rem;
+	/* flex: 1000 1 35rem; */
 }
 
 [mpk_tss_reports_carriage_details_axle_list] {
-	flex: 0 1 10rem;
+}
+
+[mpk_tss_reports_carriage_details_main2] {
+	height: 80%;
 }

@@ -1,5 +1,5 @@
 $mpk_tss_card $mpk_tss_link
-	minimal_height 200
+	minimal_height 110
 	sub /
 		<= Card $mol_card
 			status <= status \

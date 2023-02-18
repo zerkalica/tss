@@ -5,9 +5,9 @@
 	--mpk_theme_status_bg_inactive:hsl(225, 2%, 60%);
 	--mpk_theme_status_bg_unknown: hsl(0, 1%, 60%);
 
-	--mpk_theme_status_text: var(--mol_theme_text);
+	/* --mpk_theme_status_text: hsl(var(--mol_theme_text)); */
 	--mpk_theme_status_control: var(--mol_theme_field);
-	/* --mpk_theme_status_text: white; */
+	--mpk_theme_status_text: black;
 
 	--mpk_theme_status_text_error: hsl(0, 50%, 50%);
 	--mpk_theme_status_text_warning: hsl(46, 73%, 55%);

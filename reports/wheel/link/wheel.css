@@ -1,9 +1,9 @@
 [mpk_tss_reports_wheel_link] {
-	width: 4rem;
-	padding: 0.3rem;
+	padding: 0.1rem;
 	display: flex;
 	justify-content: center;
 	background-color: var(--mol_theme_line);
+	color: var(--mpk_theme_status_text);
 	/* box-shadow: 0 0 0 1px var(--mol_theme_line); */
 }
 

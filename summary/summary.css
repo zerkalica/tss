@@ -3,9 +3,9 @@
 }
 [mpk_tss_summary_log],
 [mpk_tss_summary_item] {
-	background: white;
-	box-shadow: var(--mol_skin_light_outline);
-	border-radius: var(--mol_skin_round);
+	background: var(--mol_theme_card);
+	box-shadow: var(--mol_theme_line);
+	border-radius: var(--mol_gap_round);
 	margin-bottom: 0.5rem;
 	display: flex;
 	justify-content: space-between;

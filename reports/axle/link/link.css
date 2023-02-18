@@ -4,7 +4,7 @@
 
 [mpk_tss_reports_axle_link_wheels] {
 	display: flex;
-	flex-direction: column-reverse;
-	height: 5rem;
+	flex-direction: row;
+	gap: 0.5rem;
 	justify-content: space-between;
 }

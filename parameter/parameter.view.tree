@@ -8,6 +8,7 @@ $mpk_tss_parameter $mol_row
 			title <= name_title @ \Parameter
 			Content <= Name_content $mol_view sub / <= name \
 		<= Value $mol_labeler
+			minimal_height 20
 			title <= value_title @ \Value
 			Content <= Value_content null
 		<= Updated $mol_labeler

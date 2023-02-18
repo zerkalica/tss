@@ -38,6 +38,7 @@ $mpk_tss_reports_carriage_details $mol_page
 						content / <= Violation_content $mpk_tss_reports_violation
 							empty true
 							status <= violation null
+		<= Main2 $mol_row sub /
 			<= Axle_list $mpk_tss_reports_axle_list
 				carriage <= carriage null
 				axle_current => axle_current
