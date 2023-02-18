@@ -52,7 +52,7 @@ namespace $ {
 
 	export class $mpk_tss_reports_domain_wheel extends $mol_object {
 		id(): string { throw new t }
-		resolution(): $mpk_tss_reports_domain_resolution { throw new t }
+		resolution(): $mpk_tss_reports_domain_resolution | null { throw new t }
 		violation(): $mpk_tss_reports_domain_violation | null { throw new t }
 		forces(): readonly [readonly number[], readonly number[]]  { throw new t }
 	}
@@ -60,7 +60,7 @@ namespace $ {
 	export class $mpk_tss_reports_domain_axle extends $mol_object {
 		id(): string { return String(this.axle_number()) }
 		axle_number(): number { throw new t }
-		resolution(): $mpk_tss_reports_domain_resolution { throw new t }
+		resolution(): $mpk_tss_reports_domain_resolution | null { throw new t }
 		violation(): $mpk_tss_reports_domain_violation | null { throw new t }
 		wheel(id: string): $mpk_tss_reports_domain_wheel { throw new t }
 		wheels(): $mpk_tss_reports_domain_wheel[] {
@@ -73,7 +73,7 @@ namespace $ {
 		train(): $mpk_tss_reports_domain_report { throw new t }
 		carriage_number(): string { throw new t }
 		place(): number { throw new t }
-		resolution(): $mpk_tss_reports_domain_resolution { throw new t }
+		resolution(): $mpk_tss_reports_domain_resolution | null { throw new t }
 		violation(): $mpk_tss_reports_domain_violation | null { throw new t }
 		load(): $mpk_tss_reports_domain_load { throw new t }
 		// Measured speed at time point, km/h

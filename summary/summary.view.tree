@@ -3,7 +3,7 @@ $mpk_tss_summary $mol_page
 	minimal_width 600
 	body /
 		<= Statuses $mpk_tss_summary_section
-			Content <= Statuses_content $mol_view sub /
+			Content <= Statuses_content $mol_list rows /
 				<= All $mpk_tss_summary_status
 					type \warning
 				<= Software $mpk_tss_summary_item
@@ -20,8 +20,8 @@ $mpk_tss_summary $mol_page
 					arg * page \pereferial
 		<= Log $mol_expander
 			title <= log_title @ \Show log ...
-			Content <= Log_content $mol_text
-				text \
+			Content <= Log_content $mol_list rows /
+				<= Text $mol_text text \
 					\ Wed 24 Apr 2019 02:33:14 PM MSK: Report was successfully sent
 					\ Wed 24 Apr 2019 02:32:24 PM MSK: Connection to SKAT server (10.32.35.11) established
 					\ Wed 24 Apr 2019 02:32:09 PM MSK: Connecting to SKAT server (10.32.35.11), attempt 1...

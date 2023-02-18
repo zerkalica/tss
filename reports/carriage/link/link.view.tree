@@ -16,7 +16,7 @@ $mpk_tss_reports_carriage_link $mpk_tss_card
 		sub /
 			<= Status_main $mpk_tss_reports_resolution status <= resolution null
 			<= Violation $mpk_tss_reports_carriage_violation
-				status <= violation \
+				status <= violation null
 	Status_icon $mpk_tss_icon_cloud_download
 	status_click?event <=> carriage_status_click?event null
 	additional /

@@ -20,7 +20,7 @@ namespace $ {
 
 		@$mol_mem
 		reports(): $mpk_tss_reports_domain_report[] {
-			const filter_number = this.filter_number().toUpperCase()
+			const filter_number = this.filter_number()?.toUpperCase()
 			const filter_resolution = this.filter_resolution()
 			const result = this.reports_all()
 				.filter(report => {
@@ -52,7 +52,7 @@ namespace $ {
 
 		@$mol_memo.method
 		resolution() {
-			return $mol_stub_select_random([
+			return $mol_array_lottery([
 				$mpk_tss_reports_domain_resolution.warning,
 				$mpk_tss_reports_domain_resolution.success
 			] as $mpk_tss_reports_domain_resolution[])
@@ -118,7 +118,7 @@ namespace $ {
 
 		@$mol_mem
 		carriages(): $mpk_tss_reports_domain_carriage[] {
-			const filter_number = this.filter_number().toUpperCase()
+			const filter_number = this.filter_number()?.toUpperCase()
 			const filter_resolution = this.filter_resolution()
 
 			return this.carriages_all()
@@ -217,8 +217,8 @@ namespace $ {
 		}
 
 		@$mol_memo.method
-		axle(id: string) {
-			return this.axis().find(axle => axle.id() === id)
+		override axle(id: string) {
+			return this.axis().find(axle => axle.id() === id)!
 		}
 	}
 
@@ -229,7 +229,7 @@ namespace $ {
 		}
 
 		@$mol_memo.method
-		violation() {
+		override violation() {
 			if (this.resolution() === $mpk_tss_reports_domain_resolution.success) return null
 
 			return this.wheels().reduce(
@@ -302,7 +302,7 @@ namespace $ {
 	}
 
 	function $mpk_tss_reports_domain_mock_stub_carriage_type() {
-		return $mol_stub_select_random( [
+		return $mol_array_lottery( [
 			$mpk_tss_reports_domain_carriage_type.tank,
 			$mpk_tss_reports_domain_carriage_type.hopper,
 			$mpk_tss_reports_domain_carriage_type.flatcar,
@@ -311,7 +311,7 @@ namespace $ {
 	}
 
 	function $mpk_tss_reports_domain_mock_stub_violation() {
-		return $mol_stub_select_random( [
+		return $mol_array_lottery( [
 			$mpk_tss_reports_domain_violation.slider,
 			$mpk_tss_reports_domain_violation.vyscherbiny,
 			$mpk_tss_reports_domain_violation.sink,
@@ -320,7 +320,7 @@ namespace $ {
 	}
 
 	function $mpk_tss_reports_domain_mock_stub_report_status() {
-		return $mol_stub_select_random( [
+		return $mol_array_lottery( [
 			$mpk_tss_reports_domain_delivery.preparing,
 			$mpk_tss_reports_domain_delivery.sending,
 			$mpk_tss_reports_domain_delivery.sent,
@@ -329,7 +329,7 @@ namespace $ {
 	}
 
 	function $mpk_tss_reports_domain_mock_stub_carriage_load() {
-		return $mol_stub_select_random( [
+		return $mol_array_lottery( [
 			$mpk_tss_reports_domain_load.free,
 			$mpk_tss_reports_domain_load.full,
 		] as $mpk_tss_reports_domain_load[])

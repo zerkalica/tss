@@ -6,7 +6,7 @@ $mpk_tss_reports_carriage_list $mol_view
 			title <= title
 			filter_number?val <=> filter_number?val \
 			filter_warning?val <=> filter_warning?val true
-			event_top?e <=> event_top?e null
+			body_scroll_top?e <=> body_scroll_top?e null
 			tools /
 				<= Details_close $mpk_tss_link
 					arg * report null
@@ -24,6 +24,6 @@ $mpk_tss_reports_carriage_list $mol_view
 		<= Carriage null
 	Carriage_details!id $mpk_tss_reports_carriage_details
 		carriage <= carriage!id null
-		event_top?e <=> focus_main?e null
+		body_scroll_top?e <=> focus_main?e null
 	Carriage_link!id $mpk_tss_reports_carriage_link
 		carriage <= carriage!id null

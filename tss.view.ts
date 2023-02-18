@@ -46,6 +46,8 @@ namespace $.$$ {
 			user.email(form.login())
 			user.password(form.password())
 			user.login()
+
+			return next ?? false;
 		}
 
 		entered() {
@@ -83,7 +85,7 @@ namespace $.$$ {
 			return this.$.$mol_state_arg.value( this.state_key( 'page' ) , next ) || ''
 		}
 
-		sidebar_items() {
+		page_body() {
 			if( !this.entered() ) return [ this.Login() ]
 
 			return [this.Menu()]

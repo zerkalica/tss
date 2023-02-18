@@ -46,12 +46,12 @@ namespace $ {
 
 	export class $mpk_tss_pereferial_domain_ups extends $mpk_tss_pereferial_domain_unit {
 		type(): $mpk_tss_pereferial_domain_type { return $mpk_tss_pereferial_domain_type.ups }
-		power_source(): $mpk_tss_pereferial_domain_ups_power_source { throw new $mpk_tss_todo }
-		voltage(): number { throw new $mpk_tss_todo }
+		power_source(): $mpk_tss_pereferial_domain_ups_power_source | null { throw new $mpk_tss_todo }
+		voltage(): number | null { throw new $mpk_tss_todo }
 		/**
 		  Battery level 0-100%
 		 */
-		battery_level(): number { throw new $mpk_tss_todo }
-		battery_time(): $mol_time_duration { throw new $mpk_tss_todo }
+		battery_level(): number | null { throw new $mpk_tss_todo }
+		battery_time(): $mol_time_duration | null { throw new $mpk_tss_todo }
 	}
 }

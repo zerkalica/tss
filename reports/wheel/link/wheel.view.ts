@@ -7,7 +7,7 @@ namespace $.$$ {
 		}
 
 		resolution() {
-			return this.wheel().resolution()
+			return this.wheel().resolution() ?? ''
 		}
 
 		violation() {

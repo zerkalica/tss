@@ -30,19 +30,19 @@ $mpk_tss_main $mol_book
 			\login
 	menu_pages *
 		summary <= Summary $mpk_tss_summary
-			event_top?event <=> event_front_up?event
+			body_scroll_top?event <=> event_front_up?event
 		software <= Software $mpk_tss_software
 			tools <= common_tools
-			event_top?event <=> event_front_up?event
+			body_scroll_top?event <=> event_front_up?event
 		pereferial <= Pereferial $mpk_tss_pereferial_list
 			tools <= common_tools
-			event_top?event <=> event_front_up?event
+			body_scroll_top?event <=> event_front_up?event
 		sensors <= Sensors $mpk_tss_sensors
 			tools <= common_tools
-			event_top?event <=> event_front_up?event
+			body_scroll_top?event <=> event_front_up?event
 		reports <= Reports $mpk_tss_reports_train_list
 			tools <= common_tools
-			event_top?event <=> event_front_up?event
+			body_scroll_top?event <=> event_front_up?event
 	common_tools /
 		<= Details_close $mpk_tss_link
 			arg * page null
@@ -54,11 +54,10 @@ $mpk_tss_main $mol_book
 			head /
 				<= Logo $mol_image
 					uri \mpk/tss/tss_logo.svg
-					event * click?val <=> event_top?val null
+					event * click?val <=> body_scroll_top?val null
 			title <= sidebar_title @ \Menu
 			minimal_width 230
-			body
-				<= sidebar_items /
+			body <= page_body /
 				<= Login $mpk_tss_login
 					submit?v <=> login_submit?v false
 				<= Menu $mol_list

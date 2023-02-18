@@ -23,7 +23,7 @@ namespace $.$$ {
 		started() {
 			const start = this.report().started()
 
-			return start ? start.native.toLocaleDateString() : null
+			return start ? start.native.toLocaleDateString() : ''
 		}
 
 		average_speed() {

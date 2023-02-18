@@ -37,10 +37,11 @@ $mpk_tss_reports_carriage_details $mol_page
 						title <= violation_title @ \Violation
 						content / <= Violation_content $mpk_tss_reports_violation
 							empty true
-							status <= violation \
+							status <= violation null
 			<= Axle_list $mpk_tss_reports_axle_list
 				carriage <= carriage null
 				axle_current => axle_current
-		<= Axle_chart $mpk_tss_reports_axle_chart
-			carriage <= carriage null
-			axle <= axle_current
+			^ details <= details /$mol_view
+	Axle_chart $mpk_tss_reports_axle_chart
+		carriage <= carriage null
+		axle <= axle_current2 $mpk_tss_reports_domain_axle

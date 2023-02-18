@@ -7,7 +7,7 @@ namespace $.$$ {
 		}
 
 		@$mol_mem
-		axle_current_id( next? : string ) {
+		axle_current_id( next? : string | null) {
 			return this.$.$mol_state_arg.value( this.state_key( 'axle' ) , next) || this.carriage().axis()[0].id()
 		}
 

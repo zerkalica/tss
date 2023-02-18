@@ -4,7 +4,7 @@ namespace $ {
 		max_units() { return 4 }
 
 		@ $mol_mem_key
-		unit(id : string): $mpk_tss_pereferial_domain_unit {
+		unit(id : string) {
 			return $mpk_tss_pereferial_domain_mock_ups.make({ id: $mol_const(id) })
 		}
 
@@ -18,9 +18,10 @@ namespace $ {
 					const aw = $mpk_tss_pereferial_domain_status_weights[a]
 					const bw = $mpk_tss_pereferial_domain_status_weights[b]
 
-					if (aw === bw) return 0
 					if (aw > bw) return 1
 					if (aw < bw) return -1
+
+					return 0;
 				})
 		}
 
@@ -43,47 +44,47 @@ namespace $ {
 
 		@$mol_memo.method
 		name() {
-			const firm = $mol_stub_select_random( [
+			const firm = $mol_array_lottery( [
 				'Shtil 1103L',
 				'Shtil 1104M',
 			] )
-			const number = $mol_stub_select_random( [ 'N1', 'N2', 'N3', 'N4' ] )
+			const number = $mol_array_lottery( [ 'N1', 'N2', 'N3', 'N4' ] )
 	
 			return `${firm} ${number}`
 		}
 
 		@$mol_mem
-		updated(next?: $mol_time_moment) {
+		override updated(next?: $mol_time_moment) {
 			if (this.status() === $mpk_tss_pereferial_domain_status.unknown) return null
 			return $mol_stub_time(-60)
 		}
 
 		@$mol_memo.method
-		power_source() {
+		override power_source() {
 			if (this.status() === $mpk_tss_pereferial_domain_status.unknown) return null
-			return $mol_stub_select_random(['linein', 'internal'] as $mpk_tss_pereferial_domain_ups_power_source[])
+			return $mol_array_lottery(['linein', 'internal'] as $mpk_tss_pereferial_domain_ups_power_source[])
 		}
 
 		@$mol_memo.method
-		voltage(): number {
+		override voltage() {
 			if (this.status() === $mpk_tss_pereferial_domain_status.unknown) return null
 			return $mpk_tss_stub_number(0, 250)
 		}
 
 		@$mol_memo.method
-		battery_level(): number {
+		override battery_level() {
 			if (this.status() === $mpk_tss_pereferial_domain_status.unknown) return null
 			return $mpk_tss_stub_number(0, 100)
 		}
 		@$mol_memo.method
-		battery_time(): $mol_time_duration {
+		override battery_time() {
 			if (this.status() === $mpk_tss_pereferial_domain_status.unknown) return null
 			return new $mol_time_duration({minute: $mpk_tss_stub_number(0, 300)})
 		}
 	}
 
 	function $mpk_tss_pereferial_domain_mock_stub_status() {
-		return $mol_stub_select_random( [
+		return $mol_array_lottery( [
 			'ready', 'error', 'not_responding', 'inactive', 'unknown'
 		] as $mpk_tss_pereferial_domain_status[])
 	}

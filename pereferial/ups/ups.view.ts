@@ -14,7 +14,7 @@ namespace $.$$ {
 
 		@$mol_mem
 		voltage() {
-			return this.unit().voltage() && $mpk_tss_parameter_voltage.make({value: () => this.unit().voltage()})
+			return this.unit().voltage() && $mpk_tss_parameter_voltage.make({ value: () => this.unit().voltage()!})
 		}
 
 		@$mol_mem
@@ -24,7 +24,7 @@ namespace $.$$ {
 
 		@$mol_mem
 		battery_time() {
-			return this.unit().battery_time() && $mpk_tss_parameter_duration.make({value: () => this.unit().battery_time()})
+			return this.unit().battery_time() && $mpk_tss_parameter_duration.make({value: () => this.unit().battery_time()!})
 		}
 	}
 }

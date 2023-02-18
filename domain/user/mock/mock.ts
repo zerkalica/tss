@@ -1,6 +1,6 @@
 namespace $ {
 	export class $mpk_tss_domain_user_mock extends $mpk_tss_domain_user {
-		protected server_data(next?: string) {
+		protected server_data(next?: string | null) {
 			return this.$.$mol_state_arg.value( 'login', next) || ''
 		}
 

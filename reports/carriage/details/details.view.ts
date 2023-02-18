@@ -8,6 +8,16 @@ namespace $.$$ {
 				.replace('%carriage_number', this.carriage().carriage_number())
 		}
 
+		details() {
+			const current = this.axle_current2()
+			if (! current) return []
+			return [ this.Axle_chart() ]
+		}
+
+		axle_current2() {
+			return this.axle_current()!;
+		}
+
 		total_weight() {
 			return this.carriage().total_weight()
 		}
